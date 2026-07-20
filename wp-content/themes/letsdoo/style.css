@@ -1,0 +1,155 @@
+/*
+Theme Name: Let's Doo
+Theme URI: https://letsdoo.com
+Author: Let's Doo
+Description: Custom theme for letsdoo.com.
+Version: 1.0.0
+Requires at least: 6.4
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: letsdoo
+*/
+
+/* -------------------------------------------------- */
+/* Reset / base */
+/* -------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: system-ui, -apple-system, sans-serif;
+	line-height: 1.5;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+}
+
+/* -------------------------------------------------- */
+/* Header / navigation */
+/* -------------------------------------------------- */
+
+.site-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.site-title {
+	margin: 0;
+	font-size: 1.25rem;
+}
+
+.site-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.site-description {
+	margin: 0;
+	font-size: 0.85rem;
+	color: #666;
+}
+
+.main-navigation {
+	display: flex;
+	align-items: center;
+}
+
+.main-navigation ul {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.main-navigation a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.main-navigation a:hover {
+	text-decoration: underline;
+}
+
+.menu-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	gap: 4px;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	padding: 0.5rem;
+}
+
+.menu-toggle-bar {
+	display: block;
+	width: 22px;
+	height: 2px;
+	background: currentColor;
+}
+
+/* -------------------------------------------------- */
+/* Footer */
+/* -------------------------------------------------- */
+
+.site-footer {
+	padding: 1.5rem;
+	border-top: 1px solid #e2e2e2;
+	font-size: 0.85rem;
+	color: #666;
+}
+
+/* -------------------------------------------------- */
+/* Mobile nav */
+/* -------------------------------------------------- */
+
+@media ( max-width: 768px ) {
+	.main-navigation {
+		flex-basis: 100%;
+	}
+
+	.menu-toggle {
+		display: flex;
+		margin-left: auto;
+	}
+
+	.main-navigation ul {
+		display: none;
+		flex-direction: column;
+		gap: 0;
+		width: 100%;
+	}
+
+	.main-navigation.is-open ul {
+		display: flex;
+	}
+
+	.main-navigation ul li {
+		border-top: 1px solid #e2e2e2;
+	}
+
+	.main-navigation ul a {
+		display: block;
+		padding: 0.75rem 0;
+	}
+}

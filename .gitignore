@@ -1,0 +1,7 @@
+# Environment / secrets
+.env
+backups/*.sql
+
+# OS
+.DS_Store
+Thumbs.db
