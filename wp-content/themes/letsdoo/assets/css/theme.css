@@ -21,6 +21,15 @@
 	--radius-md: 16px;
 	--font-display: 'Archivo Black', Arial, sans-serif;
 	--max-width: 1200px;
+
+	/* Shared glassmorphism recipe for every box overlaid on a background photo
+	   (hero panel, Leistungen cards, Vorgehen panel, Zahlen intro/cards,
+	   Kontakt card) — dark tint + white text, kept transparent + lightly
+	   blurred so the photo behind reads clearly. */
+	--glass-filter: blur(8px) saturate(1.4);
+	--glass-dark-bg: rgba(10, 10, 10, 0.32);
+	--glass-dark-border: 1px solid rgba(255, 255, 255, 0.25);
+	--glass-shadow: 0 20px 45px -22px rgba(0, 0, 0, 0.4);
 }
 
 body {
@@ -199,9 +208,11 @@ a { color: inherit; }
 }
 
 .hero__panel {
-	max-width: 620px;
-	background: rgba(60, 60, 60, 0.55);
-	backdrop-filter: blur(6px);
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-lg);
 	padding: 2.5rem;
 	margin: 0 auto;
@@ -293,11 +304,19 @@ a { color: inherit; }
 }
 
 .leistung-card {
-	background: rgba(255, 255, 255, 0.6);
-	backdrop-filter: blur(6px);
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-md);
 	padding: 2rem;
 	text-align: center;
+}
+
+.leistung-card h3,
+.leistung-card p {
+	color: #fff;
 }
 
 /* -------------------------------------------------- */
@@ -342,12 +361,20 @@ a { color: inherit; }
 }
 
 .vorgehen__panel {
-	background: rgba(255, 255, 255, 0.75);
-	backdrop-filter: blur(6px);
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-lg);
 	padding: 2.5rem;
 	max-width: 520px;
 	margin-left: auto;
+}
+
+.vorgehen__panel h2,
+.vorgehen__panel .section__subheading {
+	color: #fff;
 }
 
 .vorgehen-list {
@@ -359,7 +386,7 @@ a { color: inherit; }
 .vorgehen-list li {
 	margin-bottom: 0.5rem;
 	font-weight: 600;
-	color: var(--color-ink);
+	color: #fff;
 }
 
 /* -------------------------------------------------- */
@@ -415,10 +442,14 @@ a { color: inherit; }
 
 .zahlen__intro {
 	max-width: 640px;
-	background: rgba(255, 255, 255, 0.7);
-	backdrop-filter: blur(4px);
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-md);
 	padding: 1.25rem 1.5rem;
+	color: #fff;
 }
 
 .zahlen-grid {
@@ -432,8 +463,11 @@ a { color: inherit; }
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-	background: rgba(120, 60, 110, 0.35);
-	backdrop-filter: blur(4px);
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-md);
 	padding: 1.25rem 1.5rem;
 	color: #fff;
@@ -558,11 +592,15 @@ a { color: inherit; }
 .kontakt-card {
 	position: relative;
 	z-index: 1;
-	background: #fff;
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-md);
 	padding: 1.5rem;
 	max-width: 280px;
-	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.3);
+	color: #fff;
 }
 
 .kontakt-card__logo {

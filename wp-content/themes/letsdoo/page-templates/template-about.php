@@ -16,7 +16,7 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg' ) ); ?>');">
+		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
 			<div class="hero__panel">
 				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Über uns' ); ?></h1>
 				<p><?php echo esc_html( get_field( 'hero_text' ) ?: "Wir sind Let'sDoo – Ihr Odoo-Partner aus Luzern. Wir setzen auf persönliche Beratung, pragmatische Lösungen und langfristige Zusammenarbeit." ); ?></p>
@@ -46,7 +46,7 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--zahlen" id="zahlen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $zahlen_image, 'placeholder-photo.svg' ) ); ?>');"></div>
+			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $zahlen_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
 			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'zahlen_heading' ) ?: 'Du glaubst an Zahlen?' ); ?></h2>
 				<p class="zahlen__intro"><?php echo esc_html( get_field( 'zahlen_text' ) ?: 'Wir haben zusammen mehr Jahre in Code, Projektmanagement und Datenanalyse gesteckt, als so mancher Dinosaurier alt wurde – genau deshalb wissen wir, wie wir Odoo zum Laufen bringen, und zwar für dein Business.' ); ?></p>

@@ -14,7 +14,7 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg' ) ); ?>');">
+		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
 			<div class="hero__panel">
 				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Kontakt' ); ?></h1>
 				<p class="hero__eyebrow"><?php echo esc_html( get_field( 'hero_subheading' ) ?: 'Kontaktiere uns' ); ?></p>
@@ -39,7 +39,7 @@ while ( have_posts() ) :
 					<?php endif; ?>
 				</div>
 
-				<div class="kontakt-side" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $side_image, 'placeholder-photo.svg' ) ); ?>');">
+				<div class="kontakt-side" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $side_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
 					<div class="kontakt-card">
 						<img class="kontakt-card__logo" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="40" height="30" alt="">
 						<strong><?php echo esc_html( letsdoo_company_field( 'company_name', "Let's Doo GmbH" ) ); ?></strong>

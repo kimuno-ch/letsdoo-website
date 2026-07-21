@@ -17,7 +17,7 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero" id="start" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg' ) ); ?>');">
+		<section class="hero" id="start" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
 			<div class="hero__blob" aria-hidden="true">
 				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" alt="">
 			</div>
@@ -38,7 +38,7 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--leistungen" id="leistungen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $leistungen_image, 'placeholder-photo.svg' ) ); ?>');"></div>
+			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $leistungen_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
 			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
 				<div class="leistungen-grid">
@@ -63,11 +63,11 @@ while ( have_posts() ) :
 				<p><?php echo esc_html( get_field( 'warum_letsdoo_text' ) ?: 'Wir glauben, dass eine erfolgreiche Digitalisierung mehr braucht als nur Software. Deshalb begleiten wir unsere Kundinnen und Kunden persönlich, kommunizieren offen und entwickeln Lösungen, die im Arbeitsalltag wirklich funktionieren.' ); ?></p>
 				<?php letsdoo_button( get_field( 'warum_letsdoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_letsdoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
 			</div>
-			<div class="warum-letsdoo__image" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $letsdoo_image, 'placeholder-photo.svg' ) ); ?>');"></div>
+			<div class="warum-letsdoo__image" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $letsdoo_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
 		</section>
 
 		<section class="section section--vorgehen" id="vorgehen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $vorgehen_image, 'placeholder-photo.svg' ) ); ?>');"></div>
+			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $vorgehen_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
 			<div class="vorgehen__panel">
 				<h2><?php echo esc_html( get_field( 'vorgehen_heading' ) ?: 'Unser Vorgehen' ); ?></h2>
 				<p class="section__subheading"><?php echo esc_html( get_field( 'vorgehen_subheading' ) ?: 'Schritt für Schritt zur passenden Lösung.' ); ?></p>
