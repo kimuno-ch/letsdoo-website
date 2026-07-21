@@ -1,16 +1,12 @@
 ( function () {
-	var nav = document.getElementById( 'site-navigation' );
-	if ( ! nav ) {
-		return;
-	}
-
-	var toggle = nav.querySelector( '.menu-toggle' );
-	if ( ! toggle ) {
+	var header = document.getElementById( 'masthead' );
+	var toggle = document.querySelector( '.menu-toggle' );
+	if ( ! header || ! toggle ) {
 		return;
 	}
 
 	toggle.addEventListener( 'click', function () {
-		var isOpen = nav.classList.toggle( 'is-open' );
+		var isOpen = header.classList.toggle( 'is-open' );
 		toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
 	} );
 } )();

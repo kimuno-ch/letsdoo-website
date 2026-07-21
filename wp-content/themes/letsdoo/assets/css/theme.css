@@ -184,18 +184,48 @@ a { color: inherit; }
 	display: none;
 	flex-direction: column;
 	justify-content: center;
-	gap: 4px;
+	align-items: center;
+	gap: 5px;
 	background: none;
 	border: 0;
+	border-radius: 10px;
 	cursor: pointer;
-	padding: 0.5rem;
+	padding: 0.6rem;
+	color: var(--color-ink);
+	transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+	background: rgba(234, 62, 130, 0.1);
+	color: var(--color-gradient-start);
+}
+
+.menu-toggle:active {
+	transform: scale(0.92);
 }
 
 .menu-toggle-bar {
 	display: block;
 	width: 22px;
 	height: 2px;
+	border-radius: 2px;
 	background: currentColor;
+	transition: transform 0.3s ease, opacity 0.2s ease;
+	transform-origin: center;
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
 }
 
 /* -------------------------------------------------- */
@@ -558,6 +588,7 @@ a { color: inherit; }
 
 .section--kontaktformular {
 	padding: 0;
+	margin-top: 4rem;
 }
 
 .kontakt-grid {
@@ -758,10 +789,27 @@ a { color: inherit; }
 }
 
 @media (max-width: 768px) {
+	/* Header collapses to one row: logo, icons, hamburger. The Kontakt
+	   button is dropped and the menu list becomes a full-width dropdown
+	   anchored to the (already positioned) .site-header, so it doesn't
+	   push the toggle button onto a second row. */
+	.site-header__inner {
+		gap: 0.75rem;
+	}
+
+	.site-header__actions {
+		order: 1;
+		margin-left: auto;
+		gap: 0.5rem;
+	}
+
+	.site-header__actions .btn {
+		display: none;
+	}
+
 	.main-navigation {
-		flex-basis: 100%;
 		margin-left: 0;
-		order: 3;
+		order: 2;
 	}
 
 	.nav-divider {
@@ -774,12 +822,19 @@ a { color: inherit; }
 
 	.main-navigation ul {
 		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
 		flex-direction: column;
 		gap: 0;
-		width: 100%;
+		background: #fafafa;
+		border-top: 1px solid var(--color-border);
+		box-shadow: 0 16px 24px -16px rgba(0, 0, 0, 0.25);
+		padding: 0 1.5rem;
 	}
 
-	.main-navigation.is-open ul {
+	.site-header.is-open .main-navigation ul {
 		display: flex;
 	}
 

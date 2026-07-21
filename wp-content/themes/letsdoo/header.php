@@ -21,12 +21,6 @@
 		</div>
 
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-				<span class="menu-toggle-bar"></span>
-				<span class="menu-toggle-bar"></span>
-				<span class="menu-toggle-bar"></span>
-				<span class="screen-reader-text"><?php esc_html_e( 'Menü', 'letsdoo' ); ?></span>
-			</button>
 			<?php
 			wp_nav_menu( array(
 				'theme_location' => 'primary',
@@ -52,6 +46,12 @@
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 3a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .6a2 2 0 0 1 1.7 2z"/></svg>
 				</a>
 			<?php endif; ?>
+			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+				<span class="menu-toggle-bar"></span>
+				<span class="menu-toggle-bar"></span>
+				<span class="menu-toggle-bar"></span>
+				<span class="screen-reader-text"><?php esc_html_e( 'Menü', 'letsdoo' ); ?></span>
+			</button>
 			<a class="btn btn--sm" href="<?php echo esc_url( home_url( '/kontakt/' ) ); ?>"><?php esc_html_e( 'Kontakt aufnehmen', 'letsdoo' ); ?></a>
 		</div>
 	</div>
