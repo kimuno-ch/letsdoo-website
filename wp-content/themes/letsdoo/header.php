@@ -37,6 +37,8 @@
 			?>
 		</nav>
 
+		<span class="nav-divider" aria-hidden="true"></span>
+
 		<div class="site-header__actions">
 			<?php $phone = letsdoo_company_field( 'company_phone' ); ?>
 			<?php $email = letsdoo_company_field( 'company_email' ); ?>

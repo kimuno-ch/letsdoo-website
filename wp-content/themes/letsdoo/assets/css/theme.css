@@ -119,7 +119,7 @@ a { color: inherit; }
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-start;
 	gap: 1.5rem;
 	padding: 0.75rem 1.5rem;
 	flex-wrap: wrap;
@@ -137,9 +137,19 @@ a { color: inherit; }
 	width: auto;
 }
 
+.main-navigation {
+	margin-left: auto;
+}
+
 .main-navigation ul {
 	display: flex;
 	gap: 2rem;
+}
+
+.nav-divider {
+	width: 1px;
+	height: 22px;
+	background: var(--color-border);
 }
 
 .main-navigation a {
@@ -315,6 +325,10 @@ a { color: inherit; }
 /* -------------------------------------------------- */
 /* Leistungen                                           */
 /* -------------------------------------------------- */
+
+.section--leistungen h2 {
+	color: #fff;
+}
 
 .leistungen-grid {
 	display: grid;
@@ -746,7 +760,12 @@ a { color: inherit; }
 @media (max-width: 768px) {
 	.main-navigation {
 		flex-basis: 100%;
+		margin-left: 0;
 		order: 3;
+	}
+
+	.nav-divider {
+		display: none;
 	}
 
 	.menu-toggle {
