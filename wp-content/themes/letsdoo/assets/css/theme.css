@@ -192,13 +192,6 @@ a { color: inherit; }
 	overflow: hidden;
 }
 
-.hero::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15));
-}
-
 .hero__panel,
 .hero__blob {
 	position: relative;
@@ -277,14 +270,7 @@ a { color: inherit; }
 	inset: 0;
 	background-size: cover;
 	background-position: center;
-	filter: grayscale(1);
-}
-
-.section__bg-photo::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: rgba(255, 255, 255, 0.55);
+	opacity: 1;
 }
 
 /* -------------------------------------------------- */
@@ -343,7 +329,7 @@ a { color: inherit; }
 	background-size: cover;
 	background-position: center;
 	border-radius: var(--radius-lg);
-	filter: grayscale(0.3);
+	opacity: 1;
 }
 
 /* -------------------------------------------------- */
@@ -563,7 +549,7 @@ a { color: inherit; }
 	position: relative;
 	background-size: cover;
 	background-position: center;
-	filter: grayscale(0.4);
+	opacity: 1;
 	display: flex;
 	align-items: flex-start;
 	padding: 3rem;
@@ -573,7 +559,6 @@ a { color: inherit; }
 	position: relative;
 	z-index: 1;
 	background: #fff;
-	filter: none;
 	border-radius: var(--radius-md);
 	padding: 1.5rem;
 	max-width: 280px;
