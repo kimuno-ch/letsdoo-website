@@ -203,6 +203,14 @@ add_action( 'acf/init', function () {
 				'default_value' => 'Unsere Leistungen',
 				'instructions' => 'Die Karten selbst werden unter Leistungen im Menü gepflegt.',
 			),
+			array(
+				'key'   => 'field_ld_home_leistungen_bg_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'leistungen_bg_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
 
 			array(
 				'key'   => 'field_ld_home_warum_letsdoo_tab',
@@ -288,6 +296,14 @@ add_action( 'acf/init', function () {
 						'type'  => 'text',
 					),
 				),
+			),
+			array(
+				'key'   => 'field_ld_home_vorgehen_bg_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'vorgehen_bg_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
 			),
 
 			array(
@@ -405,6 +421,14 @@ add_action( 'acf/init', function () {
 				'name'  => 'zahlen_text',
 				'type'  => 'textarea',
 				'rows'  => 2,
+			),
+			array(
+				'key'   => 'field_ld_about_zahlen_bg_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'zahlen_bg_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
 			),
 			array(
 				'key'          => 'field_ld_about_zahlen_liste',

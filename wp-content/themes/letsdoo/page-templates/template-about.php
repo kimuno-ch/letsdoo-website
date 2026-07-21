@@ -11,6 +11,7 @@ while ( have_posts() ) :
 	$referenzen  = letsdoo_get_referenzen();
 	$team        = letsdoo_get_team();
 	$zahlen      = get_field( 'zahlen_liste' );
+	$zahlen_image = get_field( 'zahlen_bg_image' );
 	?>
 
 	<main id="main" class="site-main">
@@ -45,7 +46,7 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--zahlen" id="zahlen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');"></div>
+			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $zahlen_image, 'placeholder-photo.svg' ) ); ?>');"></div>
 			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'zahlen_heading' ) ?: 'Du glaubst an Zahlen?' ); ?></h2>
 				<p class="zahlen__intro"><?php echo esc_html( get_field( 'zahlen_text' ) ?: 'Wir haben zusammen mehr Jahre in Code, Projektmanagement und Datenanalyse gesteckt, als so mancher Dinosaurier alt wurde – genau deshalb wissen wir, wie wir Odoo zum Laufen bringen, und zwar für dein Business.' ); ?></p>
