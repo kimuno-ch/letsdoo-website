@@ -504,6 +504,10 @@ a { color: inherit; }
 /* About: Zahlen                                        */
 /* -------------------------------------------------- */
 
+.section--zahlen h2 {
+	color: #fff;
+}
+
 .zahlen__intro {
 	max-width: 640px;
 	background: var(--glass-dark-bg);
