@@ -18,13 +18,15 @@ while ( have_posts() ) :
 	<main id="main" class="site-main">
 
 		<section class="hero" id="start" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__blob" aria-hidden="true">
-				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" alt="">
-			</div>
-			<div class="hero__panel">
-				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: "Odoo einfach gemacht" ); ?></h1>
-				<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Suchst du nach einer flexiblen ERP- oder CRM-Lösung? Oder bist du mit deiner aktuellen Odoo-Umgebung unzufrieden? Als Odoo-Partner aus Luzern unterstützen wir KMU dabei, ihre Geschäftsprozesse zu digitalisieren – persönlich, effizient und auf ihre Bedürfnisse abgestimmt.' ); ?></p>
-				<?php letsdoo_button( get_field( 'hero_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'hero_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
+			<div class="hero__inner">
+				<div class="hero__blob" aria-hidden="true">
+					<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" alt="">
+				</div>
+				<div class="hero__panel">
+					<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: "Odoo einfach gemacht" ); ?></h1>
+					<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Suchst du nach einer flexiblen ERP- oder CRM-Lösung? Oder bist du mit deiner aktuellen Odoo-Umgebung unzufrieden? Als Odoo-Partner aus Luzern unterstützen wir KMU dabei, ihre Geschäftsprozesse zu digitalisieren – persönlich, effizient und auf ihre Bedürfnisse abgestimmt.' ); ?></p>
+					<?php letsdoo_button( get_field( 'hero_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'hero_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
+				</div>
 			</div>
 		</section>
 

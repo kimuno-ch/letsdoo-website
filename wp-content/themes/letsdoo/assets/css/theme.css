@@ -244,6 +244,26 @@ a { color: inherit; }
 	height: auto;
 }
 
+/* Home hero: panel narrower than the content width, with the logo
+   sitting above its top-right corner in the space that leaves free. */
+.hero__inner {
+	position: relative;
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.hero__inner .hero__panel {
+	max-width: 80%;
+	margin: 0;
+}
+
+.hero__inner .hero__blob {
+	top: -2.75rem;
+    right: 5%;
+    z-index: 10;
+    width: 390px;
+}
+
 .hero--sub {
 	padding: 4rem 1.5rem 4.5rem;
 }
@@ -755,6 +775,10 @@ a { color: inherit; }
 
 	.hero__blob {
 		display: none;
+	}
+
+	.hero__inner .hero__panel {
+		max-width: 100%;
 	}
 
 	.site-footer__columns {
