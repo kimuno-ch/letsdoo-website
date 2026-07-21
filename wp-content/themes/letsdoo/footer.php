@@ -5,7 +5,7 @@
 					<?php if ( has_custom_logo() ) : ?>
 						<?php the_custom_logo(); ?>
 					<?php else : ?>
-						<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.svg' ) ); ?>" width="60" height="52" alt="<?php bloginfo( 'name' ); ?>">
+						<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="69" height="52" alt="<?php bloginfo( 'name' ); ?>">
 					<?php endif; ?>
 				</a>
 			</div>

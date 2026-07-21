@@ -17,7 +17,7 @@ while ( have_posts() ) :
 
 		<section class="hero" id="start" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg' ) ); ?>');">
 			<div class="hero__blob" aria-hidden="true">
-				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.svg' ) ); ?>" alt="">
+				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" alt="">
 			</div>
 			<div class="hero__panel">
 				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: "Odoo einfach gemacht" ); ?></h1>

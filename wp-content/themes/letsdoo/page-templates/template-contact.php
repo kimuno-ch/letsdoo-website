@@ -41,7 +41,7 @@ while ( have_posts() ) :
 
 				<div class="kontakt-side" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $side_image, 'placeholder-photo.svg' ) ); ?>');">
 					<div class="kontakt-card">
-						<img class="kontakt-card__logo" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.svg' ) ); ?>" width="36" height="30" alt="">
+						<img class="kontakt-card__logo" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="40" height="30" alt="">
 						<strong><?php echo esc_html( letsdoo_company_field( 'company_name', "Let's Doo GmbH" ) ); ?></strong>
 						<p><?php echo nl2br( esc_html( letsdoo_company_field( 'company_address', "Schiltmatthalde 1\n6048 Horw" ) ) ); ?></p>
 						<?php $email = letsdoo_company_field( 'company_email', 'contact@letsdoo.it' ); ?>
