@@ -1,0 +1,743 @@
+/* -------------------------------------------------- */
+/* Fonts + tokens                                      */
+/* -------------------------------------------------- */
+
+@font-face {
+	font-family: 'Archivo Black';
+	src: url('../fonts/archivo-black-latin.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--color-gradient-start: #ea3e82;
+	--color-gradient-end: #5b3a9e;
+	--color-ink: #111111;
+	--color-body: #4a4a4a;
+	--color-bg-alt: #f4f4f4;
+	--color-border: #e2e2e2;
+	--radius-lg: 24px;
+	--radius-md: 16px;
+	--font-display: 'Archivo Black', Arial, sans-serif;
+	--max-width: 1200px;
+}
+
+body {
+	color: var(--color-body);
+	font-size: 16px;
+}
+
+h1, h2, h3 {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-ink);
+	line-height: 1.1;
+	margin: 0 0 0.6em;
+	letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+.admin-hint {
+	color: #999;
+	font-style: italic;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+}
+
+/* -------------------------------------------------- */
+/* Buttons                                              */
+/* -------------------------------------------------- */
+
+.btn {
+	display: inline-block;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	text-decoration: none;
+	padding: 0.9em 1.8em;
+	border-radius: 999px;
+	border: 0;
+	cursor: pointer;
+	box-shadow: 0 8px 20px -8px rgba(91, 58, 158, 0.6);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px -8px rgba(91, 58, 158, 0.7);
+	text-decoration: none;
+}
+
+.btn--sm {
+	padding: 0.6em 1.4em;
+	font-size: 0.75rem;
+}
+
+/* -------------------------------------------------- */
+/* Header                                               */
+/* -------------------------------------------------- */
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: #fafafa;
+	border-bottom: 1px solid var(--color-border);
+	padding: 0;
+}
+
+.site-header__inner {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 0.75rem 1.5rem;
+	flex-wrap: wrap;
+}
+
+.site-branding .site-logo,
+.footer-col--brand .site-logo {
+	display: inline-flex;
+}
+
+.site-branding img,
+.footer-col--brand img {
+	display: block;
+	height: 56px;
+	width: auto;
+}
+
+.main-navigation ul {
+	display: flex;
+	gap: 2rem;
+}
+
+.main-navigation a {
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: var(--color-ink);
+}
+
+.main-navigation a:hover {
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-decoration: none;
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.icon-link {
+	display: inline-flex;
+	color: var(--color-gradient-start);
+}
+
+.menu-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	gap: 4px;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	padding: 0.5rem;
+}
+
+.menu-toggle-bar {
+	display: block;
+	width: 22px;
+	height: 2px;
+	background: currentColor;
+}
+
+/* -------------------------------------------------- */
+/* Hero                                                 */
+/* -------------------------------------------------- */
+
+.hero {
+	position: relative;
+	background-color: #333;
+	background-size: cover;
+	background-position: center;
+	padding: 5rem 1.5rem 6rem;
+	overflow: hidden;
+}
+
+.hero::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15));
+}
+
+.hero__panel,
+.hero__blob {
+	position: relative;
+	z-index: 1;
+}
+
+.hero__panel {
+	max-width: 620px;
+	background: rgba(60, 60, 60, 0.55);
+	backdrop-filter: blur(6px);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem;
+	margin: 0 auto;
+	max-width: var(--max-width);
+}
+
+.hero__panel h1,
+.hero__panel p {
+	color: #fff;
+	max-width: 620px;
+}
+
+.hero__eyebrow {
+	font-weight: 700;
+	font-size: 1.1rem;
+	color: #fff;
+}
+
+.hero__blob {
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	width: 180px;
+	filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.hero__blob img {
+	width: 100%;
+	height: auto;
+}
+
+.hero--sub {
+	padding: 4rem 1.5rem 4.5rem;
+}
+
+.hero--sub .hero__panel {
+	max-width: 700px;
+	margin: 0;
+}
+
+/* -------------------------------------------------- */
+/* Generic section layout                               */
+/* -------------------------------------------------- */
+
+.section {
+	padding: 4.5rem 1.5rem;
+	position: relative;
+}
+
+.section__intro,
+.section__content,
+.kontakt-grid {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	position: relative;
+	z-index: 1;
+}
+
+.section__subheading {
+	font-weight: 700;
+	color: var(--color-ink);
+}
+
+.section__bg-photo {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(1);
+}
+
+.section__bg-photo::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 255, 0.55);
+}
+
+/* -------------------------------------------------- */
+/* Warum Odoo                                           */
+/* -------------------------------------------------- */
+
+.section--warum-odoo .section__intro {
+	max-width: 720px;
+}
+
+/* -------------------------------------------------- */
+/* Leistungen                                           */
+/* -------------------------------------------------- */
+
+.leistungen-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+	margin-top: 2rem;
+}
+
+.leistung-card {
+	background: rgba(255, 255, 255, 0.6);
+	backdrop-filter: blur(6px);
+	border-radius: var(--radius-md);
+	padding: 2rem;
+	text-align: center;
+}
+
+/* -------------------------------------------------- */
+/* Warum Let's Doo                                      */
+/* -------------------------------------------------- */
+
+.section--warum-letsdoo {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1.1fr;
+	align-items: center;
+	gap: 0;
+}
+
+.warum-letsdoo__panel {
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem;
+	position: relative;
+	z-index: 1;
+	margin-right: -3rem;
+	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.15);
+}
+
+.warum-letsdoo__image {
+	min-height: 320px;
+	background-size: cover;
+	background-position: center;
+	border-radius: var(--radius-lg);
+	filter: grayscale(0.3);
+}
+
+/* -------------------------------------------------- */
+/* Vorgehen                                             */
+/* -------------------------------------------------- */
+
+.section--vorgehen {
+	display: flex;
+	align-items: center;
+}
+
+.vorgehen__panel {
+	background: rgba(255, 255, 255, 0.75);
+	backdrop-filter: blur(6px);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem;
+	max-width: 520px;
+	margin-left: auto;
+}
+
+.vorgehen-list {
+	list-style: decimal;
+	padding-left: 1.2rem;
+	margin: 0;
+}
+
+.vorgehen-list li {
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	color: var(--color-ink);
+}
+
+/* -------------------------------------------------- */
+/* CTA band                                             */
+/* -------------------------------------------------- */
+
+.section--cta {
+	text-align: left;
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.section--cta p {
+	max-width: 640px;
+}
+
+/* -------------------------------------------------- */
+/* About: Referenzen                                    */
+/* -------------------------------------------------- */
+
+.referenzen-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.referenz-card {
+	display: grid;
+	grid-template-columns: 140px 1fr;
+	gap: 1.5rem;
+	align-items: center;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 1.5rem;
+	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
+}
+
+.referenz-card__logo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.referenz-card__body h3 {
+	margin-bottom: 0.4em;
+}
+
+/* -------------------------------------------------- */
+/* About: Zahlen                                        */
+/* -------------------------------------------------- */
+
+.zahlen__intro {
+	max-width: 640px;
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(4px);
+	border-radius: var(--radius-md);
+	padding: 1.25rem 1.5rem;
+}
+
+.zahlen-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.25rem;
+	margin-top: 1.5rem;
+}
+
+.zahl-card {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	background: rgba(120, 60, 110, 0.35);
+	backdrop-filter: blur(4px);
+	border-radius: var(--radius-md);
+	padding: 1.25rem 1.5rem;
+	color: #fff;
+}
+
+.zahl-card__wert {
+	font-family: var(--font-display);
+	font-size: 2.5rem;
+	line-height: 1;
+	color: #fff;
+}
+
+.zahl-card__label {
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	color: #fff;
+}
+
+/* -------------------------------------------------- */
+/* About: Team                                          */
+/* -------------------------------------------------- */
+
+.team-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 2rem;
+	margin-top: 2rem;
+}
+
+.team-card {
+	text-align: center;
+}
+
+.team-card__photo {
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	margin-bottom: 1rem;
+}
+
+.team-card__photo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.team-card h3 {
+	margin-bottom: 0.2em;
+}
+
+/* -------------------------------------------------- */
+/* Kontakt                                              */
+/* -------------------------------------------------- */
+
+.section--kontaktformular {
+	padding: 0;
+}
+
+.kontakt-grid {
+	max-width: none;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 640px;
+}
+
+.kontakt-form {
+	padding: 3rem 1.5rem;
+	max-width: 520px;
+	margin-left: auto;
+	width: 100%;
+}
+
+.kontakt-form form p {
+	margin-bottom: 1rem;
+}
+
+.kontakt-form label {
+	display: block;
+}
+
+.kontakt-form input[type="text"],
+.kontakt-form input[type="email"],
+.kontakt-form input[type="tel"],
+.kontakt-form textarea {
+	width: 100%;
+	border: 1px solid var(--color-border);
+	background: var(--color-bg-alt);
+	border-radius: var(--radius-md);
+	padding: 0.9em 1.2em;
+	font: inherit;
+}
+
+.kontakt-form textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.kontakt-form .wpcf7-submit {
+	display: inline-block;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.9em 1.8em;
+	border-radius: 999px;
+	border: 0;
+	cursor: pointer;
+}
+
+.kontakt-side {
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(0.4);
+	display: flex;
+	align-items: flex-start;
+	padding: 3rem;
+}
+
+.kontakt-card {
+	position: relative;
+	z-index: 1;
+	background: #fff;
+	filter: none;
+	border-radius: var(--radius-md);
+	padding: 1.5rem;
+	max-width: 280px;
+	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.3);
+}
+
+.kontakt-card__logo {
+	margin-bottom: 0.5rem;
+}
+
+/* -------------------------------------------------- */
+/* Footer                                               */
+/* -------------------------------------------------- */
+
+.site-footer {
+	padding: 3.5rem 1.5rem 1.5rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.site-footer__columns {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1.3fr 1fr 1fr;
+	gap: 2rem;
+}
+
+.footer-col__title {
+	font-size: 0.8rem;
+	color: var(--color-gradient-start);
+	margin-bottom: 0.8em;
+}
+
+.footer-col p {
+	margin: 0 0 0.4em;
+	font-size: 0.9rem;
+}
+
+.footer-col ul li {
+	margin-bottom: 0.5em;
+}
+
+.footer-col a {
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+	text-decoration: underline;
+}
+
+.footer-col__social {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.social-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 10px;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+}
+
+.site-footer__bottom {
+	max-width: var(--max-width);
+	margin: 2.5rem auto 0;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--color-border);
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 1rem;
+	font-size: 0.8rem;
+	color: #999;
+}
+
+.legal-links {
+	display: flex;
+	gap: 1.5rem;
+}
+
+/* -------------------------------------------------- */
+/* Mobile                                               */
+/* -------------------------------------------------- */
+
+@media (max-width: 900px) {
+	.leistungen-grid,
+	.referenzen-grid,
+	.zahlen-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.section--warum-letsdoo {
+		grid-template-columns: 1fr;
+	}
+
+	.warum-letsdoo__panel {
+		margin-right: 0;
+		margin-bottom: -2rem;
+	}
+
+	.section--vorgehen {
+		display: block;
+	}
+
+	.vorgehen__panel {
+		margin-left: 0;
+	}
+
+	.kontakt-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.kontakt-form {
+		margin-left: 0;
+	}
+
+	.site-footer__columns {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 768px) {
+	.main-navigation {
+		flex-basis: 100%;
+		order: 3;
+	}
+
+	.menu-toggle {
+		display: flex;
+	}
+
+	.main-navigation ul {
+		display: none;
+		flex-direction: column;
+		gap: 0;
+		width: 100%;
+	}
+
+	.main-navigation.is-open ul {
+		display: flex;
+	}
+
+	.main-navigation ul li {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.main-navigation ul a {
+		display: block;
+		padding: 0.75rem 0;
+	}
+
+	.hero__blob {
+		display: none;
+	}
+
+	.site-footer__columns {
+		grid-template-columns: 1fr;
+	}
+
+	.referenz-card {
+		grid-template-columns: 1fr;
+	}
+}

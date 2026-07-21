@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Platzhalterbild">
+	<rect width="1600" height="900" fill="#d9d9d9"/>
+	<g fill="none" stroke="#bdbdbd" stroke-width="2">
+		<path d="M0 900 1600 0"/>
+		<path d="M0 0 1600 900"/>
+	</g>
+	<circle cx="800" cy="450" r="90" fill="#bdbdbd"/>
+	<text x="800" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#8a8a8a">Bild folgt</text>
+</svg>

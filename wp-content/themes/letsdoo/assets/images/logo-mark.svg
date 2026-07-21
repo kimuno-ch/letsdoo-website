@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 120" width="140" height="120" role="img" aria-label="Let's Doo">
+	<defs>
+		<linearGradient id="ld-logo-gradient" x1="10%" y1="0%" x2="90%" y2="100%">
+			<stop offset="0%" stop-color="#EA3E82"/>
+			<stop offset="100%" stop-color="#5B3A9E"/>
+		</linearGradient>
+	</defs>
+	<path fill="url(#ld-logo-gradient)" d="M70 6c28 0 46 10 58 26 9 12 6 26-4 34-9 7-9 17-1 25 9 9 10 21 1 29-13 12-33 18-54 18-38 0-68-22-68-58S32 6 70 6z"/>
+	<text x="70" y="55" text-anchor="middle" font-family="Archivo Black, Arial, sans-serif" font-size="19" fill="#ffffff" letter-spacing="0.5">LET'S</text>
+	<text x="70" y="80" text-anchor="middle" font-family="Archivo Black, Arial, sans-serif" font-size="24" fill="#ffffff" letter-spacing="0.5">DOO</text>
+</svg>
