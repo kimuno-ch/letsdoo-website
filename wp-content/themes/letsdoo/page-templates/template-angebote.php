@@ -1,0 +1,203 @@
+<?php
+/**
+ * Template Name: Angebote
+ */
+
+get_header();
+while ( have_posts() ) :
+	the_post();
+
+	$hero_image = get_field( 'hero_image' );
+
+	$default_leistungen = array(
+		array(
+			'icon'  => 'architecture',
+			'titel' => 'Odoo Implementierung',
+			'text'  => 'Vollständige Einrichtung Ihres ERP-Systems. Wir übernehmen die Datenmigration, Modulkonfiguration und Prozessoptimierung für einen reibungslosen Start.',
+			'bild'  => null,
+			'merkmale' => array(
+				array( 'text' => 'Prozess-Analyse' ),
+				array( 'text' => 'Datenimport (Legacy Systeme)' ),
+				array( 'text' => 'Hosting & Setup' ),
+			),
+		),
+		array(
+			'icon'  => 'settings',
+			'titel' => 'Customizing',
+			'text'  => 'Spezielle Anforderungen erfordern spezielle Lösungen. Wir entwickeln individuelle Module und Schnittstellen.',
+			'bild'  => null,
+			'merkmale' => array(),
+		),
+		array(
+			'icon'  => 'support',
+			'titel' => '24/7 Support',
+			'text'  => 'Wir lassen Sie nach dem Go-Live nicht allein. Unser Support-Team steht für alle Fragen bereit.',
+			'bild'  => null,
+			'merkmale' => array(),
+		),
+		array(
+			'icon'  => 'training',
+			'titel' => 'Schulungen & Training',
+			'text'  => 'Maximieren Sie das Potenzial Ihrer Mitarbeitenden. Wir bieten Vor-Ort-Schulungen und Online-Webinare für alle Odoo-Module.',
+			'bild'  => null,
+			'merkmale' => array(),
+		),
+	);
+	$leistungen = get_field( 'leistungen' );
+	$leistungen = $leistungen ? $leistungen : $default_leistungen;
+
+	$default_vorteile = array(
+		array( 'titel' => 'Zertifizierte Sicherheit', 'text' => 'Sichere Cloud-Infrastruktur und DSGVO-konforme Datenhaltung.' ),
+		array( 'titel' => 'Effizienz-Boost', 'text' => 'Automatisierung von Routineaufgaben spart bis zu 40% Ihrer Zeit.' ),
+	);
+	$vorteile = get_field( 'vertrauen_vorteile' );
+	$vorteile = $vorteile ? $vorteile : $default_vorteile;
+	$vertrauen_image = get_field( 'vertrauen_image' );
+
+	$pakete = letsdoo_get_pakete();
+	?>
+
+	<main id="main" class="site-main">
+
+		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
+			<div class="hero__panel">
+				<?php $badge = get_field( 'hero_badge' ) ?: 'Offizieller Odoo Partner'; ?>
+				<?php if ( $badge ) : ?>
+					<span class="hero__badge"><?php echo esc_html( $badge ); ?></span>
+				<?php endif; ?>
+				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Angebote & Pakete' ); ?></h1>
+				<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Transparente Pakete für jede Unternehmensgrösse – von der ersten Odoo-Einrichtung bis zur individuellen Grossprojekt-Betreuung.' ); ?></p>
+				<?php letsdoo_button( get_field( 'hero_button_label' ) ?: 'Jetzt beraten lassen', get_field( 'hero_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
+			</div>
+		</section>
+
+		<section class="section section--leistungen-bento" id="leistungen">
+			<div class="section__intro">
+				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
+			</div>
+			<div class="leistungen-bento">
+				<?php foreach ( $leistungen as $index => $leistung ) : ?>
+					<?php
+					$is_wide    = 0 === $index % 2;
+					$is_reverse = $is_wide && 2 === $index % 4;
+					$merkmale   = ! empty( $leistung['merkmale'] ) ? $leistung['merkmale'] : array();
+					?>
+					<div class="leistung-bento-card <?php echo $is_wide ? 'leistung-bento-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
+						<?php if ( $is_wide ) : ?>
+							<div class="leistung-bento-card__image">
+								<img src="<?php echo esc_url( letsdoo_image_url( $leistung['bild'], 'placeholder-photo.svg', 'medium' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $leistung['bild'], $leistung['titel'] ) ); ?>">
+							</div>
+						<?php endif; ?>
+						<div class="leistung-bento-card__body">
+							<div class="leistung-bento-card__icon"><?php echo letsdoo_icon( $leistung['icon'] ); ?></div>
+							<h3><?php echo esc_html( $leistung['titel'] ); ?></h3>
+							<p><?php echo esc_html( $leistung['text'] ); ?></p>
+							<?php if ( $merkmale ) : ?>
+								<ul class="leistung-bento-card__merkmale">
+									<?php foreach ( $merkmale as $merkmal ) : ?>
+										<li><?php echo letsdoo_icon( 'check' ); ?> <?php echo esc_html( $merkmal['text'] ); ?></li>
+									<?php endforeach; ?>
+								</ul>
+							<?php endif; ?>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</section>
+
+		<section class="section section--vertrauen" id="vertrauen">
+			<div class="vertrauen-grid">
+				<div class="vertrauen__image">
+					<img src="<?php echo esc_url( letsdoo_image_url( $vertrauen_image, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $vertrauen_image, 'Let\'s Doo Team bei der Arbeit' ) ); ?>">
+				</div>
+				<div class="vertrauen__content">
+					<h2><?php echo esc_html( get_field( 'vertrauen_heading' ) ?: 'Expertise aus Leidenschaft' ); ?></h2>
+					<p><?php echo esc_html( get_field( 'vertrauen_text' ) ?: 'Als zertifizierter Odoo-Partner kombinieren wir technologisches Know-how mit tiefem betriebswirtschaftlichem Verständnis.' ); ?></p>
+					<div class="vertrauen__vorteile">
+						<?php foreach ( $vorteile as $vorteil ) : ?>
+							<div class="vorteil">
+								<span class="vorteil__icon"><?php echo letsdoo_icon( 'check' ); ?></span>
+								<div>
+									<h4><?php echo esc_html( $vorteil['titel'] ); ?></h4>
+									<p><?php echo esc_html( $vorteil['text'] ); ?></p>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section section--pakete" id="pakete">
+			<div class="section__intro">
+				<h2><?php echo esc_html( get_field( 'pakete_heading' ) ?: 'Wählen Sie Ihr Paket' ); ?></h2>
+				<p class="section__subheading"><?php echo esc_html( get_field( 'pakete_subheading' ) ?: 'Transparente Preise für jedes Unternehmensstadium.' ); ?></p>
+			</div>
+			<?php if ( $pakete ) : ?>
+				<div class="pakete-grid">
+					<?php foreach ( $pakete as $paket ) : ?>
+						<?php
+						$paket_id      = $paket->ID;
+						$hervorgehoben = ! empty( get_field( 'hervorgehoben', $paket_id ) );
+						$badge         = get_field( 'badge', $paket_id );
+						$preis         = get_field( 'preis', $paket_id );
+						$preis_suffix  = get_field( 'preis_suffix', $paket_id );
+						$preis_hinweis = get_field( 'preis_hinweis', $paket_id );
+						$merkmale      = letsdoo_merkmale_liste( get_field( 'merkmale', $paket_id ) );
+						$button_label  = get_field( 'button_label', $paket_id ) ?: 'Jetzt anfragen';
+						$button_link   = get_field( 'button_link', $paket_id ) ?: home_url( '/kontakt/' );
+						?>
+						<div class="paket-card <?php echo $hervorgehoben ? 'paket-card--hervorgehoben' : ''; ?>">
+							<?php if ( $hervorgehoben && $badge ) : ?>
+								<span class="paket-card__badge"><?php echo esc_html( $badge ); ?></span>
+							<?php endif; ?>
+							<h3 class="paket-card__name"><?php echo esc_html( get_the_title( $paket_id ) ); ?></h3>
+							<?php if ( get_field( 'untertitel', $paket_id ) ) : ?>
+								<p class="paket-card__untertitel"><?php echo esc_html( get_field( 'untertitel', $paket_id ) ); ?></p>
+							<?php endif; ?>
+							<?php if ( $preis ) : ?>
+								<div class="paket-card__preis-wrap">
+									<span class="paket-card__preis"><?php echo esc_html( $preis ); ?></span>
+									<?php if ( $preis_suffix ) : ?>
+										<span class="paket-card__preis-suffix"><?php echo esc_html( $preis_suffix ); ?></span>
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
+							<?php if ( $preis_hinweis ) : ?>
+								<p class="paket-card__hinweis"><?php echo esc_html( $preis_hinweis ); ?></p>
+							<?php endif; ?>
+							<?php if ( $merkmale ) : ?>
+								<ul class="paket-card__merkmale">
+									<?php foreach ( $merkmale as $merkmal ) : ?>
+										<li class="<?php echo $merkmal['enthalten'] ? '' : 'is-disabled'; ?>">
+											<?php echo $merkmal['enthalten'] ? letsdoo_icon( 'check' ) : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'; ?>
+											<?php echo esc_html( $merkmal['text'] ); ?>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+							<?php endif; ?>
+							<?php letsdoo_button( $button_label, $button_link, $hervorgehoben ? '' : 'btn--outline' ); ?>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			<?php else : ?>
+				<p class="admin-hint"><?php esc_html_e( 'Noch keine Pakete erfasst – unter „Pakete“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+			<?php endif; ?>
+		</section>
+
+		<section class="section section--cta-banner" id="kontakt">
+			<div class="cta-banner">
+				<h2><?php echo esc_html( get_field( 'cta_heading' ) ?: 'Bereit für den nächsten Schritt?' ); ?></h2>
+				<p><?php echo esc_html( get_field( 'cta_text' ) ?: 'Lassen Sie uns gemeinsam herausfinden, wie Odoo Ihre Geschäftsprozesse revolutionieren kann.' ); ?></p>
+				<div class="cta-banner__actions">
+					<?php letsdoo_button( get_field( 'cta_button_label' ) ?: 'Kostenloser Demo-Termin', get_field( 'cta_button_link' ) ?: home_url( '/kontakt/' ), 'btn--white' ); ?>
+					<?php letsdoo_button( get_field( 'cta_button2_label' ) ?: 'Kontakt aufnehmen', get_field( 'cta_button2_link' ) ?: home_url( '/kontakt/' ), 'btn--ghost-white' ); ?>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<?php
+endwhile;
+get_footer();

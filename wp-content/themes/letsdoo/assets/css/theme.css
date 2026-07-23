@@ -100,6 +100,42 @@ a { color: inherit; }
 	font-size: 0.75rem;
 }
 
+.btn--outline {
+	background: none;
+	color: var(--color-ink);
+	border: 2px solid var(--color-ink);
+	box-shadow: none;
+}
+
+.btn--outline:hover {
+	background: var(--color-ink);
+	color: #fff;
+	box-shadow: none;
+}
+
+.btn--white {
+	background: #fff;
+	color: var(--color-gradient-end);
+	box-shadow: none;
+}
+
+.btn--white:hover {
+	background: #f2f2f2;
+	box-shadow: none;
+}
+
+.btn--ghost-white {
+	background: transparent;
+	color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	box-shadow: none;
+}
+
+.btn--ghost-white:hover {
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: none;
+}
+
 /* -------------------------------------------------- */
 /* Header                                               */
 /* -------------------------------------------------- */
@@ -269,6 +305,20 @@ a { color: inherit; }
 	font-weight: 700;
 	font-size: 1.1rem;
 	color: #fff;
+}
+
+.hero__badge {
+	display: inline-block;
+	background: rgba(255, 255, 255, 0.18);
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 0.4em 1em;
+	border-radius: 999px;
+	margin-bottom: 1rem;
 }
 
 .hero__blob {
@@ -677,6 +727,341 @@ a { color: inherit; }
 }
 
 /* -------------------------------------------------- */
+/* Angebote: Leistungen (bento grid)                    */
+/* -------------------------------------------------- */
+
+.leistungen-bento {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 1.5rem;
+	margin-top: 2rem;
+}
+
+.leistung-bento-card {
+	grid-column: span 4;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 2rem;
+	box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.18);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.leistung-bento-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.22);
+}
+
+.leistung-bento-card--wide {
+	grid-column: span 8;
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+}
+
+.leistung-bento-card--wide.is-reverse {
+	flex-direction: row-reverse;
+}
+
+.leistung-bento-card__body {
+	flex: 1;
+}
+
+.leistung-bento-card__image {
+	width: 38%;
+	flex-shrink: 0;
+	aspect-ratio: 1;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background: var(--color-bg-alt);
+}
+
+.leistung-bento-card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.leistung-bento-card__icon {
+	width: 56px;
+	height: 56px;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	margin-bottom: 1.25rem;
+}
+
+.leistung-bento-card h3 {
+	margin-bottom: 0.4em;
+}
+
+.leistung-bento-card__merkmale {
+	margin-top: 1.25rem;
+	display: grid;
+	gap: 0.5rem;
+}
+
+.leistung-bento-card__merkmale li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 600;
+	font-size: 0.85rem;
+	color: var(--color-ink);
+}
+
+.leistung-bento-card__merkmale svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	color: var(--color-gradient-start);
+}
+
+/* -------------------------------------------------- */
+/* Angebote: Vertrauen                                  */
+/* -------------------------------------------------- */
+
+.section--vertrauen {
+	background: var(--color-bg-alt);
+}
+
+.vertrauen-grid {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+	align-items: center;
+}
+
+.vertrauen__image img {
+	width: 100%;
+	display: block;
+	border-radius: var(--radius-lg);
+	box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.35);
+}
+
+.vertrauen__vorteile {
+	margin-top: 1.5rem;
+	display: grid;
+	gap: 1.25rem;
+}
+
+.vorteil {
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+}
+
+.vorteil__icon {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+}
+
+.vorteil__icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.vorteil h4 {
+	margin: 0 0 0.2em;
+	font-size: 1rem;
+	text-transform: none;
+	font-family: inherit;
+}
+
+.vorteil p {
+	margin: 0;
+	font-size: 0.85rem;
+}
+
+/* -------------------------------------------------- */
+/* Angebote: Pakete (pricing)                           */
+/* -------------------------------------------------- */
+
+.section--pakete .admin-hint {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: block;
+}
+
+.pakete-grid {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+	align-items: start;
+}
+
+.paket-card {
+	position: relative;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem 2rem;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 20px 45px -30px rgba(0, 0, 0, 0.25);
+	transition: transform 0.2s ease;
+}
+
+.paket-card:hover {
+	transform: translateY(-4px);
+}
+
+.paket-card--hervorgehoben {
+	border: 2px solid transparent;
+	background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background-origin: border-box;
+	background-clip: padding-box, border-box;
+	transform: scale(1.04);
+	z-index: 1;
+	box-shadow: 0 30px 60px -25px rgba(91, 58, 158, 0.35);
+}
+
+.paket-card--hervorgehoben:hover {
+	transform: scale(1.04) translateY(-4px);
+}
+
+.paket-card__badge {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0.4em 1.1em;
+	border-radius: 999px;
+	white-space: nowrap;
+}
+
+.paket-card__name {
+	margin-bottom: 0.2em;
+}
+
+.paket-card__untertitel {
+	color: var(--color-body);
+	font-size: 0.85rem;
+	margin-bottom: 1.5rem;
+}
+
+.paket-card__preis-wrap {
+	display: flex;
+	align-items: baseline;
+	gap: 0.4em;
+}
+
+.paket-card__preis {
+	font-family: var(--font-display);
+	font-size: 2.2rem;
+	text-transform: uppercase;
+	color: var(--color-ink);
+	line-height: 1;
+}
+
+.paket-card__preis-suffix {
+	font-family: inherit;
+	font-size: 0.85rem;
+	font-weight: 400;
+	color: var(--color-body);
+}
+
+.paket-card__hinweis {
+	font-size: 0.8rem;
+	color: var(--color-body);
+	margin-top: 0.3em;
+	margin-bottom: 1.5rem;
+}
+
+.paket-card__merkmale {
+	flex: 1;
+	display: grid;
+	gap: 0.75rem;
+	margin-bottom: 2rem;
+}
+
+.paket-card__merkmale li {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--color-ink);
+}
+
+.paket-card__merkmale li svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	color: var(--color-gradient-start);
+}
+
+.paket-card__merkmale li.is-disabled {
+	color: #b3b3b3;
+	font-weight: 400;
+}
+
+.paket-card__merkmale li.is-disabled svg {
+	color: #ccc;
+}
+
+.paket-card .btn {
+	text-align: center;
+}
+
+/* -------------------------------------------------- */
+/* Angebote: CTA banner                                 */
+/* -------------------------------------------------- */
+
+.section--cta-banner {
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.cta-banner {
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	border-radius: var(--radius-lg);
+	padding: 4rem 2rem;
+	text-align: center;
+}
+
+.cta-banner h2,
+.cta-banner p {
+	color: #fff;
+}
+
+.cta-banner p {
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	opacity: 0.92;
+}
+
+.cta-banner__actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+
+/* -------------------------------------------------- */
 /* Footer                                               */
 /* -------------------------------------------------- */
 
@@ -789,6 +1174,40 @@ a { color: inherit; }
 
 	.site-footer__columns {
 		grid-template-columns: 1fr 1fr;
+	}
+
+	.leistungen-bento {
+		grid-template-columns: 1fr;
+	}
+
+	.leistung-bento-card,
+	.leistung-bento-card--wide {
+		grid-column: span 1;
+	}
+
+	.leistung-bento-card--wide,
+	.leistung-bento-card--wide.is-reverse {
+		flex-direction: column;
+	}
+
+	.leistung-bento-card__image {
+		width: 100%;
+	}
+
+	.vertrauen-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.pakete-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.paket-card--hervorgehoben {
+		transform: none;
+	}
+
+	.paket-card--hervorgehoben:hover {
+		transform: translateY(-4px);
 	}
 }
 

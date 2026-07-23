@@ -64,8 +64,39 @@ function letsdoo_register_post_types() {
 		'exclude_from_search'=> true,
 		'publicly_queryable' => false,
 	) );
+
+	register_post_type( 'angebot_paket', array(
+		'labels' => array(
+			'name'               => __( 'Pakete', 'letsdoo' ),
+			'singular_name'      => __( 'Paket', 'letsdoo' ),
+			'add_new_item'       => __( 'Neues Paket hinzufügen', 'letsdoo' ),
+			'edit_item'          => __( 'Paket bearbeiten', 'letsdoo' ),
+			'all_items'          => __( 'Pakete', 'letsdoo' ),
+			'menu_name'          => __( 'Pakete', 'letsdoo' ),
+		),
+		'public'             => false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'menu_icon'          => 'dashicons-cart',
+		'supports'           => array( 'title', 'page-attributes' ),
+		'has_archive'        => false,
+		'exclude_from_search'=> true,
+		'publicly_queryable' => false,
+	) );
 }
 add_action( 'init', 'letsdoo_register_post_types' );
+
+/**
+ * Pre-fills the post title on "Paket hinzufügen" with example content, so
+ * the field-level ACF defaults (see inc/acf-fields.php) don't sit next to
+ * an empty, unhelpful title field.
+ */
+add_filter( 'default_title', function ( $title, $post ) {
+	if ( $post && 'angebot_paket' === $post->post_type ) {
+		return 'Starter Basic';
+	}
+	return $title;
+}, 10, 2 );
 
 /**
  * page-attributes only exposes the order box, not a "Parent" dropdown,

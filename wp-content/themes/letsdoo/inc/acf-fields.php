@@ -100,6 +100,103 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Paket (CPT single fields)                            */
+	/* -------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_paket',
+		'title'  => 'Paket Details',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_paket_untertitel',
+				'label' => 'Untertitel',
+				'name'  => 'untertitel',
+				'type'  => 'text',
+				'instructions'  => 'z.B. „Ideal für Einzelunternehmer"',
+				'default_value' => 'Ideal für Einzelunternehmer',
+			),
+			array(
+				'key'   => 'field_ld_paket_preis',
+				'label' => 'Preis',
+				'name'  => 'preis',
+				'type'  => 'text',
+				'instructions'  => 'z.B. „€990" oder „Auf Anfrage".',
+				'default_value' => '€990',
+				'wrapper' => array( 'width' => '34' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_preis_suffix',
+				'label' => 'Preiszusatz',
+				'name'  => 'preis_suffix',
+				'type'  => 'text',
+				'instructions'  => 'z.B. „/einmalig"',
+				'default_value' => '/einmalig',
+				'wrapper' => array( 'width' => '33' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_preis_hinweis',
+				'label' => 'Hinweis',
+				'name'  => 'preis_hinweis',
+				'type'  => 'text',
+				'instructions'  => 'z.B. „+ Odoo Subscription"',
+				'default_value' => '+ Odoo Subscription',
+				'wrapper' => array( 'width' => '33' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_hervorgehoben',
+				'label' => 'Hervorgehoben',
+				'name'  => 'hervorgehoben',
+				'type'  => 'true_false',
+				'ui'    => 1,
+				'default_value' => 0,
+				'instructions' => 'Als empfohlenes Paket optisch hervorheben.',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_badge',
+				'label' => 'Badge-Text',
+				'name'  => 'badge',
+				'type'  => 'text',
+				'default_value' => 'Empfohlen',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_merkmale',
+				'label' => 'Merkmale',
+				'name'  => 'merkmale',
+				'type'  => 'textarea',
+				'rows'  => 6,
+				'instructions'  => 'Ein Merkmal pro Zeile. Zeile mit „-" davor beginnen, um sie ausgegraut/als nicht enthalten darzustellen, z.B. „-Individualentwicklung".',
+				'default_value' => "Standard-Implementierung\n3 Kernmodule (CRM, Rechnungen)\nE-Mail Support\n-Individualentwicklung",
+			),
+			array(
+				'key'   => 'field_ld_paket_button_label',
+				'label' => 'Button Text',
+				'name'  => 'button_label',
+				'type'  => 'text',
+				'default_value' => 'Jetzt anfragen',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_paket_button_link',
+				'label' => 'Button Link',
+				'name'  => 'button_link',
+				'type'  => 'url',
+				'default_value' => home_url( '/kontakt/' ),
+				'wrapper' => array( 'width' => '50' ),
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'angebot_paket',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* Home template                                       */
 	/* -------------------------------------------------- */
 	acf_add_local_field_group( array(
@@ -539,6 +636,279 @@ add_action( 'acf/init', function () {
 					'param'    => 'page_template',
 					'operator' => '==',
 					'value'    => 'page-templates/template-contact.php',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Angebote template                                    */
+	/* -------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_angebote',
+		'title'  => 'Angebote Inhalte',
+		'fields' => array(
+
+			array(
+				'key'   => 'field_ld_angebote_hero_tab',
+				'label' => 'Hero',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_badge',
+				'label' => 'Badge',
+				'name'  => 'hero_badge',
+				'type'  => 'text',
+				'default_value' => 'Offizieller Odoo Partner',
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_heading',
+				'label' => 'Titel',
+				'name'  => 'hero_heading',
+				'type'  => 'text',
+				'default_value' => 'Angebote & Pakete',
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_text',
+				'label' => 'Text',
+				'name'  => 'hero_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'hero_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_button_label',
+				'label' => 'Button Text',
+				'name'  => 'hero_button_label',
+				'type'  => 'text',
+				'default_value' => 'Jetzt beraten lassen',
+			),
+			array(
+				'key'   => 'field_ld_angebote_hero_button_link',
+				'label' => 'Button Link',
+				'name'  => 'hero_button_link',
+				'type'  => 'url',
+			),
+
+			array(
+				'key'   => 'field_ld_angebote_leistungen_tab',
+				'label' => 'Unsere Leistungen',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_angebote_leistungen_heading',
+				'label' => 'Titel',
+				'name'  => 'leistungen_heading',
+				'type'  => 'text',
+				'default_value' => 'Unsere Leistungen',
+			),
+			array(
+				'key'          => 'field_ld_angebote_leistungen',
+				'label'        => 'Leistungen',
+				'name'         => 'leistungen',
+				'type'         => 'repeater',
+				'layout'       => 'block',
+				'button_label' => 'Leistung hinzufügen',
+				'instructions' => 'Karten werden abwechselnd gross (mit Bild) und klein dargestellt.',
+				'sub_fields'   => array(
+					array(
+						'key'     => 'field_ld_angebote_leistung_icon',
+						'label'   => 'Icon',
+						'name'    => 'icon',
+						'type'    => 'select',
+						'choices' => array(
+							'architecture' => 'Implementierung',
+							'settings'     => 'Customizing',
+							'support'      => 'Support',
+							'training'     => 'Schulung',
+							'check'        => 'Haken',
+						),
+						'default_value' => 'architecture',
+						'wrapper' => array( 'width' => '25' ),
+					),
+					array(
+						'key'   => 'field_ld_angebote_leistung_titel',
+						'label' => 'Titel',
+						'name'  => 'titel',
+						'type'  => 'text',
+						'wrapper' => array( 'width' => '75' ),
+					),
+					array(
+						'key'   => 'field_ld_angebote_leistung_text',
+						'label' => 'Text',
+						'name'  => 'text',
+						'type'  => 'textarea',
+						'rows'  => 3,
+					),
+					array(
+						'key'   => 'field_ld_angebote_leistung_bild',
+						'label' => 'Bild',
+						'name'  => 'bild',
+						'type'  => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Wird nur auf den grossen Karten angezeigt.',
+					),
+					array(
+						'key'          => 'field_ld_angebote_leistung_merkmale',
+						'label'        => 'Merkmale',
+						'name'         => 'merkmale',
+						'type'         => 'repeater',
+						'layout'       => 'table',
+						'button_label' => 'Merkmal hinzufügen',
+						'sub_fields'   => array(
+							array(
+								'key'   => 'field_ld_angebote_leistung_merkmal_text',
+								'label' => 'Merkmal',
+								'name'  => 'text',
+								'type'  => 'text',
+							),
+						),
+					),
+				),
+			),
+
+			array(
+				'key'   => 'field_ld_angebote_vertrauen_tab',
+				'label' => 'Vertrauen',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_angebote_vertrauen_heading',
+				'label' => 'Titel',
+				'name'  => 'vertrauen_heading',
+				'type'  => 'text',
+				'default_value' => 'Expertise aus Leidenschaft',
+			),
+			array(
+				'key'   => 'field_ld_angebote_vertrauen_text',
+				'label' => 'Text',
+				'name'  => 'vertrauen_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_ld_angebote_vertrauen_image',
+				'label' => 'Bild',
+				'name'  => 'vertrauen_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+			array(
+				'key'          => 'field_ld_angebote_vertrauen_vorteile',
+				'label'        => 'Vorteile',
+				'name'         => 'vertrauen_vorteile',
+				'type'         => 'repeater',
+				'layout'       => 'table',
+				'button_label' => 'Vorteil hinzufügen',
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_ld_angebote_vorteil_titel',
+						'label' => 'Titel',
+						'name'  => 'titel',
+						'type'  => 'text',
+						'wrapper' => array( 'width' => '30' ),
+					),
+					array(
+						'key'   => 'field_ld_angebote_vorteil_text',
+						'label' => 'Text',
+						'name'  => 'text',
+						'type'  => 'text',
+						'wrapper' => array( 'width' => '70' ),
+					),
+				),
+			),
+
+			array(
+				'key'   => 'field_ld_angebote_pakete_tab',
+				'label' => 'Pakete',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_angebote_pakete_heading',
+				'label' => 'Titel',
+				'name'  => 'pakete_heading',
+				'type'  => 'text',
+				'default_value' => 'Wählen Sie Ihr Paket',
+			),
+			array(
+				'key'   => 'field_ld_angebote_pakete_subheading',
+				'label' => 'Untertitel',
+				'name'  => 'pakete_subheading',
+				'type'  => 'text',
+				'default_value' => 'Transparente Preise für jedes Unternehmensstadium.',
+				'instructions' => 'Die Paket-Karten selbst werden unter Pakete im Menü gepflegt.',
+			),
+
+			array(
+				'key'   => 'field_ld_angebote_cta_tab',
+				'label' => 'Abschluss CTA',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_heading',
+				'label' => 'Titel',
+				'name'  => 'cta_heading',
+				'type'  => 'text',
+				'default_value' => 'Bereit für den nächsten Schritt?',
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_text',
+				'label' => 'Text',
+				'name'  => 'cta_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_button_label',
+				'label' => 'Button Text (primär)',
+				'name'  => 'cta_button_label',
+				'type'  => 'text',
+				'default_value' => 'Kostenloser Demo-Termin',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_button_link',
+				'label' => 'Button Link (primär)',
+				'name'  => 'cta_button_link',
+				'type'  => 'url',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_button2_label',
+				'label' => 'Button Text (sekundär)',
+				'name'  => 'cta_button2_label',
+				'type'  => 'text',
+				'default_value' => 'Kontakt aufnehmen',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_angebote_cta_button2_link',
+				'label' => 'Button Link (sekundär)',
+				'name'  => 'cta_button2_link',
+				'type'  => 'url',
+				'wrapper' => array( 'width' => '50' ),
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-templates/template-angebote.php',
 				),
 			),
 		),
