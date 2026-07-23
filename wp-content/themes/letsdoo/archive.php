@@ -1,8 +1,7 @@
 <?php
 /**
- * Fallback template — in practice this serves search results, since the
- * blog index has home.php and the archives have archive.php. Uses the
- * same card grid so listings look consistent everywhere.
+ * Category / tag / date / author archives for blog posts. Same card grid
+ * as the blog overview, with the archive title in the hero.
  */
 
 get_header();
@@ -12,19 +11,12 @@ get_header();
 
 	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');">
 		<div class="hero__panel">
-			<h1>
-				<?php if ( is_search() ) : ?>
-					<?php
-					printf(
-						/* translators: %s: search term */
-						esc_html__( 'Suchergebnisse für „%s“', 'letsdoo' ),
-						esc_html( get_search_query() )
-					);
-					?>
-				<?php else : ?>
-					<?php esc_html_e( 'Beiträge', 'letsdoo' ); ?>
-				<?php endif; ?>
-			</h1>
+			<span class="hero__badge"><?php esc_html_e( 'Blog', 'letsdoo' ); ?></span>
+			<h1><?php echo esc_html( wp_strip_all_tags( get_the_archive_title() ) ); ?></h1>
+			<?php $letsdoo_archiv_text = get_the_archive_description(); ?>
+			<?php if ( $letsdoo_archiv_text ) : ?>
+				<p><?php echo esc_html( wp_strip_all_tags( $letsdoo_archiv_text ) ); ?></p>
+			<?php endif; ?>
 		</div>
 	</section>
 
@@ -44,7 +36,7 @@ get_header();
 				<?php letsdoo_pagination(); ?>
 
 			<?php else : ?>
-				<p class="admin-hint"><?php esc_html_e( 'Nichts gefunden.', 'letsdoo' ); ?></p>
+				<p class="admin-hint"><?php esc_html_e( 'Keine Beiträge gefunden.', 'letsdoo' ); ?></p>
 			<?php endif; ?>
 		</div>
 	</section>

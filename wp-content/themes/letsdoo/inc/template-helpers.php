@@ -84,6 +84,39 @@ function letsdoo_get_pakete() {
 }
 
 /**
+ * Numbered pagination for the blog index and archives, marked up with the
+ * theme's pill styling instead of the default prev/next links.
+ */
+function letsdoo_pagination() {
+	$links = paginate_links( array(
+		'type'      => 'array',
+		'mid_size'  => 1,
+		'prev_text' => __( 'Zurück', 'letsdoo' ),
+		'next_text' => __( 'Weiter', 'letsdoo' ),
+	) );
+
+	if ( empty( $links ) ) {
+		return;
+	}
+
+	printf(
+		'<nav class="pagination" aria-label="%s">%s</nav>',
+		esc_attr__( 'Beitragsnavigation', 'letsdoo' ),
+		implode( '', $links )
+	);
+}
+
+/**
+ * Rough reading time in minutes, shown next to the date on blog posts.
+ * 200 wpm is the usual rule of thumb; always at least 1 so a short post
+ * doesn't read "0 Min.".
+ */
+function letsdoo_reading_time( $post = null ) {
+	$words = str_word_count( wp_strip_all_tags( strip_shortcodes( get_the_content( null, false, $post ) ) ) );
+	return max( 1, (int) round( $words / 200 ) );
+}
+
+/**
  * Permalink of the page using a given page template, so cross-page links
  * (e.g. a Referenz detail page pointing back at the Referenzen list on
  * "Über uns") survive the client renaming or re-slugging that page.

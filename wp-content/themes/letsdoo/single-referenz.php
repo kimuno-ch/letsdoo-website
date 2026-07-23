@@ -87,7 +87,7 @@ while ( have_posts() ) :
 
 		<section class="section section--referenz-inhalt">
 			<div class="section__content">
-				<div class="referenz-inhalt">
+				<div class="entry-content">
 					<?php
 					// Checked before the_content(), which advances the page globals.
 					$has_content = '' !== trim( get_the_content() );
@@ -108,17 +108,17 @@ while ( have_posts() ) :
 				$next_referenz = get_next_post();
 				?>
 				<?php if ( $prev_referenz || $next_referenz ) : ?>
-					<nav class="referenz-nav" aria-label="<?php esc_attr_e( 'Weitere Referenzen', 'letsdoo' ); ?>">
+					<nav class="entry-nav" aria-label="<?php esc_attr_e( 'Weitere Referenzen', 'letsdoo' ); ?>">
 						<?php if ( $prev_referenz ) : ?>
-							<a class="referenz-nav__link" href="<?php echo esc_url( get_permalink( $prev_referenz ) ); ?>">
-								<span class="referenz-nav__label"><?php esc_html_e( 'Vorherige Referenz', 'letsdoo' ); ?></span>
-								<span class="referenz-nav__titel"><?php echo esc_html( get_the_title( $prev_referenz ) ); ?></span>
+							<a class="entry-nav__link" href="<?php echo esc_url( get_permalink( $prev_referenz ) ); ?>">
+								<span class="entry-nav__label"><?php esc_html_e( 'Vorherige Referenz', 'letsdoo' ); ?></span>
+								<span class="entry-nav__titel"><?php echo esc_html( get_the_title( $prev_referenz ) ); ?></span>
 							</a>
 						<?php endif; ?>
 						<?php if ( $next_referenz ) : ?>
-							<a class="referenz-nav__link referenz-nav__link--next" href="<?php echo esc_url( get_permalink( $next_referenz ) ); ?>">
-								<span class="referenz-nav__label"><?php esc_html_e( 'Nächste Referenz', 'letsdoo' ); ?></span>
-								<span class="referenz-nav__titel"><?php echo esc_html( get_the_title( $next_referenz ) ); ?></span>
+							<a class="entry-nav__link entry-nav__link--next" href="<?php echo esc_url( get_permalink( $next_referenz ) ); ?>">
+								<span class="entry-nav__label"><?php esc_html_e( 'Nächste Referenz', 'letsdoo' ); ?></span>
+								<span class="entry-nav__titel"><?php echo esc_html( get_the_title( $next_referenz ) ); ?></span>
 							</a>
 						<?php endif; ?>
 					</nav>

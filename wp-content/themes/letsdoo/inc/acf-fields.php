@@ -535,6 +535,47 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Blog overview (the page set as "Beitragsseite")      */
+	/* -------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_blog',
+		'title'  => 'Blog Inhalte',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_blog_hero_heading',
+				'label' => 'Titel',
+				'name'  => 'hero_heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen, um den Seitentitel zu verwenden.',
+			),
+			array(
+				'key'   => 'field_ld_blog_hero_text',
+				'label' => 'Text',
+				'name'  => 'hero_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_ld_blog_hero_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'hero_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'posts_page',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* About template                                       */
 	/* -------------------------------------------------- */
 	acf_add_local_field_group( array(
