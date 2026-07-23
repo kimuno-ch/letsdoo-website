@@ -412,12 +412,14 @@ a { color: inherit; }
 
 .leistungen-grid {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(12, 1fr);
+	grid-auto-flow: row dense;
 	gap: 1.5rem;
 	margin-top: 2rem;
 }
 
 .leistung-card {
+	grid-column: span 4;
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
 	-webkit-backdrop-filter: var(--glass-filter);
@@ -425,11 +427,75 @@ a { color: inherit; }
 	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius-md);
 	padding: 2rem;
-	text-align: center;
+	text-align: left;
+}
+
+.leistung-card--wide {
+	grid-column: span 8;
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+}
+
+.leistung-card--wide.is-reverse {
+	flex-direction: row-reverse;
+}
+
+.leistung-card__body {
+	flex: 1;
+}
+
+.leistung-card__image {
+	width: 38%;
+	flex-shrink: 0;
+	aspect-ratio: 1;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+}
+
+.leistung-card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.leistung-card__icon {
+	width: 56px;
+	height: 56px;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	margin-bottom: 1.25rem;
 }
 
 .leistung-card h3,
 .leistung-card p {
+	color: #fff;
+}
+
+.leistung-card__merkmale {
+	margin-top: 1.25rem;
+	display: grid;
+	gap: 0.5rem;
+}
+
+.leistung-card__merkmale li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 600;
+	font-size: 0.85rem;
+	color: #fff;
+}
+
+.leistung-card__merkmale svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
 	color: #fff;
 }
 
@@ -1147,6 +1213,20 @@ a { color: inherit; }
 	.referenzen-grid,
 	.zahlen-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.leistung-card,
+	.leistung-card--wide {
+		grid-column: span 1;
+	}
+
+	.leistung-card--wide,
+	.leistung-card--wide.is-reverse {
+		flex-direction: column;
+	}
+
+	.leistung-card__image {
+		width: 100%;
 	}
 
 	.section--warum-letsdoo {

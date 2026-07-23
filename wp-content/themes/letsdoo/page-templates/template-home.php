@@ -45,10 +45,36 @@ while ( have_posts() ) :
 				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
 				<div class="leistungen-grid">
 					<?php if ( $leistungen ) : ?>
-						<?php foreach ( $leistungen as $leistung ) : ?>
-							<div class="leistung-card">
-								<h3><?php echo esc_html( get_the_title( $leistung ) ); ?></h3>
-								<p><?php echo esc_html( get_field( 'beschreibung', $leistung->ID ) ); ?></p>
+						<?php foreach ( $leistungen as $index => $leistung ) : ?>
+							<?php
+							$leistung_id = $leistung->ID;
+							$bild        = get_field( 'bild', $leistung_id );
+							$is_wide     = ! empty( $bild );
+							$is_reverse  = $is_wide && 1 === $index % 2;
+							$icon        = get_field( 'icon', $leistung_id ) ?: 'check';
+							$text        = get_field( 'beschreibung', $leistung_id );
+							$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
+							?>
+							<div class="leistung-card <?php echo $is_wide ? 'leistung-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
+								<?php if ( $is_wide ) : ?>
+									<div class="leistung-card__image">
+										<img src="<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $bild, get_the_title( $leistung_id ) ) ); ?>">
+									</div>
+								<?php endif; ?>
+								<div class="leistung-card__body">
+									<div class="leistung-card__icon"><?php echo letsdoo_icon( $icon ); ?></div>
+									<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
+									<?php if ( $text ) : ?>
+										<p><?php echo esc_html( $text ); ?></p>
+									<?php endif; ?>
+									<?php if ( $is_wide && $merkmale ) : ?>
+										<ul class="leistung-card__merkmale">
+											<?php foreach ( $merkmale as $merkmal ) : ?>
+												<li><?php echo letsdoo_icon( 'check' ); ?> <?php echo esc_html( $merkmal ); ?></li>
+											<?php endforeach; ?>
+										</ul>
+									<?php endif; ?>
+								</div>
 							</div>
 						<?php endforeach; ?>
 					<?php else : ?>
