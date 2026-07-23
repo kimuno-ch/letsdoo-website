@@ -8,6 +8,14 @@
  * only ships a locked preview of it, calling acf_add_options_page() on
  * free fatals). Those fields live in inc/settings-page.php instead, a
  * plain Settings API page under Einstellungen → Firmenangaben.
+ *
+ * Heads-up on autocomplete: the IDE stubs in composer.json are ACF *Pro*
+ * (no free-only package exists), but this site runs ACF free. So the editor
+ * will happily suggest Pro-only APIs — have_rows(), the_row(), repeater
+ * fields — that do not work here. On free ACF, get_field() on a repeater
+ * returns the row count as a *string*, which is truthy and silently renders
+ * an empty list. Use a textarea + letsdoo_lines() instead (see the Paket
+ * "Merkmale" field for the established pattern).
  */
 
 if ( ! function_exists( 'acf_add_local_field_group' ) ) {

@@ -2,6 +2,10 @@
 .env
 backups/*.sql
 
+# Composer: dev-only IDE/static-analysis stubs, restore with `composer install`.
+# composer.json + composer.lock are committed so the versions stay pinned.
+/vendor/
+
 # OS
 .DS_Store
 Thumbs.db
