@@ -1,9 +1,13 @@
 <?php
 /**
  * Custom post types used to back the repeatable sections of the design
- * (services, team members, partner references). None of these are
+ * (services, team members, partner references). Most of these are not
  * publicly routed — they're admin-managed lists pulled into the page
  * templates via WP_Query.
+ *
+ * `referenz` is the exception: it has its own single view (single-referenz.php)
+ * so each reference can be shown as a full case study, so it's registered
+ * public with the block editor enabled.
  */
 
 function letsdoo_register_post_types() {
@@ -55,14 +59,16 @@ function letsdoo_register_post_types() {
 			'all_items'          => __( 'Referenzen', 'letsdoo' ),
 			'menu_name'          => __( 'Referenzen', 'letsdoo' ),
 		),
-		'public'             => false,
+		'public'             => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
+		'show_in_rest'       => true,
 		'menu_icon'          => 'dashicons-star-filled',
-		'supports'           => array( 'title', 'thumbnail', 'page-attributes' ),
+		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
 		'has_archive'        => false,
-		'exclude_from_search'=> true,
-		'publicly_queryable' => false,
+		'exclude_from_search'=> false,
+		'publicly_queryable' => true,
+		'rewrite'            => array( 'slug' => 'referenzen', 'with_front' => false ),
 	) );
 
 	register_post_type( 'angebot_paket', array(

@@ -24,25 +24,31 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--referenzen" id="referenzen">
-			<h2 class="screen-reader-text"><?php echo esc_html( get_field( 'referenzen_heading' ) ?: 'Referenzen' ); ?></h2>
-			<div class="referenzen-grid">
-				<?php if ( $referenzen ) : ?>
-					<?php foreach ( $referenzen as $referenz ) : ?>
-						<div class="referenz-card">
-							<div class="referenz-card__logo">
-								<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $referenz ), 'placeholder-logo.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $referenz ) ); ?>">
+			<div class="section__content">
+				<h2><?php echo esc_html( get_field( 'referenzen_heading' ) ?: 'Referenzen' ); ?></h2>
+				<div class="referenzen-grid">
+					<?php if ( $referenzen ) : ?>
+						<?php foreach ( $referenzen as $referenz ) : ?>
+							<div class="referenz-card">
+								<div class="referenz-card__logo">
+									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $referenz ), 'placeholder-logo.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $referenz ) ); ?>">
+								</div>
+								<div class="referenz-card__body">
+									<h3><?php echo esc_html( get_the_title( $referenz ) ); ?></h3>
+									<p><?php echo esc_html( get_field( 'beschreibung', $referenz->ID ) ); ?></p>
+									<a class="btn btn--sm referenz-card__link" href="<?php echo esc_url( get_permalink( $referenz ) ); ?>">
+										<?php esc_html_e( 'Referenz ansehen', 'letsdoo' ); ?>
+										<span class="screen-reader-text">: <?php echo esc_html( get_the_title( $referenz ) ); ?></span>
+									</a>
+								</div>
 							</div>
-							<div class="referenz-card__body">
-								<h3><?php echo esc_html( get_the_title( $referenz ) ); ?></h3>
-								<p><?php echo esc_html( get_field( 'beschreibung', $referenz->ID ) ); ?></p>
-							</div>
-						</div>
-					<?php endforeach; ?>
-				<?php else : ?>
-					<p class="admin-hint"><?php esc_html_e( 'Noch keine Referenzen erfasst – unter „Referenzen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
-				<?php endif; ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<p class="admin-hint"><?php esc_html_e( 'Noch keine Referenzen erfasst – unter „Referenzen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+					<?php endif; ?>
+				</div>
+				<?php letsdoo_button( 'Kontakt aufnehmen', home_url( '/kontakt/' ) ); ?>
 			</div>
-			<?php letsdoo_button( 'Kontakt aufnehmen', home_url( '/kontakt/' ) ); ?>
 		</section>
 
 		<section class="section section--zahlen" id="zahlen">

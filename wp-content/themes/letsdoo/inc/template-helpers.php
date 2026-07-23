@@ -84,6 +84,23 @@ function letsdoo_get_pakete() {
 }
 
 /**
+ * Permalink of the page using a given page template, so cross-page links
+ * (e.g. a Referenz detail page pointing back at the Referenzen list on
+ * "Über uns") survive the client renaming or re-slugging that page.
+ */
+function letsdoo_page_url_by_template( $template, $fallback_path = '/' ) {
+	$pages = get_posts( array(
+		'post_type'      => 'page',
+		'posts_per_page' => 1,
+		'post_status'    => 'publish',
+		'meta_key'       => '_wp_page_template',
+		'meta_value'     => $template,
+	) );
+
+	return $pages ? get_permalink( $pages[0] ) : home_url( $fallback_path );
+}
+
+/**
  * Splits a textarea field into trimmed, non-empty lines — used for the
  * Paket "Merkmale" field since the free ACF plugin doesn't support
  * repeater sub-fields.
