@@ -1,0 +1,31 @@
+/* -------------------------------------------------- */
+/* Generic section layout                               */
+/* -------------------------------------------------- */
+
+.section {
+	padding: 4.5rem 1.5rem;
+	position: relative;
+}
+
+.section__intro,
+.section__content,
+.kontakt-grid {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	position: relative;
+	z-index: 1;
+}
+
+.section__subheading {
+	font-weight: 700;
+	color: var(--color-ink);
+}
+
+.section__bg-photo {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center;
+	opacity: 1;
+}
+

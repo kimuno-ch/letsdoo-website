@@ -1,0 +1,36 @@
+/* -------------------------------------------------- */
+/* Angebote: CTA banner                                 */
+/* -------------------------------------------------- */
+
+.section--cta-banner {
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.cta-banner {
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	border-radius: var(--radius-lg);
+	padding: 4rem 2rem;
+	text-align: center;
+}
+
+.cta-banner h2,
+.cta-banner p {
+	color: #fff;
+}
+
+.cta-banner p {
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	opacity: 0.92;
+}
+
+.cta-banner__actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+

@@ -1,0 +1,210 @@
+/* -------------------------------------------------- */
+/* Single Referenz                                      */
+/* -------------------------------------------------- */
+
+.referenz-hero__head {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	flex-wrap: wrap;
+}
+
+.referenz-hero__head h1 {
+	margin-bottom: 0;
+}
+
+.referenz-hero__logo {
+	width: 92px;
+	flex-shrink: 0;
+	background: #fff;
+	border-radius: var(--radius-md);
+	padding: 0.7rem;
+}
+
+.referenz-hero__logo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.hero--referenz .hero__panel p {
+	margin: 1.25rem 0 0;
+}
+
+/* Key facts strip */
+
+.section--referenz-fakten {
+	padding-bottom: 0;
+}
+
+.referenz-fakten {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 1.5rem 2rem;
+	margin: 0;
+	padding: 1.75rem;
+	background: var(--color-bg-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+}
+
+.referenz-fakt dt {
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #8a8a8a;
+	margin-bottom: 0.5em;
+}
+
+.referenz-fakt dd {
+	margin: 0;
+	font-weight: 700;
+	color: var(--color-ink);
+}
+
+.referenz-fakt--module {
+	grid-column: 1 / -1;
+}
+
+.referenz-module {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin: 0;
+	padding: 0;
+}
+
+.referenz-module li {
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-size: 0.75rem;
+	letter-spacing: 0.02em;
+	padding: 0.35em 0.9em;
+	border-radius: 999px;
+}
+
+/* Block-editor content. The wrapper spans the full content width so
+   wide-aligned blocks can breathe, while text keeps a readable measure. */
+
+.entry-content > * {
+	max-width: 780px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1.5rem;
+}
+
+.entry-content > .alignwide {
+	max-width: var(--max-width);
+}
+
+.entry-content > .alignfull {
+	max-width: none;
+}
+
+.entry-content h2 {
+	font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+	margin-top: 3rem;
+}
+
+.entry-content h3 {
+	margin-top: 2.25rem;
+}
+
+.entry-content img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	border-radius: var(--radius-md);
+}
+
+.entry-content figure {
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.entry-content figcaption {
+	font-size: 0.85rem;
+	color: #8a8a8a;
+	text-align: center;
+	margin-top: 0.7rem;
+}
+
+.entry-content .alignfull img {
+	border-radius: 0;
+}
+
+.entry-content video,
+.entry-content iframe,
+.entry-content .wp-block-embed__wrapper {
+	width: 100%;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	display: block;
+}
+
+.entry-content blockquote {
+	border-left: 4px solid var(--color-gradient-start);
+	padding-left: 1.5rem;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+	font-size: 1.15rem;
+	font-style: italic;
+	color: var(--color-ink);
+}
+
+.entry-content ul,
+.entry-content ol {
+	padding-left: 1.25rem;
+}
+
+.entry-content li {
+	margin-bottom: 0.5em;
+}
+
+/* Prev / next referenz */
+
+.entry-nav {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	max-width: 780px;
+	margin: 3.5rem auto 0;
+	padding-top: 2rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.entry-nav__link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	text-decoration: none;
+	max-width: 48%;
+}
+
+.entry-nav__link--next {
+	margin-left: auto;
+	text-align: right;
+}
+
+.entry-nav__label {
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #8a8a8a;
+}
+
+.entry-nav__titel {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	font-size: 1rem;
+	color: var(--color-ink);
+}
+
+.entry-nav__link:hover .entry-nav__titel {
+	color: var(--color-gradient-start);
+}
+

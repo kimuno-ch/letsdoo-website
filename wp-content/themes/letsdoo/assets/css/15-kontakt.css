@@ -1,0 +1,90 @@
+/* -------------------------------------------------- */
+/* Kontakt                                              */
+/* -------------------------------------------------- */
+
+.section--kontaktformular {
+	padding: 0;
+	margin-top: 4rem;
+}
+
+.kontakt-grid {
+	max-width: none;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 640px;
+}
+
+.kontakt-form {
+	padding: 3rem 1.5rem;
+	max-width: 520px;
+	margin-left: auto;
+	width: 100%;
+}
+
+.kontakt-form form p {
+	margin-bottom: 1rem;
+}
+
+.kontakt-form label {
+	display: block;
+}
+
+.kontakt-form input[type="text"],
+.kontakt-form input[type="email"],
+.kontakt-form input[type="tel"],
+.kontakt-form textarea {
+	width: 100%;
+	border: 1px solid var(--color-border);
+	background: var(--color-bg-alt);
+	border-radius: var(--radius-md);
+	padding: 0.9em 1.2em;
+	font: inherit;
+}
+
+.kontakt-form textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.kontakt-form .wpcf7-submit {
+	display: inline-block;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.9em 1.8em;
+	border-radius: 999px;
+	border: 0;
+	cursor: pointer;
+}
+
+.kontakt-side {
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	opacity: 1;
+	display: flex;
+	align-items: flex-start;
+	padding: 3rem;
+}
+
+.kontakt-card {
+	position: relative;
+	z-index: 1;
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
+	border-radius: var(--radius-md);
+	padding: 1.5rem;
+	max-width: 280px;
+	color: #fff;
+}
+
+.kontakt-card__logo {
+	margin-bottom: 0.5rem;
+}
+

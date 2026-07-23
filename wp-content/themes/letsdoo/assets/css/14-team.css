@@ -1,0 +1,31 @@
+/* -------------------------------------------------- */
+/* About: Team                                          */
+/* -------------------------------------------------- */
+
+.team-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 2rem;
+	margin-top: 2rem;
+}
+
+.team-card {
+	text-align: center;
+}
+
+.team-card__photo {
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	margin-bottom: 1rem;
+}
+
+.team-card__photo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.team-card h3 {
+	margin-bottom: 0.2em;
+}
+

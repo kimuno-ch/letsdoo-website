@@ -1,0 +1,99 @@
+/* -------------------------------------------------- */
+/* Hero                                                 */
+/* -------------------------------------------------- */
+
+.hero {
+	position: relative;
+	background-color: #333;
+	background-size: cover;
+	background-position: center;
+	padding: 5rem 1.5rem 6rem;
+	overflow: hidden;
+}
+
+.hero__panel,
+.hero__blob {
+	position: relative;
+	z-index: 1;
+}
+
+.hero__panel {
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem;
+	margin: 0 auto;
+	max-width: var(--max-width);
+}
+
+.hero__panel h1,
+.hero__panel p {
+	color: #fff;
+	max-width: 620px;
+}
+
+.hero__eyebrow {
+	font-weight: 700;
+	font-size: 1.1rem;
+	color: #fff;
+}
+
+.hero__badge {
+	display: inline-block;
+	background: rgba(255, 255, 255, 0.18);
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 0.4em 1em;
+	border-radius: 999px;
+	margin-bottom: 1rem;
+}
+
+.hero__blob {
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	width: 180px;
+	filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.hero__blob img {
+	width: 100%;
+	height: auto;
+}
+
+/* Home hero: panel narrower than the content width, with the logo
+   sitting above its top-right corner in the space that leaves free. */
+.hero__inner {
+	position: relative;
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.hero__inner .hero__panel {
+	max-width: 80%;
+	margin: 0;
+}
+
+.hero__inner .hero__blob {
+	top: -2.75rem;
+    right: 5%;
+    z-index: 10;
+    width: 390px;
+}
+
+.hero--sub {
+	padding: 4rem 1.5rem 4.5rem;
+}
+
+.hero--sub .hero__panel {
+	max-width: 700px;
+	margin: 0;
+}
+

@@ -1,0 +1,14 @@
+/* -------------------------------------------------- */
+/* CTA band                                             */
+/* -------------------------------------------------- */
+
+.section--cta {
+	text-align: left;
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.section--cta p {
+	max-width: 640px;
+}
+

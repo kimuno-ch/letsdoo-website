@@ -1,0 +1,128 @@
+/* -------------------------------------------------- */
+/* Header                                               */
+/* -------------------------------------------------- */
+
+.site-header {
+	display: block;
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: #fafafa;
+	border-bottom: 1px solid var(--color-border);
+	padding: 0;
+}
+
+.site-header__inner {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1.5rem;
+	padding: 0.75rem 1.5rem;
+	flex-wrap: wrap;
+}
+
+.site-branding .site-logo,
+.footer-col--brand .site-logo {
+	display: inline-flex;
+}
+
+.site-branding img,
+.footer-col--brand img {
+	display: block;
+	height: 56px;
+	width: auto;
+}
+
+.main-navigation {
+	margin-left: auto;
+}
+
+.main-navigation ul {
+	display: flex;
+	gap: 2rem;
+}
+
+.nav-divider {
+	width: 1px;
+	height: 22px;
+	background: var(--color-border);
+}
+
+.main-navigation a {
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: var(--color-ink);
+}
+
+.main-navigation a:hover {
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-decoration: none;
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.icon-link {
+	display: inline-flex;
+	color: var(--color-gradient-start);
+}
+
+.menu-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	background: none;
+	border: 0;
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 0.6rem;
+	color: var(--color-ink);
+	transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+	background: rgba(234, 62, 130, 0.1);
+	color: var(--color-gradient-start);
+}
+
+.menu-toggle:active {
+	transform: scale(0.92);
+}
+
+.menu-toggle-bar {
+	display: block;
+	width: 22px;
+	height: 2px;
+	border-radius: 2px;
+	background: currentColor;
+	transition: transform 0.3s ease, opacity 0.2s ease;
+	transform-origin: center;
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+
+.site-header.is-open .menu-toggle-bar:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
+}
+

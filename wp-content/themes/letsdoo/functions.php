@@ -24,11 +24,52 @@ function letsdoo_setup() {
 }
 add_action( 'after_setup_theme', 'letsdoo_setup' );
 
+/**
+ * The stylesheet is split into one file per section under assets/css/.
+ * CSS is order-sensitive (later rules win, and 23-mobile overrides the rest),
+ * so each part is registered with the previous one as its dependency — that
+ * makes WordPress emit them in exactly this order. Keep the list in cascade
+ * order, and keep 23-mobile last.
+ */
+function letsdoo_style_parts() {
+	return array(
+		'01-base',
+		'02-buttons',
+		'03-header',
+		'04-hero',
+		'05-sections',
+		'06-warum-odoo',
+		'07-leistungen',
+		'08-warum-letsdoo',
+		'09-vorgehen',
+		'10-cta-band',
+		'11-referenzen',
+		'12-single-referenz',
+		'13-zahlen',
+		'14-team',
+		'15-kontakt',
+		'16-angebote-leistungen',
+		'17-angebote-vertrauen',
+		'18-angebote-pakete',
+		'19-angebote-cta',
+		'20-footer',
+		'21-blog-listing',
+		'22-blog-single',
+		'23-mobile',
+	);
+}
+
 function letsdoo_enqueue_assets() {
 	$version = wp_get_theme()->get( 'Version' );
 
 	wp_enqueue_style( 'letsdoo-style', get_stylesheet_uri(), array(), $version );
-	wp_enqueue_style( 'letsdoo-theme', get_theme_file_uri( '/assets/css/theme.css' ), array( 'letsdoo-style' ), $version );
+
+	$depends_on = array( 'letsdoo-style' );
+	foreach ( letsdoo_style_parts() as $part ) {
+		$handle = 'letsdoo-' . $part;
+		wp_enqueue_style( $handle, get_theme_file_uri( "/assets/css/{$part}.css" ), $depends_on, $version );
+		$depends_on = array( $handle );
+	}
 
 	wp_enqueue_script(
 		'letsdoo-navigation',

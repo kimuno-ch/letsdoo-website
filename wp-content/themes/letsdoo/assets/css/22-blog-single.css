@@ -1,0 +1,50 @@
+/* -------------------------------------------------- */
+/* Blog: single post                                    */
+/* -------------------------------------------------- */
+
+a.hero__badge {
+	text-decoration: none;
+}
+
+a.hero__badge:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.post-meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: rgba(255, 255, 255, 0.85);
+	margin-bottom: 0;
+}
+
+.entry-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	max-width: 780px;
+	margin: 2.5rem auto 0;
+}
+
+.entry-tag {
+	font-size: 0.78rem;
+	font-weight: 700;
+	text-decoration: none;
+	color: var(--color-body);
+	background: var(--color-bg-alt);
+	border: 1px solid var(--color-border);
+	padding: 0.35em 0.9em;
+	border-radius: 999px;
+}
+
+.entry-tag:hover {
+	border-color: var(--color-gradient-start);
+	color: var(--color-gradient-start);
+	text-decoration: none;
+}
+

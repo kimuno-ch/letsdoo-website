@@ -1,0 +1,68 @@
+/* -------------------------------------------------- */
+/* Buttons                                              */
+/* -------------------------------------------------- */
+
+.btn {
+	display: inline-block;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	text-decoration: none;
+	padding: 0.9em 1.8em;
+	border-radius: 999px;
+	border: 0;
+	cursor: pointer;
+	box-shadow: 0 8px 20px -8px rgba(91, 58, 158, 0.6);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px -8px rgba(91, 58, 158, 0.7);
+	text-decoration: none;
+}
+
+.btn--sm {
+	padding: 0.6em 1.4em;
+	font-size: 0.75rem;
+}
+
+.btn--outline {
+	background: none;
+	color: var(--color-ink);
+	border: 2px solid var(--color-ink);
+	box-shadow: none;
+}
+
+.btn--outline:hover {
+	background: var(--color-ink);
+	color: #fff;
+	box-shadow: none;
+}
+
+.btn--white {
+	background: #fff;
+	color: var(--color-gradient-end);
+	box-shadow: none;
+}
+
+.btn--white:hover {
+	background: #f2f2f2;
+	box-shadow: none;
+}
+
+.btn--ghost-white {
+	background: transparent;
+	color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	box-shadow: none;
+}
+
+.btn--ghost-white:hover {
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: none;
+}
+

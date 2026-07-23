@@ -1,0 +1,133 @@
+/* -------------------------------------------------- */
+/* Angebote: Pakete (pricing)                           */
+/* -------------------------------------------------- */
+
+.pakete-grid {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+	align-items: start;
+}
+
+.paket-card {
+	position: relative;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2.5rem 2rem;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 20px 45px -30px rgba(0, 0, 0, 0.25);
+	transition: transform 0.2s ease;
+}
+
+.paket-card:hover {
+	transform: translateY(-4px);
+}
+
+.paket-card--hervorgehoben {
+	border: 2px solid transparent;
+	background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background-origin: border-box;
+	background-clip: padding-box, border-box;
+	transform: scale(1.04);
+	z-index: 1;
+	box-shadow: 0 30px 60px -25px rgba(91, 58, 158, 0.35);
+}
+
+.paket-card--hervorgehoben:hover {
+	transform: scale(1.04) translateY(-4px);
+}
+
+.paket-card__badge {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0.4em 1.1em;
+	border-radius: 999px;
+	white-space: nowrap;
+}
+
+.paket-card__name {
+	margin-bottom: 0.2em;
+}
+
+.paket-card__untertitel {
+	color: var(--color-body);
+	font-size: 0.85rem;
+	margin-bottom: 1.5rem;
+}
+
+.paket-card__preis-wrap {
+	display: flex;
+	align-items: baseline;
+	gap: 0.4em;
+}
+
+.paket-card__preis {
+	font-family: var(--font-display);
+	font-size: 2.2rem;
+	text-transform: uppercase;
+	color: var(--color-ink);
+	line-height: 1;
+}
+
+.paket-card__preis-suffix {
+	font-family: inherit;
+	font-size: 0.85rem;
+	font-weight: 400;
+	color: var(--color-body);
+}
+
+.paket-card__hinweis {
+	font-size: 0.8rem;
+	color: var(--color-body);
+	margin-top: 0.3em;
+	margin-bottom: 1.5rem;
+}
+
+.paket-card__merkmale {
+	flex: 1;
+	display: grid;
+	gap: 0.75rem;
+	margin-bottom: 2rem;
+}
+
+.paket-card__merkmale li {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--color-ink);
+}
+
+.paket-card__merkmale li svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	color: var(--color-gradient-start);
+}
+
+.paket-card__merkmale li.is-disabled {
+	color: #b3b3b3;
+	font-weight: 400;
+}
+
+.paket-card__merkmale li.is-disabled svg {
+	color: #ccc;
+}
+
+.paket-card .btn {
+	text-align: center;
+}
+

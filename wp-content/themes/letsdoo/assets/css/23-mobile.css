@@ -1,0 +1,175 @@
+/* -------------------------------------------------- */
+/* Mobile                                               */
+/* -------------------------------------------------- */
+
+@media (max-width: 900px) {
+	.leistungen-grid,
+	.referenzen-grid,
+	.zahlen-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.leistung-card,
+	.leistung-card--wide {
+		grid-column: span 1;
+	}
+
+	.leistung-card--wide,
+	.leistung-card--wide.is-reverse {
+		flex-direction: column;
+	}
+
+	.leistung-card__image {
+		width: 100%;
+	}
+
+	.section--warum-letsdoo {
+		grid-template-columns: 1fr;
+	}
+
+	.warum-letsdoo__panel {
+		margin-right: 0;
+		margin-bottom: -2rem;
+	}
+
+	.section--vorgehen {
+		display: block;
+	}
+
+	.vorgehen__panel {
+		margin-left: 0;
+	}
+
+	.kontakt-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.kontakt-form {
+		margin-left: 0;
+	}
+
+	.site-footer__columns {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.leistungen-bento {
+		grid-template-columns: 1fr;
+	}
+
+	.leistung-bento-card,
+	.leistung-bento-card--wide {
+		grid-column: span 1;
+	}
+
+	.leistung-bento-card--wide,
+	.leistung-bento-card--wide.is-reverse {
+		flex-direction: column;
+	}
+
+	.leistung-bento-card__image {
+		width: 100%;
+	}
+
+	.vertrauen-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.pakete-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.paket-card--hervorgehoben {
+		transform: none;
+	}
+
+	.paket-card--hervorgehoben:hover {
+		transform: translateY(-4px);
+	}
+}
+
+@media (max-width: 768px) {
+	/* Header collapses to one row: logo, icons, hamburger. The Kontakt
+	   button is dropped and the menu list becomes a full-width dropdown
+	   anchored to the (already positioned) .site-header, so it doesn't
+	   push the toggle button onto a second row. */
+	.site-header__inner {
+		gap: 0.75rem;
+	}
+
+	.site-header__actions {
+		order: 1;
+		margin-left: auto;
+		gap: 0.5rem;
+	}
+
+	.site-header__actions .btn {
+		display: none;
+	}
+
+	.main-navigation {
+		margin-left: 0;
+		order: 2;
+	}
+
+	.nav-divider {
+		display: none;
+	}
+
+	.menu-toggle {
+		display: flex;
+	}
+
+	.main-navigation ul {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		flex-direction: column;
+		gap: 0;
+		background: #fafafa;
+		border-top: 1px solid var(--color-border);
+		box-shadow: 0 16px 24px -16px rgba(0, 0, 0, 0.25);
+		padding: 0 1.5rem;
+	}
+
+	.site-header.is-open .main-navigation ul {
+		display: flex;
+	}
+
+	.main-navigation ul li {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.main-navigation ul a {
+		display: block;
+		padding: 0.75rem 0;
+	}
+
+	.hero__blob {
+		display: none;
+	}
+
+	.hero__inner .hero__panel {
+		max-width: 100%;
+	}
+
+	.site-footer__columns {
+		grid-template-columns: 1fr;
+	}
+
+	.referenz-card {
+		grid-template-columns: 1fr;
+	}
+
+	.referenz-card__logo {
+		align-self: start;
+	}
+
+	.entry-nav__link,
+	.entry-nav__link--next {
+		max-width: 100%;
+		margin-left: 0;
+		text-align: left;
+	}
+}

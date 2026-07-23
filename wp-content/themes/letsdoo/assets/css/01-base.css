@@ -1,0 +1,70 @@
+/* -------------------------------------------------- */
+/* Fonts + tokens                                      */
+/* -------------------------------------------------- */
+
+@font-face {
+	font-family: 'Archivo Black';
+	src: url('../fonts/archivo-black-latin.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--color-gradient-start: #ea3e82;
+	--color-gradient-end: #5b3a9e;
+	--color-ink: #111111;
+	--color-body: #4a4a4a;
+	--color-bg-alt: #f4f4f4;
+	--color-border: #e2e2e2;
+	--radius-lg: 24px;
+	--radius-md: 16px;
+	--font-display: 'Archivo Black', Arial, sans-serif;
+	--max-width: 1200px;
+
+	/* Shared glassmorphism recipe for every box overlaid on a background photo
+	   (hero panel, Leistungen cards, Vorgehen panel, Zahlen intro/cards,
+	   Kontakt card) — dark tint + white text, kept transparent + lightly
+	   blurred so the photo behind reads clearly. */
+	--glass-filter: blur(8px) saturate(1.4);
+	--glass-dark-bg: rgba(10, 10, 10, 0.32);
+	--glass-dark-border: 1px solid rgba(255, 255, 255, 0.25);
+	--glass-shadow: 0 20px 45px -22px rgba(0, 0, 0, 0.4);
+}
+
+body {
+	color: var(--color-body);
+	font-size: 16px;
+}
+
+h1, h2, h3 {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-ink);
+	line-height: 1.1;
+	margin: 0 0 0.6em;
+	letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+.admin-hint {
+	color: #999;
+	font-style: italic;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+}
+

@@ -1,0 +1,75 @@
+/* -------------------------------------------------- */
+/* Footer                                               */
+/* -------------------------------------------------- */
+
+.site-footer {
+	padding: 3.5rem 1.5rem 1.5rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.site-footer__columns {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1.3fr 1fr 1fr;
+	gap: 2rem;
+}
+
+.footer-col__title {
+	font-size: 0.8rem;
+	color: var(--color-gradient-start);
+	margin-bottom: 0.8em;
+}
+
+.footer-col p {
+	margin: 0 0 0.4em;
+	font-size: 0.9rem;
+}
+
+.footer-col ul li {
+	margin-bottom: 0.5em;
+}
+
+.footer-col a {
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+	text-decoration: underline;
+}
+
+.footer-col__social {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.social-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 10px;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+}
+
+.site-footer__bottom {
+	max-width: var(--max-width);
+	margin: 2.5rem auto 0;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--color-border);
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 1rem;
+	font-size: 0.8rem;
+	color: #999;
+}
+
+.legal-links {
+	display: flex;
+	gap: 1.5rem;
+}
+

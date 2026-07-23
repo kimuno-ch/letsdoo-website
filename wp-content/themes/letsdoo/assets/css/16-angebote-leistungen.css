@@ -1,0 +1,103 @@
+/* -------------------------------------------------- */
+/* Angebote: Leistungen (bento grid)                    */
+/* -------------------------------------------------- */
+
+.leistungen-bento {
+	max-width: var(--max-width);
+	margin: 2rem auto 0;
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-auto-flow: row dense;
+	gap: 1.5rem;
+}
+
+.section--leistungen-bento .admin-hint {
+	max-width: var(--max-width);
+	margin: 2rem auto 0;
+	display: block;
+}
+
+.leistung-bento-card {
+	grid-column: span 4;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 2rem;
+	box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.18);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.leistung-bento-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.22);
+}
+
+.leistung-bento-card--wide {
+	grid-column: span 8;
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+}
+
+.leistung-bento-card--wide.is-reverse {
+	flex-direction: row-reverse;
+}
+
+.leistung-bento-card__body {
+	flex: 1;
+}
+
+.leistung-bento-card__image {
+	width: 38%;
+	flex-shrink: 0;
+	aspect-ratio: 1;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background: var(--color-bg-alt);
+}
+
+.leistung-bento-card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.leistung-bento-card__icon {
+	width: 56px;
+	height: 56px;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	margin-bottom: 1.25rem;
+}
+
+.leistung-bento-card h3 {
+	margin-bottom: 0.4em;
+}
+
+.leistung-bento-card__merkmale {
+	margin-top: 1.25rem;
+	display: grid;
+	gap: 0.5rem;
+}
+
+.leistung-bento-card__merkmale li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 600;
+	font-size: 0.85rem;
+	color: var(--color-ink);
+}
+
+.leistung-bento-card__merkmale svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	color: var(--color-gradient-start);
+}
+
