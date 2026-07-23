@@ -731,10 +731,18 @@ a { color: inherit; }
 /* -------------------------------------------------- */
 
 .leistungen-bento {
+	max-width: var(--max-width);
+	margin: 2rem auto 0;
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
+	grid-auto-flow: row dense;
 	gap: 1.5rem;
-	margin-top: 2rem;
+}
+
+.section--leistungen-bento .admin-hint {
+	max-width: var(--max-width);
+	margin: 2rem auto 0;
+	display: block;
 }
 
 .leistung-bento-card {
@@ -889,12 +897,6 @@ a { color: inherit; }
 /* -------------------------------------------------- */
 /* Angebote: Pakete (pricing)                           */
 /* -------------------------------------------------- */
-
-.section--pakete .admin-hint {
-	max-width: var(--max-width);
-	margin: 0 auto;
-	display: block;
-}
 
 .pakete-grid {
 	max-width: var(--max-width);

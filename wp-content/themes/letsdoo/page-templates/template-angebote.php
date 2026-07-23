@@ -9,42 +9,7 @@ while ( have_posts() ) :
 
 	$hero_image = get_field( 'hero_image' );
 
-	$default_leistungen = array(
-		array(
-			'icon'  => 'architecture',
-			'titel' => 'Odoo Implementierung',
-			'text'  => 'Vollständige Einrichtung Ihres ERP-Systems. Wir übernehmen die Datenmigration, Modulkonfiguration und Prozessoptimierung für einen reibungslosen Start.',
-			'bild'  => null,
-			'merkmale' => array(
-				array( 'text' => 'Prozess-Analyse' ),
-				array( 'text' => 'Datenimport (Legacy Systeme)' ),
-				array( 'text' => 'Hosting & Setup' ),
-			),
-		),
-		array(
-			'icon'  => 'settings',
-			'titel' => 'Customizing',
-			'text'  => 'Spezielle Anforderungen erfordern spezielle Lösungen. Wir entwickeln individuelle Module und Schnittstellen.',
-			'bild'  => null,
-			'merkmale' => array(),
-		),
-		array(
-			'icon'  => 'support',
-			'titel' => '24/7 Support',
-			'text'  => 'Wir lassen Sie nach dem Go-Live nicht allein. Unser Support-Team steht für alle Fragen bereit.',
-			'bild'  => null,
-			'merkmale' => array(),
-		),
-		array(
-			'icon'  => 'training',
-			'titel' => 'Schulungen & Training',
-			'text'  => 'Maximieren Sie das Potenzial Ihrer Mitarbeitenden. Wir bieten Vor-Ort-Schulungen und Online-Webinare für alle Odoo-Module.',
-			'bild'  => null,
-			'merkmale' => array(),
-		),
-	);
-	$leistungen = get_field( 'leistungen' );
-	$leistungen = $leistungen ? $leistungen : $default_leistungen;
+	$leistungen = letsdoo_get_leistungen();
 
 	$default_vorteile = array(
 		array( 'titel' => 'Zertifizierte Sicherheit', 'text' => 'Sichere Cloud-Infrastruktur und DSGVO-konforme Datenhaltung.' ),
@@ -75,34 +40,45 @@ while ( have_posts() ) :
 			<div class="section__intro">
 				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
 			</div>
-			<div class="leistungen-bento">
-				<?php foreach ( $leistungen as $index => $leistung ) : ?>
-					<?php
-					$is_wide    = 0 === $index % 2;
-					$is_reverse = $is_wide && 2 === $index % 4;
-					$merkmale   = ! empty( $leistung['merkmale'] ) ? $leistung['merkmale'] : array();
-					?>
-					<div class="leistung-bento-card <?php echo $is_wide ? 'leistung-bento-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
-						<?php if ( $is_wide ) : ?>
-							<div class="leistung-bento-card__image">
-								<img src="<?php echo esc_url( letsdoo_image_url( $leistung['bild'], 'placeholder-photo.svg', 'medium' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $leistung['bild'], $leistung['titel'] ) ); ?>">
-							</div>
-						<?php endif; ?>
-						<div class="leistung-bento-card__body">
-							<div class="leistung-bento-card__icon"><?php echo letsdoo_icon( $leistung['icon'] ); ?></div>
-							<h3><?php echo esc_html( $leistung['titel'] ); ?></h3>
-							<p><?php echo esc_html( $leistung['text'] ); ?></p>
-							<?php if ( $merkmale ) : ?>
-								<ul class="leistung-bento-card__merkmale">
-									<?php foreach ( $merkmale as $merkmal ) : ?>
-										<li><?php echo letsdoo_icon( 'check' ); ?> <?php echo esc_html( $merkmal['text'] ); ?></li>
-									<?php endforeach; ?>
-								</ul>
+			<?php if ( $leistungen ) : ?>
+				<div class="leistungen-bento">
+					<?php foreach ( $leistungen as $index => $leistung ) : ?>
+						<?php
+						$leistung_id = $leistung->ID;
+						$bild        = get_field( 'bild', $leistung_id );
+						$is_wide     = ! empty( $bild );
+						$is_reverse  = $is_wide && 1 === $index % 2;
+						$icon        = get_field( 'icon', $leistung_id ) ?: 'check';
+						$titel       = get_the_title( $leistung_id );
+						$text        = get_field( 'beschreibung', $leistung_id );
+						$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
+						?>
+						<div class="leistung-bento-card <?php echo $is_wide ? 'leistung-bento-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
+							<?php if ( $is_wide ) : ?>
+								<div class="leistung-bento-card__image">
+									<img src="<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $bild, $titel ) ); ?>">
+								</div>
 							<?php endif; ?>
+							<div class="leistung-bento-card__body">
+								<div class="leistung-bento-card__icon"><?php echo letsdoo_icon( $icon ); ?></div>
+								<h3><?php echo esc_html( $titel ); ?></h3>
+								<?php if ( $text ) : ?>
+									<p><?php echo esc_html( $text ); ?></p>
+								<?php endif; ?>
+								<?php if ( $is_wide && $merkmale ) : ?>
+									<ul class="leistung-bento-card__merkmale">
+										<?php foreach ( $merkmale as $merkmal ) : ?>
+											<li><?php echo letsdoo_icon( 'check' ); ?> <?php echo esc_html( $merkmal ); ?></li>
+										<?php endforeach; ?>
+									</ul>
+								<?php endif; ?>
+							</div>
 						</div>
-					</div>
-				<?php endforeach; ?>
-			</div>
+					<?php endforeach; ?>
+				</div>
+			<?php else : ?>
+				<p class="admin-hint"><?php esc_html_e( 'Noch keine Leistungen erfasst – unter „Leistungen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+			<?php endif; ?>
 		</section>
 
 		<section class="section section--vertrauen" id="vertrauen">
@@ -128,12 +104,12 @@ while ( have_posts() ) :
 			</div>
 		</section>
 
+		<?php if ( $pakete ) : ?>
 		<section class="section section--pakete" id="pakete">
 			<div class="section__intro">
 				<h2><?php echo esc_html( get_field( 'pakete_heading' ) ?: 'Wählen Sie Ihr Paket' ); ?></h2>
 				<p class="section__subheading"><?php echo esc_html( get_field( 'pakete_subheading' ) ?: 'Transparente Preise für jedes Unternehmensstadium.' ); ?></p>
 			</div>
-			<?php if ( $pakete ) : ?>
 				<div class="pakete-grid">
 					<?php foreach ( $pakete as $paket ) : ?>
 						<?php
@@ -180,10 +156,8 @@ while ( have_posts() ) :
 						</div>
 					<?php endforeach; ?>
 				</div>
-			<?php else : ?>
-				<p class="admin-hint"><?php esc_html_e( 'Noch keine Pakete erfasst – unter „Pakete“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
-			<?php endif; ?>
 		</section>
+		<?php endif; ?>
 
 		<section class="section section--cta-banner" id="kontakt">
 			<div class="cta-banner">

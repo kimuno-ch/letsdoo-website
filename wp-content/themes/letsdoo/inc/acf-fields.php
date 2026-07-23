@@ -30,6 +30,45 @@ add_action( 'acf/init', function () {
 				'type'  => 'textarea',
 				'rows'  => 3,
 			),
+
+			array(
+				'key'   => 'field_ld_leistung_angebote_tab',
+				'label' => 'Angebote-Seite',
+				'name'  => '',
+				'type'  => 'tab',
+				'instructions' => 'Diese Felder werden zusätzlich für die Leistungskarten auf der Angebote-Seite verwendet.',
+			),
+			array(
+				'key'     => 'field_ld_leistung_icon',
+				'label'   => 'Icon',
+				'name'    => 'icon',
+				'type'    => 'select',
+				'choices' => array(
+					'architecture' => 'Implementierung',
+					'settings'     => 'Customizing',
+					'support'      => 'Support',
+					'training'     => 'Schulung',
+					'check'        => 'Haken',
+				),
+				'default_value' => 'architecture',
+			),
+			array(
+				'key'   => 'field_ld_leistung_bild',
+				'label' => 'Bild',
+				'name'  => 'bild',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Mit Bild wird die Karte gross (Bild neben Text) dargestellt, ohne Bild klein.',
+			),
+			array(
+				'key'   => 'field_ld_leistung_merkmale',
+				'label' => 'Merkmale',
+				'name'  => 'merkmale',
+				'type'  => 'textarea',
+				'rows'  => 4,
+				'instructions' => 'Ein Merkmal pro Zeile (optional, nur auf grossen Karten sichtbar).',
+			),
 		),
 		'location' => array(
 			array(
