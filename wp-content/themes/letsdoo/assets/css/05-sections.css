@@ -21,11 +21,90 @@
 	color: var(--color-ink);
 }
 
+/* Kept its name so the wave selectors and the templates don't have to change,
+   but it now paints a brand-colour blend rather than a photograph — the
+   templates no longer pass one in. Photos elsewhere (hero, Warum Let'sDoo,
+   Kontakt, cards) are untouched. */
 .section__bg-photo {
 	position: absolute;
 	inset: 0;
+	background-image: var(--section-blend);
 	background-size: cover;
 	background-position: center;
 	opacity: 1;
+}
+
+/* -------------------------------------------------- */
+/* Wave dividers                                        */
+/* -------------------------------------------------- */
+
+/* Every full-bleed photo section is sandwiched between white ones, so instead
+   of a hard horizontal line the white is carried a little way into the photo
+   as a two-crest wave (shapes and height live in 01-base.css). Keying off
+   .section__bg-photo means any future photo section picks the treatment up
+   automatically. Where :has() is unsupported the rules drop out and the edges
+   simply stay straight. */
+.section:has(> .section__bg-photo) {
+	/* Clear the deepest point of the wave (100 of the 110px) before content. */
+	padding-top: calc(3rem + var(--wave-height));
+	padding-bottom: calc(3rem + var(--wave-height));
+}
+
+.section:has(> .section__bg-photo)::before,
+.section:has(> .section__bg-photo)::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: var(--wave-height);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.section:has(> .section__bg-photo)::before {
+	top: 0;
+	background-image: var(--wave-top);
+}
+
+/* The bottom wave is flipped horizontally so the two ends of a section don't
+   read as a tracing of each other. */
+.section:has(> .section__bg-photo)::after {
+	bottom: 0;
+	transform: scaleX(-1);
+	background-image: var(--wave-bottom);
+}
+
+/* Which of the three shapes a wave gets — and which of the three background
+   blends the section behind it gets — is (section position + page seed) % 3.
+   The position alone would vary the shapes down a page but hand every page the
+   same one at the top, since the hero is always the first section — so
+   functions.php adds a wave-seed-0/1/2 class per page to rotate the whole
+   sequence. Sections are counted among their siblings rather than under main,
+   because single.php nests them in an <article>. Only the two custom
+   properties are reassigned; the rules above do the drawing either way. */
+.wave-seed-0 section:nth-of-type(3n + 1),
+.wave-seed-1 section:nth-of-type(3n + 3),
+.wave-seed-2 section:nth-of-type(3n + 2) {
+	--wave-top: var(--wave-top-a);
+	--wave-bottom: var(--wave-bottom-a);
+	--section-blend: var(--blend-a);
+}
+
+.wave-seed-0 section:nth-of-type(3n + 2),
+.wave-seed-1 section:nth-of-type(3n + 1),
+.wave-seed-2 section:nth-of-type(3n + 3) {
+	--wave-top: var(--wave-top-b);
+	--wave-bottom: var(--wave-bottom-b);
+	--section-blend: var(--blend-b);
+}
+
+.wave-seed-0 section:nth-of-type(3n + 3),
+.wave-seed-1 section:nth-of-type(3n + 2),
+.wave-seed-2 section:nth-of-type(3n + 1) {
+	--wave-top: var(--wave-top-c);
+	--wave-bottom: var(--wave-bottom-c);
+	--section-blend: var(--blend-c);
 }
 

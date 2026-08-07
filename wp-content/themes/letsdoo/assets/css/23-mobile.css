@@ -85,6 +85,18 @@
 	.paket-card--hervorgehoben:hover {
 		transform: translateY(-4px);
 	}
+
+	/* A 110px wave costs far too much vertical space on a phone — the crests
+	   still read clearly at half the depth. Every wave (hero included) reads
+	   the token, so the paddings built on it shrink with it. */
+	:root {
+		--wave-height: 56px;
+	}
+
+	.section:has(> .section__bg-photo) {
+		padding-top: calc(2rem + var(--wave-height));
+		padding-bottom: calc(2rem + var(--wave-height));
+	}
 }
 
 @media (max-width: 768px) {
@@ -152,6 +164,17 @@
 
 	.hero__inner .hero__panel {
 		max-width: 100%;
+	}
+
+	/* The desktop minimums leave a phone with the panel marooned in the middle
+	   of a tall photo, and push the first real content off the screen — the
+	   image still reads at these heights. */
+	.hero {
+		min-height: clamp(420px, 62vh, 560px);
+	}
+
+	.hero--sub {
+		min-height: clamp(300px, 44vh, 420px);
 	}
 
 	.site-footer__columns {

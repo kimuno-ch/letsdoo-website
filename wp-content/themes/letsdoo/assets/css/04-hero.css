@@ -7,8 +7,35 @@
 	background-color: #333;
 	background-size: cover;
 	background-position: center;
-	padding: 5rem 1.5rem 6rem;
+	padding: 5rem 1.5rem calc(3rem + var(--wave-height));
 	overflow: hidden;
+
+	/* The height used to be whatever the panel needed, which left the photo a
+	   thin strip behind it. A minimum gives the image room to read as an image.
+	   clamp() keeps that from turning into a nearly empty screen on a short
+	   laptop or an absurd one on a tall monitor; the panel is centred in
+	   whatever height wins, and any content taller than the minimum still grows
+	   the hero as before. */
+	min-height: clamp(560px, 78vh, 840px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* The hero is a full-bleed photo meeting a white section, so its bottom edge
+   gets the same white wave as the photo sections — see 05-sections.css. */
+.hero::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: var(--wave-height);
+	background-image: var(--wave-bottom);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	pointer-events: none;
+	z-index: 2;
 }
 
 .hero__panel,
@@ -72,6 +99,11 @@
    sitting above its top-right corner in the space that leaves free. */
 .hero__inner {
 	position: relative;
+	/* The auto margins that centre this also cancel the flex stretch it would
+	   otherwise get from .hero, so the width has to be asked for explicitly —
+	   without it the box collapses to fit-content and the panel's 80% below
+	   shrinks with it. */
+	width: 100%;
 	max-width: var(--max-width);
 	margin: 0 auto;
 }
@@ -88,8 +120,11 @@
     width: 390px;
 }
 
+/* Sub pages stay shorter than the home hero — they carry a heading and a line
+   or two rather than the main pitch, and the content below matters more. */
 .hero--sub {
-	padding: 4rem 1.5rem 4.5rem;
+	padding: 4rem 1.5rem calc(2rem + var(--wave-height));
+	min-height: clamp(420px, 56vh, 620px);
 }
 
 /* Sub heroes have no .hero__inner wrapper, so the panel is offset by hand to

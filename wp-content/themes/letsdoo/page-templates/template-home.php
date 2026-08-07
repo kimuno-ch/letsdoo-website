@@ -9,8 +9,6 @@ while ( have_posts() ) :
 
 	$hero_image        = get_field( 'hero_image' );
 	$letsdoo_image     = get_field( 'warum_letsdoo_image' );
-	$leistungen_image  = get_field( 'leistungen_bg_image' );
-	$vorgehen_image    = get_field( 'vorgehen_bg_image' );
 	$leistungen        = letsdoo_get_leistungen();
 	$schritte          = get_field( 'vorgehen_schritte' );
 	?>
@@ -40,7 +38,7 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--leistungen" id="leistungen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $leistungen_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
+			<div class="section__bg-photo"></div>
 			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
 				<div class="leistungen-grid">
@@ -95,7 +93,7 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--vorgehen" id="vorgehen">
-			<div class="section__bg-photo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $vorgehen_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
+			<div class="section__bg-photo"></div>
 			<div class="vorgehen__panel">
 				<h2><?php echo esc_html( get_field( 'vorgehen_heading' ) ?: 'Unser Vorgehen' ); ?></h2>
 				<p class="section__subheading"><?php echo esc_html( get_field( 'vorgehen_subheading' ) ?: 'Schritt für Schritt zur passenden Lösung.' ); ?></p>

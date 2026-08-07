@@ -30,6 +30,59 @@
 	--glass-dark-bg: rgba(10, 10, 10, 0.32);
 	--glass-dark-border: 1px solid rgba(255, 255, 255, 0.25);
 	--glass-shadow: 0 20px 45px -22px rgba(0, 0, 0, 0.4);
+
+	/* Wave dividers. Every full-bleed photo area (hero + the photo sections)
+	   meets a white one, so the boundary is softened by laying a white
+	   two-crest wave over the photo's edge instead of cutting straight
+	   across. All shapes stretch to the section width via
+	   preserveAspectRatio='none'; --wave-height is halved on mobile in
+	   23-mobile.css. Sections opt in from 05-sections.css, the hero from
+	   04-hero.css.
+
+	   There are three shapes so the same curve doesn't repeat down a page: A is
+	   even and symmetric, B is phase-shifted with uneven crests, C is wider and
+	   lazier. Each is drawn twice — once with the white above the curve for a
+	   top edge, once mirrored for a bottom edge. 05-sections.css points
+	   --wave-top / --wave-bottom at one of the three per section; the values
+	   below are the fallback for anything that doesn't get assigned. */
+	--wave-height: 110px;
+
+	--wave-top-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V10 C1320,10 1200,100 1080,100 C960,100 840,10 720,10 C600,10 480,100 360,100 C240,100 120,10 0,10 Z'/%3E%3C/svg%3E");
+	--wave-bottom-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V100 C1320,100 1200,10 1080,10 C960,10 840,100 720,100 C600,100 480,10 360,10 C240,10 120,100 0,100 Z'/%3E%3C/svg%3E");
+
+	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V25 C1280,25 1120,95 960,95 C847,95 733,15 620,15 C493,15 367,100 240,100 C160,100 80,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V85 C1280,85 1120,15 960,15 C847,15 733,95 620,95 C493,95 367,10 240,10 C160,10 80,55 0,55 Z'/%3E%3C/svg%3E");
+
+	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V80 C1293,80 1147,20 1000,20 C827,20 653,100 480,100 C320,100 160,30 0,30 Z'/%3E%3C/svg%3E");
+	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V30 C1293,30 1147,90 1000,90 C827,90 653,10 480,10 C320,10 160,80 0,80 Z'/%3E%3C/svg%3E");
+
+	--wave-top: var(--wave-top-a);
+	--wave-bottom: var(--wave-bottom-a);
+
+	/* Banner backgrounds. The full-bleed sections behind the glass panels are
+	   painted with a soft blend rather than a photo: a linear base in the two
+	   brand colours with a few off-centre radial blooms layered over it, which
+	   reads as an organic wash instead of a flat sweep. The bloom colours are
+	   tints of --color-gradient-start / -end; they need literal rgba() values
+	   because each has to fade to fully transparent. Three variants, assigned
+	   alongside the wave shapes in 05-sections.css. */
+	--blend-a:
+		radial-gradient(115% 85% at 12% 18%, rgba(240, 86, 127, 0.95) 0%, rgba(240, 86, 127, 0) 58%),
+		radial-gradient(95% 80% at 88% 12%, rgba(109, 63, 174, 0.9) 0%, rgba(109, 63, 174, 0) 60%),
+		radial-gradient(85% 75% at 65% 95%, rgba(234, 62, 130, 0.8) 0%, rgba(234, 62, 130, 0) 55%),
+		linear-gradient(125deg, var(--color-gradient-start), var(--color-gradient-end));
+	--blend-b:
+		radial-gradient(100% 80% at 85% 25%, rgba(239, 77, 140, 0.9) 0%, rgba(239, 77, 140, 0) 58%),
+		radial-gradient(110% 90% at 10% 70%, rgba(77, 51, 145, 0.95) 0%, rgba(77, 51, 145, 0) 62%),
+		radial-gradient(80% 70% at 45% 5%, rgba(123, 75, 189, 0.8) 0%, rgba(123, 75, 189, 0) 55%),
+		linear-gradient(200deg, var(--color-gradient-end), var(--color-gradient-start));
+	--blend-c:
+		radial-gradient(90% 90% at 50% 10%, rgba(242, 98, 140, 0.9) 0%, rgba(242, 98, 140, 0) 55%),
+		radial-gradient(120% 85% at 90% 80%, rgba(91, 58, 158, 0.95) 0%, rgba(91, 58, 158, 0) 60%),
+		radial-gradient(95% 75% at 8% 40%, rgba(214, 63, 150, 0.85) 0%, rgba(214, 63, 150, 0) 58%),
+		linear-gradient(160deg, #7a3f97 0%, var(--color-gradient-start) 55%, var(--color-gradient-end) 100%);
+
+	--section-blend: var(--blend-a);
 }
 
 body {

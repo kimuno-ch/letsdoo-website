@@ -81,6 +81,21 @@ function letsdoo_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'letsdoo_enqueue_assets' );
 
+/**
+ * The wave dividers between the photo and white areas come in three shapes,
+ * picked in CSS from the section's position on the page (see 05-sections.css).
+ * Position alone would put the same shape under every hero, so this rotates the
+ * sequence per page. Derived from the queried object ID rather than randomised,
+ * so a given page keeps the same waves on every visit and page caching can't
+ * serve a mismatched body class.
+ */
+function letsdoo_wave_seed_class( $classes ) {
+	$classes[] = 'wave-seed-' . ( absint( get_queried_object_id() ) % 3 );
+
+	return $classes;
+}
+add_filter( 'body_class', 'letsdoo_wave_seed_class' );
+
 require get_theme_file_path( '/inc/cpt.php' );
 require get_theme_file_path( '/inc/acf-fields.php' );
 require get_theme_file_path( '/inc/settings-page.php' );
