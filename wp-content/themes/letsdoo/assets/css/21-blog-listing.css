@@ -14,7 +14,7 @@
 	flex-direction: column;
 	background: #fff;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	overflow: hidden;
 	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
 	transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -68,7 +68,7 @@
 	background: rgba(234, 62, 130, 0.1);
 	color: var(--color-gradient-start);
 	padding: 0.3em 0.8em;
-	border-radius: 999px;
+	border-radius: var(--radius);
 }
 
 .blog-card__titel {
@@ -125,7 +125,7 @@
 	min-width: 2.5rem;
 	height: 2.5rem;
 	padding: 0 0.9em;
-	border-radius: 999px;
+	border-radius: var(--radius);
 	border: 1px solid var(--color-border);
 	background: #fff;
 	font-size: 0.85rem;

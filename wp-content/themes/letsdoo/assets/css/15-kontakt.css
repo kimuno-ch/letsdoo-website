@@ -36,7 +36,7 @@
 	width: 100%;
 	border: 1px solid var(--color-border);
 	background: var(--color-bg-alt);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	padding: 0.9em 1.2em;
 	font: inherit;
 }
@@ -55,7 +55,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
 	padding: 0.9em 1.8em;
-	border-radius: 999px;
+	border-radius: var(--radius);
 	border: 0;
 	cursor: pointer;
 }
@@ -78,7 +78,7 @@
 	-webkit-backdrop-filter: var(--glass-filter);
 	border: var(--glass-dark-border);
 	box-shadow: var(--glass-shadow);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	padding: 1.5rem;
 	max-width: 280px;
 	color: #fff;

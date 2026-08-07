@@ -16,7 +16,7 @@
 	align-items: stretch;
 	background: #fff;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	padding: 1.5rem;
 	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
 }

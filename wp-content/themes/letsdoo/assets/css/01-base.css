@@ -17,8 +17,12 @@
 	--color-body: #4a4a4a;
 	--color-bg-alt: #f4f4f4;
 	--color-border: #e2e2e2;
-	--radius-lg: 24px;
-	--radius-md: 16px;
+	/* One radius for everything that reads as a box — panels, cards, buttons,
+	   badges, inputs, images, icon tiles. Previously there were two (24 and 16)
+	   plus a scatter of one-off 999px pills and 10/14px tiles; they are all this
+	   now. Anything narrower than 48px is capped by the browser at half its own
+	   size, so the small icon tiles come out fully round. */
+	--radius: 24px;
 	--font-display: 'Archivo Black', Arial, sans-serif;
 	--max-width: 1200px;
 

@@ -59,15 +59,33 @@ function letsdoo_style_parts() {
 	);
 }
 
-function letsdoo_enqueue_assets() {
-	$version = wp_get_theme()->get( 'Version' );
+/**
+ * Cache-busting version for one theme asset: the file's own modification time.
+ *
+ * These used to all go out as ?ver=<theme version>, which never changes while
+ * the theme is being worked on — so an edited stylesheet kept its old URL and
+ * browsers went on serving the copy they had cached, making changes look like
+ * they hadn't been applied. Keyed on mtime the URL moves whenever the file
+ * does, and only then. Falls back to the theme version if the file is missing.
+ */
+function letsdoo_asset_version( $relative_path ) {
+	$file = get_theme_file_path( $relative_path );
 
-	wp_enqueue_style( 'letsdoo-style', get_stylesheet_uri(), array(), $version );
+	if ( file_exists( $file ) ) {
+		return (string) filemtime( $file );
+	}
+
+	return wp_get_theme()->get( 'Version' );
+}
+
+function letsdoo_enqueue_assets() {
+	wp_enqueue_style( 'letsdoo-style', get_stylesheet_uri(), array(), letsdoo_asset_version( '/style.css' ) );
 
 	$depends_on = array( 'letsdoo-style' );
 	foreach ( letsdoo_style_parts() as $part ) {
 		$handle = 'letsdoo-' . $part;
-		wp_enqueue_style( $handle, get_theme_file_uri( "/assets/css/{$part}.css" ), $depends_on, $version );
+		$path   = "/assets/css/{$part}.css";
+		wp_enqueue_style( $handle, get_theme_file_uri( $path ), $depends_on, letsdoo_asset_version( $path ) );
 		$depends_on = array( $handle );
 	}
 
@@ -75,7 +93,7 @@ function letsdoo_enqueue_assets() {
 		'letsdoo-navigation',
 		get_theme_file_uri( '/assets/js/navigation.js' ),
 		array(),
-		$version,
+		letsdoo_asset_version( '/assets/js/navigation.js' ),
 		true
 	);
 }

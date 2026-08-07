@@ -21,7 +21,7 @@
 	-webkit-backdrop-filter: var(--glass-filter);
 	border: var(--glass-dark-border);
 	box-shadow: var(--glass-shadow);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	padding: 2rem;
 	text-align: left;
 }
@@ -45,7 +45,7 @@
 	width: 38%;
 	flex-shrink: 0;
 	aspect-ratio: 1;
-	border-radius: var(--radius-md);
+	border-radius: var(--radius);
 	overflow: hidden;
 }
 
@@ -59,7 +59,7 @@
 .leistung-card__icon {
 	width: 56px;
 	height: 56px;
-	border-radius: 14px;
+	border-radius: var(--radius);
 	display: flex;
 	align-items: center;
 	justify-content: center;
