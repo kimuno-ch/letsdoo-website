@@ -92,8 +92,10 @@
 	padding: 4rem 1.5rem 4.5rem;
 }
 
+/* Sub heroes have no .hero__inner wrapper, so the panel is offset by hand to
+   start at the same left edge as the centred content container. */
 .hero--sub .hero__panel {
 	max-width: 700px;
-	margin: 0;
+	margin: 0 0 0 max(0px, calc((100% - var(--max-width)) / 2));
 }
 

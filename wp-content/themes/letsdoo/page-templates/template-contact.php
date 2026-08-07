@@ -15,7 +15,7 @@ while ( have_posts() ) :
 	<main id="main" class="site-main">
 
 		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
+			<div class="hero__panel hero_inner">
 				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Kontakt' ); ?></h1>
 				<p class="hero__eyebrow"><?php echo esc_html( get_field( 'hero_subheading' ) ?: 'Kontaktiere uns' ); ?></p>
 				<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Wir geben unser Bestes, dir baldmöglichst eine Antwort zu geben und mit dir in Verbindung zu treten.' ); ?></p>

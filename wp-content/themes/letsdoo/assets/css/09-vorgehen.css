@@ -16,7 +16,10 @@
 	border-radius: var(--radius-lg);
 	padding: 2.5rem;
 	max-width: 520px;
+	/* The section stays full-bleed because of .section__bg-photo, so the panel
+	   is pulled in by hand to end at the centred content container's edge. */
 	margin-left: auto;
+	margin-right: max(0px, calc((100% - var(--max-width)) / 2));
 }
 
 .vorgehen__panel h2,

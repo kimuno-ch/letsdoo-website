@@ -77,21 +77,23 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--team" id="team">
-			<h2><?php echo esc_html( get_field( 'team_heading' ) ?: 'Unser Team' ); ?></h2>
-			<div class="team-grid">
-				<?php if ( $team ) : ?>
-					<?php foreach ( $team as $mitglied ) : ?>
-						<div class="team-card">
-							<div class="team-card__photo">
-								<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $mitglied ), 'placeholder-portrait.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $mitglied ) ); ?>">
+			<div class="section__content">
+				<h2><?php echo esc_html( get_field( 'team_heading' ) ?: 'Unser Team' ); ?></h2>
+				<div class="team-grid">
+					<?php if ( $team ) : ?>
+						<?php foreach ( $team as $mitglied ) : ?>
+							<div class="team-card">
+								<div class="team-card__photo">
+									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $mitglied ), 'placeholder-portrait.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $mitglied ) ); ?>">
+								</div>
+								<h3><?php echo esc_html( get_the_title( $mitglied ) ); ?></h3>
+								<p><?php echo esc_html( get_field( 'position', $mitglied->ID ) ); ?></p>
 							</div>
-							<h3><?php echo esc_html( get_the_title( $mitglied ) ); ?></h3>
-							<p><?php echo esc_html( get_field( 'position', $mitglied->ID ) ); ?></p>
-						</div>
-					<?php endforeach; ?>
-				<?php else : ?>
-					<p class="admin-hint"><?php esc_html_e( 'Noch keine Teammitglieder erfasst – unter „Team“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
-				<?php endif; ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<p class="admin-hint"><?php esc_html_e( 'Noch keine Teammitglieder erfasst – unter „Team“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+					<?php endif; ?>
+				</div>
 			</div>
 		</section>
 
