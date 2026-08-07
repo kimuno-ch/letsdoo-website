@@ -2,8 +2,13 @@
 /* Generic section layout                               */
 /* -------------------------------------------------- */
 
+/* The white sections carry the page's breathing room. The banner sections
+   below override this with their own vertical padding, because they have a
+   wave to clear as well — so this figure effectively sets how much air the
+   plain white ones get, and how far apart the gradient blocks end up sitting.
+   Stepped down again on mobile in 23-mobile.css. */
 .section {
-	padding: 4.5rem 1.5rem;
+	padding: 7rem 1.5rem;
 	position: relative;
 }
 
@@ -44,9 +49,11 @@
    automatically. Where :has() is unsupported the rules drop out and the edges
    simply stay straight. */
 .section:has(> .section__bg-photo) {
-	/* Clear the deepest point of the wave (100 of the 110px) before content. */
-	padding-top: calc(3rem + var(--wave-height));
-	padding-bottom: calc(3rem + var(--wave-height));
+	/* Clears the deepest point of the wave (100 of the 110px) and then leaves
+	   the same order of air the white sections get, so the banners don't read
+	   as tighter inside just because the wave is eating the top of the box. */
+	padding-top: calc(4rem + var(--wave-height));
+	padding-bottom: calc(4rem + var(--wave-height));
 }
 
 .section:has(> .section__bg-photo)::before,

@@ -2,14 +2,56 @@
 /* Header                                               */
 /* -------------------------------------------------- */
 
+/* The header is sticky, so it spends its life on top of something else — the
+   hero photo first, then the gradient banners. Everything else on the site
+   that overlays imagery is glass; this was the one opaque slab left, so it
+   gets the same treatment.
+
+   Deliberately a light pane rather than the dark recipe: the nav sits in
+   --color-ink, and a white pane keeps that readable over a hero photo of any
+   brightness. Even at the most transparent point of the scroll animation
+   below it stays well clear of the contrast floor. */
 .site-header {
 	display: block;
 	position: sticky;
 	top: 0;
 	z-index: 50;
-	background: #fafafa;
-	border-bottom: 1px solid var(--color-border);
+	background-color: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(14px) saturate(1.6);
+	-webkit-backdrop-filter: blur(14px) saturate(1.6);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+	box-shadow: 0 10px 28px -18px rgba(0, 0, 0, 0.45);
 	padding: 0;
+}
+
+/* Being sticky rather than fixed, nothing is behind the bar until the page
+   moves — so at rest it thins out and reads as part of the page, then settles
+   into a solid pane with a shadow exactly as content starts passing beneath it
+   and it needs to hold its own edge. Same scroll timeline as the hero wave.
+
+   The values above are the settled state on purpose: without scroll-driven
+   animation support the animation is skipped entirely, and the header must
+   land on the opaque end rather than the see-through one. */
+@supports (animation-timeline: scroll()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.site-header {
+			animation: header-condense linear both;
+			animation-timeline: scroll(root block);
+			animation-range: 0 160px;
+		}
+	}
+}
+
+@keyframes header-condense {
+	from {
+		background-color: rgba(255, 255, 255, 0.55);
+		box-shadow: 0 10px 28px -18px rgba(0, 0, 0, 0);
+	}
+
+	to {
+		background-color: rgba(255, 255, 255, 0.9);
+		box-shadow: 0 10px 28px -18px rgba(0, 0, 0, 0.45);
+	}
 }
 
 .site-header__inner {

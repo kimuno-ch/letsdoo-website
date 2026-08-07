@@ -134,6 +134,13 @@
 		--wave-height: 56px;
 	}
 
+	/* The desktop figure is generous on purpose, but a phone is already one
+	   column of stacked blocks — that much padding just turns into scrolling
+	   past empty screens. */
+	.section {
+		padding: 4rem 1.5rem;
+	}
+
 	.section:has(> .section__bg-photo) {
 		padding-top: calc(2rem + var(--wave-height));
 		padding-bottom: calc(2rem + var(--wave-height));
@@ -180,8 +187,12 @@
 		right: 0;
 		flex-direction: column;
 		gap: 0;
-		background: #fafafa;
-		border-top: 1px solid var(--color-border);
+		/* Matches the glass bar it hangs off, but kept much more opaque — this
+		   one has menu items to keep readable over whatever is behind it. */
+		background: rgba(255, 255, 255, 0.94);
+		backdrop-filter: blur(14px) saturate(1.6);
+		-webkit-backdrop-filter: blur(14px) saturate(1.6);
+		border-top: 1px solid rgba(255, 255, 255, 0.6);
 		box-shadow: 0 16px 24px -16px rgba(0, 0, 0, 0.25);
 		padding: 0 1.5rem;
 	}
