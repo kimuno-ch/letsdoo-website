@@ -42,7 +42,9 @@
 	   There are three shapes so the same curve doesn't repeat down a page: A is
 	   even and symmetric, B is phase-shifted with uneven crests, C is wider and
 	   lazier. Each is drawn twice — once with the white above the curve for a
-	   top edge, once mirrored for a bottom edge. 05-sections.css points
+	   top edge, once mirrored for a bottom edge. Every path starts and ends at
+	   the same y so the shape can be tiled edge to edge without a visible seam,
+	   which is what lets the hero wave drift sideways. 05-sections.css points
 	   --wave-top / --wave-bottom at one of the three per section; the values
 	   below are the fallback for anything that doesn't get assigned. */
 	--wave-height: 110px;
@@ -50,11 +52,11 @@
 	--wave-top-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V10 C1320,10 1200,100 1080,100 C960,100 840,10 720,10 C600,10 480,100 360,100 C240,100 120,10 0,10 Z'/%3E%3C/svg%3E");
 	--wave-bottom-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V100 C1320,100 1200,10 1080,10 C960,10 840,100 720,100 C600,100 480,10 360,10 C240,10 120,100 0,100 Z'/%3E%3C/svg%3E");
 
-	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V25 C1280,25 1120,95 960,95 C847,95 733,15 620,15 C493,15 367,100 240,100 C160,100 80,55 0,55 Z'/%3E%3C/svg%3E");
-	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V85 C1280,85 1120,15 960,15 C847,15 733,95 620,95 C493,95 367,10 240,10 C160,10 80,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V55 C1300,55 1150,95 960,95 C847,95 733,15 620,15 C493,15 367,100 240,100 C160,100 80,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V55 C1300,55 1150,15 960,15 C847,15 733,95 620,95 C493,95 367,10 240,10 C160,10 80,55 0,55 Z'/%3E%3C/svg%3E");
 
-	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V80 C1293,80 1147,20 1000,20 C827,20 653,100 480,100 C320,100 160,30 0,30 Z'/%3E%3C/svg%3E");
-	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V30 C1293,30 1147,90 1000,90 C827,90 653,10 480,10 C320,10 160,80 0,80 Z'/%3E%3C/svg%3E");
+	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V55 C1293,55 1147,20 1000,20 C827,20 653,100 480,100 C320,100 160,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V55 C1293,55 1147,90 1000,90 C827,90 653,10 480,10 C320,10 160,55 0,55 Z'/%3E%3C/svg%3E");
 
 	--wave-top: var(--wave-top-a);
 	--wave-bottom: var(--wave-bottom-a);

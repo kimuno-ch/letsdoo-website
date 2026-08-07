@@ -76,6 +76,128 @@
 	background-image: var(--wave-bottom);
 }
 
+/* The banner waves drift sideways and pulse vertically as their section
+   crosses the viewport. Same construction as the hero wave: the band is
+   widened to three section-widths and tiled so there is always more wave to
+   pull in, which is why the section needs to clip. Timed off each
+   pseudo-element's own view() rather than page scroll, so every banner drifts
+   as you reach it instead of all of them moving in lockstep.
+
+   Gated for the same reason as the hero: an animation with no duration and no
+   timeline snaps straight to its end state, so browsers without scroll-driven
+   animations must not see the animation at all. They keep today's static wave,
+   as does anyone who asked for reduced motion. */
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		/* clip, not hidden. `overflow: hidden` would make the section a scroll
+		   container, and view() resolves against the nearest scroll container
+		   — the waves would then hang off a box that never scrolls and sit
+		   frozen at a fixed offset. `overflow: clip` crops the widened band,
+		   and the slack the vertical pulse needs, without creating one. */
+		.section:has(> .section__bg-photo) {
+			overflow: clip;
+			--wave-pulse: calc(var(--wave-height) * 0.15);
+		}
+
+		/* The band is grown by --wave-pulse and the wave graphic pushed to its
+		   outer end, so the extra strip is solid white sitting outside the
+		   section. That backing is what makes the pulse safe: at rest the curve
+		   is inset by the pulse distance and at full pulse it comes out exactly
+		   flush, never past. Without it the crests get clipped flat — they
+		   carry as little as 10px of white above the curve, less than the
+		   pulse travels, and because the wave also drifts, whichever crest
+		   happens to be at that spot gets sheared off at a different scroll
+		   position each time.
+
+		   calc(100% / 3) rather than 33.3333% so the tile is exactly a third of
+		   the widened band and repeats land on the same sub-pixel each time. */
+		.section:has(> .section__bg-photo)::before,
+		.section:has(> .section__bg-photo)::after {
+			left: -100%;
+			right: -100%;
+			height: calc(var(--wave-height) + var(--wave-pulse));
+			background-repeat: repeat-x, repeat-x;
+			background-size:
+				calc(100% / 3) var(--wave-height),
+				100% calc(var(--wave-pulse) + 1px);
+			animation: banner-wave-drift linear both;
+			animation-timeline: view();
+			animation-range: cover 0% cover 100%;
+		}
+
+		.section:has(> .section__bg-photo)::before {
+			background-image: var(--wave-top), linear-gradient(#fff, #fff);
+			background-position: 0 100%, 0 0;
+		}
+
+		/* The bottom wave carries scaleX(-1), and animating transform would
+		   drop it, so its keyframes have to restate the flip. Translating
+		   after the mirror inverts the axis, hence the opposite sign — both
+		   waves end up drifting the same way on screen. */
+		.section:has(> .section__bg-photo)::after {
+			background-image: var(--wave-bottom), linear-gradient(#fff, #fff);
+			background-position: 0 0, 0 100%;
+			animation-name: banner-wave-drift-flipped;
+		}
+	}
+}
+
+/* Every stop lists the same transform functions on purpose. A bare `to` would
+   leave the browser interpolating from the computed value, and for the flipped
+   wave that means decomposing a negative-determinant matrix — which resolves
+   as a rotation and visibly swings the wave.
+
+   The vertical pulse only ever goes one way: the top wave rises and the bottom
+   wave falls. Pushed the other way, each would pull back from the edge it sits
+   on and leave a straight band of the gradient showing above or below it —
+   exactly the hard line these waves exist to hide. Two beats over the pass,
+   riding on top of a steady sideways drift. */
+@keyframes banner-wave-drift {
+	0% {
+		transform: translateX(0) translateY(0);
+	}
+
+	25% {
+		transform: translateX(-2%) translateY(calc(-1 * var(--wave-pulse)));
+	}
+
+	50% {
+		transform: translateX(-4%) translateY(0);
+	}
+
+	75% {
+		transform: translateX(-6%) translateY(calc(-1 * var(--wave-pulse)));
+	}
+
+	100% {
+		transform: translateX(-8%) translateY(0);
+	}
+}
+
+/* scaleX(-1) mirrors the x axis only, so the sideways sign flips to keep both
+   waves drifting the same way on screen while the pulse stays downward. */
+@keyframes banner-wave-drift-flipped {
+	0% {
+		transform: scaleX(-1) translateX(0) translateY(0);
+	}
+
+	25% {
+		transform: scaleX(-1) translateX(2%) translateY(var(--wave-pulse));
+	}
+
+	50% {
+		transform: scaleX(-1) translateX(4%) translateY(0);
+	}
+
+	75% {
+		transform: scaleX(-1) translateX(6%) translateY(var(--wave-pulse));
+	}
+
+	100% {
+		transform: scaleX(-1) translateX(8%) translateY(0);
+	}
+}
+
 /* Which of the three shapes a wave gets — and which of the three background
    blends the section behind it gets — is (section position + page seed) % 3.
    The position alone would vary the shapes down a page but hand every page the
