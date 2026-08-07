@@ -2,12 +2,39 @@
 /* Footer                                               */
 /* -------------------------------------------------- */
 
+/* The footer closes the page the way the banner sections break it up: the same
+   brand blend, entered through a white wave instead of a hairline rule. It
+   isn't a .section, so the seed rules in 05-sections.css never reach it — the
+   shape and blend are picked here by hand, B for both so the pairing matches
+   how the sections assign theirs. */
 .site-footer {
-	padding: 3.5rem 1.5rem 1.5rem;
-	border-top: 1px solid var(--color-border);
+	--wave-top: var(--wave-top-b);
+	--section-blend: var(--blend-b);
+
+	position: relative;
+	background-image: var(--section-blend);
+	color: rgba(255, 255, 255, 0.85);
+	/* Clear the deepest point of the wave before the columns start. */
+	padding: calc(2.5rem + var(--wave-height)) 1.5rem 1.5rem;
+}
+
+.site-footer::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: var(--wave-height);
+	background-image: var(--wave-top);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	pointer-events: none;
+	z-index: 1;
 }
 
 .site-footer__columns {
+	position: relative;
+	z-index: 1;
 	max-width: var(--max-width);
 	margin: 0 auto;
 	display: grid;
@@ -15,9 +42,25 @@
 	gap: 2rem;
 }
 
+/* The logo mark is pink and purple, which all but disappears against the
+   blend, so it sits on its own pane — the light glass recipe rather than flat
+   white, so the blend still shows through and the tile reads as part of the
+   same material as the panels above. */
+.footer-col--brand .site-logo {
+	display: inline-block;
+	border-radius: var(--radius);
+	padding: 0.7rem 0.9rem;
+	line-height: 0;
+	background: var(--glass-light-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-light-border);
+	box-shadow: var(--glass-light-shadow);
+}
+
 .footer-col__title {
 	font-size: 0.8rem;
-	color: var(--color-gradient-start);
+	color: #fff;
 	margin-bottom: 0.8em;
 }
 
@@ -44,6 +87,8 @@
 	gap: 0.75rem;
 }
 
+/* Was the brand gradient, which is now the background it sits on — swapped for
+   the glass treatment so it still reads as a raised control. */
 .social-icon {
 	display: inline-flex;
 	align-items: center;
@@ -51,21 +96,28 @@
 	width: 38px;
 	height: 38px;
 	border-radius: var(--radius);
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: rgba(255, 255, 255, 0.18);
+	border: 1px solid rgba(255, 255, 255, 0.35);
 	color: #fff;
 }
 
+.social-icon:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
 .site-footer__bottom {
+	position: relative;
+	z-index: 1;
 	max-width: var(--max-width);
 	margin: 2.5rem auto 0;
 	padding-top: 1.5rem;
-	border-top: 1px solid var(--color-border);
+	border-top: 1px solid rgba(255, 255, 255, 0.25);
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 1rem;
 	font-size: 0.8rem;
-	color: #999;
+	color: rgba(255, 255, 255, 0.7);
 }
 
 .legal-links {

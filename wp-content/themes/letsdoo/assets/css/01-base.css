@@ -35,6 +35,18 @@
 	--glass-dark-border: 1px solid rgba(255, 255, 255, 0.25);
 	--glass-shadow: 0 20px 45px -22px rgba(0, 0, 0, 0.4);
 
+	/* Light counterpart, for glass that has to sit *under* something rather
+	   than over it — the footer logo tile, where the dark tint would bury a
+	   mark that is already pink and purple. The pane is a gradient rather than
+	   a flat tint and carries an inset highlight along its top edge, which is
+	   what gives it the wet, lit look; kept well over half opaque so the mark
+	   on top still reads against the blend behind. */
+	--glass-light-bg: linear-gradient(140deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.32));
+	--glass-light-border: 1px solid rgba(255, 255, 255, 0.55);
+	--glass-light-shadow:
+		0 10px 30px -12px rgba(0, 0, 0, 0.35),
+		inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
 	/* Wave dividers. Every full-bleed photo area (hero + the photo sections)
 	   meets a white one, so the boundary is softened by laying a white
 	   two-crest wave over the photo's edge instead of cutting straight
