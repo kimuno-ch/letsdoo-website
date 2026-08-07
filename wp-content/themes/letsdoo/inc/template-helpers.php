@@ -56,6 +56,15 @@ function letsdoo_get_leistungen() {
 	) );
 }
 
+function letsdoo_get_vorgehen_schritte() {
+	return get_posts( array(
+		'post_type'      => 'vorgehen_schritt',
+		'posts_per_page' => -1,
+		'orderby'        => 'menu_order',
+		'order'          => 'ASC',
+	) );
+}
+
 function letsdoo_get_team() {
 	return get_posts( array(
 		'post_type'      => 'team_mitglied',
@@ -178,6 +187,8 @@ function letsdoo_icon( $key ) {
 		'support'      => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
 		'training'     => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
 		'check'        => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+		'search'       => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+		'rocket'       => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M13.5 5.5C16 3 20 3 21 3s1 4-1.5 6.5L14 15l-5-5z"/><path d="m9 10-4 1 1.5 1.5M14 15l-1 4-1.5-1.5"/></svg>',
 	);
 	return isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
 }

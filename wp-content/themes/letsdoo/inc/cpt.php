@@ -31,6 +31,31 @@ function letsdoo_register_post_types() {
 		'publicly_queryable' => false,
 	) );
 
+	/*
+	 * The Vorgehen timeline. A post type rather than a repeater field because
+	 * repeaters are ACF Pro only and this install runs the free build — a
+	 * repeater simply never appears in the admin. Ordering is by menu_order, so
+	 * the steps are rearranged with the "Reihenfolge" box like the other lists.
+	 */
+	register_post_type( 'vorgehen_schritt', array(
+		'labels' => array(
+			'name'               => __( 'Vorgehen', 'letsdoo' ),
+			'singular_name'      => __( 'Schritt', 'letsdoo' ),
+			'add_new_item'       => __( 'Neuen Schritt hinzufügen', 'letsdoo' ),
+			'edit_item'          => __( 'Schritt bearbeiten', 'letsdoo' ),
+			'all_items'          => __( 'Vorgehen', 'letsdoo' ),
+			'menu_name'          => __( 'Vorgehen', 'letsdoo' ),
+		),
+		'public'             => false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'menu_icon'          => 'dashicons-chart-line',
+		'supports'           => array( 'title', 'page-attributes' ),
+		'has_archive'        => false,
+		'exclude_from_search'=> true,
+		'publicly_queryable' => false,
+	) );
+
 	register_post_type( 'team_mitglied', array(
 		'labels' => array(
 			'name'               => __( 'Team', 'letsdoo' ),

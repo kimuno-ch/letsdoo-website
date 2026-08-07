@@ -10,7 +10,7 @@ while ( have_posts() ) :
 	$hero_image        = get_field( 'hero_image' );
 	$letsdoo_image     = get_field( 'warum_letsdoo_image' );
 	$leistungen        = letsdoo_get_leistungen();
-	$schritte          = get_field( 'vorgehen_schritte' );
+	$schritte          = letsdoo_get_vorgehen_schritte();
 	?>
 
 	<main id="main" class="site-main">
@@ -94,19 +94,55 @@ while ( have_posts() ) :
 
 		<section class="section section--vorgehen" id="vorgehen">
 			<div class="section__bg-photo"></div>
-			<div class="vorgehen__panel">
+			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'vorgehen_heading' ) ?: 'Unser Vorgehen' ); ?></h2>
 				<p class="section__subheading"><?php echo esc_html( get_field( 'vorgehen_subheading' ) ?: 'Schritt für Schritt zur passenden Lösung.' ); ?></p>
-				<ol class="vorgehen-list">
-					<?php if ( $schritte ) : ?>
-						<?php foreach ( $schritte as $schritt ) : ?>
-							<li><?php echo esc_html( $schritt['schritt_text'] ); ?></li>
-						<?php endforeach; ?>
-					<?php else : ?>
-						<?php foreach ( array( 'Kennenlernen und Bedürfnisse verstehen', 'Prozesse analysieren und planen', 'Odoo implementieren und anpassen', 'Mitarbeitende schulen', 'Langfristig begleiten und unterstützen' ) as $default_schritt ) : ?>
-							<li><?php echo esc_html( $default_schritt ); ?></li>
-						<?php endforeach; ?>
-					<?php endif; ?>
+				<?php
+				/*
+				 * Steps come from the Vorgehen post type. Until any are entered
+				 * the section would stand empty, so it falls back to the five
+				 * steps that used to be hard-coded here — same behaviour as
+				 * before, just rendered as the timeline.
+				 */
+				$schritte_fallback = array(
+					array( 'titel' => 'Kennenlernen', 'text' => 'Wir hören zu und verstehen, wo ihr steht und was ihr braucht.', 'icon' => 'search' ),
+					array( 'titel' => 'Analysieren & planen', 'text' => 'Wir schauen uns eure Prozesse an und legen den Weg fest.', 'icon' => 'settings' ),
+					array( 'titel' => 'Umsetzen', 'text' => 'Odoo wird eingerichtet und auf euren Alltag zugeschnitten.', 'icon' => 'architecture' ),
+					array( 'titel' => 'Schulen', 'text' => 'Euer Team lernt das System an konkreten Beispielen kennen.', 'icon' => 'training' ),
+					array( 'titel' => 'Begleiten', 'text' => 'Nach dem Go-live bleiben wir ansprechbar und entwickeln weiter.', 'icon' => 'support' ),
+				);
+
+				$timeline = array();
+				if ( $schritte ) {
+					foreach ( $schritte as $schritt ) {
+						$timeline[] = array(
+							'titel' => get_the_title( $schritt->ID ),
+							'text'  => get_field( 'beschreibung', $schritt->ID ),
+							'icon'  => get_field( 'icon', $schritt->ID ) ?: 'check',
+						);
+					}
+				} else {
+					$timeline = $schritte_fallback;
+				}
+				?>
+				<ol class="vorgehen-timeline">
+					<?php foreach ( $timeline as $index => $schritt ) : ?>
+						<li class="vorgehen-step">
+							<div class="vorgehen-step__marker" aria-hidden="true">
+								<?php echo letsdoo_icon( $schritt['icon'] ); ?>
+							</div>
+							<span class="vorgehen-step__nummer">
+								<?php
+								/* translators: %s: step number. */
+								printf( esc_html__( 'Schritt %s', 'letsdoo' ), esc_html( $index + 1 ) );
+								?>
+							</span>
+							<h3 class="vorgehen-step__titel"><?php echo esc_html( $schritt['titel'] ); ?></h3>
+							<?php if ( $schritt['text'] ) : ?>
+								<p class="vorgehen-step__text"><?php echo esc_html( $schritt['text'] ); ?></p>
+							<?php endif; ?>
+						</li>
+					<?php endforeach; ?>
 				</ol>
 			</div>
 		</section>

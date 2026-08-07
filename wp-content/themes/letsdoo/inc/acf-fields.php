@@ -90,6 +90,49 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Vorgehen-Schritt (CPT single fields)                */
+	/* -------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_vorgehen_schritt',
+		'title'  => 'Schritt Details',
+		'fields' => array(
+			array(
+				'key'          => 'field_ld_vorgehen_schritt_beschreibung',
+				'label'        => 'Beschreibung',
+				'name'         => 'beschreibung',
+				'type'         => 'textarea',
+				'rows'         => 3,
+				'instructions' => 'Ein bis zwei Sätze. Erscheint unter dem Titel im Zeitstrahl.',
+			),
+			array(
+				'key'     => 'field_ld_vorgehen_schritt_icon',
+				'label'   => 'Icon',
+				'name'    => 'icon',
+				'type'    => 'select',
+				'choices' => array(
+					'search'       => 'Analyse',
+					'architecture' => 'Implementierung',
+					'settings'     => 'Customizing',
+					'training'     => 'Schulung',
+					'support'      => 'Support',
+					'rocket'       => 'Go-live',
+					'check'        => 'Haken',
+				),
+				'default_value' => 'check',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'vorgehen_schritt',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* Teammitglied (CPT single fields)                    */
 	/* -------------------------------------------------- */
 	acf_add_local_field_group( array(
@@ -473,20 +516,10 @@ add_action( 'acf/init', function () {
 				'default_value' => 'Schritt für Schritt zur passenden Lösung.',
 			),
 			array(
-				'key'          => 'field_ld_home_vorgehen_schritte',
-				'label'        => 'Schritte',
-				'name'         => 'vorgehen_schritte',
-				'type'         => 'repeater',
-				'layout'       => 'table',
-				'button_label' => 'Schritt hinzufügen',
-				'sub_fields'   => array(
-					array(
-						'key'   => 'field_ld_home_vorgehen_schritt_text',
-						'label' => 'Schritt',
-						'name'  => 'schritt_text',
-						'type'  => 'text',
-					),
-				),
+				'key'   => 'field_ld_home_vorgehen_hinweis',
+				'label' => 'Schritte',
+				'type'  => 'message',
+				'message' => 'Die einzelnen Schritte werden unter „Vorgehen“ im Menü gepflegt. Die Reihenfolge steuerst du dort über das Feld „Reihenfolge“.',
 			),
 			array(
 				'key'   => 'field_ld_home_vorgehen_bg_image',

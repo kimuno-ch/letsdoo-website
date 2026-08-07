@@ -2,40 +2,92 @@
 /* Vorgehen                                             */
 /* -------------------------------------------------- */
 
-.section--vorgehen {
-	display: flex;
-	align-items: center;
+.section--vorgehen h2,
+.section--vorgehen .section__subheading {
+	color: #fff;
 }
 
-.vorgehen__panel {
+.section--vorgehen .section__subheading {
+	margin-bottom: 3.5rem;
+}
+
+/* Equal-width columns rather than a fixed count, so adding a step under
+   "Vorgehen" reflows the timeline instead of breaking it. */
+.vorgehen-timeline {
+	--vorgehen-marker: 72px;
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	gap: 1.5rem;
+}
+
+.vorgehen-step {
+	position: relative;
+	text-align: center;
+	padding-top: 0.5rem;
+}
+
+/* The connecting rail. Each step draws its own segment across its column at
+   the marker's centre height, and the first and last are trimmed back to the
+   middle so the line starts and stops at a marker rather than hanging off the
+   ends. Doing it per step keeps it independent of how many there are. */
+.vorgehen-step::before {
+	content: "";
+	position: absolute;
+	top: calc(0.5rem + (var(--vorgehen-marker) / 2));
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.vorgehen-step:first-child::before {
+	left: 50%;
+}
+
+.vorgehen-step:last-child::before {
+	right: 50%;
+}
+
+.vorgehen-step__marker {
+	position: relative;
+	z-index: 1;
+	width: var(--vorgehen-marker);
+	height: var(--vorgehen-marker);
+	margin: 0 auto 1.1rem;
+	display: grid;
+	place-items: center;
+	color: #fff;
+	border-radius: 999px;
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
 	-webkit-backdrop-filter: var(--glass-filter);
 	border: var(--glass-dark-border);
 	box-shadow: var(--glass-shadow);
-	border-radius: var(--radius);
-	padding: 2.5rem;
-	max-width: 520px;
-	/* The section stays full-bleed because of .section__bg-photo, so the panel
-	   is pulled in by hand to end at the centred content container's edge. */
-	margin-left: auto;
-	margin-right: max(0px, calc((100% - var(--max-width)) / 2));
 }
 
-.vorgehen__panel h2,
-.vorgehen__panel .section__subheading {
+.vorgehen-step__nummer {
+	display: block;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: rgba(255, 255, 255, 0.75);
+	margin-bottom: 0.35rem;
+}
+
+.vorgehen-step__titel {
 	color: #fff;
+	font-size: 1.05rem;
+	margin: 0 0 0.5em;
 }
 
-.vorgehen-list {
-	list-style: decimal;
-	padding-left: 1.2rem;
+.vorgehen-step__text {
+	color: rgba(255, 255, 255, 0.85);
+	font-size: 0.9rem;
 	margin: 0;
 }
-
-.vorgehen-list li {
-	margin-bottom: 0.5rem;
-	font-weight: 600;
-	color: #fff;
-}
-

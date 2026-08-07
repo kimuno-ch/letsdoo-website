@@ -32,12 +32,52 @@
 		margin-bottom: -2rem;
 	}
 
-	.section--vorgehen {
-		display: block;
+	/* The timeline turns on its side: markers stack down the left with the rail
+	   running between them, text alongside. Five columns of prose never fit a
+	   phone. */
+	.vorgehen-timeline {
+		--vorgehen-marker: 56px;
+
+		grid-auto-flow: row;
+		gap: 1.75rem;
 	}
 
-	.vorgehen__panel {
-		margin-left: 0;
+	.vorgehen-step {
+		display: grid;
+		grid-template-columns: var(--vorgehen-marker) 1fr;
+		column-gap: 1.25rem;
+		align-items: start;
+		text-align: left;
+		padding-top: 0;
+	}
+
+	.vorgehen-step__marker {
+		grid-column: 1;
+		grid-row: 1 / span 3;
+		margin: 0;
+	}
+
+	.vorgehen-step__nummer,
+	.vorgehen-step__titel,
+	.vorgehen-step__text {
+		grid-column: 2;
+	}
+
+	/* Restated for :first-child too — its desktop rule trims the rail with a
+	   left offset that would otherwise survive into this layout. The negative
+	   bottom carries the line across the row gap to the next marker. */
+	.vorgehen-step::before,
+	.vorgehen-step:first-child::before {
+		top: var(--vorgehen-marker);
+		bottom: -1.75rem;
+		left: calc((var(--vorgehen-marker) / 2) - 1px);
+		right: auto;
+		width: 2px;
+		height: auto;
+	}
+
+	.vorgehen-step:last-child::before {
+		display: none;
 	}
 
 	.kontakt-grid {
