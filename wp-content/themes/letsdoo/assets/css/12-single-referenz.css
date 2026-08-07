@@ -199,7 +199,6 @@
 
 .entry-nav__titel {
 	font-family: var(--font-display);
-	text-transform: uppercase;
 	font-size: 1rem;
 	color: var(--color-ink);
 }
