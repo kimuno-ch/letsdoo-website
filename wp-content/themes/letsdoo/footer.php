@@ -57,8 +57,6 @@
 			<div class="legal-links">
 				<span><?php esc_html_e( 'Impressum', 'letsdoo' ); ?></span>
 				<span><?php esc_html_e( 'Datenschutz', 'letsdoo' ); ?></span>
-				<span><?php esc_html_e( 'Cookie-Einstellungen', 'letsdoo' ); ?></span>
-				<span><?php esc_html_e( 'AGB', 'letsdoo' ); ?></span>
 			</div>
 		</div>
 	</footer>

@@ -8,8 +8,7 @@
 }
 
 .section__intro,
-.section__content,
-.kontakt-grid {
+.section__content {
 	max-width: var(--max-width);
 	margin: 0 auto;
 	position: relative;

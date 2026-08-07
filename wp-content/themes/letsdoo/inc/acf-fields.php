@@ -783,14 +783,6 @@ add_action( 'acf/init', function () {
 				'preview_size'  => 'medium',
 			),
 			array(
-				'key'   => 'field_ld_contact_side_image',
-				'label' => 'Bild neben Formular',
-				'name'  => 'side_image',
-				'type'  => 'image',
-				'return_format' => 'array',
-				'preview_size'  => 'medium',
-			),
-			array(
 				'key'   => 'field_ld_contact_form_shortcode',
 				'label' => 'Contact Form 7 Shortcode',
 				'name'  => 'form_shortcode',
