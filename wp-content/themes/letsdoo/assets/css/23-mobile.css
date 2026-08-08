@@ -129,6 +129,54 @@
 	   the token, so the paddings built on it shrink with it. */
 	:root {
 		--wave-height: 56px;
+
+		/* The wavelength the waves hold below this breakpoint — see the rules
+		   underneath. Set to the breakpoint width itself so that at exactly
+		   900px the fixed tile and the stretched 100% are the same size and
+		   the two behaviours meet without a jump. */
+		--wave-length: 900px;
+	}
+
+	/* The shapes are drawn with preserveAspectRatio='none' and painted at 100%
+	   of the section width, so their two crests are stretched to whatever the
+	   viewport happens to be. That is what makes them wide and lazy on a
+	   desktop and steep and cramped on a phone: the wavelength shrinks with the
+	   screen rather than staying put.
+
+	   So below this breakpoint the wave stops stretching and holds a fixed
+	   wavelength, tiling across instead. Every shape starts and ends at the
+	   same y precisely so it can be tiled without a seam (01-base.css), which
+	   is what makes this safe — a narrow screen now shows a slice of the same
+	   curve a desktop shows in full, at the same proportions, instead of the
+	   whole curve compressed into the width. */
+	.hero::after,
+	.section:has(> .section__bg-photo)::before,
+	.section:has(> .section__bg-photo)::after {
+		background-repeat: repeat-x;
+		background-size: var(--wave-length) var(--wave-height);
+	}
+
+	/* The animated variants tile across an element widened to three screen
+	   widths, so they set their own sizes and have to be restated. The banner
+	   waves carry a second layer — the white strip backing the vertical pulse —
+	   which stays proportional and must keep its own size alongside the first. */
+	@supports (animation-timeline: view()) {
+		@media (prefers-reduced-motion: no-preference) {
+			.section:has(> .section__bg-photo)::before,
+			.section:has(> .section__bg-photo)::after {
+				background-size:
+					var(--wave-length) var(--wave-height),
+					100% calc(var(--wave-pulse) + 1px);
+			}
+		}
+	}
+
+	@supports (animation-timeline: scroll()) {
+		@media (prefers-reduced-motion: no-preference) {
+			.hero::after {
+				background-size: var(--wave-length) var(--wave-height);
+			}
+		}
 	}
 
 	/* The desktop figure is generous on purpose, but a phone is already one

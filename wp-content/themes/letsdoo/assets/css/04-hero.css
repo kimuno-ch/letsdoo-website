@@ -186,11 +186,28 @@
 	margin: 0;
 }
 
+/* Width is a share of .hero__inner rather than a fixed 390px. Everything it has
+   to clear is proportional — the panel is 80% of the inner width, the logo is
+   inset 5% from its right edge — so a fixed width meant the gap between the
+   logo's left edge and the text closed as the window narrowed, and the mark
+   started sitting on the copy at around 1150px. 32.5% of the 1200px inner width
+   is 390px, so the desktop size is unchanged and only narrower windows scale. */
 .hero__inner .hero__blob {
 	top: -2.75rem;
-    right: 5%;
-    z-index: 10;
-    width: 390px;
+	right: 5%;
+	z-index: 10;
+	width: 32.5%;
+}
+
+/* The other half of the same problem: the copy holds a fixed 620px while the
+   space available to it shrinks. Capped as a share of the panel below the point
+   where 620px stops fitting, which keeps a 55px or wider gutter to the logo all
+   the way down to 768px — where the blob is hidden and the panel goes full
+   width (23-mobile.css). Scoped to .hero__inner so the sub-page heroes, which
+   have no logo beside them, keep the full 620px. */
+.hero__inner .hero__panel h1,
+.hero__inner .hero__panel p {
+	max-width: min(620px, 72%);
 }
 
 /* Sub pages stay shorter than the home hero — they carry a heading and a line
