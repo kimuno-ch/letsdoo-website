@@ -2,31 +2,58 @@
 /* Warum Let's Doo                                      */
 /* -------------------------------------------------- */
 
-.section--warum-letsdoo {
-	max-width: var(--max-width);
-	margin: 0 auto;
+/* Leistungen above this section and Vorgehen below it are both full-bleed
+   gradient bands, so this one stays white — otherwise the page runs three heavy
+   blocks together with nowhere for the eye to rest.
+
+   Layout follows every other section — .section supplies the padding, an inner
+   .section__content supplies the 1200px. */
+
+.warum-letsdoo__punkte {
 	display: grid;
-	grid-template-columns: 1fr 1.1fr;
+	grid-template-columns: repeat(3, 1fr);
+	/* The 1.5rem the other card grids use. */
+	gap: 1.5rem;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+}
+
+/* The footer logo tile's light glass. Note there is nothing behind these panes
+   for the blur to work on now that the section is plain white again, so what
+   reads is the border, the shadow and the inset top highlight rather than any
+   refraction — a soft white card rather than glass. --glass-dark-bg is not an
+   option here for the same reason: over white it composites to a flat #B0B0B0
+   and drops its text under 3:1. */
+.warum-letsdoo-punkt {
+	background: linear-gradient(140deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-light-border);
+	box-shadow: var(--glass-light-shadow);
+	border-radius: var(--radius);
+	padding: 2rem;
+}
+
+/* Same 56px gradient tile as .leistung-card__icon in 07-leistungen.css —
+   restated rather than shared so neither section can quietly restyle the
+   other. --radius caps at half the box for anything under 48px, so this comes
+   out fully round. */
+.warum-letsdoo-punkt__icon {
+	width: 56px;
+	height: 56px;
+	border-radius: var(--radius);
+	display: flex;
 	align-items: center;
-	gap: 0;
+	justify-content: center;
+	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+	margin-bottom: 1.25rem;
 }
 
-.warum-letsdoo__panel {
-	background: #fff;
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius);
-	padding: 2.5rem;
-	position: relative;
-	z-index: 1;
-	margin-right: -3rem;
-	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.15);
+.warum-letsdoo-punkt h3 {
+	margin-bottom: 0.5em;
 }
 
-.warum-letsdoo__image {
-	min-height: 320px;
-	background-size: cover;
-	background-position: center;
-	border-radius: var(--radius);
-	opacity: 1;
+.warum-letsdoo-punkt p {
+	margin-bottom: 0;
 }
-

@@ -8,7 +8,6 @@ while ( have_posts() ) :
 	the_post();
 
 	$hero_image        = get_field( 'hero_image' );
-	$letsdoo_image     = get_field( 'warum_letsdoo_image' );
 	$leistungen        = letsdoo_get_leistungen();
 	$schritte          = letsdoo_get_vorgehen_schritte();
 	?>
@@ -83,13 +82,39 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--warum-letsdoo" id="warum-letsdoo">
-			<div class="warum-letsdoo__panel">
+			<div class="section__content">
 				<h2><?php echo esc_html( get_field( 'warum_letsdoo_heading' ) ?: "Warum Let's Doo?" ); ?></h2>
-				<p class="section__subheading"><?php echo esc_html( get_field( 'warum_letsdoo_subheading' ) ?: 'Persönlich. Transparent. Lösungsorientiert.' ); ?></p>
-				<p><?php echo esc_html( get_field( 'warum_letsdoo_text' ) ?: 'Wir glauben, dass eine erfolgreiche Digitalisierung mehr braucht als nur Software. Deshalb begleiten wir unsere Kundinnen und Kunden persönlich, kommunizieren offen und entwickeln Lösungen, die im Arbeitsalltag wirklich funktionieren.' ); ?></p>
+				<p class="section__subheading"><?php echo esc_html( get_field( 'warum_letsdoo_subheading' ) ?: 'Was uns von anderen Odoo-Partnern unterscheidet.' ); ?></p>
+				<?php
+				/*
+				 * The three claims that used to sit compressed into the subheading
+				 * as "Persönlich. Transparent. Lösungsorientiert." Same fallback
+				 * approach as the Vorgehen steps below: the section has to stand up
+				 * before the client has filled anything in, so the defaults are real
+				 * copy rather than placeholders.
+				 */
+				$punkte = get_field( 'warum_letsdoo_punkte' );
+				if ( ! $punkte ) {
+					$punkte = array(
+						array( 'icon' => 'support', 'titel' => 'Persönlich', 'text' => 'Ihr habt feste Ansprechpersonen, die eure Prozesse kennen – keine Warteschleife, kein wechselndes Team.' ),
+						array( 'icon' => 'search', 'titel' => 'Transparent', 'text' => 'Aufwand, Zeitplan und Kosten liegen von Anfang an offen auf dem Tisch – auch wenn etwas länger dauert.' ),
+						array( 'icon' => 'rocket', 'titel' => 'Lösungsorientiert', 'text' => 'Wir bauen, was im Arbeitsalltag wirklich funktioniert, statt was auf dem Papier gut aussieht.' ),
+					);
+				}
+				?>
+				<ul class="warum-letsdoo__punkte">
+					<?php foreach ( $punkte as $punkt ) : ?>
+						<li class="warum-letsdoo-punkt">
+							<div class="warum-letsdoo-punkt__icon"><?php echo letsdoo_icon( $punkt['icon'] ?? 'check' ); ?></div>
+							<h3><?php echo esc_html( $punkt['titel'] ?? '' ); ?></h3>
+							<?php if ( ! empty( $punkt['text'] ) ) : ?>
+								<p><?php echo esc_html( $punkt['text'] ); ?></p>
+							<?php endif; ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
 				<?php letsdoo_button( get_field( 'warum_letsdoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_letsdoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
 			</div>
-			<div class="warum-letsdoo__image" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $letsdoo_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></div>
 		</section>
 
 		<section class="section section--vorgehen" id="vorgehen">
