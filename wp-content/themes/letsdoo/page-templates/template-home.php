@@ -88,17 +88,30 @@ while ( have_posts() ) :
 				<?php
 				/*
 				 * The three claims that used to sit compressed into the subheading
-				 * as "Persönlich. Transparent. Lösungsorientiert." Same fallback
-				 * approach as the Vorgehen steps below: the section has to stand up
-				 * before the client has filled anything in, so the defaults are real
-				 * copy rather than placeholders.
+				 * as "Persönlich. Transparent. Lösungsorientiert." Read as three
+				 * flat field groups rather than a repeater, which is Pro-only and
+				 * never reaches this admin (see inc/acf-fields.php). Each falls back
+				 * to real copy the same way the Vorgehen steps below do, so the
+				 * section stands up before the client has filled anything in; a
+				 * pillar with its Titel cleared drops out of the row.
 				 */
-				$punkte = get_field( 'warum_letsdoo_punkte' );
-				if ( ! $punkte ) {
-					$punkte = array(
-						array( 'icon' => 'support', 'titel' => 'Persönlich', 'text' => 'Ihr habt feste Ansprechpersonen, die eure Prozesse kennen – keine Warteschleife, kein wechselndes Team.' ),
-						array( 'icon' => 'search', 'titel' => 'Transparent', 'text' => 'Aufwand, Zeitplan und Kosten liegen von Anfang an offen auf dem Tisch – auch wenn etwas länger dauert.' ),
-						array( 'icon' => 'rocket', 'titel' => 'Lösungsorientiert', 'text' => 'Wir bauen, was im Arbeitsalltag wirklich funktioniert, statt was auf dem Papier gut aussieht.' ),
+				$punkte_defaults = array(
+					1 => array( 'icon' => 'support', 'titel' => 'Persönlich', 'text' => 'Ihr habt feste Ansprechpersonen, die eure Prozesse kennen – keine Warteschleife, kein wechselndes Team.' ),
+					2 => array( 'icon' => 'search', 'titel' => 'Transparent', 'text' => 'Aufwand, Zeitplan und Kosten liegen von Anfang an offen auf dem Tisch – auch wenn etwas länger dauert.' ),
+					3 => array( 'icon' => 'rocket', 'titel' => 'Lösungsorientiert', 'text' => 'Wir bauen, was im Arbeitsalltag wirklich funktioniert, statt was auf dem Papier gut aussieht.' ),
+				);
+
+				$punkte = array();
+				foreach ( $punkte_defaults as $i => $default ) {
+					$titel = get_field( "warum_letsdoo_punkt_{$i}_titel" );
+					$saved = null !== $titel && '' !== $titel;
+					if ( $saved && ! trim( $titel ) ) {
+						continue;
+					}
+					$punkte[] = array(
+						'icon'  => get_field( "warum_letsdoo_punkt_{$i}_icon" ) ?: $default['icon'],
+						'titel' => $saved ? $titel : $default['titel'],
+						'text'  => get_field( "warum_letsdoo_punkt_{$i}_text" ) ?: ( $saved ? '' : $default['text'] ),
 					);
 				}
 				?>

@@ -176,6 +176,30 @@ function letsdoo_merkmale_liste( $text ) {
 }
 
 /**
+ * Parses a Standort "FAQ" textarea into [ 'frage' => ..., 'antwort' => ... ],
+ * one entry per line, question and answer split on the first pipe. Same
+ * textarea-instead-of-repeater reason as letsdoo_merkmale_liste() above.
+ *
+ * A line with no pipe is treated as a question with no answer rather than
+ * being dropped, so a half-finished entry is visible in the page instead of
+ * silently vanishing.
+ */
+function letsdoo_faq_liste( $text ) {
+	$items = array();
+
+	foreach ( letsdoo_lines( $text ) as $line ) {
+		$parts = explode( '|', $line, 2 );
+
+		$items[] = array(
+			'frage'   => trim( $parts[0] ),
+			'antwort' => isset( $parts[1] ) ? trim( $parts[1] ) : '',
+		);
+	}
+
+	return $items;
+}
+
+/**
  * Small line-style icon set for the Angebote page (bento cards, checkmarks),
  * matching the inline SVG icons already used in header.php / footer.php
  * rather than pulling in an icon font.

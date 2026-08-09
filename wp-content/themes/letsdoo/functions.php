@@ -29,7 +29,11 @@ add_action( 'after_setup_theme', 'letsdoo_setup' );
  * CSS is order-sensitive (later rules win, and 23-mobile overrides the rest),
  * so each part is registered with the previous one as its dependency — that
  * makes WordPress emit them in exactly this order. Keep the list in cascade
- * order, and keep 23-mobile last.
+ * order, and keep 23-mobile last among the shared files.
+ *
+ * 24-standort is the one exception, and sits after it: its selectors appear on
+ * no other page and 23-mobile never targets them, so it has nothing to override
+ * and carries its own breakpoints instead.
  */
 function letsdoo_style_parts() {
 	return array(
@@ -56,6 +60,7 @@ function letsdoo_style_parts() {
 		'21-blog-listing',
 		'22-blog-single',
 		'23-mobile',
+		'24-standort',
 	);
 }
 
@@ -118,3 +123,4 @@ require get_theme_file_path( '/inc/cpt.php' );
 require get_theme_file_path( '/inc/acf-fields.php' );
 require get_theme_file_path( '/inc/settings-page.php' );
 require get_theme_file_path( '/inc/template-helpers.php' );
+require get_theme_file_path( '/inc/seo.php' );

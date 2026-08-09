@@ -466,48 +466,116 @@ add_action( 'acf/init', function () {
 				'type'  => 'text',
 				'default_value' => 'Persönlich. Transparent. Lösungsorientiert.',
 			),
+			/*
+			 * Three flat groups rather than a repeater — repeaters are Pro-only
+			 * and never render in this admin (see the file header). The row is
+			 * a fixed three across in the layout, so there is nothing to add or
+			 * reorder and the textarea + letsdoo_lines() trick the Paket
+			 * "Merkmale" field uses would only get in the way of the icon
+			 * select. Leaving a Titel empty drops that pillar from the row.
+			 */
 			array(
-				'key'          => 'field_ld_home_warum_letsdoo_punkte',
-				'label'        => 'Punkte',
-				'name'         => 'warum_letsdoo_punkte',
-				'type'         => 'repeater',
-				'layout'       => 'block',
-				'button_label' => 'Punkt hinzufügen',
-				'instructions' => 'Drei Punkte funktionieren am besten – sie stehen nebeneinander in einer Reihe.',
-				'min'          => 0,
-				'max'          => 4,
-				'sub_fields'   => array(
-					array(
-						'key'     => 'field_ld_home_warum_letsdoo_punkt_icon',
-						'label'   => 'Icon',
-						'name'    => 'icon',
-						'type'    => 'select',
-						'choices' => array(
-							'support'  => 'Persönlich',
-							'search'   => 'Transparent',
-							'rocket'   => 'Lösungsorientiert',
-							'training' => 'Schulung',
-							'settings' => 'Customizing',
-							'check'    => 'Haken',
-						),
-						'default_value' => 'support',
-						'wrapper' => array( 'width' => '25' ),
-					),
-					array(
-						'key'   => 'field_ld_home_warum_letsdoo_punkt_titel',
-						'label' => 'Titel',
-						'name'  => 'titel',
-						'type'  => 'text',
-						'wrapper' => array( 'width' => '75' ),
-					),
-					array(
-						'key'   => 'field_ld_home_warum_letsdoo_punkt_text',
-						'label' => 'Text',
-						'name'  => 'text',
-						'type'  => 'textarea',
-						'rows'  => 3,
-					),
+				'key'   => 'field_ld_home_warum_letsdoo_punkte_tab',
+				'label' => 'Punkte',
+				'name'  => '',
+				'type'  => 'message',
+				'message' => 'Die drei Punkte, die nebeneinander unter dem Untertitel stehen.',
+			),
+
+			array(
+				'key'     => 'field_ld_home_warum_letsdoo_punkt_1_icon',
+				'label'   => 'Punkt 1 – Icon',
+				'name'    => 'warum_letsdoo_punkt_1_icon',
+				'type'    => 'select',
+				'choices' => array(
+					'support'  => 'Persönlich',
+					'search'   => 'Transparent',
+					'rocket'   => 'Lösungsorientiert',
+					'training' => 'Schulung',
+					'settings' => 'Customizing',
+					'check'    => 'Haken',
 				),
+				'default_value' => 'support',
+				'wrapper' => array( 'width' => '25' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_1_titel',
+				'label' => 'Punkt 1 – Titel',
+				'name'  => 'warum_letsdoo_punkt_1_titel',
+				'type'  => 'text',
+				'default_value' => 'Persönlich',
+				'wrapper' => array( 'width' => '75' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_1_text',
+				'label' => 'Punkt 1 – Text',
+				'name'  => 'warum_letsdoo_punkt_1_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+
+			array(
+				'key'     => 'field_ld_home_warum_letsdoo_punkt_2_icon',
+				'label'   => 'Punkt 2 – Icon',
+				'name'    => 'warum_letsdoo_punkt_2_icon',
+				'type'    => 'select',
+				'choices' => array(
+					'support'  => 'Persönlich',
+					'search'   => 'Transparent',
+					'rocket'   => 'Lösungsorientiert',
+					'training' => 'Schulung',
+					'settings' => 'Customizing',
+					'check'    => 'Haken',
+				),
+				'default_value' => 'search',
+				'wrapper' => array( 'width' => '25' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_2_titel',
+				'label' => 'Punkt 2 – Titel',
+				'name'  => 'warum_letsdoo_punkt_2_titel',
+				'type'  => 'text',
+				'default_value' => 'Transparent',
+				'wrapper' => array( 'width' => '75' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_2_text',
+				'label' => 'Punkt 2 – Text',
+				'name'  => 'warum_letsdoo_punkt_2_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+
+			array(
+				'key'     => 'field_ld_home_warum_letsdoo_punkt_3_icon',
+				'label'   => 'Punkt 3 – Icon',
+				'name'    => 'warum_letsdoo_punkt_3_icon',
+				'type'    => 'select',
+				'choices' => array(
+					'support'  => 'Persönlich',
+					'search'   => 'Transparent',
+					'rocket'   => 'Lösungsorientiert',
+					'training' => 'Schulung',
+					'settings' => 'Customizing',
+					'check'    => 'Haken',
+				),
+				'default_value' => 'rocket',
+				'wrapper' => array( 'width' => '25' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_3_titel',
+				'label' => 'Punkt 3 – Titel',
+				'name'  => 'warum_letsdoo_punkt_3_titel',
+				'type'  => 'text',
+				'default_value' => 'Lösungsorientiert',
+				'wrapper' => array( 'width' => '75' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_3_text',
+				'label' => 'Punkt 3 – Text',
+				'name'  => 'warum_letsdoo_punkt_3_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
 			),
 			array(
 				'key'   => 'field_ld_home_warum_letsdoo_button_label',
@@ -1097,6 +1165,148 @@ add_action( 'acf/init', function () {
 					'param'    => 'page_template',
 					'operator' => '==',
 					'value'    => 'page-templates/template-angebote.php',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Standort (SEO landing page fields)                  */
+	/* -------------------------------------------------- */
+
+	/*
+	 * These pages live or die on the copy, not the layout. Google treats a set
+	 * of near-identical location pages as doorway pages and filters them out, so
+	 * the fields that carry the genuinely local content (Lokal-Text, Referenz,
+	 * FAQ) are the point of the whole post type — the instructions say so where
+	 * the editor will actually read them.
+	 */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_standort',
+		'title'  => 'Standort',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_standort_seo_tab',
+				'label' => 'Suchmaschine',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_standort_ort',
+				'label' => 'Ort',
+				'name'  => 'ort',
+				'type'  => 'text',
+				'instructions' => 'Nur der Ortsname, z.B. „Hochdorf“. Wird in Titel, Text und Schema verwendet.',
+				'required' => 1,
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_standort_kanton',
+				'label' => 'Kanton',
+				'name'  => 'kanton',
+				'type'  => 'text',
+				'default_value' => 'Luzern',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_standort_seo_title',
+				'label' => 'SEO-Titel',
+				'name'  => 'seo_title',
+				'type'  => 'text',
+				'instructions' => 'Der <title> für Google. Leer lassen für „Odoo <Ort> – <Seitenname>“. Ziel: unter 60 Zeichen.',
+			),
+			array(
+				'key'   => 'field_ld_standort_meta_description',
+				'label' => 'Meta-Description',
+				'name'  => 'meta_description',
+				'type'  => 'textarea',
+				'rows'  => 2,
+				'instructions' => 'Der Beschreibungstext im Suchergebnis. Ziel: 150–160 Zeichen, mit Ortsname.',
+			),
+
+			array(
+				'key'   => 'field_ld_standort_hero_tab',
+				'label' => 'Hero',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_standort_hero_heading',
+				'label' => 'Titel (H1)',
+				'name'  => 'hero_heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen für „Odoo <Ort>“.',
+			),
+			array(
+				'key'   => 'field_ld_standort_hero_text',
+				'label' => 'Lead-Text',
+				'name'  => 'hero_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_ld_standort_hero_image',
+				'label' => 'Hero-Bild',
+				'name'  => 'hero_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+
+			array(
+				'key'   => 'field_ld_standort_lokal_tab',
+				'label' => 'Lokaler Inhalt',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_standort_lokal_heading',
+				'label' => 'Titel',
+				'name'  => 'lokal_heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen für „Odoo-Partner in <Ort>“.',
+			),
+			array(
+				'key'   => 'field_ld_standort_lokal_text',
+				'label' => 'Text',
+				'name'  => 'lokal_text',
+				'type'  => 'textarea',
+				'rows'  => 8,
+				'instructions' => 'Der wichtigste Teil der Seite. Bitte pro Standort neu schreiben – Branchen in der Region, Anfahrt, konkrete Projekte. Derselbe Text mit ausgetauschtem Ortsnamen wird von Google als Doorway-Page erkannt und fliegt aus dem Index.',
+			),
+			array(
+				'key'   => 'field_ld_standort_referenz',
+				'label' => 'Referenz aus der Region',
+				'name'  => 'referenz',
+				'type'  => 'post_object',
+				'post_type' => array( 'referenz' ),
+				'return_format' => 'id',
+				'allow_null' => 1,
+				'ui' => 1,
+				'instructions' => 'Optional, aber der stärkste Beleg dafür, dass die Seite echt ist.',
+			),
+
+			array(
+				'key'   => 'field_ld_standort_faq_tab',
+				'label' => 'FAQ',
+				'name'  => '',
+				'type'  => 'tab',
+			),
+			array(
+				'key'   => 'field_ld_standort_faq',
+				'label' => 'Fragen',
+				'name'  => 'faq',
+				'type'  => 'textarea',
+				'rows'  => 8,
+				'instructions' => 'Eine Frage pro Zeile, Frage und Antwort mit „|“ getrennt. Beispiel: Betreut ihr auch Firmen in Hochdorf? | Ja – Hochdorf liegt 20 Minuten von unserem Büro in Horw.',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'standort',
 				),
 			),
 		),
