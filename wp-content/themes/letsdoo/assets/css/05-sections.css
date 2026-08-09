@@ -44,14 +44,16 @@
 
 /* Every full-bleed photo section is sandwiched between white ones, so instead
    of a hard horizontal line the white is carried a little way into the photo
-   as a two-crest wave (shapes and height live in 01-base.css). Keying off
-   .section__bg-photo means any future photo section picks the treatment up
+   as a shallow two-layer wave (shapes and height live in 01-base.css). Keying
+   off .section__bg-photo means any future photo section picks the treatment up
    automatically. Where :has() is unsupported the rules drop out and the edges
    simply stay straight. */
 .section:has(> .section__bg-photo) {
-	/* Clears the deepest point of the wave (100 of the 110px) and then leaves
-	   the same order of air the white sections get, so the banners don't read
-	   as tighter inside just because the wave is eating the top of the box. */
+	/* Clears the deepest point of the wave — the solid curve bottoms out around
+	   84 of the 110px and the translucent layer trailing it around 92 — and then
+	   leaves the same order of air the white sections get, so the banners don't
+	   read as tighter inside just because the wave is eating the top of the
+	   box. */
 	padding-top: calc(4rem + var(--wave-height));
 	padding-bottom: calc(4rem + var(--wave-height));
 }
@@ -109,11 +111,9 @@
 		   outer end, so the extra strip is solid white sitting outside the
 		   section. That backing is what makes the pulse safe: at rest the curve
 		   is inset by the pulse distance and at full pulse it comes out exactly
-		   flush, never past. Without it the crests get clipped flat — they
-		   carry as little as 10px of white above the curve, less than the
-		   pulse travels, and because the wave also drifts, whichever crest
-		   happens to be at that spot gets sheared off at a different scroll
-		   position each time.
+		   flush, never past. Without it the section edge would show through
+		   above the crests for most of the pass, and because the wave also
+		   drifts, the gap would open at a different scroll position each time.
 
 		   calc(100% / 3) rather than 33.3333% so the tile is exactly a third of
 		   the widened band and repeats land on the same sub-pixel each time. */

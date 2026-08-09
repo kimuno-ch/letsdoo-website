@@ -48,31 +48,46 @@
 		inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
 	/* Wave dividers. Every full-bleed photo area (hero + the photo sections)
-	   meets a white one, so the boundary is softened by laying a white
-	   two-crest wave over the photo's edge instead of cutting straight
-	   across. All shapes stretch to the section width via
-	   preserveAspectRatio='none'; --wave-height is halved on mobile in
-	   23-mobile.css. Sections opt in from 05-sections.css, the hero from
-	   04-hero.css.
+	   meets a white one, so the boundary is softened by laying a white wave
+	   over the photo's edge instead of cutting straight across. All shapes
+	   stretch to the section width via preserveAspectRatio='none';
+	   --wave-height is halved on mobile in 23-mobile.css. Sections opt in from
+	   05-sections.css, the hero from 04-hero.css.
+
+	   Each shape is two layers in one SVG: a translucent white wave running
+	   ahead of the solid one, so the edge reads as water overlapping itself
+	   rather than as a single cut line. The two carry different wavelengths, so
+	   the gap between them breathes from a few pixels to roughly half the band
+	   across the width instead of tracking the front curve at a fixed offset.
+	   Both layers live in the same graphic on purpose — everything downstream
+	   (the drift, the pulse and its white backing strip, mobile's fixed
+	   wavelength) treats a wave as one background layer, and a second CSS layer
+	   would have to be restated in all of them.
+
+	   The curves are deliberately shallow: about a third of the band's depth,
+	   so the front wave swings ~36px of 110 and the translucent one sits inside
+	   the rest. They used to run nearly the full 110 and read as scallops
+	   rather than as a softened edge.
 
 	   There are three shapes so the same curve doesn't repeat down a page: A is
 	   even and symmetric, B is phase-shifted with uneven crests, C is wider and
 	   lazier. Each is drawn twice — once with the white above the curve for a
 	   top edge, once mirrored for a bottom edge. Every path starts and ends at
-	   the same y so the shape can be tiled edge to edge without a visible seam,
-	   which is what lets the hero wave drift sideways. 05-sections.css points
-	   --wave-top / --wave-bottom at one of the three per section; the values
-	   below are the fallback for anything that doesn't get assigned. */
+	   the same y, with a horizontal tangent there, so the shape can be tiled
+	   edge to edge without a visible seam or kink — which is what lets the hero
+	   wave drift sideways. 05-sections.css points --wave-top / --wave-bottom at
+	   one of the three per section; the values below are the fallback for
+	   anything that doesn't get assigned. */
 	--wave-height: 110px;
 
-	--wave-top-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V10 C1320,10 1200,100 1080,100 C960,100 840,10 720,10 C600,10 480,100 360,100 C240,100 120,10 0,10 Z'/%3E%3C/svg%3E");
-	--wave-bottom-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V100 C1320,100 1200,10 1080,10 C960,10 840,100 720,100 C600,100 480,10 360,10 C240,10 120,100 0,100 Z'/%3E%3C/svg%3E");
+	--wave-top-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V62 C1360,62 1280,80 1200,80 C1120,80 1040,62 960,62 C880,62 800,80 720,80 C640,80 560,62 480,62 C400,62 320,80 240,80 C160,80 80,62 0,62 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V26 C1320,26 1200,62 1080,62 C960,62 840,26 720,26 C600,26 480,62 360,62 C240,62 120,26 0,26 Z'/%3E%3C/svg%3E");
+	--wave-bottom-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V48 C1360,48 1280,30 1200,30 C1120,30 1040,48 960,48 C880,48 800,30 720,30 C640,30 560,48 480,48 C400,48 320,30 240,30 C160,30 80,48 0,48 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V84 C1320,84 1200,48 1080,48 C960,48 840,84 720,84 C600,84 480,48 360,48 C240,48 120,84 0,84 Z'/%3E%3C/svg%3E");
 
-	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V55 C1300,55 1150,95 960,95 C847,95 733,15 620,15 C493,15 367,100 240,100 C160,100 80,55 0,55 Z'/%3E%3C/svg%3E");
-	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V55 C1300,55 1150,15 960,15 C847,15 733,95 620,95 C493,95 367,10 240,10 C160,10 80,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V76 C1320,76 1200,72 1080,72 C970,72 870,88 760,88 C640,88 520,62 400,62 C315,62 225,82 140,82 C95,82 45,76 0,76 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V44 C1300,44 1150,66 960,66 C847,66 733,30 620,30 C493,30 367,64 240,64 C160,64 80,44 0,44 Z'/%3E%3C/svg%3E");
+	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V34 C1320,34 1200,38 1080,38 C970,38 870,22 760,22 C640,22 520,48 400,48 C315,48 225,28 140,28 C95,28 45,34 0,34 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V66 C1300,66 1150,44 960,44 C847,44 733,80 620,80 C493,80 367,46 240,46 C160,46 80,66 0,66 Z'/%3E%3C/svg%3E");
 
-	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V55 C1293,55 1147,20 1000,20 C827,20 653,100 480,100 C320,100 160,55 0,55 Z'/%3E%3C/svg%3E");
-	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V55 C1293,55 1147,90 1000,90 C827,90 653,10 480,10 C320,10 160,55 0,55 Z'/%3E%3C/svg%3E");
+	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V78 C1360,78 1280,62 1200,62 C1055,62 905,92 760,92 C595,92 425,70 260,70 C175,70 85,78 0,78 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V48 C1293,48 1147,30 1000,30 C827,30 653,68 480,68 C320,68 160,48 0,48 Z'/%3E%3C/svg%3E");
+	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V32 C1360,32 1280,48 1200,48 C1055,48 905,18 760,18 C595,18 425,40 260,40 C175,40 85,32 0,32 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V62 C1293,62 1147,80 1000,80 C827,80 653,42 480,42 C320,42 160,62 0,62 Z'/%3E%3C/svg%3E");
 
 	--wave-top: var(--wave-top-a);
 	--wave-bottom: var(--wave-bottom-a);
