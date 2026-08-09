@@ -50,7 +50,7 @@
    simply stay straight. */
 .section:has(> .section__bg-photo) {
 	/* Clears the deepest point of the wave — the solid curve bottoms out around
-	   84 of the 110px and the translucent layer trailing it around 92 — and then
+	   80 of the 110px and the translucent layer trailing it around 100 — and then
 	   leaves the same order of air the white sections get, so the banners don't
 	   read as tighter inside just because the wave is eating the top of the
 	   box. */
@@ -112,7 +112,7 @@
 		   section. That backing is what makes the pulse safe: at rest the curve
 		   is inset by the pulse distance and at full pulse it comes out exactly
 		   flush, never past. Without it the section edge would show through
-		   above the crests for most of the pass, and because the wave also
+		   above the crest for most of the pass, and because the wave also
 		   drifts, the gap would open at a different scroll position each time.
 
 		   calc(100% / 3) rather than 33.3333% so the tile is exactly a third of

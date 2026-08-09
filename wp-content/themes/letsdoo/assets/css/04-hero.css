@@ -59,7 +59,7 @@
 		.hero {
 			/* How far the wave rides up over the hero, and how much scrolling
 			   it takes to get there. The travel is deliberately shorter than
-			   the hero so the crests are still crossing the photo while it's
+			   the hero so the sweep is still crossing the photo while it's
 			   on screen rather than racing off the top. */
 			--hero-wave-travel: 62vh;
 			--hero-wave-range: 80vh;
