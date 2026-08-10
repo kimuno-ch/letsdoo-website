@@ -86,7 +86,23 @@
 }
 
 /* Block-editor content. The wrapper spans the full content width so
-   wide-aligned blocks can breathe, while text keeps a readable measure. */
+   wide-aligned blocks can breathe, while text keeps a readable measure.
+
+   Everything here is scoped with `>` to the post's own top-level prose, and
+   deliberately not written as plain descendant selectors.
+
+   The theme's section blocks (inc/blocks.php) render a whole <section> inside
+   this wrapper, carrying their own headings, images and lists. A bare
+   `.entry-content img` reaches into those and rounds a Referenz logo; a bare
+   `.entry-content h2` resizes every section heading. Because those sections are
+   alignfull, `.entry-content .alignfull img` would also strip the radius from
+   card images that have it everywhere else on the site.
+
+   Gutenberg emits top-level prose as direct children of .entry-content, so the
+   child combinator covers real post content exactly and stops at the boundary
+   of any nested section. Where an element legitimately sits one level down —
+   an <img> inside its <figure>, an <li> inside its list — the descendant part
+   is written after the `>` so it still only applies within top-level prose. */
 
 .entry-content > * {
 	max-width: 780px;
@@ -103,48 +119,53 @@
 	max-width: none;
 }
 
-.entry-content h2 {
+.entry-content > h2 {
 	font-size: clamp(1.4rem, 2.4vw, 1.9rem);
 	margin-top: 3rem;
 }
 
-.entry-content h3 {
+.entry-content > h3 {
 	margin-top: 2.25rem;
 }
 
-.entry-content img {
+.entry-content > img,
+.entry-content > figure img,
+.entry-content > p img {
 	max-width: 100%;
 	height: auto;
 	display: block;
 	border-radius: var(--radius);
 }
 
-.entry-content figure {
+.entry-content > figure {
 	margin-top: 2.5rem;
 	margin-bottom: 2.5rem;
 }
 
-.entry-content figcaption {
+.entry-content > figure figcaption {
 	font-size: 0.85rem;
 	color: #8a8a8a;
 	text-align: center;
 	margin-top: 0.7rem;
 }
 
-.entry-content .alignfull img {
+.entry-content > .alignfull img {
 	border-radius: 0;
 }
 
-.entry-content video,
-.entry-content iframe,
-.entry-content .wp-block-embed__wrapper {
+.entry-content > video,
+.entry-content > iframe,
+.entry-content > figure video,
+.entry-content > figure iframe,
+.entry-content > figure .wp-block-embed__wrapper,
+.entry-content > .wp-block-embed__wrapper {
 	width: 100%;
 	border-radius: var(--radius);
 	overflow: hidden;
 	display: block;
 }
 
-.entry-content blockquote {
+.entry-content > blockquote {
 	border-left: 4px solid var(--color-gradient-start);
 	padding-left: 1.5rem;
 	margin-top: 2.5rem;
@@ -154,12 +175,13 @@
 	color: var(--color-ink);
 }
 
-.entry-content ul,
-.entry-content ol {
+.entry-content > ul,
+.entry-content > ol {
 	padding-left: 1.25rem;
 }
 
-.entry-content li {
+.entry-content > ul li,
+.entry-content > ol li {
 	margin-bottom: 0.5em;
 }
 

@@ -136,19 +136,19 @@ function letsdoo_standort_schema() {
 		wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
 	);
 
-	/* The FAQ block is emitted separately so a page without questions simply
-	   doesn't carry the markup, rather than carrying an empty mainEntity. */
-	$faq = letsdoo_faq_liste( get_field( 'faq' ) );
+	/* The FAQ is emitted separately so a page without questions simply doesn't
+	   carry the markup, rather than carrying an empty mainEntity.
+
+	   Read from the FAQ blocks in post_content, not from a field: the questions
+	   moved into blocks/faq/ so they can be placed anywhere on the page and
+	   repeated. letsdoo_faq_block_items() already drops incomplete pairs. */
+	$faq = letsdoo_faq_block_items();
 	if ( ! $faq ) {
 		return;
 	}
 
 	$entities = array();
 	foreach ( $faq as $item ) {
-		if ( ! $item['frage'] || ! $item['antwort'] ) {
-			continue;
-		}
-
 		$entities[] = array(
 			'@type'          => 'Question',
 			'name'           => $item['frage'],

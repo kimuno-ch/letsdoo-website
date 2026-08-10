@@ -89,11 +89,12 @@ while ( have_posts() ) :
 				/*
 				 * The three claims that used to sit compressed into the subheading
 				 * as "Persönlich. Transparent. Lösungsorientiert." Read as three
-				 * flat field groups rather than a repeater, which is Pro-only and
-				 * never reaches this admin (see inc/acf-fields.php). Each falls back
-				 * to real copy the same way the Vorgehen steps below do, so the
-				 * section stands up before the client has filled anything in; a
-				 * pillar with its Titel cleared drops out of the row.
+				 * flat field groups rather than a repeater, dating from the free
+				 * ACF build; PRO is installed now, so this is a pending migration
+				 * rather than a limitation (see inc/acf-fields.php). Each falls
+				 * back to real copy the same way the Vorgehen steps below do, so
+				 * the section stands up before the client has filled anything in;
+				 * a pillar with its Titel cleared drops out of the row.
 				 */
 				$punkte_defaults = array(
 					1 => array( 'icon' => 'support', 'titel' => 'Persönlich', 'text' => 'Ihr habt feste Ansprechpersonen, die eure Prozesse kennen – keine Warteschleife, kein wechselndes Team.' ),

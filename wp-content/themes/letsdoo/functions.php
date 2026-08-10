@@ -31,9 +31,9 @@ add_action( 'after_setup_theme', 'letsdoo_setup' );
  * makes WordPress emit them in exactly this order. Keep the list in cascade
  * order, and keep 23-mobile last among the shared files.
  *
- * 24-standort is the one exception, and sits after it: its selectors appear on
- * no other page and 23-mobile never targets them, so it has nothing to override
- * and carries its own breakpoints instead.
+ * 24-standort and 25-blocks are the exceptions, and sit after it: their
+ * selectors appear nowhere else and 23-mobile never targets them, so they have
+ * nothing to override and carry their own breakpoints instead.
  */
 function letsdoo_style_parts() {
 	return array(
@@ -61,6 +61,7 @@ function letsdoo_style_parts() {
 		'22-blog-single',
 		'23-mobile',
 		'24-standort',
+		'25-blocks',
 	);
 }
 
@@ -124,3 +125,6 @@ require get_theme_file_path( '/inc/acf-fields.php' );
 require get_theme_file_path( '/inc/settings-page.php' );
 require get_theme_file_path( '/inc/template-helpers.php' );
 require get_theme_file_path( '/inc/seo.php' );
+/* After template-helpers.php — the block render templates call letsdoo_button()
+   and letsdoo_page_url_by_template(). */
+require get_theme_file_path( '/inc/blocks.php' );

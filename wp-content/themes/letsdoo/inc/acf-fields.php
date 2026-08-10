@@ -3,23 +3,53 @@
  * ACF field groups, registered as code so they're version-controlled
  * instead of living only in the database.
  *
- * Note: company-wide settings (address, phone, socials) are NOT modeled
- * as an ACF Options Page — that feature is ACF PRO-only (the free plugin
- * only ships a locked preview of it, calling acf_add_options_page() on
- * free fatals). Those fields live in inc/settings-page.php instead, a
- * plain Settings API page under Einstellungen → Firmenangaben.
+ * This site runs ACF PRO (see "Custom fields (ACF PRO)" in the README), so
+ * repeaters, have_rows()/the_row(), Flexible Content, Clone fields and
+ * Options Pages all work, and the Pro IDE stubs in composer.json match the
+ * runtime.
  *
- * Heads-up on autocomplete: the IDE stubs in composer.json are ACF *Pro*
- * (no free-only package exists), but this site runs ACF free. So the editor
- * will happily suggest Pro-only APIs — have_rows(), the_row(), repeater
- * fields — that do not work here. On free ACF, get_field() on a repeater
- * returns the row count as a *string*, which is truthy and silently renders
- * an empty list. Use a textarea + letsdoo_lines() instead (see the Paket
- * "Merkmale" field for the established pattern).
+ * Several free-edition workarounds are still in place and still supported —
+ * they hold live content, and converting one moves its meta keys, so each
+ * needs its own migration rather than a sweep:
+ *
+ *   - Paket "Merkmale", Leistung "Merkmale" and Standort "FAQ" are textareas
+ *     parsed by letsdoo_merkmale_liste() / letsdoo_faq_liste().
+ *   - warum_letsdoo_punkt_1/2/3_* are nine flat fields instead of a repeater.
+ *   - Company-wide settings live in inc/settings-page.php, a plain Settings
+ *     API page under Einstellungen → Firmenangaben, not an Options Page.
+ *
+ * New fields should use the Pro types; don't copy the workarounds.
  */
 
 if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 	return;
+}
+
+/**
+ * The "Farbverlauf-Hintergrund" switch shared by the section blocks.
+ *
+ * A plain function rather than an ACF Clone field: clone needs a source group
+ * parked on a location that never matches, and for one boolean that indirection
+ * costs more than it saves. Field keys have to be unique across groups, hence
+ * the per-block suffix.
+ *
+ * Turning it on gives the section the coloured blend and a wave at each edge
+ * (05-sections.css). The design assumes those alternate down the page, so the
+ * instructions say as much where an editor will read them.
+ *
+ * @param string $key_suffix Unique fragment for the field key, e.g. "leistungen".
+ * @param int    $default    1 for sections that carried the treatment before.
+ */
+function letsdoo_block_blend_field( $key_suffix, $default = 0 ) {
+	return array(
+		'key'           => "field_ld_block_{$key_suffix}_blend",
+		'label'         => 'Farbverlauf-Hintergrund',
+		'name'          => 'bg_blend',
+		'type'          => 'true_false',
+		'ui'            => 1,
+		'default_value' => $default,
+		'instructions'  => 'Farbiger Hintergrund mit Wellen. Am besten abwechselnd einsetzen – zwei farbige Abschnitte direkt untereinander stossen hart aneinander.',
+	);
 }
 
 add_action( 'acf/init', function () {
@@ -960,77 +990,21 @@ add_action( 'acf/init', function () {
 				'name'  => '',
 				'type'  => 'tab',
 			),
+			/*
+			 * Only the section heading. The cards themselves come from the
+			 * Leistung post type, the same ones the home page renders — there
+			 * was a second, parallel "Leistungen" repeater here that no template
+			 * ever read. It was invisible while this site ran ACF free, so it
+			 * did no harm; under PRO it rendered as a working field that
+			 * silently threw its content away, so it is gone.
+			 */
 			array(
 				'key'   => 'field_ld_angebote_leistungen_heading',
 				'label' => 'Titel',
 				'name'  => 'leistungen_heading',
 				'type'  => 'text',
 				'default_value' => 'Unsere Leistungen',
-			),
-			array(
-				'key'          => 'field_ld_angebote_leistungen',
-				'label'        => 'Leistungen',
-				'name'         => 'leistungen',
-				'type'         => 'repeater',
-				'layout'       => 'block',
-				'button_label' => 'Leistung hinzufügen',
-				'instructions' => 'Karten werden abwechselnd gross (mit Bild) und klein dargestellt.',
-				'sub_fields'   => array(
-					array(
-						'key'     => 'field_ld_angebote_leistung_icon',
-						'label'   => 'Icon',
-						'name'    => 'icon',
-						'type'    => 'select',
-						'choices' => array(
-							'architecture' => 'Implementierung',
-							'settings'     => 'Customizing',
-							'support'      => 'Support',
-							'training'     => 'Schulung',
-							'check'        => 'Haken',
-						),
-						'default_value' => 'architecture',
-						'wrapper' => array( 'width' => '25' ),
-					),
-					array(
-						'key'   => 'field_ld_angebote_leistung_titel',
-						'label' => 'Titel',
-						'name'  => 'titel',
-						'type'  => 'text',
-						'wrapper' => array( 'width' => '75' ),
-					),
-					array(
-						'key'   => 'field_ld_angebote_leistung_text',
-						'label' => 'Text',
-						'name'  => 'text',
-						'type'  => 'textarea',
-						'rows'  => 3,
-					),
-					array(
-						'key'   => 'field_ld_angebote_leistung_bild',
-						'label' => 'Bild',
-						'name'  => 'bild',
-						'type'  => 'image',
-						'return_format' => 'array',
-						'preview_size'  => 'medium',
-						'instructions'  => 'Wird nur auf den grossen Karten angezeigt.',
-					),
-					array(
-						'key'          => 'field_ld_angebote_leistung_merkmale',
-						'label'        => 'Merkmale',
-						'name'         => 'merkmale',
-						'type'         => 'repeater',
-						'layout'       => 'table',
-						'button_label' => 'Merkmal hinzufügen',
-						'sub_fields'   => array(
-							array(
-								'key'   => 'field_ld_angebote_leistung_merkmal_text',
-								'label' => 'Merkmal',
-								'name'  => 'text',
-								'type'  => 'text',
-							),
-						),
-					),
-				),
+				'instructions' => 'Die Karten selbst werden unter Leistungen im Menü gepflegt.',
 			),
 
 			array(
@@ -1171,6 +1145,291 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Block: Textabschnitt                                */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_textabschnitt',
+		'title'  => 'Textabschnitt',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_text_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen für „Odoo-Partner in &lt;Ort&gt;“ (nur auf Standortseiten).',
+			),
+			/*
+			 * WYSIWYG, not a textarea. This is the field the Standort pages live
+			 * or die on — Google filters out sets of near-identical location
+			 * pages — and until now it could not carry so much as a link.
+			 */
+			array(
+				'key'          => 'field_ld_block_text_text',
+				'label'        => 'Text',
+				'name'         => 'text',
+				'type'         => 'wysiwyg',
+				'tabs'         => 'visual',
+				'media_upload' => 0,
+				'delay'        => 1,
+				'instructions' => 'Auf Standortseiten bitte pro Ort neu schreiben – Branchen in der Region, Anfahrt, konkrete Projekte. Derselbe Text mit ausgetauschtem Ortsnamen wird von Google als Doorway-Page erkannt.',
+			),
+			letsdoo_block_blend_field( 'text' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/textabschnitt' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Leistungen                                   */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_leistungen',
+		'title'  => 'Leistungen',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_leistungen_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen für „Unsere Leistungen für &lt;Ort&gt;“. Die Karten selbst werden unter Leistungen im Menü gepflegt.',
+			),
+			letsdoo_block_blend_field( 'leistungen', 1 ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/leistungen' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Referenz-Karte                               */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_referenz',
+		'title'  => 'Referenz-Karte',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_referenz_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'instructions' => 'Leer lassen für „Aus der Region &lt;Ort&gt;“.',
+			),
+			array(
+				'key'   => 'field_ld_block_referenz_referenz',
+				'label' => 'Referenz',
+				'name'  => 'referenz',
+				'type'  => 'post_object',
+				'post_type' => array( 'referenz' ),
+				'return_format' => 'id',
+				'allow_null' => 1,
+				'ui' => 1,
+				'instructions' => 'Auf einer Standortseite der stärkste Beleg dafür, dass die Seite echt ist.',
+			),
+			letsdoo_block_blend_field( 'referenz' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/referenz-karte' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Zahlen                                       */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_zahlen',
+		'title'  => 'Zahlen',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_zahlen_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_ld_block_zahlen_text',
+				'label' => 'Text',
+				'name'  => 'text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			array(
+				'key'          => 'field_ld_block_zahlen_liste',
+				'label'        => 'Zahlen',
+				'name'         => 'zahlen',
+				'type'         => 'repeater',
+				'layout'       => 'table',
+				'button_label' => 'Zahl hinzufügen',
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_ld_block_zahl_wert',
+						'label' => 'Zahl',
+						'name'  => 'wert',
+						'type'  => 'text',
+						'wrapper' => array( 'width' => '30' ),
+					),
+					array(
+						'key'   => 'field_ld_block_zahl_label',
+						'label' => 'Beschriftung',
+						'name'  => 'label',
+						'type'  => 'text',
+						'wrapper' => array( 'width' => '70' ),
+					),
+				),
+			),
+			letsdoo_block_blend_field( 'zahlen', 1 ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/zahlen' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: FAQ                                          */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_faq',
+		'title'  => 'FAQ',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_faq_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'placeholder' => 'Häufige Fragen',
+			),
+			/*
+			 * Replaces the "Frage | Antwort, eine pro Zeile" textarea. Besides
+			 * being easier to fill in, the split fields are what let inc/seo.php
+			 * emit FAQPage structured data without re-parsing free text.
+			 */
+			array(
+				'key'          => 'field_ld_block_faq_fragen',
+				'label'        => 'Fragen',
+				'name'         => 'fragen',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => 'Frage hinzufügen',
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_ld_block_faq_frage',
+						'label' => 'Frage',
+						'name'  => 'frage',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_ld_block_faq_antwort',
+						'label' => 'Antwort',
+						'name'  => 'antwort',
+						'type'  => 'textarea',
+						'rows'  => 3,
+						'instructions' => 'Ohne Antwort erscheint die Frage auf der Seite, aber nicht im Google-Schema.',
+					),
+				),
+			),
+			letsdoo_block_blend_field( 'faq' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/faq' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: CTA-Band                                     */
+	/* -------------------------------------------------- */
+
+	/*
+	 * Fields for the letsdoo/cta-band block (see blocks/cta-band/). Located by
+	 * block name rather than post type, so the group follows the block wherever
+	 * it is inserted.
+	 *
+	 * Everything is optional: render.php falls back to the copy these bands
+	 * used while they were hardcoded, so an inserted block is presentable
+	 * before it is filled in.
+	 */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_cta_band',
+		'title'  => 'CTA-Band',
+		'fields' => array(
+			array(
+				'key'     => 'field_ld_block_cta_variante',
+				'label'   => 'Darstellung',
+				'name'    => 'variante',
+				'type'    => 'select',
+				'choices' => array(
+					'karte' => 'Karte mit Farbverlauf',
+					'voll'  => 'Vollbreite mit Farbverlauf-Hintergrund',
+				),
+				'default_value' => 'karte',
+				'instructions'  => 'Die Vollbreiten-Variante bringt eigene Wellen mit – nicht direkt neben einen anderen farbigen Abschnitt setzen.',
+			),
+			array(
+				'key'   => 'field_ld_block_cta_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'placeholder' => 'Bereit für den nächsten Schritt?',
+				'instructions' => 'Leer lassen für „Odoo-Projekt in &lt;Ort&gt; geplant?“ (auf Standortseiten) bzw. „Bereit für den nächsten Schritt?“.',
+			),
+			array(
+				'key'   => 'field_ld_block_cta_text',
+				'label' => 'Text',
+				'name'  => 'text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			/*
+			 * Link fields rather than the label + URL text pairs used elsewhere
+			 * in this file: one field instead of two, and the editor gets the
+			 * WordPress link picker with page search instead of having to paste
+			 * a full URL that breaks when a page is re-slugged.
+			 */
+			array(
+				'key'   => 'field_ld_block_cta_button',
+				'label' => 'Button (primär)',
+				'name'  => 'button',
+				'type'  => 'link',
+				'return_format' => 'array',
+				'instructions'  => 'Leer lassen für „Kontakt aufnehmen“ zur Kontaktseite.',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'   => 'field_ld_block_cta_button2',
+				'label' => 'Button (sekundär)',
+				'name'  => 'button2',
+				'type'  => 'link',
+				'return_format' => 'array',
+				'instructions'  => 'Optional. Wird nur angezeigt, wenn gesetzt.',
+				'wrapper' => array( 'width' => '50' ),
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'block',
+					'operator' => '==',
+					'value'    => 'letsdoo/cta-band',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* Standort (SEO landing page fields)                  */
 	/* -------------------------------------------------- */
 
@@ -1213,7 +1472,18 @@ add_action( 'acf/init', function () {
 				'label' => 'SEO-Titel',
 				'name'  => 'seo_title',
 				'type'  => 'text',
-				'instructions' => 'Der <title> für Google. Leer lassen für „Odoo <Ort> – <Seitenname>“. Ziel: unter 60 Zeichen.',
+				/*
+				 * The entities are load-bearing. ACF prints instructions as raw
+				 * HTML, so a literal <title> here opened a RAWTEXT element in the
+				 * middle of the edit screen and the browser swallowed the whole
+				 * rest of the document as title text — including the footer where
+				 * the block editor scripts are printed. The result was a blank
+				 * white edit screen with no JS error and nothing in the PHP log.
+				 * Placeholders like <Ort> are less dramatic but still wrong: the
+				 * parser drops them as unknown tags, so the hint rendered as
+				 * „Odoo  – “. Escape angle brackets in every instruction.
+				 */
+				'instructions' => 'Der &lt;title&gt; für Google. Leer lassen für „Odoo &lt;Ort&gt; – &lt;Seitenname&gt;“. Ziel: unter 60 Zeichen.',
 			),
 			array(
 				'key'   => 'field_ld_standort_meta_description',
@@ -1235,7 +1505,7 @@ add_action( 'acf/init', function () {
 				'label' => 'Titel (H1)',
 				'name'  => 'hero_heading',
 				'type'  => 'text',
-				'instructions' => 'Leer lassen für „Odoo <Ort>“.',
+				'instructions' => 'Leer lassen für „Odoo &lt;Ort&gt;“.',
 			),
 			array(
 				'key'   => 'field_ld_standort_hero_text',
@@ -1253,53 +1523,21 @@ add_action( 'acf/init', function () {
 				'preview_size'  => 'medium',
 			),
 
-			array(
-				'key'   => 'field_ld_standort_lokal_tab',
-				'label' => 'Lokaler Inhalt',
-				'name'  => '',
-				'type'  => 'tab',
-			),
-			array(
-				'key'   => 'field_ld_standort_lokal_heading',
-				'label' => 'Titel',
-				'name'  => 'lokal_heading',
-				'type'  => 'text',
-				'instructions' => 'Leer lassen für „Odoo-Partner in <Ort>“.',
-			),
-			array(
-				'key'   => 'field_ld_standort_lokal_text',
-				'label' => 'Text',
-				'name'  => 'lokal_text',
-				'type'  => 'textarea',
-				'rows'  => 8,
-				'instructions' => 'Der wichtigste Teil der Seite. Bitte pro Standort neu schreiben – Branchen in der Region, Anfahrt, konkrete Projekte. Derselbe Text mit ausgetauschtem Ortsnamen wird von Google als Doorway-Page erkannt und fliegt aus dem Index.',
-			),
-			array(
-				'key'   => 'field_ld_standort_referenz',
-				'label' => 'Referenz aus der Region',
-				'name'  => 'referenz',
-				'type'  => 'post_object',
-				'post_type' => array( 'referenz' ),
-				'return_format' => 'id',
-				'allow_null' => 1,
-				'ui' => 1,
-				'instructions' => 'Optional, aber der stärkste Beleg dafür, dass die Seite echt ist.',
-			),
-
-			array(
-				'key'   => 'field_ld_standort_faq_tab',
-				'label' => 'FAQ',
-				'name'  => '',
-				'type'  => 'tab',
-			),
-			array(
-				'key'   => 'field_ld_standort_faq',
-				'label' => 'Fragen',
-				'name'  => 'faq',
-				'type'  => 'textarea',
-				'rows'  => 8,
-				'instructions' => 'Eine Frage pro Zeile, Frage und Antwort mit „|“ getrennt. Beispiel: Betreut ihr auch Firmen in Hochdorf? | Ja – Hochdorf liegt 20 Minuten von unserem Büro in Horw.',
-			),
+			/*
+			 * The local copy, the regional Referenz and the FAQ used to be
+			 * fields here. They are blocks now (blocks/textabschnitt,
+			 * blocks/referenz-karte, blocks/faq) so each town can carry a
+			 * different set in a different order.
+			 *
+			 * What stays is what describes the page rather than a section of
+			 * it: the town, and what Google is shown in the result. Those
+			 * belong in the sidebar, not in the canvas.
+			 *
+			 * The old meta is deliberately left in the database — removing a
+			 * field definition does not delete its values, so the pre-block
+			 * content is still recoverable if a migration turns out to have
+			 * dropped something.
+			 */
 		),
 		'location' => array(
 			array(

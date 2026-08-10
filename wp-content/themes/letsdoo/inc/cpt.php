@@ -32,10 +32,12 @@ function letsdoo_register_post_types() {
 	) );
 
 	/*
-	 * The Vorgehen timeline. A post type rather than a repeater field because
-	 * repeaters are ACF Pro only and this install runs the free build — a
-	 * repeater simply never appears in the admin. Ordering is by menu_order, so
-	 * the steps are rearranged with the "Reihenfolge" box like the other lists.
+	 * The Vorgehen timeline. Originally a post type because repeaters were not
+	 * available on the free ACF build this site used to run; it stays one now
+	 * that PRO is installed, because the steps are shared by the home page and
+	 * every Standort page and a repeater would tie them to a single post.
+	 * Ordering is by menu_order, so the steps are rearranged with the
+	 * "Reihenfolge" box like the other lists.
 	 */
 	register_post_type( 'vorgehen_schritt', array(
 		'labels' => array(
@@ -141,7 +143,28 @@ function letsdoo_register_post_types() {
 		'show_in_menu'       => true,
 		'show_in_nav_menus'  => false,
 		'menu_icon'          => 'dashicons-location',
-		'supports'           => array( 'title', 'thumbnail' ),
+		/*
+		 * The body of a Standort page is built from the theme's blocks (see
+		 * inc/blocks.php), so it needs the editor — and show_in_rest, without
+		 * which the block editor never loads at all and the field falls back to
+		 * the classic textarea.
+		 */
+		'supports'           => array( 'title', 'thumbnail', 'editor' ),
+		'show_in_rest'       => true,
+		/*
+		 * The skeleton a new Standort opens with. Not locked: the sections are
+		 * meant to be added to, reordered and dropped per town — a page that is
+		 * structurally identical to every other Standort is the doorway page
+		 * this post type is trying not to be. It exists so nobody has to
+		 * remember the running order from scratch.
+		 */
+		'template'           => array(
+			array( 'letsdoo/textabschnitt' ),
+			array( 'letsdoo/leistungen' ),
+			array( 'letsdoo/referenz-karte' ),
+			array( 'letsdoo/faq' ),
+			array( 'letsdoo/cta-band' ),
+		),
 		'has_archive'        => false,
 		'exclude_from_search'=> true,
 		'publicly_queryable' => true,

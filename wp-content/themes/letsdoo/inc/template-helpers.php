@@ -144,8 +144,11 @@ function letsdoo_page_url_by_template( $template, $fallback_path = '/' ) {
 
 /**
  * Splits a textarea field into trimmed, non-empty lines — used for the
- * Paket "Merkmale" field since the free ACF plugin doesn't support
- * repeater sub-fields.
+ * Paket "Merkmale" field and the Standort "Lokaler Inhalt" paragraphs.
+ *
+ * Dates from the free ACF build, where repeater sub-fields were unavailable.
+ * PRO is installed now, so these textareas are a pending migration; they still
+ * hold live content, and converting one moves its meta keys.
  */
 function letsdoo_lines( $text ) {
 	if ( ! $text ) {
@@ -175,29 +178,12 @@ function letsdoo_merkmale_liste( $text ) {
 	return $items;
 }
 
-/**
- * Parses a Standort "FAQ" textarea into [ 'frage' => ..., 'antwort' => ... ],
- * one entry per line, question and answer split on the first pipe. Same
- * textarea-instead-of-repeater reason as letsdoo_merkmale_liste() above.
- *
- * A line with no pipe is treated as a question with no answer rather than
- * being dropped, so a half-finished entry is visible in the page instead of
- * silently vanishing.
+/*
+ * letsdoo_faq_liste() used to live here — it split the Standort "FAQ" textarea
+ * on "|" into question/answer pairs. The FAQ is a block with a proper repeater
+ * now (blocks/faq/), so nothing calls it. The one-off conversion carries its
+ * own copy of the parser: tools/migrate-standorte-to-blocks.php.
  */
-function letsdoo_faq_liste( $text ) {
-	$items = array();
-
-	foreach ( letsdoo_lines( $text ) as $line ) {
-		$parts = explode( '|', $line, 2 );
-
-		$items[] = array(
-			'frage'   => trim( $parts[0] ),
-			'antwort' => isset( $parts[1] ) ? trim( $parts[1] ) : '',
-		);
-	}
-
-	return $items;
-}
 
 /**
  * Small line-style icon set for the Angebote page (bento cards, checkmarks),

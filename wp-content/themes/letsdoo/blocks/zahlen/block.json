@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "letsdoo/zahlen",
+	"title": "Zahlen",
+	"description": "Kennzahlen-Raster mit grosser Zahl und Beschriftung.",
+	"category": "letsdoo",
+	"icon": "chart-bar",
+	"keywords": [ "zahlen", "kennzahlen", "statistik" ],
+	"textdomain": "letsdoo",
+	"supports": {
+		"anchor": true,
+		"align": [ "full" ],
+		"html": false,
+		"customClassName": false,
+		"reusable": false
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" }
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

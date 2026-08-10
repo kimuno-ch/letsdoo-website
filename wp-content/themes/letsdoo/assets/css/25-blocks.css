@@ -1,0 +1,153 @@
+/* -------------------------------------------------- */
+/* ACF section blocks                                   */
+/* -------------------------------------------------- */
+
+/* The theme's section blocks (inc/blocks.php) reuse the section markup the page
+   templates emit, so they inherit that styling for free. Two things do not come
+   for free, and both are handled here.
+
+   Everything is scoped to .ld-block-section. The page templates decide their own
+   backgrounds and are already correct; nothing below may reach them. */
+
+
+/* -------------------------------------------------- */
+/* 1. Full-bleed inside a post body                     */
+/* -------------------------------------------------- */
+
+/* A band in a post body is boxed in twice: .entry-content caps its children at
+   780px, and the .section__content wrapping the whole post body caps everything
+   at --max-width. "alignfull" only clears the first — the section still came out
+   1200px wide and inset 93px, while the same block on a Standort (a direct child
+   of <main>) ran edge to edge. Two bands of different widths for the same block
+   is the bug.
+
+   The negative margins are measured against the viewport because the 1200px
+   ancestor is what has to be escaped, and nothing in the cascade knows how far
+   off-centre that ancestor sits.
+
+   Only the .section wrapper breaks out. .section__content inside it still
+   centres on --max-width, so the text column lands exactly where it does on a
+   Standort.
+
+   .section--cta-banner is excluded on purpose. It is not a full-bleed band: it
+   is a centred --max-width container holding a gradient card, and letting it
+   break out stretched that card to 1352px where every other CTA on the site
+   sits at 1152. */
+.entry-content > .ld-block-section.alignfull:not(.section--cta-banner) {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+/* 100vw counts the scrollbar; the layout viewport does not. On a desktop with
+   classic (non-overlay) scrollbars the band therefore overhangs by the
+   scrollbar's width and would add a horizontal scrollbar of its own.
+
+   Clipped on .site-main rather than on body: the site header is position:sticky
+   and lives outside <main>, so this cannot affect it. clip, not hidden — hidden
+   would make this a scroll container and the waves' view() timelines resolve
+   against the nearest one, which is the same trap 05-sections.css calls out. */
+.site-main {
+	overflow-x: clip;
+}
+
+
+/* -------------------------------------------------- */
+/* 2. Spacing inside a post body                        */
+/* -------------------------------------------------- */
+
+/* Inside .entry-content a section is nested in .section--blog-inhalt and its
+   7rem of padding, so its own 7rem stacks on top and leaves a chasm.
+
+   Only plain sections are tightened. A section carrying the blend has a wave
+   at each edge and 05-sections.css gives it `calc(4rem + var(--wave-height))`
+   to clear them; overriding that with a flat 3rem pulls the heading up under
+   the wave, which is exactly what it looked like. */
+.entry-content > .ld-block-section:not(:has(> .section__bg-photo)) {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+/* .entry-content > * gives every child a bottom margin for prose rhythm. On a
+   band that is wrong twice over: the section already carries its own padding,
+   and the margin opens a white stripe between two adjacent bands — exactly
+   where the wave dividers are supposed to meet. */
+.entry-content > .ld-block-section {
+	margin-bottom: 0;
+}
+
+/* Prose after a band still needs its rhythm back. */
+.entry-content > .ld-block-section + * {
+	margin-top: 1.5rem;
+}
+
+.entry-content > .ld-block-section:first-child:not(:has(> .section__bg-photo)) {
+	padding-top: 0;
+}
+
+.entry-content > .ld-block-section:last-child:not(:has(> .section__bg-photo)) {
+	padding-bottom: 0;
+}
+
+
+/* -------------------------------------------------- */
+/* 3. Type colour follows the background switch         */
+/* -------------------------------------------------- */
+
+/* Each section class was written for exactly one background, because until now
+   a template chose it: .section--leistungen and .section--zahlen paint their
+   headings white and their cards in dark glass for the gradient, while the FAQ
+   and the Textabschnitt use dark ink for white. The "Farbverlauf-Hintergrund"
+   switch makes that choice per block, so either can now end up on the wrong
+   ground — white text on white, or ink on the gradient. These two blocks put
+   the type back on whichever side the switch landed. */
+
+/* On the gradient: everything inverts. */
+.ld-block-section:has(> .section__bg-photo) :is(h2, h3, h4, p, dt, dd, li, .section__subheading) {
+	color: #fff;
+}
+
+/* The FAQ rules are the one place a rule colour also has to change: hairlines
+   tuned for white are invisible on the blend. */
+.ld-block-section:has(> .section__bg-photo) .standort-faq__item {
+	border-top-color: rgba(255, 255, 255, 0.35);
+}
+
+.ld-block-section:has(> .section__bg-photo) .standort-faq__item:last-child {
+	border-bottom-color: rgba(255, 255, 255, 0.35);
+}
+
+/* On white: back to ink, and the glass cards become real cards. --glass-dark-bg
+   is a dark tint meant to sit over a photograph; on white it just reads as a
+   grey box, and the white card text inside it disappears. Same recipe as
+   .referenz-card, which has always sat on white. */
+.ld-block-section:not(:has(> .section__bg-photo)) :is(h2, h3, h4, p, dt, dd, li, .section__subheading) {
+	color: var(--color-ink);
+}
+
+.ld-block-section:not(:has(> .section__bg-photo)) :is(.leistung-card, .zahl-card, .zahlen__intro) {
+	background: #fff;
+	border: 1px solid var(--color-border);
+	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+/* The icon tile keeps its gradient fill, so its glyph stays white either way. */
+.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card__icon {
+	color: #fff;
+}
+
+/* Exceptions: boxes that bring their own colour and so ignore the switch
+   entirely. The CTA card paints a gradient on an otherwise plain section, so
+   the "on white" rule above would have turned its heading black on pink.
+
+   It has to repeat that rule's `:not(:has(…))` to outweigh it. :is() takes the
+   highest specificity among its arguments, and that list contains
+   .section__subheading — a class — so the rule above scores (0,3,0), not the
+   (0,2,1) an all-element list would suggest. Dropping the :not() here makes
+   this (0,2,1) and it silently loses. */
+.ld-block-section:not(:has(> .section__bg-photo)) .cta-banner :is(h2, h3, p, li) {
+	color: #fff;
+}

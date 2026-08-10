@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "letsdoo/textabschnitt",
+	"title": "Textabschnitt",
+	"description": "Überschrift mit Fliesstext. Für den lokalen Inhalt einer Standortseite.",
+	"category": "letsdoo",
+	"icon": "text-page",
+	"keywords": [ "text", "absatz", "lokal", "inhalt" ],
+	"textdomain": "letsdoo",
+	"supports": {
+		"anchor": true,
+		"align": [ "full" ],
+		"html": false,
+		"customClassName": false,
+		"reusable": false
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" }
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

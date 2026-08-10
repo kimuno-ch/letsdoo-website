@@ -1,8 +1,13 @@
 <?php
 /**
  * Company-wide details (address, email, phone, socials) used by the
- * footer and the Kontakt page. Plain Settings API — no ACF Options Page,
- * since that's an ACF PRO-only feature.
+ * footer and the Kontakt page.
+ *
+ * Plain Settings API, written when this site ran ACF free and an Options Page
+ * was out of reach. PRO is installed now, so acf_add_options_page() would
+ * replace this whole file — but the values live in the letsdoo_firmenangaben
+ * option rather than ACF's own storage, so the swap needs a data migration and
+ * a rewrite of letsdoo_company_field(). Until then this stays.
  */
 
 define( 'LETSDOO_SETTINGS_OPTION', 'letsdoo_firmenangaben' );
