@@ -63,18 +63,6 @@
 	display: block;
 }
 
-.leistung-bento-card__icon {
-	width: 56px;
-	height: 56px;
-	border-radius: var(--radius);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	color: #fff;
-	margin-bottom: 1.25rem;
-}
-
 .leistung-bento-card h3 {
 	margin-bottom: 0.4em;
 }

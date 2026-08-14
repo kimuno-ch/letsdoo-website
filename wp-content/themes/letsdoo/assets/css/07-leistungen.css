@@ -56,18 +56,6 @@
 	display: block;
 }
 
-.leistung-card__icon {
-	width: 56px;
-	height: 56px;
-	border-radius: var(--radius);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	color: #fff;
-	margin-bottom: 1.25rem;
-}
-
 .leistung-card h3,
 .leistung-card p {
 	color: #fff;

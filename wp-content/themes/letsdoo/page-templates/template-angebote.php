@@ -60,7 +60,7 @@ while ( have_posts() ) :
 								</div>
 							<?php endif; ?>
 							<div class="leistung-bento-card__body">
-								<div class="leistung-bento-card__icon"><?php echo $icon; ?></div>
+								<div class="icon-tile"><?php echo $icon; ?></div>
 								<h3><?php echo esc_html( $titel ); ?></h3>
 								<?php if ( $text ) : ?>
 									<p><?php echo esc_html( $text ); ?></p>

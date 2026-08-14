@@ -134,8 +134,8 @@
 	-webkit-backdrop-filter: none;
 }
 
-/* The icon tile keeps its gradient fill, so its glyph stays white either way. */
-.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card__icon {
+/* The icon tile keeps its fill, so its glyph stays white either way. */
+.ld-block-section:not(:has(> .section__bg-photo)) .icon-tile {
 	color: #fff;
 }
 

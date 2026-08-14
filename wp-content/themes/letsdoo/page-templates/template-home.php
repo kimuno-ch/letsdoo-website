@@ -59,7 +59,7 @@ while ( have_posts() ) :
 									</div>
 								<?php endif; ?>
 								<div class="leistung-card__body">
-									<div class="leistung-card__icon"><?php echo $icon; ?></div>
+									<div class="icon-tile"><?php echo $icon; ?></div>
 									<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
 									<?php if ( $text ) : ?>
 										<p><?php echo esc_html( $text ); ?></p>
@@ -119,7 +119,7 @@ while ( have_posts() ) :
 				<ul class="warum-letsdoo__punkte">
 					<?php foreach ( $punkte as $punkt ) : ?>
 						<li class="warum-letsdoo-punkt">
-							<div class="warum-letsdoo-punkt__icon"><?php echo $punkt['icon'] ?? letsdoo_icon( 'check' ); ?></div>
+							<div class="icon-tile"><?php echo $punkt['icon'] ?? letsdoo_icon( 'check' ); ?></div>
 							<h3><?php echo esc_html( $punkt['titel'] ?? '' ); ?></h3>
 							<?php if ( ! empty( $punkt['text'] ) ) : ?>
 								<p><?php echo esc_html( $punkt['text'] ); ?></p>

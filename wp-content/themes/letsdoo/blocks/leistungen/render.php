@@ -42,7 +42,7 @@ letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 					?>
 					<div class="leistung-card">
 						<div class="leistung-card__body">
-							<div class="leistung-card__icon"><?php echo $icon; ?></div>
+							<div class="icon-tile"><?php echo $icon; ?></div>
 							<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
 							<?php if ( $text ) : ?>
 								<p><?php echo esc_html( $text ); ?></p>

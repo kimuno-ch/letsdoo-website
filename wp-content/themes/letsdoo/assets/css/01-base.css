@@ -156,6 +156,22 @@ p { margin: 0 0 1em; }
 
 a { color: inherit; }
 
+/* 56px icon tile — was three byte-identical rules (.leistung-card__icon,
+   .leistung-bento-card__icon, .warum-letsdoo-punkt__icon) restated per
+   section. Unified into one shared class since a change to one always meant
+   the same change to all three anyway. */
+.icon-tile {
+	width: 56px;
+	height: 56px;
+	border-radius: var(--radius);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #3d3c9083;
+	color: #fff;
+	margin-bottom: 1.25rem;
+}
+
 .admin-hint {
 	color: #999;
 	font-style: italic;
