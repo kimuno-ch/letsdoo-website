@@ -224,3 +224,12 @@
 	margin: 0 0 0 max(0px, calc((100% - var(--max-width)) / 2));
 }
 
+/* Blog post hero: no featured-image photo behind the panel, just the brand
+   gradient — single.php sets no inline background-image, so this is the
+   only background the element gets. */
+.hero--post {
+	background-image: var(--section-blend);
+	background-size: cover;
+	background-position: center;
+}
+

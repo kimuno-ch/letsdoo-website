@@ -12,7 +12,6 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$thumb_id   = get_post_thumbnail_id();
 	$kategorien = get_the_category();
 	$schlagwoerter = get_the_tags();
 	$blog_url   = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/' );
@@ -22,7 +21,7 @@ while ( have_posts() ) :
 
 		<article <?php post_class(); ?>>
 
-			<section class="hero hero--sub hero--post" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $thumb_id, 'placeholder-photo.svg', 'full' ) ); ?>');">
+			<section class="hero hero--sub hero--post">
 				<div class="hero__panel">
 					<?php if ( $kategorien ) : ?>
 						<a class="hero__badge" href="<?php echo esc_url( get_category_link( $kategorien[0] ) ); ?>">
