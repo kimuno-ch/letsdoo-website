@@ -53,7 +53,7 @@ while ( have_posts() ) :
 						$text        = get_field( 'beschreibung', $leistung_id );
 						$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
 						?>
-						<div class="leistung-bento-card <?php echo $is_wide ? 'leistung-bento-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
+						<a class="leistung-bento-card <?php echo $is_wide ? 'leistung-bento-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>" href="<?php echo esc_url( get_permalink( $leistung_id ) ); ?>">
 							<?php if ( $is_wide ) : ?>
 								<div class="leistung-bento-card__image">
 									<img src="<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $bild, $titel ) ); ?>">
@@ -73,7 +73,7 @@ while ( have_posts() ) :
 									</ul>
 								<?php endif; ?>
 							</div>
-						</div>
+						</a>
 					<?php endforeach; ?>
 				</div>
 			<?php else : ?>

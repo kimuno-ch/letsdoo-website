@@ -40,7 +40,7 @@ letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 					$icon        = get_field( 'icon', $leistung_id ) ?: letsdoo_icon( 'check' );
 					$text        = get_field( 'beschreibung', $leistung_id );
 					?>
-					<div class="leistung-card">
+					<a class="leistung-card" href="<?php echo esc_url( get_permalink( $leistung_id ) ); ?>">
 						<div class="leistung-card__body">
 							<div class="icon-tile"><?php echo $icon; ?></div>
 							<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
@@ -48,7 +48,7 @@ letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 								<p><?php echo esc_html( $text ); ?></p>
 							<?php endif; ?>
 						</div>
-					</div>
+					</a>
 				<?php endforeach; ?>
 			</div>
 		<?php else : ?>

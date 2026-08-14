@@ -52,7 +52,7 @@ while ( have_posts() ) :
 							$text        = get_field( 'beschreibung', $leistung_id );
 							$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
 							?>
-							<div class="leistung-card <?php echo $is_wide ? 'leistung-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>">
+							<a class="leistung-card <?php echo $is_wide ? 'leistung-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>" href="<?php echo esc_url( get_permalink( $leistung_id ) ); ?>">
 								<?php if ( $is_wide ) : ?>
 									<div class="leistung-card__image">
 										<img src="<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $bild, get_the_title( $leistung_id ) ) ); ?>">
@@ -72,7 +72,7 @@ while ( have_posts() ) :
 										</ul>
 									<?php endif; ?>
 								</div>
-							</div>
+							</a>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<p class="admin-hint"><?php esc_html_e( 'Noch keine Leistungen erfasst – unter „Leistungen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>

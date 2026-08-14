@@ -12,6 +12,13 @@
 
 function letsdoo_register_post_types() {
 
+	/*
+	 * Public and single-view like `referenz`: cards on the home page, the
+	 * Standort grid and the Angebote bento grid all now link through to a
+	 * detail page here, with a normal block-editor body (the icon/short
+	 * description/image/Merkmale fields stay — they're what feeds the cards)
+	 * and a real, indexable permalink at /leistungen/<slug>/.
+	 */
 	register_post_type( 'leistung', array(
 		'labels' => array(
 			'name'               => __( 'Leistungen', 'letsdoo' ),
@@ -21,14 +28,16 @@ function letsdoo_register_post_types() {
 			'all_items'          => __( 'Leistungen', 'letsdoo' ),
 			'menu_name'          => __( 'Leistungen', 'letsdoo' ),
 		),
-		'public'             => false,
+		'public'             => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
+		'show_in_rest'       => true,
 		'menu_icon'          => 'dashicons-hammer',
-		'supports'           => array( 'title', 'page-attributes' ),
+		'supports'           => array( 'title', 'editor', 'page-attributes' ),
 		'has_archive'        => false,
-		'exclude_from_search'=> true,
-		'publicly_queryable' => false,
+		'exclude_from_search'=> false,
+		'publicly_queryable' => true,
+		'rewrite'            => array( 'slug' => 'leistungen', 'with_front' => false ),
 	) );
 
 	/*
@@ -251,7 +260,7 @@ add_filter( 'post_type_link', 'letsdoo_standort_permalink', 10, 2 );
  * hand whenever anything in this file changes what the rules should be.
  */
 function letsdoo_maybe_flush_rewrites() {
-	$version = '2';
+	$version = '3';
 
 	if ( get_option( 'letsdoo_rewrite_version' ) !== $version ) {
 		flush_rewrite_rules();

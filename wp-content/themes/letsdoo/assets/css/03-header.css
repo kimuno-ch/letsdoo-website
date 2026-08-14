@@ -70,7 +70,11 @@
 	display: inline-flex;
 }
 
-.site-branding img,
+.site-branding img {
+	display: block;
+	width: auto;
+}
+
 .footer-col--brand img {
 	display: block;
 	height: 90px;
