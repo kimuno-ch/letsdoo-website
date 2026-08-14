@@ -1,0 +1,94 @@
+/* -------------------------------------------------- */
+/* Kontakt-Modal                                        */
+/* -------------------------------------------------- */
+
+/* Reuses the .kontakt-layout / .kontakt-form / .kontakt-infos markup and
+   styling from 15-kontakt.css as-is; this file only adds the overlay chrome
+   around it. */
+
+body.kontakt-modal-open {
+	overflow: hidden;
+}
+
+.kontakt-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: grid;
+	place-items: center;
+	padding: 2rem 1.25rem;
+}
+
+.kontakt-modal[hidden] {
+	display: none;
+}
+
+.kontakt-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(17, 17, 17, 0.6);
+}
+
+.kontakt-modal__dialog {
+	position: relative;
+	width: 100%;
+	max-width: 960px;
+	max-height: calc(100vh - 4rem);
+	overflow-y: auto;
+	background: var(--color-bg-alt);
+	border-radius: var(--radius);
+	box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+}
+
+.kontakt-modal__close {
+	position: sticky;
+	float: right;
+	top: 1rem;
+	right: 1rem;
+	margin: 1rem 1rem -2.5rem 0;
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 1px solid var(--color-border);
+	background: #fff;
+	color: var(--color-ink);
+	font-size: 1.1rem;
+	line-height: 1;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.kontakt-modal__close:hover {
+	background: var(--color-bg-alt);
+}
+
+.kontakt-modal__content {
+	padding: 2.5rem;
+	clear: both;
+}
+
+.kontakt-modal .kontakt-layout {
+	grid-template-columns: 1.5fr 1fr;
+	gap: 2rem;
+}
+
+@media (max-width: 720px) {
+	.kontakt-modal {
+		padding: 0;
+	}
+
+	.kontakt-modal__dialog {
+		max-height: 100vh;
+		border-radius: 0;
+	}
+
+	.kontakt-modal__content {
+		padding: 4rem 1.25rem 2rem;
+	}
+
+	.kontakt-modal .kontakt-layout {
+		grid-template-columns: 1fr;
+	}
+}

@@ -32,19 +32,58 @@ function letsdoo_image_alt( $image, $fallback_alt = '' ) {
 }
 
 /**
- * Gradient pill button used throughout the design.
+ * Gradient pill button used throughout the design. Buttons that point at the
+ * Kontakt page open the site-wide Kontakt modal (template-parts/kontakt-modal.php)
+ * instead of navigating there, so the href is kept as a working fallback and
+ * as the target for anyone who opens the link in a new tab.
  */
 function letsdoo_button( $label, $link, $classes = '' ) {
 	if ( empty( $label ) ) {
 		return;
 	}
 	$link = $link ? $link : '#kontakt';
+
+	$opens_modal = ! letsdoo_is_kontakt_page() && untrailingslashit( $link ) === untrailingslashit( letsdoo_kontakt_page_url() );
+
 	printf(
-		'<a class="btn %1$s" href="%2$s">%3$s</a>',
+		'<a class="btn %1$s" href="%2$s"%3$s>%4$s</a>',
 		esc_attr( $classes ),
 		esc_url( $link ),
+		$opens_modal ? ' data-kontakt-modal="open"' : '',
 		esc_html( $label )
 	);
+}
+
+/**
+ * ID of the page using the Kontakt template, cached per request. Used to
+ * recognise "Kontakt aufnehmen" links (so they can open the modal instead of
+ * navigating) and to pull the Kontakt page's form shortcode into the modal.
+ */
+function letsdoo_kontakt_page_id() {
+	static $page_id = null;
+
+	if ( null === $page_id ) {
+		$pages   = get_posts( array(
+			'post_type'      => 'page',
+			'posts_per_page' => 1,
+			'post_status'    => 'publish',
+			'meta_key'       => '_wp_page_template',
+			'meta_value'     => 'page-templates/template-contact.php',
+			'fields'         => 'ids',
+		) );
+		$page_id = $pages ? $pages[0] : 0;
+	}
+
+	return $page_id;
+}
+
+function letsdoo_kontakt_page_url() {
+	$page_id = letsdoo_kontakt_page_id();
+	return $page_id ? get_permalink( $page_id ) : home_url( '/kontakt/' );
+}
+
+function letsdoo_is_kontakt_page() {
+	return is_page_template( 'page-templates/template-contact.php' );
 }
 
 function letsdoo_get_leistungen() {

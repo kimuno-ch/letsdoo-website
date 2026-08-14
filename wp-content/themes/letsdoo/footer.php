@@ -61,6 +61,10 @@
 		</div>
 	</footer>
 
+	<?php if ( ! letsdoo_is_kontakt_page() ) : ?>
+		<?php get_template_part( 'template-parts/kontakt-modal' ); ?>
+	<?php endif; ?>
+
 <?php wp_footer(); ?>
 </body>
 </html>

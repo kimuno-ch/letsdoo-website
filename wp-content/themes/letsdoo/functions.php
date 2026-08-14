@@ -62,6 +62,7 @@ function letsdoo_style_parts() {
 		'23-mobile',
 		'24-standort',
 		'25-blocks',
+		'26-kontakt-modal',
 	);
 }
 
@@ -100,6 +101,14 @@ function letsdoo_enqueue_assets() {
 		get_theme_file_uri( '/assets/js/navigation.js' ),
 		array(),
 		letsdoo_asset_version( '/assets/js/navigation.js' ),
+		true
+	);
+
+	wp_enqueue_script(
+		'letsdoo-kontakt-modal',
+		get_theme_file_uri( '/assets/js/kontakt-modal.js' ),
+		array(),
+		letsdoo_asset_version( '/assets/js/kontakt-modal.js' ),
 		true
 	);
 }
