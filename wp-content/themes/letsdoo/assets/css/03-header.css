@@ -118,6 +118,7 @@
 .icon-link {
 	display: inline-flex;
 	color: var(--color-gradient-start);
+	text-decoration: none;
 }
 
 .menu-toggle {

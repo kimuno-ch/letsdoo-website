@@ -37,12 +37,12 @@ letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 				<?php foreach ( $leistungen as $leistung ) : ?>
 					<?php
 					$leistung_id = $leistung->ID;
-					$icon        = get_field( 'icon', $leistung_id ) ?: 'check';
+					$icon        = get_field( 'icon', $leistung_id ) ?: letsdoo_icon( 'check' );
 					$text        = get_field( 'beschreibung', $leistung_id );
 					?>
 					<div class="leistung-card">
 						<div class="leistung-card__body">
-							<div class="leistung-card__icon"><?php echo letsdoo_icon( $icon ); ?></div>
+							<div class="leistung-card__icon"><?php echo $icon; ?></div>
 							<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
 							<?php if ( $text ) : ?>
 								<p><?php echo esc_html( $text ); ?></p>

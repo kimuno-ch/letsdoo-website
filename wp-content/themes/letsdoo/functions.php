@@ -125,6 +125,7 @@ require get_theme_file_path( '/inc/acf-fields.php' );
 require get_theme_file_path( '/inc/settings-page.php' );
 require get_theme_file_path( '/inc/template-helpers.php' );
 require get_theme_file_path( '/inc/seo.php' );
+require get_theme_file_path( '/inc/font-awesome.php' );
 /* After template-helpers.php — the block render templates call letsdoo_button()
    and letsdoo_page_url_by_template(). */
 require get_theme_file_path( '/inc/blocks.php' );

@@ -48,7 +48,7 @@ while ( have_posts() ) :
 						$bild        = get_field( 'bild', $leistung_id );
 						$is_wide     = ! empty( $bild );
 						$is_reverse  = $is_wide && 1 === $index % 2;
-						$icon        = get_field( 'icon', $leistung_id ) ?: 'check';
+						$icon        = get_field( 'icon', $leistung_id ) ?: letsdoo_icon( 'check' );
 						$titel       = get_the_title( $leistung_id );
 						$text        = get_field( 'beschreibung', $leistung_id );
 						$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
@@ -60,7 +60,7 @@ while ( have_posts() ) :
 								</div>
 							<?php endif; ?>
 							<div class="leistung-bento-card__body">
-								<div class="leistung-bento-card__icon"><?php echo letsdoo_icon( $icon ); ?></div>
+								<div class="leistung-bento-card__icon"><?php echo $icon; ?></div>
 								<h3><?php echo esc_html( $titel ); ?></h3>
 								<?php if ( $text ) : ?>
 									<p><?php echo esc_html( $text ); ?></p>
@@ -146,7 +146,7 @@ while ( have_posts() ) :
 								<ul class="paket-card__merkmale">
 									<?php foreach ( $merkmale as $merkmal ) : ?>
 										<li class="<?php echo $merkmal['enthalten'] ? '' : 'is-disabled'; ?>">
-											<?php echo $merkmal['enthalten'] ? letsdoo_icon( 'check' ) : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'; ?>
+											<?php echo $merkmal['enthalten'] ? letsdoo_icon( 'check' ) : letsdoo_icon( 'cross' ); ?>
 											<?php echo esc_html( $merkmal['text'] ); ?>
 										</li>
 									<?php endforeach; ?>

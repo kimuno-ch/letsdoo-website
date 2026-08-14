@@ -48,7 +48,7 @@ while ( have_posts() ) :
 							$bild        = get_field( 'bild', $leistung_id );
 							$is_wide     = ! empty( $bild );
 							$is_reverse  = $is_wide && 1 === $index % 2;
-							$icon        = get_field( 'icon', $leistung_id ) ?: 'check';
+							$icon        = get_field( 'icon', $leistung_id ) ?: letsdoo_icon( 'check' );
 							$text        = get_field( 'beschreibung', $leistung_id );
 							$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
 							?>
@@ -59,7 +59,7 @@ while ( have_posts() ) :
 									</div>
 								<?php endif; ?>
 								<div class="leistung-card__body">
-									<div class="leistung-card__icon"><?php echo letsdoo_icon( $icon ); ?></div>
+									<div class="leistung-card__icon"><?php echo $icon; ?></div>
 									<h3><?php echo esc_html( get_the_title( $leistung_id ) ); ?></h3>
 									<?php if ( $text ) : ?>
 										<p><?php echo esc_html( $text ); ?></p>
@@ -110,7 +110,7 @@ while ( have_posts() ) :
 						continue;
 					}
 					$punkte[] = array(
-						'icon'  => get_field( "warum_letsdoo_punkt_{$i}_icon" ) ?: $default['icon'],
+						'icon'  => get_field( "warum_letsdoo_punkt_{$i}_icon" ) ?: letsdoo_icon( $default['icon'] ),
 						'titel' => $saved ? $titel : $default['titel'],
 						'text'  => get_field( "warum_letsdoo_punkt_{$i}_text" ) ?: ( $saved ? '' : $default['text'] ),
 					);
@@ -119,7 +119,7 @@ while ( have_posts() ) :
 				<ul class="warum-letsdoo__punkte">
 					<?php foreach ( $punkte as $punkt ) : ?>
 						<li class="warum-letsdoo-punkt">
-							<div class="warum-letsdoo-punkt__icon"><?php echo letsdoo_icon( $punkt['icon'] ?? 'check' ); ?></div>
+							<div class="warum-letsdoo-punkt__icon"><?php echo $punkt['icon'] ?? letsdoo_icon( 'check' ); ?></div>
 							<h3><?php echo esc_html( $punkt['titel'] ?? '' ); ?></h3>
 							<?php if ( ! empty( $punkt['text'] ) ) : ?>
 								<p><?php echo esc_html( $punkt['text'] ); ?></p>
@@ -157,18 +157,24 @@ while ( have_posts() ) :
 						$timeline[] = array(
 							'titel' => get_the_title( $schritt->ID ),
 							'text'  => get_field( 'beschreibung', $schritt->ID ),
-							'icon'  => get_field( 'icon', $schritt->ID ) ?: 'check',
+							'icon'  => get_field( 'icon', $schritt->ID ) ?: letsdoo_icon( 'check' ),
 						);
 					}
 				} else {
-					$timeline = $schritte_fallback;
+					$timeline = array_map(
+						function ( $schritt ) {
+							$schritt['icon'] = letsdoo_icon( $schritt['icon'] );
+							return $schritt;
+						},
+						$schritte_fallback
+					);
 				}
 				?>
 				<ol class="vorgehen-timeline">
 					<?php foreach ( $timeline as $index => $schritt ) : ?>
 						<li class="vorgehen-step">
 							<div class="vorgehen-step__marker" aria-hidden="true">
-								<?php echo letsdoo_icon( $schritt['icon'] ); ?>
+								<?php echo $schritt['icon']; ?>
 							</div>
 							<span class="vorgehen-step__nummer">
 								<?php

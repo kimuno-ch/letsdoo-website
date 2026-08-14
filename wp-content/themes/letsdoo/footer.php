@@ -25,13 +25,13 @@
 					<?php $linkedin = letsdoo_company_field( 'linkedin_url' ); ?>
 					<?php if ( $linkedin ) : ?>
 						<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="LinkedIn">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>
+							<?php echo letsdoo_icon( 'linkedin' ); ?>
 						</a>
 					<?php endif; ?>
 					<?php $instagram = letsdoo_company_field( 'instagram_url' ); ?>
 					<?php if ( $instagram ) : ?>
 						<a class="social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener" aria-label="Instagram">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+							<?php echo letsdoo_icon( 'instagram' ); ?>
 						</a>
 					<?php endif; ?>
 				</div>

@@ -186,24 +186,38 @@ function letsdoo_merkmale_liste( $text ) {
  */
 
 /**
- * Small line-style icon set for the Angebote page (bento cards, checkmarks),
- * matching the inline SVG icons already used in header.php / footer.php
- * rather than pulling in an icon font.
+ * Small named icon set for spots that aren't backed by an ACF Font Awesome
+ * field (fixed UI chrome, and the PHP-level fallback content that stands in
+ * before a client has entered anything). ACF font-awesome fields render
+ * their own markup directly via get_field() and don't go through this.
  */
 function letsdoo_icon( $key ) {
+	/*
+	 * Font Awesome Free's Regular (outline) style only covers a narrow
+	 * ~270-icon subset — house/gear/headset/graduation-cap/check/
+	 * magnifying-glass/rocket/location-dot/phone/xmark aren't in it (Pro
+	 * has full regular coverage; Free doesn't). Where the literal icon
+	 * has no regular drawing, this swaps in the closest available regular
+	 * icon instead of falling back to solid, so the whole set stays one
+	 * consistent weight.
+	 */
 	$icons = array(
-		'architecture' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/></svg>',
-		'settings'     => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
-		'support'      => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
-		'training'     => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
-		'check'        => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-		'search'       => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
-		'rocket'       => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M13.5 5.5C16 3 20 3 21 3s1 4-1.5 6.5L14 15l-5-5z"/><path d="m9 10-4 1 1.5 1.5M14 15l-1 4-1.5-1.5"/></svg>',
-		'pin'          => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-		'mail'         => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>',
-		'phone'        => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 3a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .6a2 2 0 0 1 1.7 2z"/></svg>',
+		'architecture' => 'fa-regular fa-house',
+		'settings'     => 'fa-regular fa-pen-to-square',
+		'support'      => 'fa-regular fa-headphones-simple',
+		'training'     => 'fa-regular fa-id-badge',
+		'check'        => 'fa-regular fa-circle-check',
+		'search'       => 'fa-regular fa-eye',
+		'rocket'       => 'fa-regular fa-lightbulb',
+		'pin'          => 'fa-regular fa-map',
+		'mail'         => 'fa-solid fa-envelope',
+		'phone'        => 'fa-solid fa-phone',
+		'cross'        => 'fa-regular fa-circle-xmark',
+		'linkedin'     => 'fa-brands fa-linkedin-in',
+		'instagram'    => 'fa-brands fa-instagram',
 	);
-	return isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
+	$class = isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
+	return '<i class="' . esc_attr( $class ) . '" aria-hidden="true"></i>';
 }
 
 /**
