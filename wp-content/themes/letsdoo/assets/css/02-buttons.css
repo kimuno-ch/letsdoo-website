@@ -4,7 +4,12 @@
 
 .btn {
 	display: inline-block;
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	/* Stretched to 150% so the button only shows the middle stretch of the
+	   gradient's travel rather than the full pink-to-blue run — a softer,
+	   less abrupt blend across a surface this small. */
+	background-size: 150% 150%;
+	background-position: center;
 	color: #fff;
 	font-family: var(--font-display);
 	font-size: 0.85rem;
@@ -15,13 +20,13 @@
 	border-radius: var(--radius);
 	border: 0;
 	cursor: pointer;
-	box-shadow: 0 8px 20px -8px rgba(91, 58, 158, 0.6);
+	box-shadow: 0 8px 20px -8px rgba(62, 60, 144, 0.6);
 	transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 12px 24px -8px rgba(91, 58, 158, 0.7);
+	box-shadow: 0 12px 24px -8px rgba(62, 60, 144, 0.7);
 	text-decoration: none;
 }
 

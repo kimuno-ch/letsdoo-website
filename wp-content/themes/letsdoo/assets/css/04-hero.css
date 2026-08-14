@@ -62,7 +62,7 @@
 			   the hero so the sweep is still crossing the photo while it's
 			   on screen rather than racing off the top. */
 			--hero-wave-travel: 62vh;
-			--hero-wave-range: 80vh;
+			--hero-wave-range: 270vh;
 		}
 
 		.hero::before {

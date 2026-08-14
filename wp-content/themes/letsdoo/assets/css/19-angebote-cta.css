@@ -8,7 +8,7 @@
 }
 
 .cta-banner {
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	border-radius: var(--radius);
 	padding: 4rem 2rem;
 	text-align: center;

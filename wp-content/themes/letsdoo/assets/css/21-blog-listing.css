@@ -65,7 +65,7 @@
 }
 
 .blog-card__kategorie {
-	background: rgba(234, 62, 130, 0.1);
+	background: rgba(233, 68, 106, 0.1);
 	color: var(--color-gradient-start);
 	padding: 0.3em 0.8em;
 	border-radius: var(--radius);
@@ -81,7 +81,7 @@
 }
 
 .blog-card:hover .blog-card__titel a {
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
@@ -97,7 +97,7 @@
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
@@ -140,7 +140,7 @@
 }
 
 .pagination .page-numbers.current {
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	border-color: transparent;
 	color: #fff;
 }

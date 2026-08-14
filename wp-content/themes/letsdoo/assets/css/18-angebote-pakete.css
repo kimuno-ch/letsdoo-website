@@ -29,12 +29,12 @@
 
 .paket-card--hervorgehoben {
 	border: 2px solid transparent;
-	background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background-image: linear-gradient(#fff, #fff), linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	background-origin: border-box;
 	background-clip: padding-box, border-box;
 	transform: scale(1.04);
 	z-index: 1;
-	box-shadow: 0 30px 60px -25px rgba(91, 58, 158, 0.35);
+	box-shadow: 0 30px 60px -25px rgba(62, 60, 144, 0.35);
 }
 
 .paket-card--hervorgehoben:hover {
@@ -46,7 +46,7 @@
 	top: 0;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	color: #fff;
 	font-size: 0.7rem;
 	font-weight: 700;

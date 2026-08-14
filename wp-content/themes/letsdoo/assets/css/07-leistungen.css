@@ -63,7 +63,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	color: #fff;
 	margin-bottom: 1.25rem;
 }

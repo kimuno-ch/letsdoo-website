@@ -39,7 +39,7 @@
 	height: 40px;
 	flex-shrink: 0;
 	border-radius: var(--radius);
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	display: flex;
 	align-items: center;
 	justify-content: center;

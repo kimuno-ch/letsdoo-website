@@ -102,7 +102,7 @@
 }
 
 .main-navigation a:hover {
-	background: linear-gradient(120deg, var(--color-gradient-start), var(--color-gradient-end));
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
@@ -137,7 +137,7 @@
 
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
-	background: rgba(234, 62, 130, 0.1);
+	background: rgba(233, 68, 106, 0.1);
 	color: var(--color-gradient-start);
 }
 
