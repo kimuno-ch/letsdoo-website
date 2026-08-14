@@ -46,11 +46,30 @@
    blend, so it sits on its own pane — the light glass recipe rather than flat
    white, so the blend still shows through and the tile reads as part of the
    same material as the panels above. */
+.footer-col--brand {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.25rem;
+}
+
 .footer-col--brand .site-logo {
 	display: inline-block;
 	border-radius: var(--radius);
 	padding: 0.7rem 0.9rem;
 	line-height: 0;
+}
+
+.footer-col--brand .site-logo img {
+	width: auto;
+	max-width: 100%;
+}
+
+.footer-badge {
+	display: block;
+	width: auto;
+	max-width: 190px;
+	height: auto;
 }
 
 .footer-col__title {

@@ -239,6 +239,19 @@
 		grid-template-columns: 1fr;
 	}
 
+	/* Site logo and Odoo Ready Partner badge stack full-height on desktop;
+	   side by side reads better once the footer is a single narrow column. */
+	.footer-col--brand {
+		flex-direction: row;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.footer-badge {
+		max-width: 150px;
+	}
+
 	.referenz-card {
 		grid-template-columns: 1fr;
 	}

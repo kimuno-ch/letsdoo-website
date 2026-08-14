@@ -5,9 +5,10 @@
 					<?php if ( has_custom_logo() ) : ?>
 						<?php the_custom_logo(); ?>
 					<?php else : ?>
-						<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="69" height="52" alt="<?php bloginfo( 'name' ); ?>">
+						<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="92" height="69" alt="<?php bloginfo( 'name' ); ?>">
 					<?php endif; ?>
 				</a>
+				<img class="footer-badge" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
 			</div>
 
 			<div class="footer-col">
