@@ -156,6 +156,14 @@ p { margin: 0 0 1em; }
 
 a { color: inherit; }
 
+/* ::selection only supports a flat background-color, not background-image —
+   no browser lets a gradient show through selected text — so this uses the
+   gradient's start colour rather than the gradient itself. */
+::selection {
+	background-color: var(--color-gradient-end);
+	color: #fff;
+}
+
 /* 56px icon tile — was three byte-identical rules (.leistung-card__icon,
    .leistung-bento-card__icon, .warum-letsdoo-punkt__icon) restated per
    section. Unified into one shared class since a change to one always meant
