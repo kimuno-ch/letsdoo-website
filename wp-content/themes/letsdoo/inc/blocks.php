@@ -42,6 +42,7 @@ function letsdoo_blocks() {
 		'zahlen',
 		'faq',
 		'cta-band',
+		'plattform',
 	);
 }
 
@@ -236,7 +237,8 @@ function letsdoo_faq_block_items( $post = null ) {
 }
 
 /**
- * Restrict the inserter on Standort pages to the theme's own sections plus the
+ * Restrict the inserter on Standort pages, and on the Odoo page
+ * (page-templates/template-odoo.php), to the theme's own sections plus the
  * handful of core blocks that are safe between them.
  *
  * Group and Columns are deliberately absent: they would wrap our sections in an
@@ -245,7 +247,16 @@ function letsdoo_faq_block_items( $post = null ) {
  * authors there need the full core set.
  */
 function letsdoo_blocks_allowed( $allowed, $context ) {
-	if ( empty( $context->post ) || 'standort' !== $context->post->post_type ) {
+	$post = $context->post ?? null;
+
+	if ( ! $post ) {
+		return $allowed;
+	}
+
+	$is_standort = 'standort' === $post->post_type;
+	$is_odoo_page = 'page' === $post->post_type && 'page-templates/template-odoo.php' === get_page_template_slug( $post );
+
+	if ( ! $is_standort && ! $is_odoo_page ) {
 		return $allowed;
 	}
 

@@ -1,0 +1,81 @@
+/* -------------------------------------------------- */
+/* Plattform (App-Raster)                               */
+/* -------------------------------------------------- */
+
+/* Same "written for the gradient, corrected for white" split as
+   .leistung-card / .zahl-card — see 25-blocks.css section 3. */
+
+.section--plattform h2 {
+	color: #fff;
+}
+
+.plattform__intro {
+	max-width: 640px;
+	margin-top: 0.5rem;
+}
+
+.plattform-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+	gap: 1.5rem;
+	margin-top: 2rem;
+}
+
+.plattform-card {
+	background: var(--glass-dark-bg);
+	backdrop-filter: var(--glass-filter);
+	-webkit-backdrop-filter: var(--glass-filter);
+	border: var(--glass-dark-border);
+	box-shadow: var(--glass-shadow);
+	border-radius: var(--radius);
+	padding: 2rem;
+}
+
+.plattform-card h3 {
+	margin: 0 0 1rem;
+}
+
+.plattform-card__apps {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.65rem;
+	font-size: 1rem;
+}
+
+.plattform-card__apps a,
+.plattform-card__apps span {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	color: inherit;
+	text-decoration: none;
+}
+
+.plattform-card__apps a {
+	border-radius: var(--radius);
+	margin: -0.4rem -0.6rem;
+	padding: 0.4rem 0.6rem;
+	transition: background 0.15s ease;
+}
+
+/* The hover fill needs to read on both card backgrounds — light on the
+   gradient card, dark on the white one (see 25-blocks.css section 3). */
+.ld-block-section:has(> .section__bg-photo) .plattform-card__apps a:hover {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+.ld-block-section:not(:has(> .section__bg-photo)) .plattform-card__apps a:hover {
+	background: var(--color-bg-alt);
+}
+
+.plattform-card__apps a:hover .plattform-card__app-label {
+	text-decoration: underline;
+}
+
+.plattform-card__apps img {
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}

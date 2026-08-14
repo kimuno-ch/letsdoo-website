@@ -126,7 +126,7 @@
 	color: var(--color-ink);
 }
 
-.ld-block-section:not(:has(> .section__bg-photo)) :is(.leistung-card, .zahl-card, .zahlen__intro) {
+.ld-block-section:not(:has(> .section__bg-photo)) :is(.leistung-card, .zahl-card, .zahlen__intro, .plattform-card) {
 	background: #fff;
 	border: 1px solid var(--color-border);
 	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);

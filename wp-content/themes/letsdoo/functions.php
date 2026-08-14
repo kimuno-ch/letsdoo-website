@@ -64,6 +64,7 @@ function letsdoo_style_parts() {
 		'25-blocks',
 		'26-kontakt-modal',
 		'27-single-leistung',
+		'28-plattform',
 	);
 }
 

@@ -1115,6 +1115,75 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Odoo-Seite (page_template fields)                   */
+	/* -------------------------------------------------- */
+
+	/*
+	 * Only the hero — a guaranteed H1 and lead text, same reasoning as the
+	 * Standort hero (inc/cpt.php). Everything below it is the_content(),
+	 * built from the theme's blocks, so the page reads like a competitor's
+	 * dedicated Odoo landing page but stays fully editable and reorderable.
+	 */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_page_odoo',
+		'title'  => 'Odoo-Seite: Hero',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_odoo_hero_heading',
+				'label' => 'Titel',
+				'name'  => 'hero_heading',
+				'type'  => 'text',
+				'default_value' => 'Odoo',
+			),
+			array(
+				'key'   => 'field_ld_odoo_hero_subheading',
+				'label' => 'Untertitel',
+				'name'  => 'hero_subheading',
+				'type'  => 'text',
+				'default_value' => 'Eine Plattform. Alle Prozesse.',
+			),
+			array(
+				'key'   => 'field_ld_odoo_hero_text',
+				'label' => 'Text',
+				'name'  => 'hero_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			array(
+				'key'   => 'field_ld_odoo_hero_image',
+				'label' => 'Hintergrundbild',
+				'name'  => 'hero_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+			array(
+				'key'   => 'field_ld_odoo_hero_button_label',
+				'label' => 'Button Text',
+				'name'  => 'hero_button_label',
+				'type'  => 'text',
+				'default_value' => 'Kontakt aufnehmen',
+			),
+			array(
+				'key'   => 'field_ld_odoo_hero_button_link',
+				'label' => 'Button Link',
+				'name'  => 'hero_button_link',
+				'type'  => 'url',
+				'instructions' => 'Leer lassen für die Kontaktseite.',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-templates/template-odoo.php',
+				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* Block: Textabschnitt                                */
 	/* -------------------------------------------------- */
 
@@ -1395,6 +1464,94 @@ add_action( 'acf/init', function () {
 					'operator' => '==',
 					'value'    => 'letsdoo/cta-band',
 				),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Plattform (App-Raster)                       */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_plattform',
+		'title'  => 'Plattform (App-Raster)',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_plattform_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'placeholder' => 'Eine Plattform für jeden Bereich',
+			),
+			array(
+				'key'   => 'field_ld_block_plattform_text',
+				'label' => 'Text',
+				'name'  => 'text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			array(
+				'key'          => 'field_ld_block_plattform_kategorien',
+				'label'        => 'Kategorien',
+				'name'         => 'kategorien',
+				'type'         => 'repeater',
+				'layout'       => 'block',
+				'button_label' => 'Kategorie hinzufügen',
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_ld_block_plattform_label',
+						'label' => 'Kategorie',
+						'name'  => 'label',
+						'type'  => 'text',
+					),
+					/*
+					 * Each app gets Odoo's own official icon (vendored in
+					 * assets/images/odoo-icons/, see letsdoo_odoo_icon_choices()
+					 * in inc/template-helpers.php) plus a link to that app's page
+					 * on odoo.com — the same "icon + name, linked" row Mint
+					 * System's Odoo page uses.
+					 */
+					array(
+						'key'          => 'field_ld_block_plattform_apps',
+						'label'        => 'Apps',
+						'name'         => 'apps',
+						'type'         => 'repeater',
+						'layout'       => 'table',
+						'button_label' => 'App hinzufügen',
+						'sub_fields'   => array(
+							array(
+								'key'     => 'field_ld_block_plattform_app_icon',
+								'label'   => 'Icon',
+								'name'    => 'icon',
+								'type'    => 'select',
+								'choices' => letsdoo_odoo_icon_choices(),
+								'ui'      => 1,
+								'wrapper' => array( 'width' => '30' ),
+							),
+							array(
+								'key'     => 'field_ld_block_plattform_app_label',
+								'label'   => 'Name',
+								'name'    => 'label',
+								'type'    => 'text',
+								'wrapper' => array( 'width' => '30' ),
+							),
+							array(
+								'key'          => 'field_ld_block_plattform_app_url',
+								'label'        => 'Link',
+								'name'         => 'url',
+								'type'         => 'url',
+								'instructions' => 'z. B. https://www.odoo.com/app/crm',
+								'wrapper'      => array( 'width' => '40' ),
+							),
+						),
+					),
+				),
+			),
+			letsdoo_block_blend_field( 'plattform' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/plattform' ),
 			),
 		),
 	) );

@@ -260,6 +260,41 @@ function letsdoo_icon( $key ) {
 }
 
 /**
+ * Odoo's own official app icons (assets/images/odoo-icons/, vendored from
+ * Odoo's icon pack), keyed by filename without extension. Used as the
+ * `choices` for the Plattform block's per-app icon field and to resolve a
+ * chosen icon to a URL at render time.
+ */
+function letsdoo_odoo_icon_choices() {
+	static $choices = null;
+
+	if ( null !== $choices ) {
+		return $choices;
+	}
+
+	$choices = array();
+	$files   = glob( get_theme_file_path( '/assets/images/odoo-icons/*.svg' ) );
+
+	foreach ( $files as $file ) {
+		$slug             = basename( $file, '.svg' );
+		$label            = ucwords( str_replace( '_', ' ', $slug ) );
+		$choices[ $slug ] = $label;
+	}
+
+	asort( $choices );
+
+	return $choices;
+}
+
+function letsdoo_odoo_icon_url( $slug ) {
+	if ( ! $slug ) {
+		return '';
+	}
+
+	return get_theme_file_uri( '/assets/images/odoo-icons/' . $slug . '.svg' );
+}
+
+/**
  * Company contact details from the Firmenangaben settings page
  * (inc/settings-page.php), with sane fallbacks before the client fills
  * them in via Einstellungen → Firmenangaben.
