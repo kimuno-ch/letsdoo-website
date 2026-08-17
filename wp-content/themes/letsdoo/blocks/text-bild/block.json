@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "letsdoo/text-bild",
+	"title": "Text & Bild",
+	"description": "Titel, Text und Button in einer Spalte, Bild daneben — wie „Warum Odoo?“ auf der Startseite.",
+	"category": "letsdoo",
+	"icon": "align-pull-right",
+	"keywords": [ "text", "bild", "warum", "odoo", "zweispaltig" ],
+	"textdomain": "letsdoo",
+	"supports": {
+		"anchor": true,
+		"align": [ "full" ],
+		"html": false,
+		"customClassName": false,
+		"reusable": false
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" }
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

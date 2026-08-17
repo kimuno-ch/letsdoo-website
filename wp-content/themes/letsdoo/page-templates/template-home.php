@@ -28,12 +28,32 @@ while ( have_posts() ) :
 		</section>
 
 		<section class="section section--warum-odoo" id="odoo">
-			<div class="section__intro">
-				<h2><?php echo esc_html( get_field( 'warum_odoo_heading' ) ?: 'Warum Odoo?' ); ?></h2>
-				<p class="section__subheading"><?php echo esc_html( get_field( 'warum_odoo_subheading' ) ?: 'Eine Software für Ihr gesamtes Unternehmen.' ); ?></p>
-				<p><?php echo esc_html( get_field( 'warum_odoo_text' ) ?: 'Odoo vereint CRM, Verkauf, Einkauf, Lager, Projekte, Buchhaltung und vieles mehr in einer einzigen Lösung. Dank des modularen Aufbaus wächst das System mit Ihrem Unternehmen mit – genau so, wie Sie es brauchen.' ); ?></p>
-				<?php letsdoo_button( get_field( 'warum_odoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_odoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
-			</div>
+			<?php
+			/*
+			 * Same part the Text & Bild block renders (blocks/text-bild/), so
+			 * this section and its reusable twin can't drift apart.
+			 *
+			 * The image falls back to the bundled Odoo diagram rather than to a
+			 * placeholder: it is the argument the section is making — one
+			 * platform, every app hanging off it — and the section reads as
+			 * unfinished without it.
+			 */
+			$warum_odoo_image = get_field( 'warum_odoo_image' );
+
+			get_template_part(
+				'template-parts/section-text-media',
+				null,
+				array(
+					'heading'      => get_field( 'warum_odoo_heading' ) ?: 'Warum Odoo?',
+					'subheading'   => get_field( 'warum_odoo_subheading' ) ?: 'Eine Software für Ihr gesamtes Unternehmen.',
+					'text'         => get_field( 'warum_odoo_text' ) ?: 'Odoo vereint CRM, Verkauf, Einkauf, Lager, Projekte, Buchhaltung und vieles mehr in einer einzigen Lösung. Dank des modularen Aufbaus wächst das System mit Ihrem Unternehmen mit – genau so, wie Sie es brauchen.',
+					'button_label' => get_field( 'warum_odoo_button_label' ) ?: 'Kontakt aufnehmen',
+					'button_link'  => get_field( 'warum_odoo_button_link' ) ?: home_url( '/kontakt/' ),
+					'image_url'    => letsdoo_image_url( $warum_odoo_image, 'odoo-map.png', 'large' ),
+					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo als zentrale Plattform: Apps, Datenbank, Webseite und Lager rund um eine Lösung' ),
+				)
+			);
+			?>
 		</section>
 
 		<section class="section section--leistungen" id="leistungen">

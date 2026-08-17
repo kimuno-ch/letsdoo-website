@@ -3,6 +3,24 @@
 /* -------------------------------------------------- */
 
 @media (max-width: 900px) {
+	/* Text over image, whichever side the image sits on at desktop width —
+	   the heading has to come first on a phone, and the DOM already has it
+	   there (06-warum-odoo.css only flips the painted order). */
+	.section-split {
+		grid-template-columns: 1fr;
+	}
+
+	.section-split--media-links .section-split__media {
+		order: 0;
+	}
+
+	/* A full-width diagram on a phone is mostly whitespace and pushes the next
+	   section a screen and a half down. */
+	.section-split__media img {
+		max-width: 560px;
+		margin: 0 auto;
+	}
+
 	.leistungen-grid,
 	.referenzen-grid,
 	.zahlen-grid {

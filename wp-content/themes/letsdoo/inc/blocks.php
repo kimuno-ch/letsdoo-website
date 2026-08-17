@@ -37,6 +37,7 @@
 function letsdoo_blocks() {
 	return array(
 		'textabschnitt',
+		'text-bild',
 		'leistungen',
 		'referenz-karte',
 		'zahlen',

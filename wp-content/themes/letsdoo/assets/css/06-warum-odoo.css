@@ -1,8 +1,60 @@
 /* -------------------------------------------------- */
-/* Warum Odoo                                           */
+/* Text & Bild (Warum Odoo)                             */
 /* -------------------------------------------------- */
 
-.section--warum-odoo .section__intro {
+/* A text column with an image beside it. Used by the "Warum Odoo?" section on
+   the Startseite and by the Text & Bild block (blocks/text-bild/), which render
+   the same template part — template-parts/section-text-media.php — so these
+   rules are keyed off .section-split rather than off either section class.
+
+   Stacked on phones in 23-mobile.css. */
+
+/* The image column is the wider of the two. For a square diagram — which is
+   what this section carries — displayed height is simply the column's width,
+   so this is the knob that makes the picture taller, not max-height below. */
+.section-split {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+	gap: clamp(2rem, 5vw, 4rem);
+	align-items: center;
+}
+
+/* No image: back to the single capped column the section had before a picture
+   was an option. 720px is the measure the copy was written for — the full
+   1200px container would run it out to well over 100 characters a line. */
+.section-split--einspaltig {
+	display: block;
 	max-width: 720px;
 }
 
+/* The image is always last in the DOM so the heading is read and tabbed to
+   first; only the painted order changes. */
+.section-split--media-links .section-split__media {
+	order: -1;
+}
+
+/* The text column carries the section's rhythm, so the button needs the same
+   air under the copy that .section__intro gave it. */
+.section-split__text > .btn {
+	margin-top: 0.75rem;
+}
+
+.section-split__media {
+	/* Only a backstop against a tall portrait stretching the whole band; a
+	   square image never reaches it at these column widths. */
+	max-height: 780px;
+	display: flex;
+	justify-content: center;
+}
+
+.section-split__media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: inherit;
+	object-fit: contain;
+	/* Invisible on the cut-out PNGs this is built for, and correct for the
+	   photograph someone will eventually drop in via the block. No shadow —
+	   on a transparent image it would draw a box around nothing. */
+	border-radius: var(--radius);
+}

@@ -440,6 +440,15 @@ add_action( 'acf/init', function () {
 				'name'  => 'warum_odoo_button_link',
 				'type'  => 'url',
 			),
+			array(
+				'key'   => 'field_ld_home_warum_odoo_image',
+				'label' => 'Bild (rechts)',
+				'name'  => 'warum_odoo_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Leer lassen für die mitgelieferte Odoo-Übersicht. Freigestelltes PNG mit transparentem Hintergrund funktioniert hier am besten.',
+			),
 
 			array(
 				'key'   => 'field_ld_home_leistungen_tab',
@@ -1218,6 +1227,80 @@ add_action( 'acf/init', function () {
 		'location' => array(
 			array(
 				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/textabschnitt' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Text & Bild                                  */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_text_bild',
+		'title'  => 'Text & Bild',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_text_bild_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'placeholder' => 'Warum Odoo?',
+			),
+			array(
+				'key'   => 'field_ld_block_text_bild_subheading',
+				'label' => 'Untertitel',
+				'name'  => 'subheading',
+				'type'  => 'text',
+				'instructions' => 'Fett gesetzte Lead-Zeile unter dem Titel. Optional.',
+			),
+			array(
+				'key'          => 'field_ld_block_text_bild_text',
+				'label'        => 'Text',
+				'name'         => 'text',
+				'type'         => 'wysiwyg',
+				'tabs'         => 'visual',
+				'media_upload' => 0,
+				'delay'        => 1,
+			),
+			array(
+				'key'   => 'field_ld_block_text_bild_bild',
+				'label' => 'Bild',
+				'name'  => 'bild',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Ohne Bild wird nur die Textspalte ausgegeben.',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			array(
+				'key'     => 'field_ld_block_text_bild_position',
+				'label'   => 'Bild-Seite',
+				'name'    => 'bild_position',
+				'type'    => 'select',
+				'choices' => array(
+					'rechts' => 'Rechts vom Text',
+					'links'  => 'Links vom Text',
+				),
+				'default_value' => 'rechts',
+				'instructions'  => 'Bei mehreren Abschnitten untereinander am besten abwechselnd.',
+				'wrapper' => array( 'width' => '50' ),
+			),
+			/* Link field rather than a label + URL pair, same as the CTA-Band
+			   block: one field, and the editor gets the WordPress link picker
+			   instead of a URL that breaks when a page is re-slugged. */
+			array(
+				'key'   => 'field_ld_block_text_bild_button',
+				'label' => 'Button',
+				'name'  => 'button',
+				'type'  => 'link',
+				'return_format' => 'array',
+				'instructions'  => 'Optional. Wird nur angezeigt, wenn gesetzt.',
+			),
+			letsdoo_block_blend_field( 'text_bild' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/text-bild' ),
 			),
 		),
 	) );
