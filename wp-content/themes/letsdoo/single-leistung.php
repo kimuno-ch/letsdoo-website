@@ -2,11 +2,14 @@
 /**
  * Single Leistung — detail page for one service.
  *
- * Same shape as single-referenz.php: the hero and Merkmale strip come from
- * the fields the cards already use (icon/beschreibung/bild/merkmale — see
- * inc/acf-fields.php, blocks/leistungen/render.php and the bento grid on
+ * Same shape as single-referenz.php: the Merkmale strip reuses the field the
+ * cards already use (merkmale — see inc/acf-fields.php,
+ * blocks/leistungen/render.php and the bento grid on
  * page-templates/template-angebote.php), and the body below is free-form,
- * authored with core blocks.
+ * authored with core blocks. The hero has its own image field (hero_bild),
+ * separate from the card image (bild) so a Leistung can have a proper hero
+ * photo without being forced into the wide card layout everywhere it's
+ * listed — see the "Hero-Bild" instructions in inc/acf-fields.php.
  */
 
 get_header();
@@ -14,15 +17,14 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$icon     = get_field( 'icon' ) ?: letsdoo_icon( 'check' );
-	$lead     = get_field( 'beschreibung' );
-	$bild     = get_field( 'bild' );
-	$merkmale = letsdoo_lines( get_field( 'merkmale' ) );
+	$lead      = get_field( 'beschreibung' );
+	$hero_bild = get_field( 'hero_bild' ) ?: get_field( 'bild' );
+	$merkmale  = letsdoo_lines( get_field( 'merkmale' ) );
 	?>
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub hero--leistung" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'full' ) ); ?>');">
+		<section class="hero hero--sub hero--leistung" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_bild, 'placeholder-photo.svg', 'full' ) ); ?>');">
 			<div class="hero__panel">
 				<span class="hero__badge"><?php esc_html_e( 'Leistung', 'letsdoo' ); ?></span>
 				<h1><?php the_title(); ?></h1>

@@ -68,6 +68,15 @@ add_action( 'acf/init', function () {
 				'type'  => 'textarea',
 				'rows'  => 3,
 			),
+			array(
+				'key'   => 'field_ld_leistung_hero_bild',
+				'label' => 'Hero-Bild',
+				'name'  => 'hero_bild',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Hintergrundbild auf der Detailseite dieser Leistung. Unabhängig vom Bild weiter unten, das die Karte auf der Startseite/Angebote-Seite steuert. Leer lassen, um stattdessen das Kartenbild zu verwenden.',
+			),
 
 			array(
 				'key'   => 'field_ld_leistung_angebote_tab',
@@ -92,7 +101,7 @@ add_action( 'acf/init', function () {
 				'type'  => 'image',
 				'return_format' => 'array',
 				'preview_size'  => 'medium',
-				'instructions'  => 'Mit Bild wird die Karte gross (Bild neben Text) dargestellt, ohne Bild klein.',
+				'instructions'  => 'Mit Bild wird die Karte auf der Startseite/Angebote-Seite gross (Bild neben Text) dargestellt, ohne Bild klein. Für das Hero-Bild der Detailseite siehe „Hero-Bild“ oben.',
 			),
 			array(
 				'key'   => 'field_ld_leistung_merkmale',
