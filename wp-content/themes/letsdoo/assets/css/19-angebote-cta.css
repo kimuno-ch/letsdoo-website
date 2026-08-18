@@ -1,6 +1,11 @@
 /* -------------------------------------------------- */
-/* Angebote: CTA banner                                 */
+/* CTA banner                                           */
 /* -------------------------------------------------- */
+
+/* Despite the filename, this is the shared .cta-banner component: the
+   Angebote page, the CTA-Band block's "karte" variant, and the closing CTA on
+   the blog index, single posts, single Leistung and single Referenz all use
+   it. One component, one file, so it can't drift into several. */
 
 .section--cta-banner {
 	max-width: var(--max-width);
@@ -34,5 +39,23 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	margin-top: 1.5rem;
+}
+
+/* Every button in here reads the same way — white text, white border, no
+   fill — regardless of which .btn modifier (or none) the call site passes,
+   and regardless of whether it happens to link to Kontakt (.btn's
+   data-kontakt-modal gradient, 02-buttons.css). Two classes beats any single
+   modifier class on specificity alone, so this wins without !important and
+   without every letsdoo_button() call needing to agree on the right variant. */
+.cta-banner .btn {
+	background: transparent;
+	color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	box-shadow: none;
+}
+
+.cta-banner .btn:hover {
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: none;
 }
 

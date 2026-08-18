@@ -110,7 +110,7 @@
 	width: 48px;
 	height: 48px;
 	border-radius: var(--radius-child);
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	background: var(--color-gradient-end);
 	color: #fff;
 }
 

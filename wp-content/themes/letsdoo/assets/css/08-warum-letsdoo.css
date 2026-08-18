@@ -9,31 +9,47 @@
    Layout follows every other section — .section supplies the padding, an inner
    .section__content supplies the 1200px. */
 
-.warum-letsdoo__punkte {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	/* The 1.5rem the other card grids use. */
-	gap: 1.5rem;
-	margin-top: 2.5rem;
-	margin-bottom: 2.5rem;
+.section--warum-letsdoo h2,
+.section--warum-letsdoo .section__subheading {
+	text-align: center;
 }
 
-/* The footer logo tile's light glass. Note there is nothing behind these panes
-   for the blur to work on now that the section is plain white again, so what
-   reads is the border, the shadow and the inset top highlight rather than any
-   refraction — a soft white card rather than glass. --glass-dark-bg is not an
-   option here for the same reason: over white it composites to a flat #B0B0B0
-   and drops its text under 3:1. */
-.warum-letsdoo-punkt {
-	--radius-child: var(--radius-nested);
+/* Two columns of claims flanking a photo: .warum-letsdoo__punkte (2 items
+   each) left and right, .warum-letsdoo__media in the middle. Collapses to a
+   single stack in 23-mobile.css. */
+.warum-letsdoo__layout {
+	display: grid;
+	grid-template-columns: 1fr minmax(0, 1.1fr) 1fr;
+	gap: clamp(2rem, 4vw, 3.5rem);
+	align-items: center;
+	margin-top: 2.5rem;
+}
 
-	background: linear-gradient(140deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-light-border);
-	box-shadow: var(--glass-light-shadow);
-	border-radius: var(--radius);
-	padding: 2rem;
+.warum-letsdoo__punkte {
+	display: grid;
+	gap: 2.5rem;
+}
+
+/* Plain and centred rather than a card — the panel this used to be fought the
+   photo for attention in the middle of the row. The badge below carries the
+   weight instead. */
+.warum-letsdoo-punkt {
+	text-align: center;
+}
+
+/* Same badge as the Leistungen cards (07-leistungen.css): solid brand colour,
+   white glyph, same two-layer shadow — one icon language across the site
+   rather than the .icon-tile default's translucent wash. Centred by hand
+   since .icon-tile is a flex container (for the glyph), not a block that
+   text-align on the parent would centre by itself. */
+.warum-letsdoo-punkt .icon-tile {
+	margin: 0 auto 1.25rem;
+	border-radius: 30px;
+	background: var(--color-gradient-end);
+	color: #fff;
+	box-shadow:
+		0 3px 8px rgba(17, 17, 17, 0.16),
+		0 10px 22px -10px rgba(17, 17, 17, 0.35);
 }
 
 .warum-letsdoo-punkt h3 {
@@ -42,4 +58,18 @@
 
 .warum-letsdoo-punkt p {
 	margin-bottom: 0;
+}
+
+.warum-letsdoo__media img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-card);
+}
+
+.warum-letsdoo__cta {
+	margin-top: 3rem;
+	text-align: center;
 }

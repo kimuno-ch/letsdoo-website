@@ -75,9 +75,9 @@ else :
 		<?php endif; ?>
 		<div class="cta-banner__actions">
 			<?php
-			letsdoo_button( $label, $url, 'btn--white' );
+			letsdoo_button( $label, $url );
 			if ( $has_second ) {
-				letsdoo_button( $button2['title'], $button2['url'], 'btn--ghost-white' );
+				letsdoo_button( $button2['title'], $button2['url'] );
 			}
 			?>
 		</div>

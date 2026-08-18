@@ -91,8 +91,8 @@ while ( have_posts() ) :
 				<h2><?php esc_html_e( 'Bereit für den nächsten Schritt?', 'letsdoo' ); ?></h2>
 				<p><?php esc_html_e( 'Lassen Sie uns gemeinsam herausfinden, wie Odoo Ihr Unternehmen unterstützen kann.', 'letsdoo' ); ?></p>
 				<div class="cta-banner__actions">
-					<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ), 'btn--white' ); ?>
-					<?php letsdoo_button( __( 'Alle Beiträge', 'letsdoo' ), $blog_url, 'btn--ghost-white' ); ?>
+					<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ) ); ?>
+					<?php letsdoo_button( __( 'Alle Beiträge', 'letsdoo' ), $blog_url ); ?>
 				</div>
 			</div>
 		</section>

@@ -49,7 +49,7 @@ while ( have_posts() ) :
 					'text'         => get_field( 'warum_odoo_text' ) ?: 'Odoo vereint CRM, Verkauf, Einkauf, Lager, Projekte, Buchhaltung und vieles mehr in einer einzigen Lösung. Dank des modularen Aufbaus wächst das System mit Ihrem Unternehmen mit – genau so, wie Sie es brauchen.',
 					'button_label' => get_field( 'warum_odoo_button_label' ) ?: 'Kontakt aufnehmen',
 					'button_link'  => get_field( 'warum_odoo_button_link' ) ?: home_url( '/kontakt/' ),
-					'image_url'    => letsdoo_image_url( $warum_odoo_image, 'odoo-map.png', 'large' ),
+					'image_url'    => letsdoo_image_url( $warum_odoo_image, 'odoo-map.svg', 'large' ),
 					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo als zentrale Plattform: Apps, Datenbank, Webseite und Lager rund um eine Lösung' ),
 				)
 			);
@@ -108,19 +108,20 @@ while ( have_posts() ) :
 				<p class="section__subheading"><?php echo esc_html( get_field( 'warum_letsdoo_subheading' ) ?: 'Was uns von anderen Odoo-Partnern unterscheidet.' ); ?></p>
 				<?php
 				/*
-				 * The three claims that used to sit compressed into the subheading
-				 * as "Persönlich. Transparent. Lösungsorientiert." Read as three
+				 * The four claims that used to sit compressed into the subheading
+				 * as "Persönlich. Transparent. Lösungsorientiert." Read as four
 				 * flat field groups rather than a repeater, dating from the free
 				 * ACF build; PRO is installed now, so this is a pending migration
 				 * rather than a limitation (see inc/acf-fields.php). Each falls
 				 * back to real copy the same way the Vorgehen steps below do, so
 				 * the section stands up before the client has filled anything in;
-				 * a pillar with its Titel cleared drops out of the row.
+				 * a pillar with its Titel cleared drops out of the grid.
 				 */
 				$punkte_defaults = array(
 					1 => array( 'icon' => 'support', 'titel' => 'Persönlich', 'text' => 'Ihr habt feste Ansprechpersonen, die eure Prozesse kennen – keine Warteschleife, kein wechselndes Team.' ),
 					2 => array( 'icon' => 'search', 'titel' => 'Transparent', 'text' => 'Aufwand, Zeitplan und Kosten liegen von Anfang an offen auf dem Tisch – auch wenn etwas länger dauert.' ),
 					3 => array( 'icon' => 'rocket', 'titel' => 'Lösungsorientiert', 'text' => 'Wir bauen, was im Arbeitsalltag wirklich funktioniert, statt was auf dem Papier gut aussieht.' ),
+					4 => array( 'icon' => 'training', 'titel' => 'Erfahren', 'text' => 'Jahrelange Odoo-Erfahrung heisst, wir kennen die Stolpersteine schon, bevor sie auftauchen.' ),
 				);
 
 				$punkte = array();
@@ -136,9 +137,17 @@ while ( have_posts() ) :
 						'text'  => get_field( "warum_letsdoo_punkt_{$i}_text" ) ?: ( $saved ? '' : $default['text'] ),
 					);
 				}
-				?>
-				<ul class="warum-letsdoo__punkte">
-					<?php foreach ( $punkte as $punkt ) : ?>
+
+				// Two-by-two around the image: first half left, rest right.
+				$punkte_split = array_chunk( $punkte, (int) ceil( count( $punkte ) / 2 ) );
+				$punkte_links = $punkte_split[0] ?? array();
+				$punkte_rechts = $punkte_split[1] ?? array();
+
+				$warum_letsdoo_image = get_field( 'warum_letsdoo_image' );
+
+				$punkt_liste = function ( $punkte ) {
+					foreach ( $punkte as $punkt ) :
+						?>
 						<li class="warum-letsdoo-punkt">
 							<div class="icon-tile"><?php echo $punkt['icon'] ?? letsdoo_icon( 'check' ); ?></div>
 							<h3><?php echo esc_html( $punkt['titel'] ?? '' ); ?></h3>
@@ -146,9 +155,27 @@ while ( have_posts() ) :
 								<p><?php echo esc_html( $punkt['text'] ); ?></p>
 							<?php endif; ?>
 						</li>
-					<?php endforeach; ?>
-				</ul>
-				<?php letsdoo_button( get_field( 'warum_letsdoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_letsdoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
+						<?php
+					endforeach;
+				};
+				?>
+				<div class="warum-letsdoo__layout">
+					<ul class="warum-letsdoo__punkte">
+						<?php $punkt_liste( $punkte_links ); ?>
+					</ul>
+
+					<div class="warum-letsdoo__media">
+						<img src="<?php echo esc_url( letsdoo_image_url( $warum_letsdoo_image, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $warum_letsdoo_image, "Let's Doo Team" ) ); ?>">
+					</div>
+
+					<ul class="warum-letsdoo__punkte">
+						<?php $punkt_liste( $punkte_rechts ); ?>
+					</ul>
+				</div>
+
+				<div class="warum-letsdoo__cta">
+					<?php letsdoo_button( get_field( 'warum_letsdoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_letsdoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
+				</div>
 			</div>
 		</section>
 
@@ -160,15 +187,13 @@ while ( have_posts() ) :
 				<?php
 				/*
 				 * Steps come from the Vorgehen post type. Until any are entered
-				 * the section would stand empty, so it falls back to the five
-				 * steps that used to be hard-coded here — same behaviour as
-				 * before, just rendered as the timeline.
+				 * the section would stand empty, so it falls back to three
+				 * steps that used to be five — the client only needs the
+				 * broad strokes here, not every phase of the engagement.
 				 */
 				$schritte_fallback = array(
 					array( 'titel' => 'Kennenlernen', 'text' => 'Wir hören zu und verstehen, wo ihr steht und was ihr braucht.', 'icon' => 'search' ),
-					array( 'titel' => 'Analysieren & planen', 'text' => 'Wir schauen uns eure Prozesse an und legen den Weg fest.', 'icon' => 'settings' ),
-					array( 'titel' => 'Umsetzen', 'text' => 'Odoo wird eingerichtet und auf euren Alltag zugeschnitten.', 'icon' => 'architecture' ),
-					array( 'titel' => 'Schulen', 'text' => 'Euer Team lernt das System an konkreten Beispielen kennen.', 'icon' => 'training' ),
+					array( 'titel' => 'Umsetzen', 'text' => 'Odoo wird eingerichtet, angepasst und euer Team eingeschult.', 'icon' => 'architecture' ),
 					array( 'titel' => 'Begleiten', 'text' => 'Nach dem Go-live bleiben wir ansprechbar und entwickeln weiter.', 'icon' => 'support' ),
 				);
 
@@ -191,22 +216,22 @@ while ( have_posts() ) :
 					);
 				}
 				?>
-				<ol class="vorgehen-timeline">
+				<ol class="leistungen-grid vorgehen-schritte">
 					<?php foreach ( $timeline as $index => $schritt ) : ?>
-						<li class="vorgehen-step">
-							<div class="vorgehen-step__marker" aria-hidden="true">
-								<?php echo $schritt['icon']; ?>
+						<li class="leistung-card">
+							<div class="leistung-card__body">
+								<div class="icon-tile"><?php echo $schritt['icon']; ?></div>
+								<span class="vorgehen-schritt__nummer">
+									<?php
+									/* translators: %s: step number. */
+									printf( esc_html__( 'Schritt %s', 'letsdoo' ), esc_html( $index + 1 ) );
+									?>
+								</span>
+								<h3><?php echo esc_html( $schritt['titel'] ); ?></h3>
+								<?php if ( $schritt['text'] ) : ?>
+									<p><?php echo esc_html( $schritt['text'] ); ?></p>
+								<?php endif; ?>
 							</div>
-							<span class="vorgehen-step__nummer">
-								<?php
-								/* translators: %s: step number. */
-								printf( esc_html__( 'Schritt %s', 'letsdoo' ), esc_html( $index + 1 ) );
-								?>
-							</span>
-							<h3 class="vorgehen-step__titel"><?php echo esc_html( $schritt['titel'] ); ?></h3>
-							<?php if ( $schritt['text'] ) : ?>
-								<p class="vorgehen-step__text"><?php echo esc_html( $schritt['text'] ); ?></p>
-							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>
 				</ol>

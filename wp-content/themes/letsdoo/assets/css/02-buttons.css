@@ -4,12 +4,10 @@
 
 .btn {
 	display: inline-block;
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	/* Stretched to 150% so the button only shows the middle stretch of the
-	   gradient's travel rather than the full pink-to-blue run — a softer,
-	   less abrupt blend across a surface this small. */
-	background-size: 150% 150%;
-	background-position: center;
+	/* Flat brand colour by default. The two-tone gradient below is reserved
+	   for the Kontakt buttons, so it stays a signal for "this is the contact
+	   CTA" instead of showing up everywhere. */
+	background: var(--color-gradient-end);
 	color: #fff;
 	font-family: var(--font-display);
 	font-size: var(--text-sm);
@@ -34,6 +32,20 @@
 	transform: translateY(var(--hover-lift-control));
 	box-shadow: 0 12px 24px -8px rgba(62, 60, 144, 0.7);
 	text-decoration: none;
+}
+
+/* The flashy two-tone version, reserved for the buttons that actually lead to
+   Kontakt. letsdoo_button() (inc/template-helpers.php) marks those with
+   data-kontakt-modal — it needs the attribute anyway to intercept the click
+   and open the modal instead of navigating — so it doubles as the "this is
+   the contact CTA" flag here. */
+.btn[data-kontakt-modal] {
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	/* Stretched to 150% so the button only shows the middle stretch of the
+	   gradient's travel rather than the full pink-to-blue run — a softer,
+	   less abrupt blend across a surface this small. */
+	background-size: 150% 150%;
+	background-position: center;
 }
 
 .btn--sm {

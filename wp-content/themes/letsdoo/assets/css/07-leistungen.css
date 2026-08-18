@@ -50,10 +50,10 @@
 
 	--radius-child: var(--radius-nested);
 
-	/* The card's palette in one place: the surface is painted by ::before and
-	   the type by the rules further down, so putting a card on a brand colour
-	   is these three values and nothing else — see "Alternating colours" at the
-	   foot of this file. */
+	/* The card's palette in one place: the surface is painted by ::before, the
+	   type by the rules further down. One design everywhere now — white
+	   surface, dark ink, brand-coloured badge — so these three stay at their
+	   defaults; nothing overrides them per section any more. */
 	--card-surface: #fff;
 	--card-ink: var(--color-ink);
 	--card-body: var(--color-body);
@@ -124,7 +124,7 @@
 	   it to be concentric with — see 01-base.css. */
 	border-radius: 30px;
 	background: var(--color-gradient-end);
-	color: var(--color-gradient-start);
+	color: #FFF;
 	/* An icon size rather than a type size: matched to the 56px tile, so it
 	   is not on the type scale. */
 	font-size: 1.45rem;
@@ -195,48 +195,22 @@
 }
 
 /* -------------------------------------------------- */
-/* Brand gradient on a white section                    */
+/* Outline on a white section                           */
 /* -------------------------------------------------- */
 
-/* On the gradient band the cards stay white — that contrast is what makes them
-   read. On a white section white cards had nothing to push against: the panel
-   dissolved into the page and the cut-out around the badge disappeared with it.
-   There they carry the brand gradient instead, which also brings the cut-out
-   back — the ring around the badge is the white section showing through.
+/* On the gradient band the white card reads on its own. On a white section it
+   has nothing to push against, so it gets the same hairline every other card
+   on white uses (--border-hairline, 01-base.css). The border lives on
+   ::before rather than the card itself, so it follows the surface's own
+   shape — the same mask that cuts the badge notch cuts the border too,
+   breaking it at the corner instead of drawing a line straight through the
+   badge.
 
-   Two sections qualify: the Angebote page, which is always white, and the
-   Leistungen block with its background switch off. */
-:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card {
-	--card-surface: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	--card-ink: #fff;
-	--card-body: rgba(255, 255, 255, 0.9);
-	--card-accent: #fff;
-}
-
-/* The badge takes the same gradient as the card it is cut out of, so the two
-   read as one piece of material with a ring of the page punched between them.
-   Its own gradient runs the full pink-to-blue over 56px rather than continuing
-   the card's — separate paint boxes — which is what makes the badge read as a
-   chip lifted off the surface rather than a hole in it.
-
-   The glyph goes solid white: the gradient-clipped version from the base rule
-   would be pink on pink at the badge's top-left. */
-:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card .icon-tile {
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	color: #fff;
-}
-
-:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card .icon-tile i {
-	background: none;
-	color: #fff;
-}
-
-/* The link is gradient-clipped text, which on a brand-coloured card would be
-   pink on pink. `background: none` first: with background-clip still set to
-   text, a leftover gradient would paint through the glyphs. */
-:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card__more {
-	background: none;
-	color: #fff;
+   Same two sections as the type-colour exception in 25-blocks.css: the
+   Angebote page, always white, and the Leistungen block with its background
+   switch off. */
+:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card::before {
+	border: var(--border-hairline);
 }
 
 /* -------------------------------------------------- */

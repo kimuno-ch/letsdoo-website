@@ -121,12 +121,17 @@
 /* On white: back to ink, and the glass cards become real cards. --glass-dark-bg
    is a dark tint meant to sit over a photograph; on white it just reads as a
    grey box, and the white card text inside it disappears. Same recipe as
-   .referenz-card, which has always sat on white. */
+   .referenz-card, which has always sat on white.
+
+   .zahl-card and .zahlen__intro aren't listed any more: they're an opaque
+   white card and plain white text unconditionally now (13-zahlen.css, same
+   move as .leistung-card), so this correction has nothing left to do for
+   them — .zahl-card picks up its own hairline border there instead. */
 .ld-block-section:not(:has(> .section__bg-photo)) :is(h2, h3, h4, p, dt, dd, li, .section__subheading) {
 	color: var(--color-ink);
 }
 
-.ld-block-section:not(:has(> .section__bg-photo)) :is(.zahl-card, .zahlen__intro, .plattform-card) {
+.ld-block-section:not(:has(> .section__bg-photo)) .plattform-card {
 	background: #fff;
 	border: var(--border-hairline);
 	box-shadow: var(--shadow-card);
@@ -139,24 +144,16 @@
 	color: #fff;
 }
 
-/* Exception: the Leistungen cards. They carry their own surface and their own
-   type colours (07-leistungen.css) — white on the gradient band, the brand
-   gradient on a white section — so neither correction above applies. The white
-   one would paint a plain rectangle over the cut-out around the badge and add a
-   border along its edges; the type rules would put ink on a gradient card.
-
-   Both grounds are listed rather than just the one that looks wrong today: the
-   colours come from --card-ink / --card-body, so whichever surface the card is
-   on, these rules hand back the value the card itself set. They have to
-   outweigh the rules above, hence the repeated `:not(:has(…))` compounds
-   rather than a bare `.leistung-card`. */
-.ld-block-section:has(> .section__bg-photo) .leistung-card :is(h3, li),
-.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card :is(h3, li) {
+/* Exception: the Leistungen cards. Their surface is white regardless of the
+   section behind them (07-leistungen.css), so on the gradient band the
+   "invert everything" rule above would put white type on a white card. Pull
+   it back to ink here. On a white section the card's own ink already matches
+   the general rule above, so no exception is needed there. */
+.ld-block-section:has(> .section__bg-photo) .leistung-card :is(h3, li) {
 	color: var(--card-ink);
 }
 
-.ld-block-section:has(> .section__bg-photo) .leistung-card p,
-.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card p {
+.ld-block-section:has(> .section__bg-photo) .leistung-card p {
 	color: var(--card-body);
 }
 

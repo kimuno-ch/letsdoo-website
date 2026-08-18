@@ -1,5 +1,5 @@
 /* -------------------------------------------------- */
-/* About: Zahlen                                        */
+/* Zahlen                                               */
 /* -------------------------------------------------- */
 
 .section--zahlen h2 {
@@ -7,16 +7,7 @@
 }
 
 .zahlen__intro {
-	--radius-child: var(--radius-nested);
-
 	max-width: 640px;
-	background: var(--glass-dark-bg);
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-dark-border);
-	box-shadow: var(--glass-shadow);
-	border-radius: var(--radius);
-	padding: 1.25rem 1.5rem;
 	color: #fff;
 }
 
@@ -27,33 +18,48 @@
 	margin-top: 1.5rem;
 }
 
+/* Same material as .leistung-card (07-leistungen.css): an opaque white card
+   everywhere, not a glass panel on the gradient band and a second look on
+   white. No badge/notch either — there's no icon to cut one for — and no
+   hover lift: unlike .leistung-card this isn't a link, and a card that
+   visibly reacts to the pointer without doing anything when clicked reads as
+   a broken control rather than a stat. */
 .zahl-card {
 	--radius-child: var(--radius-nested);
 
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-	background: var(--glass-dark-bg);
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-dark-border);
-	box-shadow: var(--glass-shadow);
+	background: #fff;
+	box-shadow: var(--shadow-card);
 	border-radius: var(--radius);
-	padding: 1.25rem 1.5rem;
-	color: #fff;
+	padding: 1.5rem;
 }
 
+/* On the gradient band the white card reads on its own, same as
+   .leistung-card. On a white section (the Zahlen block with its background
+   switch off) it gets the same hairline every other card on white uses. Only
+   the block can land on white — the About page's Zahlen section is always on
+   the gradient. */
+.ld-block-section:not(:has(> .section__bg-photo)) .zahl-card {
+	border: var(--border-hairline);
+}
+
+/* Gradient-clipped, like .leistung-card__more — the number is the one accent
+   colour on an otherwise ink-and-white card. */
 .zahl-card__wert {
 	font-family: var(--font-display);
 	font-size: var(--text-stat);
 	line-height: 1;
-	color: #fff;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 
 .zahl-card__label {
 	font-weight: 700;
 	text-transform: uppercase;
 	font-size: var(--text-xs);
-	color: #fff;
+	color: var(--color-body);
 }
-

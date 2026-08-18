@@ -42,7 +42,7 @@
 	   same shape they do. Read through --radius-child it came out a circle
 	   here, purely because this one is not inside a card. */
 	border-radius: var(--radius-nested);
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	background: var(--color-gradient-end);
 	display: flex;
 	align-items: center;
 	justify-content: center;

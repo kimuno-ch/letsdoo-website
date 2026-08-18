@@ -11,86 +11,58 @@
 	margin-bottom: 3rem;
 }
 
-/* Equal-width columns rather than a fixed count, so adding a step under
-   "Vorgehen" reflows the timeline instead of breaking it. */
-.vorgehen-timeline {
-	--vorgehen-marker: 72px;
-
+/* Same grid and card as Unsere Leistungen (07-leistungen.css) — reused
+   wholesale rather than a second timeline component, since the section sits
+   on the same gradient band and three steps is exactly a full row of
+   .leistungen-grid's 12 columns (3 × span 4). .vorgehen-schritte only carries
+   naming; every rule that matters lives on .leistungen-grid / .leistung-card
+   already. The steps are an <ol> of plain <li>, not links, so there is no
+   .leistung-card__more here — the hover lift is kept anyway, purely for the
+   same tactile feel as the cards above. */
+.vorgehen-schritte {
 	list-style: none;
-	margin: 0;
 	padding: 0;
-	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: 1fr;
-	gap: 1.5rem;
 }
 
-.vorgehen-step {
-	position: relative;
-	text-align: center;
-	padding-top: 0.5rem;
+/* .leistung-card's hover lift assumes a link. These are plain <li>, so it
+   gets cancelled back to the resting state — a card that shifts under the
+   pointer but does nothing when clicked reads as a broken control. */
+.vorgehen-schritte .leistung-card:hover {
+	transform: none;
+	box-shadow: var(--shadow-card);
 }
 
-/* The connecting rail. Each step draws its own segment across its column at
-   the marker's centre height, and the first and last are trimmed back to the
-   middle so the line starts and stops at a marker rather than hanging off the
-   ends. Doing it per step keeps it independent of how many there are. */
-.vorgehen-step::before {
-	content: "";
-	position: absolute;
-	top: calc(0.5rem + (var(--vorgehen-marker) / 2));
-	left: 0;
-	right: 0;
-	height: 2px;
-	background: rgba(255, 255, 255, 0.3);
-}
-
-.vorgehen-step:first-child::before {
-	left: 50%;
-}
-
-.vorgehen-step:last-child::before {
-	right: 50%;
-}
-
-.vorgehen-step__marker {
-	position: relative;
-	z-index: 1;
-	width: var(--vorgehen-marker);
-	height: var(--vorgehen-marker);
-	margin: 0 auto 1rem;
-	display: grid;
-	place-items: center;
-	color: #fff;
-	/* A circle, not a rounded box — the rail runs through its centre and any
-	   corner at all would break that line. Exempt from the radius scale for
-	   the same reason the modal close button is. */
-	border-radius: 999px;
-	background: var(--glass-dark-bg);
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-dark-border);
-	box-shadow: var(--glass-shadow);
-}
-
-.vorgehen-step__nummer {
+.vorgehen-schritt__nummer {
 	display: block;
+	margin-bottom: 0.25rem;
+	font-family: var(--font-display);
 	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
-	color: rgba(255, 255, 255, 0.75);
-	margin-bottom: 0.25rem;
+	color: var(--color-gradient-end);
 }
 
-.vorgehen-step__titel {
+/* The one thing the card grid doesn't carry over on its own: these are steps
+   in a sequence, not independent offers, so each one but the last gets an
+   arrow parked in the gap to the next. The box is exactly the grid gap wide,
+   positioned flush against the card's own edge and pushed out by its own
+   width — sized and placed that way, rather than centred by eye, so it stays
+   correct if the grid's gap ever changes. White because it sits on the
+   gradient band, outside the white card. Turns to point down between stacked
+   cards on mobile (23-mobile.css). */
+.vorgehen-schritte .leistung-card:not(:last-child)::after {
+	content: "→";
+	position: absolute;
+	top: calc(var(--badge-size) / 2 - 0.6em);
+	right: 0;
+	width: 1.5rem;
+	transform: translateX(100%);
+	text-align: center;
+	font-family: var(--font-display);
+	font-size: 1.25rem;
+	line-height: 1;
 	color: #fff;
-	font-size: var(--text-md);
-	margin: 0 0 0.5em;
-}
-
-.vorgehen-step__text {
-	color: rgba(255, 255, 255, 0.85);
-	font-size: var(--text-sm);
-	margin: 0;
+	z-index: 2;
+	pointer-events: none;
 }

@@ -120,6 +120,14 @@ function letsdoo_enqueue_assets() {
 		letsdoo_asset_version( '/assets/js/kontakt-modal.js' ),
 		true
 	);
+
+	wp_enqueue_script(
+		'letsdoo-zahlen-count',
+		get_theme_file_uri( '/assets/js/zahlen-count.js' ),
+		array(),
+		letsdoo_asset_version( '/assets/js/zahlen-count.js' ),
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'letsdoo_enqueue_assets' );
 

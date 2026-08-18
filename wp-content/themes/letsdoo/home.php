@@ -56,7 +56,7 @@ if ( ! $hero_heading ) {
 			<h2><?php esc_html_e( 'Fragen zu Ihrem Odoo-Projekt?', 'letsdoo' ); ?></h2>
 			<p><?php esc_html_e( 'Wir beantworten sie gerne – unverbindlich und ohne Verkaufsdruck.', 'letsdoo' ); ?></p>
 			<div class="cta-banner__actions">
-				<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ), 'btn--white' ); ?>
+				<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ) ); ?>
 			</div>
 		</div>
 	</section>

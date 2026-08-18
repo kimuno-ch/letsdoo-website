@@ -178,8 +178,7 @@ while ( have_posts() ) :
 				<h2><?php echo esc_html( get_field( 'cta_heading' ) ?: 'Bereit für den nächsten Schritt?' ); ?></h2>
 				<p><?php echo esc_html( get_field( 'cta_text' ) ?: 'Lassen Sie uns gemeinsam herausfinden, wie Odoo Ihre Geschäftsprozesse revolutionieren kann.' ); ?></p>
 				<div class="cta-banner__actions">
-					<?php letsdoo_button( get_field( 'cta_button_label' ) ?: 'Kostenloser Demo-Termin', get_field( 'cta_button_link' ) ?: home_url( '/kontakt/' ), 'btn--white' ); ?>
-					<?php letsdoo_button( get_field( 'cta_button2_label' ) ?: 'Kontakt aufnehmen', get_field( 'cta_button2_link' ) ?: home_url( '/kontakt/' ), 'btn--ghost-white' ); ?>
+					<?php letsdoo_button( get_field( 'cta_button2_label' ) ?: 'Kontakt aufnehmen', get_field( 'cta_button2_link' ) ?: home_url( '/kontakt/' ) ); ?>
 				</div>
 			</div>
 		</section>

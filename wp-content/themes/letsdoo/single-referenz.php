@@ -131,8 +131,8 @@ while ( have_posts() ) :
 				<h2><?php esc_html_e( 'Ein ähnliches Projekt im Kopf?', 'letsdoo' ); ?></h2>
 				<p><?php esc_html_e( 'Erzählen Sie uns von Ihren Prozessen – wir zeigen Ihnen, wie Odoo sie abbilden kann.', 'letsdoo' ); ?></p>
 				<div class="cta-banner__actions">
-					<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ), 'btn--white' ); ?>
-					<?php letsdoo_button( __( 'Alle Referenzen', 'letsdoo' ), $referenzen_url . '#referenzen', 'btn--ghost-white' ); ?>
+					<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), home_url( '/kontakt/' ) ); ?>
+					<?php letsdoo_button( __( 'Alle Referenzen', 'letsdoo' ), $referenzen_url . '#referenzen' ); ?>
 				</div>
 			</div>
 		</section>

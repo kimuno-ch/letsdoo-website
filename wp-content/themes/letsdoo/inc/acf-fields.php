@@ -14,7 +14,7 @@
  *
  *   - Paket "Merkmale", Leistung "Merkmale" and Standort "FAQ" are textareas
  *     parsed by letsdoo_merkmale_liste() / letsdoo_faq_liste().
- *   - warum_letsdoo_punkt_1/2/3_* are nine flat fields instead of a repeater.
+ *   - warum_letsdoo_punkt_1/2/3/4_* are twelve flat fields instead of a repeater.
  *   - Company-wide settings live in inc/settings-page.php, a plain Settings
  *     API page under Einstellungen → Firmenangaben, not an Options Page.
  *
@@ -493,20 +493,30 @@ add_action( 'acf/init', function () {
 				'type'  => 'text',
 				'default_value' => 'Persönlich. Transparent. Lösungsorientiert.',
 			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_image',
+				'label' => 'Bild (Mitte)',
+				'name'  => 'warum_letsdoo_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Leer lassen für ein Platzhalterbild. Sitzt zwischen den zwei Zweierspalten der Punkte.',
+			),
+
 			/*
-			 * Three flat groups rather than a repeater — repeaters are Pro-only
-			 * and never render in this admin (see the file header). The row is
-			 * a fixed three across in the layout, so there is nothing to add or
-			 * reorder and the textarea + letsdoo_lines() trick the Paket
-			 * "Merkmale" field uses would only get in the way of the icon
-			 * select. Leaving a Titel empty drops that pillar from the row.
+			 * Four flat groups rather than a repeater — repeaters are Pro-only
+			 * and never render in this admin (see the file header). The layout
+			 * is a fixed two-by-two around the image, so there is nothing to
+			 * add or reorder and the textarea + letsdoo_lines() trick the
+			 * Paket "Merkmale" field uses would only get in the way of the icon
+			 * select. Leaving a Titel empty drops that pillar from the grid.
 			 */
 			array(
 				'key'   => 'field_ld_home_warum_letsdoo_punkte_tab',
 				'label' => 'Punkte',
 				'name'  => '',
 				'type'  => 'message',
-				'message' => 'Die drei Punkte, die nebeneinander unter dem Untertitel stehen.',
+				'message' => 'Die vier Punkte links und rechts vom Bild, zwei pro Seite.',
 			),
 
 			array(
@@ -583,6 +593,32 @@ add_action( 'acf/init', function () {
 				'key'   => 'field_ld_home_warum_letsdoo_punkt_3_text',
 				'label' => 'Punkt 3 – Text',
 				'name'  => 'warum_letsdoo_punkt_3_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+
+			array(
+				'key'           => 'field_ld_home_warum_letsdoo_punkt_4_icon',
+				'label'         => 'Punkt 4 – Icon',
+				'name'          => 'warum_letsdoo_punkt_4_icon',
+				'type'          => 'font-awesome',
+				'icon_sets'     => array( 'classic_solid', 'classic_regular', 'brands' ),
+				'save_format'   => 'element',
+				'default_value' => '{"id":"id-badge","style":"regular"}',
+				'wrapper'       => array( 'width' => '25' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_4_titel',
+				'label' => 'Punkt 4 – Titel',
+				'name'  => 'warum_letsdoo_punkt_4_titel',
+				'type'  => 'text',
+				'default_value' => 'Erfahren',
+				'wrapper' => array( 'width' => '75' ),
+			),
+			array(
+				'key'   => 'field_ld_home_warum_letsdoo_punkt_4_text',
+				'label' => 'Punkt 4 – Text',
+				'name'  => 'warum_letsdoo_punkt_4_text',
 				'type'  => 'textarea',
 				'rows'  => 2,
 			),

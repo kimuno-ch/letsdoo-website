@@ -2,8 +2,10 @@
 /* Plattform (App-Raster)                               */
 /* -------------------------------------------------- */
 
-/* Same "written for the gradient, corrected for white" split as
-   .leistung-card / .zahl-card — see 25-blocks.css section 3. */
+/* Same "written for the gradient, corrected for white" split .leistung-card
+   and .zahl-card used to have — see 25-blocks.css section 3. Those two are
+   an opaque white card unconditionally now; .plattform-card is the one
+   still on the older recipe. */
 
 .section--plattform h2 {
 	color: #fff;
