@@ -21,12 +21,110 @@
 	--color-body: #4a4a4a;
 	--color-bg-alt: #f4f4f4;
 	--color-border: #e2e2e2;
-	/* One radius for everything that reads as a box — panels, cards, buttons,
-	   badges, inputs, images, icon tiles. Previously there were two (24 and 16)
-	   plus a scatter of one-off 999px pills and 10/14px tiles; they are all this
-	   now. Anything narrower than 48px is capped by the browser at half its own
-	   size, so the small icon tiles come out fully round. */
+	/* -------------------------------------------------- */
+	/* Corner radii                                        */
+	/* -------------------------------------------------- */
+
+	/* --radius is the outer radius: anything that reads as a surface in the
+	   page — cards, panels, sections, the modal, standalone images. Anything
+	   narrower than 48px is capped by the browser at half its own size, so
+	   small tiles and buttons come out as pills from the same value.
+
+	   Nested boxes follow the concentric rule, inner = outer − gap, so two sets
+	   of corners never fight: a child sitting 2rem inside a 24px corner would
+	   need 24 − 32, i.e. a square corner, which reads hard against how round
+	   the rest of the site is. --radius-nested is the floor we stop at.
+	   In practice every panel here pads by 2rem or more, so the floor is what
+	   applies; where a container pads by less than that — the Referenz logo
+	   tile at 0.75rem — the exact figure is written out with a calc so the
+	   arithmetic stays visible.
+
+	   --radius-child is how that reaches the children. Every rounded surface
+	   re-declares it, and everything that sits inside one (inputs, images,
+	   hover fills, icon tiles, chips) rounds to var(--radius-child) rather than
+	   to --radius, with no extra selector per component.
+
+	   Controls are the exception, and they opt out deliberately: buttons, the
+	   submit, pagination links, tags and the menu toggle take --radius-nested
+	   at every depth. --radius on a box that short resolves to half its height,
+	   which is a pill — so following the cascade would have made the same
+	   button a stadium in open page space and a 12px rectangle inside a card.
+	   One shape everywhere is the point, and the icon tiles follow them for the
+	   same reason. The only round things left are round for structural reasons:
+	   the Vorgehen markers, which have the timeline rail running through their
+	   centre, and the modal close button. */
 	--radius: 24px;
+	--radius-nested: 12px;
+	--radius-child: var(--radius);
+
+	/* -------------------------------------------------- */
+	/* Type scale                                          */
+	/* -------------------------------------------------- */
+
+	/* Six steps, and every size in the theme is one of them. There used to be
+	   nineteen, most of them within a few hundredths of a neighbour
+	   (0.7/0.72/0.75/0.78/0.8, 0.85/0.9/0.95) — differences too small to read
+	   as intent and too many to keep straight.
+
+	   --text-2xs and --text-xs are the uppercase micro labels (eyebrows, meta
+	   rows, dt labels); --text-sm is small copy, buttons and form labels;
+	   --text-md is body; --text-lg is h3 and lead-ins; --text-stat is the one
+	   display size that is a number rather than a heading. */
+	--text-2xs: 0.7rem;
+	--text-xs: 0.75rem;
+	--text-sm: 0.85rem;
+	--text-md: 1rem;
+	--text-lg: 1.15rem;
+	--text-stat: 2.4rem;
+
+	/* Headings scale with the viewport; kept here so the three are read as one
+	   ramp rather than found one file at a time. --text-h2-prose is the
+	   in-article h2, a step below the section headings so a post's own
+	   structure doesn't compete with the page's. */
+	--text-h1: clamp(2.2rem, 4vw, 3.2rem);
+	--text-h2: clamp(1.7rem, 3vw, 2.4rem);
+	--text-h2-prose: clamp(1.4rem, 2.4vw, 1.9rem);
+
+	/* -------------------------------------------------- */
+	/* Spacing                                             */
+	/* -------------------------------------------------- */
+
+	/* Spacing is written as plain rem values rather than tokens — it reads
+	   better next to the layout it belongs to — but only off this scale:
+	   0.25 · 0.5 · 0.75 · 1 · 1.25 · 1.5 · 2 · 2.5 · 3 · 4 · 5 · 7rem.
+	   A quarter-rem grid to 1.5rem, half-rem steps above it. Anything else
+	   (the 0.3/0.35/0.65/0.9/1.1/1.75/2.25/3.5 scattered through the theme
+	   before) is a one-off that nothing else can line up with.
+
+	   Type-relative padding on pills and buttons stays in em so it tracks the
+	   font size: 0.4em 1em for labels, 0.9em 1.8em for buttons. */
+
+	/* -------------------------------------------------- */
+	/* Depth and motion                                    */
+	/* -------------------------------------------------- */
+
+	/* One card shadow and one hover shadow, in place of the eight recipes that
+	   had grown up per component. All of them shared the same shape — a wide,
+	   heavily negative-spread drop — and differed only in figures nobody could
+	   have told apart side by side. Alpha is set for the gradient bands, where
+	   a card has the least contrast to work with; on white it reads as a soft
+	   lift rather than a hard edge.
+
+	   --shadow-float is for what genuinely leaves the page: the modal, and the
+	   Vertrauen image that is styled as a print rather than a card. */
+	--shadow-card: 0 20px 42px -26px rgba(0, 0, 0, 0.35);
+	--shadow-card-hover: 0 30px 55px -25px rgba(0, 0, 0, 0.45);
+	--shadow-float: 0 30px 60px -25px rgba(0, 0, 0, 0.4);
+
+	/* Hover: surfaces lift twice as far as controls, and everything animates on
+	   the same curve. Before this, cards lifted -2, -3 or -4px over three
+	   different durations depending on which file they were written in. */
+	--hover-lift: -4px;
+	--hover-lift-control: -2px;
+	--transition: 0.2s ease;
+
+	--border-hairline: 1px solid var(--color-border);
+
 	--font-display: 'Archivo Black', Arial, sans-serif;
 	--max-width: 1200px;
 
@@ -148,9 +246,9 @@ h1, h2, h3 {
 	letter-spacing: -0.01em;
 }
 
-h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
-h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
-h3 { font-size: 1.15rem; }
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-lg); }
 
 p { margin: 0 0 1em; }
 
@@ -171,7 +269,11 @@ a { color: inherit; }
 .icon-tile {
 	width: 56px;
 	height: 56px;
-	border-radius: var(--radius);
+	/* Every tile on the site sits inside a card, so it rounds to the nested
+	   radius. The one exception overrides it where it lives: the Leistungen
+	   badge in 07-leistungen.css, which straddles the card's outer corner
+	   instead of sitting inside its padding. */
+	border-radius: var(--radius-child);
 	display: flex;
 	align-items: center;
 	justify-content: center;

@@ -10,15 +10,17 @@
 }
 
 .referenz-card {
+	--radius-child: var(--radius-nested);
+
 	display: grid;
 	grid-template-columns: 140px 1fr;
 	gap: 1.5rem;
 	align-items: stretch;
 	background: #fff;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	border-radius: var(--radius);
 	padding: 1.5rem;
-	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
+	box-shadow: var(--shadow-card);
 }
 
 .referenz-card__logo {
@@ -35,6 +37,10 @@
 	width: 100%;
 	height: auto;
 	display: block;
+	/* Most of these are logos on transparent ground where the radius makes no
+	   difference; some are photographs, and those were the one image on the
+	   site coming out with hard corners inside a rounded card. */
+	border-radius: var(--radius-child);
 }
 
 .referenz-card__body h3 {
@@ -42,7 +48,7 @@
 }
 
 .referenz-card__body p {
-	margin-bottom: 1.1rem;
+	margin-bottom: 1rem;
 }
 
 .referenz-card__link {

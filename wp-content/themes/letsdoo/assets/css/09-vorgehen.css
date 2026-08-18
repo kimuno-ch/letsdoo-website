@@ -8,7 +8,7 @@
 }
 
 .section--vorgehen .section__subheading {
-	margin-bottom: 3.5rem;
+	margin-bottom: 3rem;
 }
 
 /* Equal-width columns rather than a fixed count, so adding a step under
@@ -58,10 +58,13 @@
 	z-index: 1;
 	width: var(--vorgehen-marker);
 	height: var(--vorgehen-marker);
-	margin: 0 auto 1.1rem;
+	margin: 0 auto 1rem;
 	display: grid;
 	place-items: center;
 	color: #fff;
+	/* A circle, not a rounded box — the rail runs through its centre and any
+	   corner at all would break that line. Exempt from the radius scale for
+	   the same reason the modal close button is. */
 	border-radius: 999px;
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
@@ -72,22 +75,22 @@
 
 .vorgehen-step__nummer {
 	display: block;
-	font-size: 0.7rem;
+	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
 	color: rgba(255, 255, 255, 0.75);
-	margin-bottom: 0.35rem;
+	margin-bottom: 0.25rem;
 }
 
 .vorgehen-step__titel {
 	color: #fff;
-	font-size: 1.05rem;
+	font-size: var(--text-md);
 	margin: 0 0 0.5em;
 }
 
 .vorgehen-step__text {
 	color: rgba(255, 255, 255, 0.85);
-	font-size: 0.9rem;
+	font-size: var(--text-sm);
 	margin: 0;
 }

@@ -14,30 +14,238 @@
 	margin-top: 2rem;
 }
 
+/* -------------------------------------------------- */
+/* Card shape                                           */
+/* -------------------------------------------------- */
+
+/* A white panel with the icon badge sitting over its top-left corner, a round
+   bite taken out of the panel around it. Was dark glass; the panel is opaque
+   now so the type has a surface of its own whether the section behind it is the
+   gradient (home) or white (the Leistungen block with the background switch
+   off).
+ *
+ * The bite is a mask on the surface: one radial gradient, transparent inside
+ * the halo radius and opaque beyond, so the section behind shows through as an
+ * even ring of air around the badge. A rectangular notch would have been two
+ * abutting boxes and no mask, but it steps around the badge in straight lines
+ * while the badge itself is a squircle — this follows its shape instead.
+ *
+ * Hence the split between the two boxes. A mask clips everything its element
+ * paints outside the border box, box-shadow included, and filter:
+ * drop-shadow() on the same element is applied before the mask and gets cut
+ * just the same. So the shadow sits on the card box and the mask on ::before.
+ * The card box reaches --surface-top higher than the surface it stands in for;
+ * that never shows, because the shadow is offset downwards and pulled back in
+ * by a negative spread, so it paints nothing along its own top edge. */
 .leistung-card {
+	/* Matches .icon-tile in 01-base.css — the badge is that tile, lifted into
+	   the corner. Change one and the bite follows. */
+	--badge-size: 56px;
+	/* Width of the transparent ring between the badge and the white surface. */
+	--badge-halo: 10px;
+	/* How far down the badge the surface starts. The rest of the badge stands
+	   above the card, which is what makes it read as sitting in the corner
+	   rather than printed on it. */
+	--surface-top: 18px;
+
+	--radius-child: var(--radius-nested);
+
+	/* The card's palette in one place: the surface is painted by ::before and
+	   the type by the rules further down, so putting a card on a brand colour
+	   is these three values and nothing else — see "Alternating colours" at the
+	   foot of this file. */
+	--card-surface: #fff;
+	--card-ink: var(--color-ink);
+	--card-body: var(--color-body);
+
+	position: relative;
+	/* Contains ::before, which sits at z-index -1 so the card's own content
+	   paints over it. Without it the surface would drop behind the section
+	   background. */
+	isolation: isolate;
 	grid-column: span 4;
-	display: block;
-	background: var(--glass-dark-bg);
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-dark-border);
-	box-shadow: var(--glass-shadow);
+	display: flex;
+	flex-direction: column;
+	padding: calc(var(--badge-size) + 1.25rem) 2rem 2rem;
 	border-radius: var(--radius);
-	padding: 2rem;
+	box-shadow: var(--shadow-card);
 	text-align: left;
 	color: inherit;
 	text-decoration: none;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.leistung-card::before {
+	--hole-r: calc(var(--badge-size) / 2 + var(--badge-halo));
+	--hole-x: calc(var(--badge-size) / 2);
+	/* The gradient is positioned inside the surface, which starts --surface-top
+	   below the badge — so the centre sits that far above its own top edge. */
+	--hole-y: calc(var(--badge-size) / 2 - var(--surface-top));
+
+	content: "";
+	position: absolute;
+	z-index: -1;
+	inset: var(--surface-top) 0 0 0;
+	background: var(--card-surface);
+	border-radius: var(--radius);
+	/* The 1px short of the radius is the feather: a hard stop leaves the cut
+	   edge aliased, since the mask is resolved without antialiasing. */
+	-webkit-mask-image: radial-gradient(circle at var(--hole-x) var(--hole-y), transparent calc(var(--hole-r) - 1px), #000 var(--hole-r));
+	mask-image: radial-gradient(circle at var(--hole-x) var(--hole-y), transparent calc(var(--hole-r) - 1px), #000 var(--hole-r));
 }
 
 .leistung-card:hover {
-	transform: translateY(-4px);
-	box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.4);
+	transform: translateY(var(--hover-lift));
+	box-shadow: var(--shadow-card-hover);
 }
+
+/* -------------------------------------------------- */
+/* Badge                                                */
+/* -------------------------------------------------- */
+
+/* .icon-tile keeps its size and radius from 01-base.css; here it is lifted out
+   of the text flow into the notch. Absolute against the card, not the body, so
+   the wide variant — where the tile sits inside a flex child — anchors to the
+   same corner.
+
+   Pale brand wash rather than white: on a white section a white badge would
+   dissolve into the card beside it, and on the gradient the translucent tint
+   the tiles use elsewhere would let the band through and go muddy. This is
+   opaque and reads on both. */
+.leistung-card .icon-tile {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--badge-size);
+	height: var(--badge-size);
+	margin-bottom: 0;
+	/* The one tile that keeps the outer radius: it straddles the card corner
+	   rather than sitting inside the padding, so there is no inner corner for
+	   it to be concentric with — see 01-base.css. */
+	border-radius: 30px;
+	background: var(--color-gradient-end);
+	color: var(--color-gradient-start);
+	/* An icon size rather than a type size: matched to the 56px tile, so it
+	   is not on the type scale. */
+	font-size: 1.45rem;
+	/* Two layers: a tight ambient ring that falls into the halo and a softer
+	   drop below it. The ring is what makes the cut-out legible on a white
+	   section — there the gap is white on white and the badge would otherwise
+	   look printed straight onto the card. On the gradient band the gap already
+	   reads on its own and this only adds depth. */
+	box-shadow:
+		0 3px 8px rgba(17, 17, 17, 0.16),
+		0 10px 22px -10px rgba(17, 17, 17, 0.35);
+}
+
+/* Same gradient-clipped glyph as .blog-card__more in 21-blog-listing.css.
+   Applies to the <i> a Font Awesome field renders; an SVG icon ignores it and
+   keeps the flat pink from `color` above. */
+.leistung-card .icon-tile i {
+	/* background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent; */
+}
+
+/* -------------------------------------------------- */
+/* Card content                                         */
+/* -------------------------------------------------- */
+
+.leistung-card__body {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.leistung-card h3 {
+	color: var(--card-ink);
+}
+
+.leistung-card p {
+	color: var(--card-body);
+	margin-bottom: 0;
+}
+
+/* Pushed to the foot of the card so the link lines up across a row whatever
+   the copy does. The cards have always been links; this makes that visible. */
+.leistung-card__more {
+	margin-top: auto;
+	padding-top: 1.5rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	font-family: var(--font-display);
+	font-size: var(--text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.leistung-card__more::after {
+	content: "→";
+	transition: transform var(--transition);
+}
+
+.leistung-card:hover .leistung-card__more::after {
+	transform: translateX(4px);
+}
+
+/* -------------------------------------------------- */
+/* Brand gradient on a white section                    */
+/* -------------------------------------------------- */
+
+/* On the gradient band the cards stay white — that contrast is what makes them
+   read. On a white section white cards had nothing to push against: the panel
+   dissolved into the page and the cut-out around the badge disappeared with it.
+   There they carry the brand gradient instead, which also brings the cut-out
+   back — the ring around the badge is the white section showing through.
+
+   Two sections qualify: the Angebote page, which is always white, and the
+   Leistungen block with its background switch off. */
+:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card {
+	--card-surface: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	--card-ink: #fff;
+	--card-body: rgba(255, 255, 255, 0.9);
+	--card-accent: #fff;
+}
+
+/* The badge takes the same gradient as the card it is cut out of, so the two
+   read as one piece of material with a ring of the page punched between them.
+   Its own gradient runs the full pink-to-blue over 56px rather than continuing
+   the card's — separate paint boxes — which is what makes the badge read as a
+   chip lifted off the surface rather than a hole in it.
+
+   The glyph goes solid white: the gradient-clipped version from the base rule
+   would be pink on pink at the badge's top-left. */
+:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card .icon-tile {
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	color: #fff;
+}
+
+:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card .icon-tile i {
+	background: none;
+	color: #fff;
+}
+
+/* The link is gradient-clipped text, which on a brand-coloured card would be
+   pink on pink. `background: none` first: with background-clip still set to
+   text, a leftover gradient would paint through the glyphs. */
+:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card__more {
+	background: none;
+	color: #fff;
+}
+
+/* -------------------------------------------------- */
+/* Wide variant (home page, with photo)                 */
+/* -------------------------------------------------- */
 
 .leistung-card--wide {
 	grid-column: span 8;
-	display: flex;
+	flex-direction: row;
 	gap: 2rem;
 	align-items: center;
 }
@@ -46,15 +254,11 @@
 	flex-direction: row-reverse;
 }
 
-.leistung-card__body {
-	flex: 1;
-}
-
 .leistung-card__image {
 	width: 38%;
 	flex-shrink: 0;
 	aspect-ratio: 1;
-	border-radius: var(--radius);
+	border-radius: var(--radius-child);
 	overflow: hidden;
 }
 
@@ -63,11 +267,6 @@
 	height: 100%;
 	object-fit: cover;
 	display: block;
-}
-
-.leistung-card h3,
-.leistung-card p {
-	color: #fff;
 }
 
 .leistung-card__merkmale {
@@ -81,14 +280,14 @@
 	align-items: center;
 	gap: 0.5rem;
 	font-weight: 600;
-	font-size: 0.85rem;
-	color: #fff;
+	font-size: var(--text-sm);
+	color: var(--card-ink);
 }
 
+.leistung-card__merkmale i,
 .leistung-card__merkmale svg {
 	flex-shrink: 0;
 	width: 18px;
 	height: 18px;
-	color: #fff;
+	color: var(--card-accent, var(--color-gradient-start));
 }
-

@@ -22,6 +22,8 @@
 }
 
 .plattform-card {
+	--radius-child: var(--radius-nested);
+
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
 	-webkit-backdrop-filter: var(--glass-filter);
@@ -40,24 +42,24 @@
 	margin: 0;
 	padding: 0;
 	display: grid;
-	gap: 0.65rem;
-	font-size: 1rem;
+	gap: 0.75rem;
+	font-size: var(--text-md);
 }
 
 .plattform-card__apps a,
 .plattform-card__apps span {
 	display: flex;
 	align-items: center;
-	gap: 0.9rem;
+	gap: 1rem;
 	color: inherit;
 	text-decoration: none;
 }
 
 .plattform-card__apps a {
-	border-radius: var(--radius);
-	margin: -0.4rem -0.6rem;
-	padding: 0.4rem 0.6rem;
-	transition: background 0.15s ease;
+	border-radius: var(--radius-child);
+	margin: -0.5rem -0.75rem;
+	padding: 0.5rem 0.75rem;
+	transition: background var(--transition);
 }
 
 /* The hover fill needs to read on both card backgrounds — light on the

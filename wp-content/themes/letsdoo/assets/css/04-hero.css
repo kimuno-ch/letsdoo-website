@@ -118,6 +118,9 @@
 }
 
 .hero__panel {
+	/* Rounded surface: everything inside it rounds to --radius-child. */
+	--radius-child: var(--radius-nested);
+
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
 	-webkit-backdrop-filter: var(--glass-filter);
@@ -137,7 +140,7 @@
 
 .hero__eyebrow {
 	font-weight: 700;
-	font-size: 1.1rem;
+	font-size: var(--text-lg);
 	color: #fff;
 }
 
@@ -146,12 +149,12 @@
 	background: rgba(255, 255, 255, 0.18);
 	border: 1px solid rgba(255, 255, 255, 0.35);
 	color: #fff;
-	font-size: 0.7rem;
+	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
 	padding: 0.4em 1em;
-	border-radius: var(--radius);
+	border-radius: var(--radius-child);
 	margin-bottom: 1rem;
 }
 

@@ -7,6 +7,8 @@
 }
 
 .zahlen__intro {
+	--radius-child: var(--radius-nested);
+
 	max-width: 640px;
 	background: var(--glass-dark-bg);
 	backdrop-filter: var(--glass-filter);
@@ -26,6 +28,8 @@
 }
 
 .zahl-card {
+	--radius-child: var(--radius-nested);
+
 	display: flex;
 	align-items: center;
 	gap: 1rem;
@@ -41,7 +45,7 @@
 
 .zahl-card__wert {
 	font-family: var(--font-display);
-	font-size: 2.5rem;
+	font-size: var(--text-stat);
 	line-height: 1;
 	color: #fff;
 }
@@ -49,7 +53,7 @@
 .zahl-card__label {
 	font-weight: 700;
 	text-transform: uppercase;
-	font-size: 0.8rem;
+	font-size: var(--text-xs);
 	color: #fff;
 }
 

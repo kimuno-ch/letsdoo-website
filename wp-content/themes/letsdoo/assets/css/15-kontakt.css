@@ -14,11 +14,13 @@
 }
 
 .kontakt-form {
+	--radius-child: var(--radius-nested);
+
 	background: #fff;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	border-radius: var(--radius);
 	padding: 2.5rem;
-	box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.25);
+	box-shadow: var(--shadow-card);
 }
 
 .kontakt-form form p {
@@ -27,7 +29,7 @@
 
 .kontakt-form label {
 	display: block;
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 	font-weight: 700;
 	color: var(--color-ink);
 }
@@ -38,9 +40,9 @@
 .kontakt-form textarea {
 	width: 100%;
 	margin-top: 0.4em;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	background: var(--color-bg-alt);
-	border-radius: var(--radius);
+	border-radius: var(--radius-child);
 	padding: 0.9em 1.2em;
 	font: inherit;
 }
@@ -62,11 +64,11 @@
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	color: #fff;
 	font-family: var(--font-display);
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
 	padding: 0.9em 1.8em;
-	border-radius: var(--radius);
+	border-radius: var(--radius-nested);
 	border: 0;
 	cursor: pointer;
 }
@@ -89,14 +91,16 @@
 
 /* Icon spans both rows so the label and value stack to its right. */
 .kontakt-info {
+	--radius-child: var(--radius-nested);
+
 	display: grid;
 	grid-template-columns: auto 1fr;
 	column-gap: 1rem;
 	align-items: center;
 	background: #fff;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	border-radius: var(--radius);
-	padding: 1.1rem 1.25rem;
+	padding: 1.25rem;
 }
 
 .kontakt-info__icon {
@@ -105,14 +109,14 @@
 	place-items: center;
 	width: 48px;
 	height: 48px;
-	border-radius: var(--radius);
+	border-radius: var(--radius-child);
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	color: #fff;
 }
 
 .kontakt-info__label {
 	grid-column: 2;
-	font-size: 0.7rem;
+	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
@@ -122,7 +126,7 @@
 .kontakt-info__wert {
 	grid-column: 2;
 	color: var(--color-ink);
-	font-size: 0.95rem;
+	font-size: var(--text-sm);
 	text-decoration: none;
 }
 

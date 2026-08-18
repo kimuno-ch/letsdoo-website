@@ -8,6 +8,8 @@
 }
 
 .cta-banner {
+	--radius-child: var(--radius-nested);
+
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	border-radius: var(--radius);
 	padding: 4rem 2rem;

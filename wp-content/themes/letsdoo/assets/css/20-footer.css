@@ -56,7 +56,7 @@
 .footer-col--brand .site-logo {
 	display: inline-block;
 	border-radius: var(--radius);
-	padding: 0.7rem 0.9rem;
+	padding: 0.75rem;
 	line-height: 0;
 }
 
@@ -73,14 +73,14 @@
 }
 
 .footer-col__title {
-	font-size: 0.8rem;
+	font-size: var(--text-xs);
 	color: #fff;
-	margin-bottom: 0.8em;
+	margin-bottom: 0.5em;
 }
 
 .footer-col p {
-	margin: 0 0 0.4em;
-	font-size: 0.9rem;
+	margin: 0 0 0.5em;
+	font-size: var(--text-sm);
 }
 
 .footer-col ul li {
@@ -89,10 +89,13 @@
 
 .footer-col a {
 	text-decoration: none;
-	font-size: 0.9rem;
+	font-size: var(--text-sm);
 }
 
-.footer-col a:hover {
+/* .legal-links sits in the footer bottom rather than in a column, so it had
+   been missing the hover its neighbours have. */
+.footer-col a:hover,
+.legal-links a:hover {
 	text-decoration: underline;
 }
 
@@ -109,7 +112,7 @@
 	justify-content: center;
 	width: 38px;
 	height: 38px;
-	border-radius: var(--radius);
+	border-radius: var(--radius-nested);
 	background: rgba(255, 255, 255, 0.18);
 	border: 1px solid rgba(255, 255, 255, 0.35);
 	color: #fff;
@@ -130,7 +133,7 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 1rem;
-	font-size: 0.8rem;
+	font-size: var(--text-xs);
 	color: rgba(255, 255, 255, 0.7);
 }
 

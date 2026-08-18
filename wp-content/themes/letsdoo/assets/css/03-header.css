@@ -99,7 +99,7 @@
 .main-navigation a {
 	text-decoration: none;
 	font-weight: 600;
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 	color: var(--color-ink);
@@ -119,10 +119,19 @@
 	gap: 1rem;
 }
 
+/* The mail and phone links were the one interactive element in the header
+   with no hover state at all. Same lift as the buttons — they are controls,
+   not surfaces — so the whole bar responds the same way. */
 .icon-link {
 	display: inline-flex;
 	color: var(--color-gradient-start);
 	text-decoration: none;
+	transition: color var(--transition), transform var(--transition);
+}
+
+.icon-link:hover {
+	color: var(--color-gradient-end);
+	transform: translateY(var(--hover-lift-control));
 }
 
 .menu-toggle {
@@ -133,11 +142,11 @@
 	gap: 5px;
 	background: none;
 	border: 0;
-	border-radius: var(--radius);
+	border-radius: var(--radius-nested);
 	cursor: pointer;
-	padding: 0.6rem;
+	padding: 0.75rem;
 	color: var(--color-ink);
-	transition: background-color 0.2s ease, transform 0.15s ease;
+	transition: background-color var(--transition), transform var(--transition);
 }
 
 .menu-toggle:hover,

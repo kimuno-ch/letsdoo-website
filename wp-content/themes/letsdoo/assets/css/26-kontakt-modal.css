@@ -30,6 +30,8 @@ body.kontakt-modal-open {
 }
 
 .kontakt-modal__dialog {
+	--radius-child: var(--radius-nested);
+
 	position: relative;
 	width: 100%;
 	max-width: 960px;
@@ -37,7 +39,7 @@ body.kontakt-modal-open {
 	overflow-y: auto;
 	background: var(--color-bg-alt);
 	border-radius: var(--radius);
-	box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+	box-shadow: var(--shadow-float);
 }
 
 .kontakt-modal__close {
@@ -50,11 +52,13 @@ body.kontakt-modal-open {
 	place-items: center;
 	width: 40px;
 	height: 40px;
+	/* A circle is a shape rather than a corner treatment, so the concentric
+	   rule in 01-base.css has nothing to act on here. */
 	border-radius: 50%;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	background: #fff;
 	color: var(--color-ink);
-	font-size: 1.1rem;
+	font-size: var(--text-lg);
 	line-height: 1;
 	cursor: pointer;
 	z-index: 1;
@@ -72,6 +76,16 @@ body.kontakt-modal-open {
 .kontakt-modal .kontakt-layout {
 	grid-template-columns: 1.5fr 1fr;
 	gap: 2rem;
+}
+
+/* The one place two surfaces stack: the form is a card in its own right, and
+   in here it sits inside the dialog's corner. It steps down like any other
+   nested box. Written out rather than taken from --radius-child, because a
+   custom property an element declares also applies to that element's own
+   declarations — .kontakt-form sets the child value for its inputs, so reading
+   it back here would round the form to it everywhere, modal or not. */
+.kontakt-modal .kontakt-form {
+	border-radius: var(--radius-nested);
 }
 
 @media (max-width: 720px) {

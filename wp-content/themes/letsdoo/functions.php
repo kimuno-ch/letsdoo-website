@@ -52,7 +52,14 @@ function letsdoo_style_parts() {
 		'13-zahlen',
 		'14-team',
 		'15-kontakt',
-		'16-angebote-leistungen',
+		/*
+		 * 16-angebote-leistungen is gone: the Angebote page rendered its own
+		 * near-copy of the Leistungen card (.leistung-bento-card) and drifted
+		 * out of step with the real one the moment that was redesigned. It uses
+		 * .leistung-card from 07-leistungen.css now, like the Startseite and
+		 * the Leistungen block. The numbering is left with the hole rather than
+		 * renumbering every file below it.
+		 */
 		'17-angebote-vertrauen',
 		'18-angebote-pakete',
 		'19-angebote-cta',

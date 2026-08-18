@@ -15,7 +15,7 @@ a.hero__badge:hover {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 0.5rem;
-	font-size: 0.8rem;
+	font-size: var(--text-xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -32,14 +32,15 @@ a.hero__badge:hover {
 }
 
 .entry-tag {
-	font-size: 0.78rem;
+	font-size: var(--text-xs);
 	font-weight: 700;
 	text-decoration: none;
 	color: var(--color-body);
 	background: var(--color-bg-alt);
-	border: 1px solid var(--color-border);
-	padding: 0.35em 0.9em;
-	border-radius: var(--radius);
+	border: var(--border-hairline);
+	padding: 0.4em 1em;
+	border-radius: var(--radius-nested);
+	transition: color var(--transition), border-color var(--transition);
 }
 
 .entry-tag:hover {

@@ -54,7 +54,7 @@
 		--vorgehen-marker: 56px;
 
 		grid-auto-flow: row;
-		gap: 1.75rem;
+		gap: 2rem;
 	}
 
 	.vorgehen-step {
@@ -84,7 +84,7 @@
 	.vorgehen-step::before,
 	.vorgehen-step:first-child::before {
 		top: var(--vorgehen-marker);
-		bottom: -1.75rem;
+		bottom: -2rem;
 		left: calc((var(--vorgehen-marker) / 2) - 1px);
 		right: auto;
 		width: 2px;
@@ -101,29 +101,11 @@
 	}
 
 	.kontakt-form {
-		padding: 1.75rem 1.25rem;
+		padding: 1.5rem 1.25rem;
 	}
 
 	.site-footer__columns {
 		grid-template-columns: 1fr 1fr;
-	}
-
-	.leistungen-bento {
-		grid-template-columns: 1fr;
-	}
-
-	.leistung-bento-card,
-	.leistung-bento-card--wide {
-		grid-column: span 1;
-	}
-
-	.leistung-bento-card--wide,
-	.leistung-bento-card--wide.is-reverse {
-		flex-direction: column;
-	}
-
-	.leistung-bento-card__image {
-		width: 100%;
 	}
 
 	.vertrauen-grid {
@@ -139,7 +121,7 @@
 	}
 
 	.paket-card--hervorgehoben:hover {
-		transform: translateY(-4px);
+		transform: translateY(var(--hover-lift));
 	}
 
 	/* A 110px wave costs far too much vertical space on a phone — the sweep
@@ -217,7 +199,7 @@
 		backdrop-filter: blur(14px) saturate(1.6);
 		-webkit-backdrop-filter: blur(14px) saturate(1.6);
 		border-top: 1px solid rgba(255, 255, 255, 0.6);
-		box-shadow: 0 16px 24px -16px rgba(0, 0, 0, 0.25);
+		box-shadow: var(--shadow-card);
 		padding: 0 1.5rem;
 	}
 

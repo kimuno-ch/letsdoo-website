@@ -12,27 +12,33 @@
 	background-position: center;
 	color: #fff;
 	font-family: var(--font-display);
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
 	text-decoration: none;
 	padding: 0.9em 1.8em;
-	border-radius: var(--radius);
+	/* Never a pill. --radius on a box this short resolves to half its height,
+	   so reading the inherited --radius-child would make a button in open page
+	   space a stadium and the same button in a card a 12px rectangle — the
+	   inconsistency this was meant to remove. Buttons take the nested radius at
+	   every depth instead, which is also what the concentric rule lands on
+	   inside any panel here (every one pads by 2rem or more). */
+	border-radius: var(--radius-nested);
 	border: 0;
 	cursor: pointer;
 	box-shadow: 0 8px 20px -8px rgba(62, 60, 144, 0.6);
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .btn:hover {
-	transform: translateY(-2px);
+	transform: translateY(var(--hover-lift-control));
 	box-shadow: 0 12px 24px -8px rgba(62, 60, 144, 0.7);
 	text-decoration: none;
 }
 
 .btn--sm {
 	padding: 0.6em 1.4em;
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 }
 
 .btn--outline {

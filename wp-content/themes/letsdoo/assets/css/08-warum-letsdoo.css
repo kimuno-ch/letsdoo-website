@@ -25,6 +25,8 @@
    option here for the same reason: over white it composites to a flat #B0B0B0
    and drops its text under 3:1. */
 .warum-letsdoo-punkt {
+	--radius-child: var(--radius-nested);
+
 	background: linear-gradient(140deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
 	backdrop-filter: var(--glass-filter);
 	-webkit-backdrop-filter: var(--glass-filter);

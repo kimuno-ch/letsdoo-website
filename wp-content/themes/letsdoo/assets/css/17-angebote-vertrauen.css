@@ -19,7 +19,7 @@
 	width: 100%;
 	display: block;
 	border-radius: var(--radius);
-	box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.35);
+	box-shadow: var(--shadow-float);
 }
 
 .vertrauen__vorteile {
@@ -38,7 +38,10 @@
 	width: 40px;
 	height: 40px;
 	flex-shrink: 0;
-	border-radius: var(--radius);
+	/* An icon tile like .icon-tile and .kontakt-info__icon, so it takes the
+	   same shape they do. Read through --radius-child it came out a circle
+	   here, purely because this one is not inside a card. */
+	border-radius: var(--radius-nested);
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	display: flex;
 	align-items: center;
@@ -52,14 +55,14 @@
 }
 
 .vorteil h4 {
-	margin: 0 0 0.2em;
-	font-size: 1rem;
+	margin: 0 0 0.25em;
+	font-size: var(--text-md);
 	text-transform: none;
 	font-family: inherit;
 }
 
 .vorteil p {
 	margin: 0;
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 }
 

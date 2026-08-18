@@ -91,6 +91,7 @@ while ( have_posts() ) :
 											<?php endforeach; ?>
 										</ul>
 									<?php endif; ?>
+									<span class="leistung-card__more" aria-hidden="true"><?php esc_html_e( 'Mehr erfahren', 'letsdoo' ); ?></span>
 								</div>
 							</a>
 						<?php endforeach; ?>

@@ -126,10 +126,10 @@
 	color: var(--color-ink);
 }
 
-.ld-block-section:not(:has(> .section__bg-photo)) :is(.leistung-card, .zahl-card, .zahlen__intro, .plattform-card) {
+.ld-block-section:not(:has(> .section__bg-photo)) :is(.zahl-card, .zahlen__intro, .plattform-card) {
 	background: #fff;
-	border: 1px solid var(--color-border);
-	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
+	border: var(--border-hairline);
+	box-shadow: var(--shadow-card);
 	backdrop-filter: none;
 	-webkit-backdrop-filter: none;
 }
@@ -137,6 +137,27 @@
 /* The icon tile keeps its fill, so its glyph stays white either way. */
 .ld-block-section:not(:has(> .section__bg-photo)) .icon-tile {
 	color: #fff;
+}
+
+/* Exception: the Leistungen cards. They carry their own surface and their own
+   type colours (07-leistungen.css) — white on the gradient band, the brand
+   gradient on a white section — so neither correction above applies. The white
+   one would paint a plain rectangle over the cut-out around the badge and add a
+   border along its edges; the type rules would put ink on a gradient card.
+
+   Both grounds are listed rather than just the one that looks wrong today: the
+   colours come from --card-ink / --card-body, so whichever surface the card is
+   on, these rules hand back the value the card itself set. They have to
+   outweigh the rules above, hence the repeated `:not(:has(…))` compounds
+   rather than a bare `.leistung-card`. */
+.ld-block-section:has(> .section__bg-photo) .leistung-card :is(h3, li),
+.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card :is(h3, li) {
+	color: var(--card-ink);
+}
+
+.ld-block-section:has(> .section__bg-photo) .leistung-card p,
+.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card p {
+	color: var(--card-body);
 }
 
 /* Exceptions: boxes that bring their own colour and so ignore the switch

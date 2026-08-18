@@ -2,8 +2,8 @@
 /* Single Leistung                                      */
 /* -------------------------------------------------- */
 
-/* Same list treatment as .leistung-bento-card__merkmale, just laid out as
-   its own strip under the hero instead of nested in a card. */
+/* Same list treatment as .leistung-card__merkmale, just laid out as its own
+   strip under the hero instead of nested in a card. */
 .leistung-merkmale-liste {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -13,7 +13,7 @@
 .leistung-merkmale-liste li {
 	display: flex;
 	align-items: center;
-	gap: 0.6rem;
+	gap: 0.5rem;
 	font-weight: 600;
 	color: var(--color-ink);
 }

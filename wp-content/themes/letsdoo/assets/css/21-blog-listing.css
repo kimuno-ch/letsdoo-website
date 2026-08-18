@@ -10,19 +10,21 @@
 }
 
 .blog-card {
+	--radius-child: var(--radius-nested);
+
 	display: flex;
 	flex-direction: column;
 	background: #fff;
-	border: 1px solid var(--color-border);
+	border: var(--border-hairline);
 	border-radius: var(--radius);
 	overflow: hidden;
-	box-shadow: 0 20px 40px -25px rgba(0, 0, 0, 0.2);
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: var(--shadow-card);
+	transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .blog-card:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 26px 46px -24px rgba(0, 0, 0, 0.3);
+	transform: translateY(var(--hover-lift));
+	box-shadow: var(--shadow-card-hover);
 }
 
 .blog-card__image {
@@ -37,6 +39,8 @@
 	height: 100%;
 	object-fit: cover;
 	display: block;
+	/* Deliberately slower than --transition: this is a photograph easing in
+	   its own frame, not a control answering a pointer. */
 	transition: transform 0.4s ease;
 }
 
@@ -55,25 +59,25 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 0.6rem;
-	font-size: 0.72rem;
+	gap: 0.5rem;
+	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
 	color: #8a8a8a;
-	margin-bottom: 0.9rem;
+	margin-bottom: 1rem;
 }
 
 .blog-card__kategorie {
 	background: rgba(233, 68, 106, 0.1);
 	color: var(--color-gradient-start);
-	padding: 0.3em 0.8em;
-	border-radius: var(--radius);
+	padding: 0.4em 1em;
+	border-radius: var(--radius-child);
 }
 
 .blog-card__titel {
-	font-size: 1.15rem;
-	margin-bottom: 0.6em;
+	font-size: var(--text-lg);
+	margin-bottom: 0.5em;
 }
 
 .blog-card__titel a {
@@ -89,12 +93,12 @@
 
 .blog-card__text {
 	flex: 1;
-	margin-bottom: 1.2rem;
+	margin-bottom: 1.25rem;
 }
 
 .blog-card__more {
 	font-family: var(--font-display);
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
@@ -124,14 +128,16 @@
 	justify-content: center;
 	min-width: 2.5rem;
 	height: 2.5rem;
-	padding: 0 0.9em;
-	border-radius: var(--radius);
-	border: 1px solid var(--color-border);
+	padding: 0 1em;
+	/* A control, so it follows the buttons rather than the chips. */
+	border-radius: var(--radius-nested);
+	border: var(--border-hairline);
 	background: #fff;
-	font-size: 0.85rem;
+	font-size: var(--text-sm);
 	font-weight: 700;
 	text-decoration: none;
 	color: var(--color-ink);
+	transition: color var(--transition), border-color var(--transition);
 }
 
 .pagination a.page-numbers:hover {
