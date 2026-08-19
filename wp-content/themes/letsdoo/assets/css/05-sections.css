@@ -12,6 +12,12 @@
 	position: relative;
 }
 
+/* The hero already carries its own bottom padding, so the section right
+   after it shouldn't stack this on top. */
+.hero + .section {
+	padding-top: 0;
+}
+
 .section__intro,
 .section__content {
 	max-width: var(--max-width);
@@ -56,6 +62,15 @@
 	   box. */
 	padding-top: calc(5rem + var(--wave-height));
 	padding-bottom: calc(5rem + var(--wave-height));
+}
+
+/* Block-built pages (single-standort etc.) can land a photo section right
+   after the hero too; the top wave still has nothing to clear there since
+   the hero, not white space, sits above it. Extra class in the selector
+   over .hero + .section above so it wins the tie rather than losing to
+   source order. */
+.hero + .section:has(> .section__bg-photo) {
+	padding-top: 0;
 }
 
 .section:has(> .section__bg-photo)::before,

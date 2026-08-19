@@ -133,12 +133,12 @@
 	   rows, dt labels); --text-sm is small copy, buttons and form labels;
 	   --text-md is body; --text-lg is h3 and lead-ins; --text-stat is the one
 	   display size that is a number rather than a heading. */
-	--text-2xs: 0.7rem;
-	--text-xs: 0.75rem;
-	--text-sm: 0.85rem;
-	--text-md: 1rem;
+	--text-2xs: 0.75rem;
+	--text-xs: 0.8rem;
+	--text-sm: 0.95rem;
+	--text-md: 1.1rem;
 	--text-lg: 1.25rem;
-	--text-stat: 2.4rem;
+	--text-stat: 2.6rem;
 
 	/* Headings scale with the viewport; kept here so the three are read as one
 	   ramp rather than found one file at a time. --text-h2-prose is the
@@ -315,7 +315,7 @@
 
 body {
 	color: var(--color-body);
-	font-size: 16px;
+	font-size: 18px;
 }
 
 h1, h2, h3 {
