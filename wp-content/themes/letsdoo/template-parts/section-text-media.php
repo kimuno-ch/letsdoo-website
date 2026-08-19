@@ -21,12 +21,18 @@
  *     @type string $button_link
  *     @type string $image_url      Empty means text only — no empty column.
  *     @type string $image_alt      Empty renders the image decorative (alt="").
+ *     @type string $image_html     Pre-built markup (e.g. an inline <svg>) —
+ *                                  wins over $image_url, same as $html wins
+ *                                  over $text on the text side. Trusted, not
+ *                                  escaped: the caller is responsible for its
+ *                                  own escaping, same contract as $html.
  *     @type string $image_position 'links' or 'rechts' (default).
  * }
  */
 
-$ld_image_url = $args['image_url'] ?? '';
-$ld_has_media = '' !== $ld_image_url;
+$ld_image_url  = $args['image_url'] ?? '';
+$ld_image_html = $args['image_html'] ?? '';
+$ld_has_media  = '' !== $ld_image_url || '' !== $ld_image_html;
 
 /*
  * Without an image there is no grid to build: the text falls back to the
@@ -72,13 +78,17 @@ $ld_classes = $ld_has_media
 		$ld_image_alt = $args['image_alt'] ?? '';
 		?>
 		<div class="section-split__media">
-			<img
-				src="<?php echo esc_url( $ld_image_url ); ?>"
-				alt="<?php echo esc_attr( $ld_image_alt ); ?>"
-				<?php echo '' === $ld_image_alt ? 'aria-hidden="true" ' : ''; ?>
-				loading="lazy"
-				decoding="async"
-			>
+			<?php if ( '' !== $ld_image_html ) : ?>
+				<?php echo $ld_image_html; ?>
+			<?php else : ?>
+				<img
+					src="<?php echo esc_url( $ld_image_url ); ?>"
+					alt="<?php echo esc_attr( $ld_image_alt ); ?>"
+					<?php echo '' === $ld_image_alt ? 'aria-hidden="true" ' : ''; ?>
+					loading="lazy"
+					decoding="async"
+				>
+			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 

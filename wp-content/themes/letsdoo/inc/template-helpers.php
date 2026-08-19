@@ -122,6 +122,129 @@ function letsdoo_get_referenzen() {
 	) );
 }
 
+/**
+ * The "Warum Odoo?" platform diagram (assets/images/odoo-map.svg), inlined
+ * rather than left as a plain <img src> like every other image on the site.
+ *
+ * The Kunde chip on the diagram — originally a static person icon — cycles
+ * through real Referenzen logos when any are entered, falling back to that
+ * original icon when there aren't any yet. An externally referenced .svg
+ * file can't reach into the database to build that, and even a same-origin
+ * fetch wouldn't help: an <img>-embedded SVG runs under stricter rules than
+ * one that's actually part of the page (scripting disabled, and in at least
+ * this browser's case CSS `d`-property animation silently did nothing — see
+ * the two galleries of the git history around the hub-ripple work for the
+ * before/after). Inlining sidesteps all of that, as a side effect of solving
+ * the actual problem, which is that the chip needs live data.
+ *
+ * The file is used as-is otherwise — this only ever touches the single
+ * marked region (see the "omap:kunde-chip" comments in the SVG itself), via
+ * letsdoo_odoo_map_inject_logo_cycle(), so the rest of the diagram (and its
+ * own animations) is exactly the hand-authored file on disk.
+ */
+function letsdoo_render_odoo_map() {
+	$svg = file_get_contents( get_theme_file_path( '/assets/images/odoo-map.svg' ) );
+
+	if ( false === $svg ) {
+		return '';
+	}
+
+	$logos = array();
+
+	foreach ( letsdoo_get_referenzen() as $referenz ) {
+		$thumb_id = get_post_thumbnail_id( $referenz );
+
+		if ( ! $thumb_id ) {
+			continue; // No real logo to show -- cycling a placeholder in would look like a bug, not a feature.
+		}
+
+		$logos[] = array(
+			'src' => letsdoo_image_url( $thumb_id, 'placeholder-logo.svg' ),
+			'alt' => get_the_title( $referenz ),
+		);
+	}
+
+	return $logos ? letsdoo_odoo_map_inject_logo_cycle( $svg, $logos ) : $svg;
+}
+
+/**
+ * Swaps the Kunde chip's marked region for a stack of client-logo <image>
+ * elements, cross-fading through them via CSS. Only called with at least one
+ * logo — letsdoo_render_odoo_map() leaves the file's own fallback content
+ * (person icon + "Kunde") in place otherwise.
+ *
+ * Same box for every logo (290×86, centred where the chip used to be —
+ * bigger than the chip itself since there's no card padding to leave room
+ * for any more) regardless of each one's own aspect ratio —
+ * preserveAspectRatio="xMidYMid meet" (the SVG default, stated here for
+ * clarity) scales each to fit inside it without distorting or cropping, the
+ * same guarantee object-fit: contain gives a bitmap <img>.
+ */
+function letsdoo_odoo_map_inject_logo_cycle( $svg, $logos ) {
+	$count = count( $logos );
+
+	if ( 1 === $count ) {
+		// Nothing to cycle with -- animating a single logo would just flicker
+		// it off once per loop for no reason.
+		$markup = sprintf(
+			'<image href="%s" x="305" y="79" width="290" height="86" preserveAspectRatio="xMidYMid meet"><title>%s</title></image>',
+			esc_url( $logos[0]['src'] ),
+			esc_html( $logos[0]['alt'] )
+		);
+	} else {
+		/*
+		 * Every logo shares one keyframe animation and differs only by
+		 * animation-delay — the same staggering technique the rest of the
+		 * map already uses for its dashed connectors and dots (see
+		 * odoo-map.svg). A negative delay of -(i × its share of the shared
+		 * duration) starts logo i that far into the cycle, so each takes its
+		 * turn in the visible window rather than all showing at once.
+		 */
+		$duration    = $count * 2.6; // seconds for the whole cycle to visit every logo once
+		$slice       = 100 / $count; // % of the cycle each logo gets
+		$holdUntil   = round( $slice * 0.72, 2 ); // still fully visible up to here
+		$hiddenAfter = round( $slice, 2 ); // fully faded out by here
+
+		$markup = sprintf(
+			'<style>
+				.omap-kunde-logo { opacity: 0; animation: omap-kunde-cycle %1$ss ease-in-out infinite; }
+				@media (prefers-reduced-motion: reduce) {
+					.omap-kunde-logo { animation: none; }
+					.omap-kunde-logo--first { opacity: 1; }
+				}
+				@keyframes omap-kunde-cycle {
+					0%%    { opacity: 1; }
+					%2$s%% { opacity: 1; }
+					%3$s%% { opacity: 0; }
+					100%%  { opacity: 0; }
+				}
+			</style>',
+			$duration,
+			$holdUntil,
+			$hiddenAfter
+		);
+
+		foreach ( $logos as $i => $logo ) {
+			$classes = 'omap-kunde-logo' . ( 0 === $i ? ' omap-kunde-logo--first' : '' );
+
+			$markup .= sprintf(
+				'<image class="%1$s" style="animation-delay:-%2$ss" href="%3$s" x="305" y="79" width="290" height="86" preserveAspectRatio="xMidYMid meet"><title>%4$s</title></image>',
+				esc_attr( $classes ),
+				round( $i * ( $duration / $count ), 2 ),
+				esc_url( $logo['src'] ),
+				esc_html( $logo['alt'] )
+			);
+		}
+	}
+
+	return preg_replace(
+		'/<!-- omap:kunde-chip:start.*?-->.*?<!-- omap:kunde-chip:end -->/s',
+		$markup,
+		$svg,
+		1
+	);
+}
+
 function letsdoo_get_pakete() {
 	return get_posts( array(
 		'post_type'      => 'angebot_paket',

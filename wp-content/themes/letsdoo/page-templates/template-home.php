@@ -37,6 +37,13 @@ while ( have_posts() ) :
 			 * placeholder: it is the argument the section is making — one
 			 * platform, every app hanging off it — and the section reads as
 			 * unfinished without it.
+			 *
+			 * That bundled diagram is the one case passed as image_html rather
+			 * than image_url — it needs to be inlined, not linked as a plain
+			 * <img>, so its Kunde chip can be rendered with live Referenzen
+			 * logos (letsdoo_render_odoo_map(), inc/template-helpers.php). An
+			 * editor's own uploaded image has no such chip to fill in, so it
+			 * stays a normal <img> via image_url exactly as before.
 			 */
 			$warum_odoo_image = get_field( 'warum_odoo_image' );
 
@@ -49,8 +56,9 @@ while ( have_posts() ) :
 					'text'         => get_field( 'warum_odoo_text' ) ?: 'Odoo vereint CRM, Verkauf, Einkauf, Lager, Projekte, Buchhaltung und vieles mehr in einer einzigen Lösung. Dank des modularen Aufbaus wächst das System mit Ihrem Unternehmen mit – genau so, wie Sie es brauchen.',
 					'button_label' => get_field( 'warum_odoo_button_label' ) ?: 'Kontakt aufnehmen',
 					'button_link'  => get_field( 'warum_odoo_button_link' ) ?: home_url( '/kontakt/' ),
-					'image_url'    => letsdoo_image_url( $warum_odoo_image, 'odoo-map.svg', 'large' ),
-					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo als zentrale Plattform: Apps, Datenbank, Webseite und Lager rund um eine Lösung' ),
+					'image_url'    => $warum_odoo_image ? letsdoo_image_url( $warum_odoo_image, 'odoo-map.svg', 'large' ) : '',
+					'image_html'   => $warum_odoo_image ? '' : letsdoo_render_odoo_map(),
+					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo als zentrale Plattform: der Kunde fliesst hinein, CRM, Verkauf, Lager und mehr fliessen heraus' ),
 				)
 			);
 			?>

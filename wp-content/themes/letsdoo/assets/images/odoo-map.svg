@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 920" role="img" aria-labelledby="omap-title">
-	<title id="omap-title">Let's Doo als zentrale Odoo-Plattform: Applikationen, Datenbank und die wichtigsten Apps rund um eine Lösung</title>
+	<title id="omap-title">Let's Doo als zentrale Odoo-Plattform: der Kunde fliesst hinein, die wichtigsten Apps rund um eine Lösung fliessen heraus</title>
 	<defs>
 		<linearGradient id="omapLogoGrad" x1="72.89" y1="61.25" x2="217.42" y2="159.44" gradientUnits="userSpaceOnUse">
 			<stop offset="0" stop-color="#e9446a" stop-opacity=".8"/>
@@ -25,7 +25,8 @@
 			.omap-line { animation: omap-flow 1.8s linear infinite; }
 			.omap-dot { animation: omap-dot 2.4s ease-in-out infinite; }
 			.omap-hub-group { transform-box: fill-box; transform-origin: center; animation: omap-pulse 5s ease-in-out infinite; }
-			.omap-blob { transform-box: fill-box; transform-origin: center; animation: omap-spin 50s linear infinite; }
+			.omap-hub-shape-a { animation: omap-hub-wave-a 7s ease-in-out infinite; }
+			.omap-hub-shape-b { animation: omap-hub-wave-b 8.5s ease-in-out infinite; }
 		}
 
 		/* .omap-tile no longer floats: staggered per-tile translateY on an SVG
@@ -38,15 +39,68 @@
 		@keyframes omap-flow { to { stroke-dashoffset: -32; } }
 		@keyframes omap-dot { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 		@keyframes omap-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
-		@keyframes omap-spin { to { transform: rotate(360deg); } }
+
+		/* The logo mark's own two shapes (omap-hub-shape-a/b below) rippling at
+		   their edges — not the whole hub scaling (that's omap-pulse above, a
+		   separate effect on the parent group, left as it was). Each shape's
+		   outline is nudged by a sine wave running around its own centroid
+		   (factor = 1 + amplitude·sin(3·angle + phase)), and the phase shifts
+		   by 120° each keyframe, so the bulge reads as travelling around the
+		   edge rather than the whole shape swelling and shrinking in place —
+		   an actual moving ripple, not a pulse. The two shapes get their own
+		   keyframes, timed a beat apart (7s / 8.5s) rather than sharing one
+		   animation, so the pair drifts in and out of sync instead of always
+		   moving as a single unit.
+
+		   Amplitude is deliberately small — 4.5%, well under the halo blob's
+		   old 8–9% — because this is the brand mark itself and has to stay
+		   readable as "LET'S DOO" through the whole cycle, not just decorative
+		   background.
+
+		   Animating the `d` property (not the `d` attribute — CSS can tween
+		   this one) needs every keyframe built from the same point sequence in
+		   the same order as the shape's own static outline below, which is why
+		   these are generated from that outline programmatically rather than
+		   drawn by hand: hand-tweaking one keyframe risks a control point
+		   landing in a different spot in the command list than its counterpart
+		   in the others, which the browser would then interpolate as a
+		   straight cross-fade between unrelated curves instead of a smooth
+		   warp. Unsupported browsers (this needs a fairly recent one) just
+		   keep the static outline below — nothing to gate behind @supports,
+		   unlike the scroll-driven animations elsewhere in this theme, since
+		   there's no snap-to-end-state risk here. */
+		@keyframes omap-hub-wave-a {
+			0%, 100% {
+				d: path('M75.31,86.95C99.08,52.58,172.56,73.16,220.68,82.98C238.81,89.89,253.74,95.91,271.19,101.93C302.92,109.72,339.37,122.99,362.48,155.16C393.83,200.14,348.12,240.33,306.52,257.66C285.55,265.22,262.64,269.75,241.01,271.41C233.73,272.09,226.51,272.48,219.99,273.04C117.78,297.48,8.21,181.31,75.22,87.07L75.31,86.94Z');
+			}
+			33% {
+				d: path('M66.81,82.41C90.92,44.54,172.49,72.98,219.40,88.35C237.24,92.80,253.79,95.85,274.37,99.42C310.79,106.10,349.64,120.54,368.73,155.15C391.41,199.57,338.66,234.78,298.97,250.18C280.69,258.72,260.89,266.36,241.33,272.40C234.42,274.72,227.34,276.71,220.78,278.65C114.79,302.46,20.10,179.73,66.74,82.55L66.81,82.40Z');
+			}
+			66% {
+				d: path('M65.78,81.86C96.73,50.27,174.56,78.50,220.24,84.82C239.98,87.73,257.24,91.77,276.68,97.60C308.55,107.13,341.31,122.53,356.33,155.17C380.30,196.96,338.89,234.91,304.41,255.57C286.60,266.62,265.49,275.24,243.76,279.90C236.10,281.22,228.38,281.94,221.33,282.55C121.43,291.43,6.31,181.56,65.68,81.99L65.79,81.85Z');
+			}
+		}
+		@keyframes omap-hub-wave-b {
+			0%, 100% {
+				d: path('M55.05,37.37C110.79,-9.05,168.16,-8.89,226.33,17.27C242.81,26.89,261.80,37.34,278.31,45.65C290.60,51.25,301.74,56.57,313.48,67.20C322.35,75.46,330.23,86.74,327.98,98.21C325.55,108.41,308.62,112.81,299.48,117.43C284.06,124.23,264.11,132.38,253.86,140.48C240.84,149.34,243.72,158.35,239.14,170.53C207.99,249.88,142.57,269.35,38.84,208.87C-49.92,135.25,26.27,53.97,54.88,37.49L55.05,37.37Z');
+			}
+			33% {
+				d: path('M49.49,35.35C104.95,-15.86,168.67,-6.96,224.55,21.12C242.60,27.15,265.42,34.67,284.83,42.42C298.46,48.31,310.26,54.13,321.65,65.82C329.66,74.78,335.72,86.71,330.89,98.44C326.07,108.49,307.52,112.57,297.10,116.75C280.05,122.60,259.25,129.28,249.35,136.51C238.00,145.61,240.97,154.45,237.58,167.68C208.81,259.23,138.63,283.32,45.62,203.56C-33.37,132.01,25.34,53.78,49.34,35.49L49.49,35.35Z');
+			}
+			66% {
+				d: path('M43.81,33.30C110.57,-9.32,170.03,-1.85,226.97,15.90C246.08,22.85,267.24,33.32,283.52,43.07C294.72,49.71,304.43,55.80,313.29,67.23C319.90,75.69,325.07,86.77,320.83,97.64C317.11,107.07,300.58,111.04,291.69,115.23C277.34,121.50,259.94,129.72,251.89,138.75C241.35,150.01,244.67,159.70,241.12,174.16C209.11,262.67,141.65,272.60,50.38,199.83C-48.87,135.04,14.24,51.55,43.62,33.43L43.81,33.30Z');
+			}
+		}
 	</style>
 
 	<!-- Soft, irregular blob behind the logo — an 8-point closed spline with
-	     uneven radii (not a plain ellipse), so the slow rotation reads as an
-	     organic drift rather than a shape visibly spinning on rails. Sits
-	     behind the logo group below, so only the part that peeks out past its
-	     edges ever shows — a soft halo, not competing with the crisp mark. -->
-	<path class="omap-blob" fill="url(#omapBlob)" opacity="0.55" d="
+	     uneven radii (not a plain ellipse). Its outline undulates via the
+	     omap-blob-wave animation above (each of the 8 points' own radius
+	     moves independently), so the edge ripples rather than the whole
+	     shape scaling or the whole shape spinning. Sits behind the logo group
+	     below, so only the part that peeks out past its edges ever shows — a
+	     soft halo, not competing with the crisp mark. -->
+	<!-- <path class="omap-blob" fill="url(#omapBlob)" opacity="0.55" d="
 		M 710 430
 		C 702.92 481.85, 627.63 524.3, 584.3 564.3
 		C 540.97 604.3, 497.13 667.63, 450 670
@@ -56,7 +110,7 @@
 		C 353.6 250.27, 396.97 205.9, 450 200
 		C 503.03 194.1, 583.47 214.87, 626.8 253.2
 		C 670.13 291.53, 717.08 378.15, 710 430
-		Z"/>
+		Z"/> -->
 
 	<!-- Grid connectors: hub to the 14 app tiles. Columns are now 130px apart
 	     (110px tile + 20px gap) instead of butted edge to edge. -->
@@ -86,35 +140,52 @@
 		<circle class="omap-dot omap-dot--blue" style="animation-delay:-1.2s" cx="508.5" cy="515" r="4.5"/>
 	</g>
 
-	<!-- Top branch connectors: hub to Website / Auswertungen -->
-	<path class="omap-line omap-line--pink" style="animation-delay:-.15s" d="M 415 345 C 360 300, 260 220, 240 165"/>
-	<path class="omap-line omap-line--blue" style="animation-delay:-.85s" d="M 485 345 C 540 300, 640 220, 660 165"/>
-	<circle class="omap-dot omap-dot--pink" style="animation-delay:-.15s" cx="415" cy="345" r="4.5"/>
-	<circle class="omap-dot omap-dot--blue" style="animation-delay:-.85s" cx="485" cy="345" r="4.5"/>
+	<!-- Top branch connector: Kunde to hub. A single straight flow now that
+	     there is one source rather than two — the two branch points, one
+	     each side of the hub, that used to fan out to Applikationen and
+	     Datenbank are gone along with them.
 
-	<!-- Top branch chips. Icons are drawn inline rather than pulled from
-	     assets/images/odoo-icons/ — that set covers individual apps, not the
-	     platform-level ideas these two chips stand for. -->
+	     Drawn top-to-bottom (Kunde first, hub last) rather than the reverse,
+	     because omap-flow always shifts dashoffset in the same direction
+	     relative to a path's own start — dashes travel from wherever a path
+	     *starts* toward wherever it *ends*. Every other line on this map
+	     starts at the hub and travels outward to an app tile, which is why
+	     they're all drawn hub-first; this is the one line the data moves the
+	     opposite way on, in toward the hub, so it has to be the one path
+	     drawn back-to-front to match.
+
+	     Ends at y=395 — past the hub's own top edge (~y=320) and the
+	     translucent upper curve of the two logo shapes (omapLogoGrad's
+	     stops are only 80% opaque), into the solid overlap the "LET'S" text
+	     sits on — rather than stopping at y=345, which used to land the dot
+	     right where that translucent edge is, making the line look like it
+	     faded out short of the hub instead of arriving at it. -->
+	<path class="omap-line omap-line--pink" style="animation-delay:-.15s" d="M 450 165 C 450 240, 450 320, 450 395"/>
+	<circle class="omap-dot omap-dot--pink" style="animation-delay:-.15s" cx="450" cy="395" r="4.5"/>
+
+	<!-- Top branch chip: Kunde. Was two chips (Applikationen, Datenbank)
+	     fanning in from either side — now one, centred, so the map reads as
+	     "the customer flows in, the apps flow out" rather than diagramming
+	     the platform's own internals. Icon drawn inline, same as the tile
+	     icons it replaces. -->
 	<g class="omap-tile" style="animation-delay:-.3s">
-		<rect x="120" y="95" width="240" height="70" rx="20" fill="#fff" stroke="#e2e2e2"/>
-		<!-- Apps: four rounded squares in a 2x2 grid. -->
+		<!-- omap:kunde-chip:start —
+		     Swapped out by letsdoo_render_odoo_map() (inc/template-helpers.php)
+		     for a cycling showcase of real Referenzen logos when any exist —
+		     box included: a real client's own logo carries its own visual
+		     weight and doesn't want a card competing with it, so the white
+		     chip box below is part of the swap, not a fixed backdrop the
+		     logos sit inside. This person-icon "Kunde" placeholder plus its
+		     box is also the fallback content when there are no Referenzen
+		     yet — editing it here changes both. -->
+		<rect x="330" y="95" width="240" height="70" rx="20" fill="#fff" stroke="#e2e2e2"/>
+		<!-- Person: a simple head-and-shoulders glyph. -->
 		<g>
-			<rect x="141" y="111" width="17" height="17" rx="4" fill="#e9446a"/>
-			<rect x="161" y="111" width="17" height="17" rx="4" fill="#3e3c90"/>
-			<rect x="141" y="131" width="17" height="17" rx="4" fill="#3e3c90"/>
-			<rect x="161" y="131" width="17" height="17" rx="4" fill="#e9446a"/>
+			<circle cx="369" cy="120" r="9" fill="#e9446a"/>
+			<path d="M351 147 C351 136, 359 129, 369 129 C379 129, 387 136, 387 147 Z" fill="url(#omapLogoGrad)"/>
 		</g>
-		<text class="omap-chip-label" x="190" y="138">Applikationen</text>
-	</g>
-	<g class="omap-tile" style="animation-delay:-1.9s">
-		<rect x="540" y="95" width="240" height="70" rx="20" fill="#fff" stroke="#e2e2e2"/>
-		<!-- Database: a stacked cylinder. -->
-		<g>
-			<rect x="564" y="119" width="32" height="20" fill="#3e3c90"/>
-			<ellipse cx="580" cy="139" rx="16" ry="6" fill="#2f2d70"/>
-			<ellipse cx="580" cy="119" rx="16" ry="6" fill="url(#omapLogoGrad)"/>
-		</g>
-		<text class="omap-chip-label" x="610" y="138">Datenbank</text>
+		<text class="omap-chip-label" x="400" y="138">Kunde</text>
+		<!-- omap:kunde-chip:end -->
 	</g>
 
 	<!-- Hub: the real Let's Doo logo, inlined (source: 240718_Logo.svg) rather
@@ -125,8 +196,8 @@
 	     with the attribute on the same element. -->
 	<g transform="translate(280 301.3) scale(0.9189)">
 		<g class="omap-hub-group">
-			<path fill="#e9446a" d="M69.3,83.74c26.28-34.61,103.9-8.86,150.81,1.64,18.57,4.76,34.81,9.13,53.97,14.27,33.34,8,69.36,22.37,88.43,55.51,26,43.73-20.62,81.51-59.21,99.31-19.02,9.05-40.29,15.98-61.27,20.1-7.28,1.44-14.62,2.47-21.33,3.51C118,297.12,11.54,180.87,69.21,83.87l.09-.14Z"/>
-			<path fill="url(#omapLogoGrad)" d="M49.45,35.34C108.77-11.41,168.95-5.9,225.95,18.1c17.88,7.53,38.87,17.01,56.27,25.61,12.37,6.05,23.26,11.79,33.92,23.04,7.83,8.56,14.2,19.99,10.43,31.35-3.66,9.89-21,14.04-30.48,18.37-15.61,6.31-34.99,13.99-44.39,22.11-11.64,9.74-8.58,18.92-12.42,32.21-30.64,86.47-98.33,104.3-194.33,33.3C-44.05,134.1,21.95,53.1,49.28,35.47l.17-.13Z"/>
+			<path class="omap-hub-shape-a" fill="#e9446a" d="M69.3,83.74c26.28-34.61,103.9-8.86,150.81,1.64,18.57,4.76,34.81,9.13,53.97,14.27,33.34,8,69.36,22.37,88.43,55.51,26,43.73-20.62,81.51-59.21,99.31-19.02,9.05-40.29,15.98-61.27,20.1-7.28,1.44-14.62,2.47-21.33,3.51C118,297.12,11.54,180.87,69.21,83.87l.09-.14Z"/>
+			<path class="omap-hub-shape-b" fill="url(#omapLogoGrad)" d="M49.45,35.34C108.77-11.41,168.95-5.9,225.95,18.1c17.88,7.53,38.87,17.01,56.27,25.61,12.37,6.05,23.26,11.79,33.92,23.04,7.83,8.56,14.2,19.99,10.43,31.35-3.66,9.89-21,14.04-30.48,18.37-15.61,6.31-34.99,13.99-44.39,22.11-11.64,9.74-8.58,18.92-12.42,32.21-30.64,86.47-98.33,104.3-194.33,33.3C-44.05,134.1,21.95,53.1,49.28,35.47l.17-.13Z"/>
 			<g fill="#fff">
 				<path d="M103.29,104.45v21.25h12.97v5.6h-19.07v-26.85h6.1Z"/>
 				<path d="M138.93,104.45v5.6h-13.96v4.91h11.74v5.6h-11.74v5.14h14.16v5.6h-20.26v-26.85h20.06Z"/>
