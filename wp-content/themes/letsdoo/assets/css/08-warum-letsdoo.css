@@ -11,7 +11,7 @@
 
 .section--warum-letsdoo h2,
 .section--warum-letsdoo .section__subheading {
-	text-align: center;
+	text-align: left;
 }
 
 /* Two columns of claims flanking a photo: .warum-letsdoo__punkte (2 items
@@ -21,7 +21,7 @@
 	display: grid;
 	grid-template-columns: 1fr minmax(0, 1.1fr) 1fr;
 	gap: clamp(2rem, 4vw, 3.5rem);
-	align-items: center;
+	align-items: left;
 	margin-top: 2.5rem;
 }
 
@@ -34,7 +34,7 @@
    photo for attention in the middle of the row. The badge below carries the
    weight instead. */
 .warum-letsdoo-punkt {
-	text-align: center;
+	text-align: left;
 }
 
 /* Same badge as the Leistungen cards (07-leistungen.css): solid brand colour,
@@ -43,7 +43,7 @@
    since .icon-tile is a flex container (for the glyph), not a block that
    text-align on the parent would centre by itself. */
 .warum-letsdoo-punkt .icon-tile {
-	margin: 0 auto 1.25rem;
+	margin: 0 0 1.25rem;
 	border-radius: 30px;
 	background: var(--color-gradient-end);
 	color: #fff;
@@ -70,6 +70,5 @@
 }
 
 .warum-letsdoo__cta {
-	margin-top: 3rem;
-	text-align: center;
+	text-align: left;
 }

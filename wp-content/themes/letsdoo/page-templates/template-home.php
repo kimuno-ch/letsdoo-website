@@ -160,22 +160,25 @@ while ( have_posts() ) :
 				};
 				?>
 				<div class="warum-letsdoo__layout">
-					<ul class="warum-letsdoo__punkte">
-						<?php $punkt_liste( $punkte_links ); ?>
-					</ul>
-
+					
 					<div class="warum-letsdoo__media">
 						<img src="<?php echo esc_url( letsdoo_image_url( $warum_letsdoo_image, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $warum_letsdoo_image, "Let's Doo Team" ) ); ?>">
 					</div>
-
+					
+					<ul class="warum-letsdoo__punkte">
+						<?php $punkt_liste( $punkte_links ); ?>
+					</ul>
+					
 					<ul class="warum-letsdoo__punkte">
 						<?php $punkt_liste( $punkte_rechts ); ?>
 					</ul>
 				</div>
-
-				<div class="warum-letsdoo__cta">
+				<div class="warum-letsdoo__layout">
+					<div></div>
+					<div class="warum-letsdoo__cta">
 					<?php letsdoo_button( get_field( 'warum_letsdoo_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'warum_letsdoo_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
 				</div>
+			
 			</div>
 		</section>
 
