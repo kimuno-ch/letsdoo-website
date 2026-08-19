@@ -14,8 +14,8 @@
 .zahlen-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 1.25rem;
-	margin-top: 1.5rem;
+	gap: 1.5rem;
+	margin-top: 2rem;
 }
 
 /* Same material as .leistung-card (07-leistungen.css): an opaque white card
@@ -28,11 +28,11 @@
 
 	display: flex;
 	align-items: center;
-	gap: 1rem;
+	gap: 1.25rem;
 	background: #fff;
 	box-shadow: var(--shadow-card);
 	border-radius: var(--radius);
-	padding: 1.5rem;
+	padding: 2rem;
 }
 
 /* Sits in the row beside the stat rather than straddling the card corner

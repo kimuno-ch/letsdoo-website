@@ -20,14 +20,14 @@
 .warum-letsdoo__layout {
 	display: grid;
 	grid-template-columns: 1fr minmax(0, 1.1fr) 1fr;
-	gap: clamp(2rem, 4vw, 3.5rem);
+	gap: clamp(2.5rem, 4vw, 3.5rem);
 	align-items: left;
-	margin-top: 2.5rem;
+	margin-top: 3rem;
 }
 
 .warum-letsdoo__punkte {
 	display: grid;
-	gap: 2.5rem;
+	gap: 3rem;
 }
 
 /* Plain and centred rather than a card — the panel this used to be fought the

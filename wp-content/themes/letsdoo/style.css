@@ -21,10 +21,31 @@ Text Domain: letsdoo
 	box-sizing: border-box;
 }
 
+/* Form controls don't inherit font-family from the page by default in any
+   browser — it's their one long-standing exception to normal inheritance,
+   left over from when they were meant to look like native OS controls. Left
+   alone, every text input, textarea, select and button on the site (the
+   Kontakt form's fields most visibly) would keep rendering in the browser's
+   own UI font no matter what body sets, silently opting out of Mazzard H —
+   `font: inherit` is the standard fix, resetting the whole shorthand (family,
+   size, weight, line-height) back to whatever the surrounding page uses
+   rather than just patching font-family and leaving the rest mismatched. */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
 body {
 	margin: 0;
-	font-family: system-ui, -apple-system, sans-serif;
-	line-height: 1.5;
+	/* Falls back to the system-ui stack (defined alongside Mazzard H's
+	   @font-face rules in 01-base.css) until that stylesheet loads, and
+	   for anyone whose browser doesn't fetch the webfont at all. */
+	font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+	/* Up from 1.5 for more air between lines of running copy — headings set
+	   their own tighter figure in 01-base.css and aren't affected. */
+	line-height: 1.65;
 }
 
 ul {

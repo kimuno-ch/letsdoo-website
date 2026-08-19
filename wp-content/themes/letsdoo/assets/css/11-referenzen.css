@@ -5,8 +5,8 @@
 .referenzen-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 1.5rem;
-	margin-bottom: 2rem;
+	gap: 2rem;
+	margin-bottom: 2.5rem;
 }
 
 .referenz-card {
@@ -14,12 +14,12 @@
 
 	display: grid;
 	grid-template-columns: 140px 1fr;
-	gap: 1.5rem;
+	gap: 2rem;
 	align-items: stretch;
 	background: #fff;
 	border: var(--border-hairline);
 	border-radius: var(--radius);
-	padding: 1.5rem;
+	padding: 2rem;
 	box-shadow: var(--shadow-card);
 }
 
@@ -48,7 +48,7 @@
 }
 
 .referenz-card__body p {
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
 }
 
 .referenz-card__link {

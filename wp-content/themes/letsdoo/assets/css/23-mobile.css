@@ -64,7 +64,7 @@
 	   text before any image shows up. */
 	.warum-letsdoo__layout {
 		grid-template-columns: 1fr;
-		gap: 2.5rem;
+		gap: 3rem;
 	}
 
 	.warum-letsdoo__media {
@@ -73,11 +73,11 @@
 
 	.kontakt-layout {
 		grid-template-columns: 1fr;
-		gap: 2rem;
+		gap: 2.5rem;
 	}
 
 	.kontakt-form {
-		padding: 1.5rem 1.25rem;
+		padding: 2rem 1.5rem;
 	}
 
 	.site-footer__columns {
@@ -120,12 +120,12 @@
 	   column of stacked blocks — that much padding just turns into scrolling
 	   past empty screens. */
 	.section {
-		padding: 4rem 1.5rem;
+		padding: 5rem 2rem;
 	}
 
 	.section:has(> .section__bg-photo) {
-		padding-top: calc(2rem + var(--wave-height));
-		padding-bottom: calc(2rem + var(--wave-height));
+		padding-top: calc(2.5rem + var(--wave-height));
+		padding-bottom: calc(2.5rem + var(--wave-height));
 	}
 }
 
@@ -135,7 +135,7 @@
 	   anchored to the (already positioned) .site-header, so it doesn't
 	   push the toggle button onto a second row. */
 	.site-header__inner {
-		gap: 0.75rem;
+		gap: 1rem;
 	}
 
 	.site-header__actions {
@@ -176,7 +176,7 @@
 		-webkit-backdrop-filter: blur(14px) saturate(1.6);
 		border-top: 1px solid rgba(255, 255, 255, 0.6);
 		box-shadow: var(--shadow-card);
-		padding: 0 1.5rem;
+		padding: 0 2rem;
 	}
 
 	.site-header.is-open .main-navigation ul {
@@ -189,7 +189,7 @@
 
 	.main-navigation ul a {
 		display: block;
-		padding: 0.75rem 0;
+		padding: 1rem 0;
 	}
 
 	.hero__blob {
@@ -221,7 +221,7 @@
 		flex-direction: row;
 		align-items: center;
 		flex-wrap: wrap;
-		gap: 1rem;
+		gap: 1.25rem;
 	}
 
 	.footer-badge {

@@ -15,7 +15,7 @@
 .section-split {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-	gap: clamp(2rem, 5vw, 4rem);
+	gap: clamp(2.5rem, 5vw, 5rem);
 	align-items: center;
 }
 
@@ -36,7 +36,7 @@
 /* The text column carries the section's rhythm, so the button needs the same
    air under the copy that .section__intro gave it. */
 .section-split__text > .btn {
-	margin-top: 0.75rem;
+	margin-top: 1rem;
 }
 
 .section-split__media {

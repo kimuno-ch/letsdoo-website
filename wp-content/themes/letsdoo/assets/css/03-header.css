@@ -60,8 +60,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	gap: 1.5rem;
-	padding: 0.75rem 1.5rem;
+	gap: 2rem;
+	padding: 1rem 2rem;
 	flex-wrap: wrap;
 }
 
@@ -87,7 +87,7 @@
 
 .main-navigation ul {
 	display: flex;
-	gap: 2rem;
+	gap: 2.5rem;
 }
 
 .nav-divider {
@@ -116,7 +116,7 @@
 .site-header__actions {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
+	gap: 1.25rem;
 }
 
 /* The mail and phone links were the one interactive element in the header
@@ -144,7 +144,7 @@
 	border: 0;
 	border-radius: var(--radius-nested);
 	cursor: pointer;
-	padding: 0.75rem;
+	padding: 1rem;
 	color: var(--color-ink);
 	transition: background-color var(--transition), transform var(--transition);
 }

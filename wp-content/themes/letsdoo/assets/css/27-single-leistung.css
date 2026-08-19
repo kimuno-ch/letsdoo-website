@@ -7,7 +7,7 @@
 .leistung-merkmale-liste {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 0.75rem 2rem;
+	gap: 1rem 2.5rem;
 }
 
 .leistung-merkmale-liste li {

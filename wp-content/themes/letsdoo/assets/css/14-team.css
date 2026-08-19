@@ -10,8 +10,8 @@
 .team-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 2rem;
-	margin-top: 2rem;
+	gap: 2.5rem;
+	margin-top: 2.5rem;
 }
 
 .team-card {
@@ -32,7 +32,7 @@
 	position: relative;
 	border-radius: var(--radius);
 	overflow: hidden;
-	margin-bottom: 1.25rem;
+	margin-bottom: 1.5rem;
 	/* Taller than wide, and generous — these three carry the whole section
 	   now, where the old grid's small square-ish crops were sized for a
 	   dozen faces at once. */
@@ -58,8 +58,8 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-end;
-	gap: 0.75rem;
-	padding: 1.5rem;
+	gap: 1rem;
+	padding: 2rem;
 	background: linear-gradient(to top, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.55) 55%, transparent);
 	text-align: left;
 	opacity: 0;

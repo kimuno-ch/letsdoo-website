@@ -2,10 +2,73 @@
 /* Fonts + tokens                                      */
 /* -------------------------------------------------- */
 
+/* Mazzard H Black — the display face (h1/h2/h3, stat numbers, buttons,
+   eyebrows, everything that reads var(--font-display) below), replacing
+   Archivo Black. Registered under its own family name rather than folded
+   into 'Mazzard H' as weight 900: 'Mazzard H' already has a 400 (Regular)
+   for the body face below, and every var(--font-display) consumer in the
+   codebase renders at the browser's default weight (400) without setting
+   its own font-weight — same as Archivo Black's own @font-face used to,
+   which is exactly why it worked without every caller specifying one. Two
+   families each with their own font stated as weight 400 keeps that
+   "just works, no font-weight needed anywhere" contract intact for both
+   roles rather than requiring every existing var(--font-display) rule
+   in the codebase to start carrying an explicit font-weight: 900. */
 @font-face {
-	font-family: 'Archivo Black';
-	src: url('../fonts/archivo-black-latin.woff2') format('woff2');
+	font-family: 'Mazzard H Black';
+	src: url('../fonts/mazzardh-black.woff2') format('woff2');
 	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Mazzard H — the site-wide body/UI face, replacing the system-ui stack
+   style.css used to fall back to. Five of the family's ~18 weights are
+   converted: the three the site's CSS asks for by weight (400/600/700 — grep
+   the codebase for font-weight before adding a fourth) plus Light (300) and
+   Light Italic, added on request even though nothing in the CSS specifically
+   calls for 300 yet. Everything else — the remaining weights, and italics
+   for anything other than Light — stays unconverted; the two spots that use
+   font-style: italic today (.admin-hint, a referenz pull-quote) fall back to
+   a synthesized oblique of Regular, which is fine for two rarely-seen lines
+   of text. The rest of the source OTFs sit in mazzard-font-family-final.zip,
+   not in this repo, if another weight turns out to be needed later.
+
+   Licensed Personal Use Only (Befonts) — used here commercially anyway at
+   the site owner's explicit instruction; a commercial licence should be
+   sorted before this ships to production. */
+@font-face {
+	font-family: 'Mazzard H';
+	src: url('../fonts/mazzardh-light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mazzard H';
+	src: url('../fonts/mazzardh-lightitalic.woff2') format('woff2');
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mazzard H';
+	src: url('../fonts/mazzardh-regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mazzard H';
+	src: url('../fonts/mazzardh-semibold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mazzard H';
+	src: url('../fonts/mazzardh-bold.woff2') format('woff2');
+	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
@@ -74,16 +137,21 @@
 	--text-xs: 0.75rem;
 	--text-sm: 0.85rem;
 	--text-md: 1rem;
-	--text-lg: 1.15rem;
+	--text-lg: 1.25rem;
 	--text-stat: 2.4rem;
 
 	/* Headings scale with the viewport; kept here so the three are read as one
 	   ramp rather than found one file at a time. --text-h2-prose is the
 	   in-article h2, a step below the section headings so a post's own
-	   structure doesn't compete with the page's. */
-	--text-h1: clamp(2.2rem, 4vw, 3.2rem);
-	--text-h2: clamp(1.7rem, 3vw, 2.4rem);
-	--text-h2-prose: clamp(1.4rem, 2.4vw, 1.9rem);
+	   structure doesn't compete with the page's.
+
+	   Bumped a step larger across the board on feedback that the page read
+	   too quiet at the old sizes — both the clamp floor (mobile) and ceiling
+	   (desktop) moved up, not just the ceiling, so the increase holds at
+	   every width rather than only showing up once the viewport is wide. */
+	--text-h1: 5rem;
+	--text-h2: 4rem;
+	--text-h2-prose: 4rem;
 
 	/* -------------------------------------------------- */
 	/* Spacing                                             */
@@ -91,10 +159,18 @@
 
 	/* Spacing is written as plain rem values rather than tokens — it reads
 	   better next to the layout it belongs to — but only off this scale:
-	   0.25 · 0.5 · 0.75 · 1 · 1.25 · 1.5 · 2 · 2.5 · 3 · 4 · 5 · 7rem.
+	   0.25 · 0.5 · 0.75 · 1 · 1.25 · 1.5 · 2 · 2.5 · 3 · 4 · 5 · 7 · 8.5rem.
 	   A quarter-rem grid to 1.5rem, half-rem steps above it. Anything else
 	   (the 0.3/0.35/0.65/0.9/1.1/1.75/2.25/3.5 scattered through the theme
 	   before) is a one-off that nothing else can line up with.
+
+	   8.5 was added on top of the original 0.25–7 run for the "too tight,
+	   make it airier" pass — every value of 0.75rem or bigger across the
+	   theme moved up one rung on this same scale (0.25/0.5 were left alone:
+	   those are icon gaps and tight inline pairings, not page rhythm, and
+	   loosening them would have looked like a mistake rather than more air).
+	   7, previously the ceiling, is what .section's own vertical padding
+	   used; 8.5 is what it reads now.
 
 	   Type-relative padding on pills and buttons stays in em so it tracks the
 	   font size: 0.4em 1em for labels, 0.9em 1.8em for buttons. */
@@ -125,7 +201,11 @@
 
 	--border-hairline: 1px solid var(--color-border);
 
-	--font-display: 'Archivo Black', Arial, sans-serif;
+	--font-display: 'Mazzard H Black', Arial, sans-serif;
+	/* Body/UI face — style.css's body rule reads this. system-ui stays as the
+	   fallback stack it always was, for the swap-in gap before Mazzard H
+	   loads and for the rare visitor whose browser doesn't fetch it at all. */
+	--font-body: 'Mazzard H', system-ui, -apple-system, sans-serif;
 	--max-width: 1200px;
 
 	/* Shared glassmorphism recipe for every box overlaid on a background photo
@@ -241,9 +321,11 @@ body {
 h1, h2, h3 {
 	font-family: var(--font-display);
 	color: var(--color-ink);
-	line-height: 1.1;
+	/* Nudged from 1.1 now that --text-h1/h2 read a step bigger — tight
+	   enough to still read as a display face, loose enough that the bigger
+	   sizes don't start crowding a multi-line heading. */
+	line-height: 1.18;
 	margin: 0 0 0.6em;
-	letter-spacing: -0.01em;
 }
 
 h1 { font-size: var(--text-h1); }
@@ -279,7 +361,7 @@ a { color: inherit; }
 	justify-content: center;
 	background: #3d3c9083;
 	color: #fff;
-	margin-bottom: 1.25rem;
+	margin-bottom: 1.5rem;
 }
 
 .admin-hint {

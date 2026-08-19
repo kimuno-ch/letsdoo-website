@@ -65,8 +65,8 @@
    to clear them; overriding that with a flat 3rem pulls the heading up under
    the wave, which is exactly what it looked like. */
 .entry-content > .ld-block-section:not(:has(> .section__bg-photo)) {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
+	padding-top: 4rem;
+	padding-bottom: 4rem;
 }
 
 /* .entry-content > * gives every child a bottom margin for prose rhythm. On a
@@ -79,7 +79,7 @@
 
 /* Prose after a band still needs its rhythm back. */
 .entry-content > .ld-block-section + * {
-	margin-top: 1.5rem;
+	margin-top: 2rem;
 }
 
 .entry-content > .ld-block-section:first-child:not(:has(> .section__bg-photo)) {

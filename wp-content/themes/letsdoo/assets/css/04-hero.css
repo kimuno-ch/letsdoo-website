@@ -7,7 +7,7 @@
 	background-color: #333;
 	background-size: cover;
 	background-position: center;
-	padding: 5rem 1.5rem calc(3rem + var(--wave-height));
+	padding: 7rem 2rem calc(4rem + var(--wave-height));
 	overflow: hidden;
 
 	/* The height used to be whatever the panel needed, which left the photo a
@@ -127,7 +127,7 @@
 	border: var(--glass-dark-border);
 	box-shadow: var(--glass-shadow);
 	border-radius: var(--radius);
-	padding: 2.5rem;
+	padding: 3rem;
 	margin: 0 auto;
 	max-width: var(--max-width);
 }
@@ -155,7 +155,7 @@
 	letter-spacing: 0.06em;
 	padding: 0.4em 1em;
 	border-radius: var(--radius-child);
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
 }
 
 .hero__blob {
@@ -216,7 +216,7 @@
 /* Sub pages stay shorter than the home hero — they carry a heading and a line
    or two rather than the main pitch, and the content below matters more. */
 .hero--sub {
-	padding: 4rem 1.5rem calc(2rem + var(--wave-height));
+	padding: 5rem 2rem calc(2.5rem + var(--wave-height));
 	min-height: clamp(420px, 56vh, 620px);
 }
 

@@ -16,7 +16,7 @@ body.kontakt-modal-open {
 	z-index: 1000;
 	display: grid;
 	place-items: center;
-	padding: 2rem 1.25rem;
+	padding: 2.5rem 1.5rem;
 }
 
 .kontakt-modal[hidden] {
@@ -69,13 +69,13 @@ body.kontakt-modal-open {
 }
 
 .kontakt-modal__content {
-	padding: 2.5rem;
+	padding: 3rem;
 	clear: both;
 }
 
 .kontakt-modal .kontakt-layout {
 	grid-template-columns: 1.5fr 1fr;
-	gap: 2rem;
+	gap: 2.5rem;
 }
 
 /* The one place two surfaces stack: the form is a card in its own right, and
@@ -99,7 +99,7 @@ body.kontakt-modal-open {
 	}
 
 	.kontakt-modal__content {
-		padding: 4rem 1.25rem 2rem;
+		padding: 5rem 1.5rem 2.5rem;
 	}
 
 	.kontakt-modal .kontakt-layout {

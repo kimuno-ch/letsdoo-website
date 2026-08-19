@@ -8,7 +8,7 @@
    plain white ones get, and how far apart the gradient blocks end up sitting.
    Stepped down again on mobile in 23-mobile.css. */
 .section {
-	padding: 7rem 1.5rem;
+	padding: 8.5rem 2rem;
 	position: relative;
 }
 
@@ -54,8 +54,8 @@
 	   leaves the same order of air the white sections get, so the banners don't
 	   read as tighter inside just because the wave is eating the top of the
 	   box. */
-	padding-top: calc(4rem + var(--wave-height));
-	padding-bottom: calc(4rem + var(--wave-height));
+	padding-top: calc(5rem + var(--wave-height));
+	padding-bottom: calc(5rem + var(--wave-height));
 }
 
 .section:has(> .section__bg-photo)::before,

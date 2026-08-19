@@ -18,7 +18,7 @@
 		.omap-dot { fill: #fff; stroke-width: 2; }
 		.omap-dot--pink { stroke: #e9446a; }
 		.omap-dot--blue { stroke: #3e3c90; }
-		.omap-chip-label { font-family: 'Archivo Black', Arial, sans-serif; font-size: 19px; fill: #111; }
+		.omap-chip-label { font-family: 'Mazzard H Black', Arial, sans-serif; font-size: 19px; fill: #111; }
 		.omap-tile-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; fill: #111; text-anchor: middle; }
 
 		@media (prefers-reduced-motion: no-preference) {

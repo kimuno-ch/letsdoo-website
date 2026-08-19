@@ -9,7 +9,7 @@
 .kontakt-layout {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr;
-	gap: 3rem;
+	gap: 4rem;
 	align-items: start;
 }
 
@@ -19,12 +19,12 @@
 	background: #fff;
 	border: var(--border-hairline);
 	border-radius: var(--radius);
-	padding: 2.5rem;
+	padding: 3rem;
 	box-shadow: var(--shadow-card);
 }
 
 .kontakt-form form p {
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
 }
 
 .kontakt-form label {
@@ -78,7 +78,7 @@
 .kontakt-infos__firma {
 	font-weight: 700;
 	color: var(--color-ink);
-	margin-bottom: 1.5rem;
+	margin-bottom: 2rem;
 }
 
 .kontakt-info-liste {
@@ -86,7 +86,7 @@
 	margin: 0;
 	padding: 0;
 	display: grid;
-	gap: 1.25rem;
+	gap: 1.5rem;
 }
 
 /* Icon spans both rows so the label and value stack to its right. */
@@ -95,12 +95,12 @@
 
 	display: grid;
 	grid-template-columns: auto 1fr;
-	column-gap: 1rem;
+	column-gap: 1.25rem;
 	align-items: center;
 	background: #fff;
 	border: var(--border-hairline);
 	border-radius: var(--radius);
-	padding: 1.25rem;
+	padding: 1.5rem;
 }
 
 .kontakt-info__icon {
