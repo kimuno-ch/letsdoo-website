@@ -23,7 +23,8 @@
 
 	.leistungen-grid,
 	.referenzen-grid,
-	.zahlen-grid {
+	.zahlen-grid,
+	.team-grid {
 		grid-template-columns: 1fr;
 	}
 

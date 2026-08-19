@@ -37,7 +37,7 @@
 			<?php $phone = letsdoo_company_field( 'company_phone' ); ?>
 			<?php $email = letsdoo_company_field( 'company_email' ); ?>
 			<?php if ( $email ) : ?>
-				<a class="icon-link" href="mailto:<?php echo esc_attr( $email ); ?>" aria-label="<?php esc_attr_e( 'E-Mail schreiben', 'letsdoo' ); ?>">
+				<a class="icon-link" href="mailto:<?php echo esc_attr( $email ); ?>" aria-label="<?php esc_attr_e( 'E-Mail schreiben', 'letsdoo' ); ?>" data-kontakt-modal="open">
 					<?php echo letsdoo_icon( 'mail' ); ?>
 				</a>
 			<?php endif; ?>

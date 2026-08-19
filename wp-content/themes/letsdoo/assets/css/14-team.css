@@ -2,27 +2,91 @@
 /* About: Team                                          */
 /* -------------------------------------------------- */
 
+/* Three founders, not a headcount grid — fixed at three columns rather than
+   auto-fill's "however many fit at 200px", so the cards stay big and the
+   layout reads as "meet the founders" instead of a staff directory. Falls
+   back to one column on mobile (23-mobile.css); there isn't a good two-up
+   step for exactly three cards in between, so it jumps straight there. */
 .team-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
 	margin-top: 2rem;
 }
 
 .team-card {
-	text-align: center;
+	text-align: left;
+}
+
+/* The tabindex on the card in template-about.php is what lets
+   :focus-within below reach a card with no other focusable element in it —
+   a card whose person has no LinkedIn link would otherwise have nothing a
+   keyboard user could focus to trigger the hover-equivalent reveal. Outline
+   is suppressed in favour of the bio itself appearing, which is a visible
+   enough focus indicator on its own. */
+.team-card:focus {
+	outline: none;
 }
 
 .team-card__photo {
+	position: relative;
 	border-radius: var(--radius);
 	overflow: hidden;
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
+	/* Taller than wide, and generous — these three carry the whole section
+	   now, where the old grid's small square-ish crops were sized for a
+	   dozen faces at once. */
+	aspect-ratio: 3 / 4;
 }
 
 .team-card__photo img {
 	width: 100%;
-	height: auto;
+	height: 100%;
+	object-fit: cover;
 	display: block;
+}
+
+/* The "little info" panel: a dark scrim over the bottom of the photo,
+   hidden until the card is hovered or focused. Same dark-glass language as
+   .hero__panel — text over a photo reads the same way everywhere on the
+   site — but a plain gradient rather than a blur, since this only needs to
+   be readable while it's already animating in, not sit there permanently. */
+.team-card__bio {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	background: linear-gradient(to top, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.55) 55%, transparent);
+	text-align: left;
+	opacity: 0;
+	transform: translateY(8px);
+	transition: opacity var(--transition), transform var(--transition);
+	/* Off when hidden so the invisible panel can't steal the click a touch
+	   user meant for the photo/card underneath it before the reveal. */
+	pointer-events: none;
+}
+
+.team-card:hover .team-card__bio,
+.team-card:focus-within .team-card__bio {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.team-card__bio {
+		transition: none;
+	}
+}
+
+.team-card__bio p {
+	margin: 0;
+	color: #fff;
+	font-size: var(--text-sm);
 }
 
 .team-card h3 {

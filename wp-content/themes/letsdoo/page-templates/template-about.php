@@ -84,9 +84,28 @@ while ( have_posts() ) :
 				<div class="team-grid">
 					<?php if ( $team ) : ?>
 						<?php foreach ( $team as $mitglied ) : ?>
-							<div class="team-card">
+							<?php
+							$bio      = get_field( 'bio', $mitglied->ID );
+							$linkedin = get_field( 'linkedin_url', $mitglied->ID );
+							?>
+							<div class="team-card" tabindex="0">
 								<div class="team-card__photo">
 									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $mitglied ), 'placeholder-portrait.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $mitglied ) ); ?>">
+									<?php if ( $bio || $linkedin ) : ?>
+										<div class="team-card__bio">
+											<?php if ( $bio ) : ?>
+												<p><?php echo esc_html( $bio ); ?></p>
+											<?php endif; ?>
+											<?php if ( $linkedin ) : ?>
+												<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="<?php
+													/* translators: %s: team member's name */
+													echo esc_attr( sprintf( __( '%s auf LinkedIn', 'letsdoo' ), get_the_title( $mitglied ) ) );
+												?>">
+													<?php echo letsdoo_icon( 'linkedin' ); ?>
+												</a>
+											<?php endif; ?>
+										</div>
+									<?php endif; ?>
 								</div>
 								<h3><?php echo esc_html( get_the_title( $mitglied ) ); ?></h3>
 								<p><?php echo esc_html( get_field( 'position', $mitglied->ID ) ); ?></p>

@@ -173,6 +173,14 @@ add_action( 'acf/init', function () {
 				'type'  => 'text',
 			),
 			array(
+				'key'          => 'field_ld_team_bio',
+				'label'        => 'Kurzbeschreibung',
+				'name'         => 'bio',
+				'type'         => 'textarea',
+				'rows'         => 3,
+				'instructions' => 'Ein bis zwei Sätze. Erscheint als Overlay über dem Foto, wenn man die Karte antippt oder mit der Maus darüber fährt.',
+			),
+			array(
 				'key'   => 'field_ld_team_linkedin',
 				'label' => 'LinkedIn URL',
 				'name'  => 'linkedin_url',
