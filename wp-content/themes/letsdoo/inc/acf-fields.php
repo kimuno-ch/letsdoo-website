@@ -1736,6 +1736,38 @@ add_action( 'acf/init', function () {
 					),
 				),
 			),
+			/*
+			 * Optional last grid card — "Individuelle Module & Anbindungen?"
+			 * or similar — that breaks from the app-list cards to a gradient
+			 * card with a contact button, same recipe as .cta-banner
+			 * (19-angebote-cta.css). Presence-triggered like the rest of the
+			 * theme's optional content (the CTA-Band's second button, the
+			 * Referenzen block): fill in a title and the card appears, leave
+			 * it empty and the grid renders exactly as it did before this
+			 * existed. No link field for the button — it always reads
+			 * "Kontakt aufnehmen" and always opens the Kontakt modal, not
+			 * something an editor can point elsewhere.
+			 */
+			array(
+				'key'   => 'field_ld_block_plattform_cta_heading',
+				'label' => 'Zusatzkarte: Titel',
+				'name'  => 'cta_heading',
+				'type'  => 'text',
+				'placeholder'  => 'Individuelle Module & Anbindungen?',
+				'instructions' => 'Optional: hängt dem Raster eine letzte Karte mit Farbverlauf und Kontakt-Button an. Leer lassen, um keine Zusatzkarte zu zeigen.',
+			),
+			array(
+				'key'   => 'field_ld_block_plattform_cta_text',
+				'label' => 'Zusatzkarte: Text',
+				'name'  => 'cta_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+				'conditional_logic' => array(
+					array(
+						array( 'field' => 'field_ld_block_plattform_cta_heading', 'operator' => '!=empty' ),
+					),
+				),
+			),
 			letsdoo_block_blend_field( 'plattform' ),
 		),
 		'location' => array(

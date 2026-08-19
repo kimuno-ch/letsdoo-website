@@ -83,3 +83,48 @@
 	height: 32px;
 	flex-shrink: 0;
 }
+
+/* -------------------------------------------------- */
+/* Optional CTA card                                    */
+/* -------------------------------------------------- */
+
+/* The grid's optional last card, rendered when the block's "Zusatzkarte:
+   Titel" field is filled in. Always the brand gradient — same recipe as
+   .cta-banner (19-angebote-cta.css) — regardless of which way the block's
+   own "Farbverlauf-Hintergrund" switch is set for the section behind it. */
+.plattform-card--cta {
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end)) !important;
+	border: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+/* The extra ancestor classes aren't decorative — they're what gives this
+   enough specificity to beat 25-blocks.css's .ld-block-section :is(h2, h3,
+   h4, p, ...) rules, which repaint headings/text to match the section's own
+   blend switch and would otherwise override this card's white text back to
+   ink whenever that switch is off. */
+.ld-block-section .section__content .plattform-card--cta :is(h3, p) {
+	color: #fff;
+}
+
+.plattform-card--cta p {
+	margin: 0 0 1.5rem;
+	opacity: 0.92;
+}
+
+.plattform-card--cta .btn {
+	margin-top: auto;
+	background: transparent;
+	color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	box-shadow: none;
+}
+
+.plattform-card--cta .btn:hover {
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: none;
+}

@@ -9,10 +9,12 @@
  * @var bool  $is_preview
  */
 
-$heading    = get_field( 'heading' ) ?: __( 'Eine Plattform für jeden Bereich', 'letsdoo' );
-$text       = get_field( 'text' );
-$kategorien = get_field( 'kategorien' );
-$blend      = (bool) get_field( 'bg_blend' );
+$heading     = get_field( 'heading' ) ?: __( 'Eine Plattform für jeden Bereich', 'letsdoo' );
+$text        = get_field( 'text' );
+$kategorien  = get_field( 'kategorien' );
+$blend       = (bool) get_field( 'bg_blend' );
+$cta_heading = get_field( 'cta_heading' );
+$cta_text    = get_field( 'cta_text' );
 
 if ( ! $kategorien ) {
 	if ( $is_preview ) {
@@ -66,6 +68,21 @@ letsdoo_block_section_open( $block, 'section--plattform', $blend );
 					</ul>
 				</div>
 			<?php endforeach; ?>
+
+			<?php if ( $cta_heading ) : ?>
+				<div class="plattform-card plattform-card--cta">
+					<h3><?php echo esc_html( $cta_heading ); ?></h3>
+					<?php if ( $cta_text ) : ?>
+						<p><?php echo esc_html( $cta_text ); ?></p>
+					<?php endif; ?>
+					<?php
+					/* Fixed, not editable: this button always reads "Kontakt
+					   aufnehmen" and always opens the Kontakt modal (via
+					   letsdoo_button()'s data-kontakt-modal handling). */
+					letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), letsdoo_page_url_by_template( 'page-templates/template-contact.php', '/kontakt/' ) );
+					?>
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>
