@@ -58,17 +58,20 @@ while ( have_posts() ) :
 				<div class="zahlen-grid">
 					<?php
 					$default_zahlen = array(
-						array( 'zahl_wert' => '23', 'zahl_label' => 'Jahre Analysieren von Businessprozessen' ),
-						array( 'zahl_wert' => '09', 'zahl_label' => 'Jahre Projektmanagement im Kundenauftrag' ),
-						array( 'zahl_wert' => '14', 'zahl_label' => 'Jahre SEO / Marketing' ),
-						array( 'zahl_wert' => '42', 'zahl_label' => 'Jahre Programmieren' ),
+						array( 'zahl_wert' => '23', 'zahl_label' => 'Jahre Analysieren von Businessprozessen', 'icon' => letsdoo_icon( 'search' ) ),
+						array( 'zahl_wert' => '09', 'zahl_label' => 'Jahre Projektmanagement im Kundenauftrag', 'icon' => letsdoo_icon( 'check' ) ),
+						array( 'zahl_wert' => '14', 'zahl_label' => 'Jahre SEO / Marketing', 'icon' => letsdoo_icon( 'rocket' ) ),
+						array( 'zahl_wert' => '42', 'zahl_label' => 'Jahre Programmieren', 'icon' => letsdoo_icon( 'settings' ) ),
 					);
 					$zahlen_liste = $zahlen ? $zahlen : $default_zahlen;
 					foreach ( $zahlen_liste as $zahl ) :
 						?>
 						<div class="zahl-card">
-							<span class="zahl-card__wert"><?php echo esc_html( $zahl['zahl_wert'] ); ?></span>
-							<span class="zahl-card__label"><?php echo esc_html( $zahl['zahl_label'] ); ?></span>
+							<div class="icon-tile"><?php echo $zahl['icon'] ?: letsdoo_icon( 'check' ); ?></div>
+							<div class="zahl-card__text">
+								<span class="zahl-card__wert"><?php echo esc_html( $zahl['zahl_wert'] ); ?></span>
+								<span class="zahl-card__label"><?php echo esc_html( $zahl['zahl_label'] ); ?></span>
+							</div>
 						</div>
 					<?php endforeach; ?>
 				</div>

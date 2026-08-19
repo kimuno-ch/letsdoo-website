@@ -37,8 +37,11 @@ letsdoo_block_section_open( $block, 'section--zahlen', $blend );
 		<div class="zahlen-grid">
 			<?php foreach ( $zahlen as $zahl ) : ?>
 				<div class="zahl-card">
-					<span class="zahl-card__wert"><?php echo esc_html( $zahl['wert'] ); ?></span>
-					<span class="zahl-card__label"><?php echo esc_html( $zahl['label'] ); ?></span>
+					<div class="icon-tile"><?php echo $zahl['icon'] ?: letsdoo_icon( 'check' ); ?></div>
+					<div class="zahl-card__text">
+						<span class="zahl-card__wert"><?php echo esc_html( $zahl['wert'] ); ?></span>
+						<span class="zahl-card__label"><?php echo esc_html( $zahl['label'] ); ?></span>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		</div>

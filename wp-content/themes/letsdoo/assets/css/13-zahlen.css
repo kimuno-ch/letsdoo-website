@@ -20,10 +20,9 @@
 
 /* Same material as .leistung-card (07-leistungen.css): an opaque white card
    everywhere, not a glass panel on the gradient band and a second look on
-   white. No badge/notch either — there's no icon to cut one for — and no
-   hover lift: unlike .leistung-card this isn't a link, and a card that
-   visibly reacts to the pointer without doing anything when clicked reads as
-   a broken control rather than a stat. */
+   white. No hover lift: unlike .leistung-card this isn't a link, and a card
+   that visibly reacts to the pointer without doing anything when clicked
+   reads as a broken control rather than a stat. */
 .zahl-card {
 	--radius-child: var(--radius-nested);
 
@@ -34,6 +33,31 @@
 	box-shadow: var(--shadow-card);
 	border-radius: var(--radius);
 	padding: 1.5rem;
+}
+
+/* Sits in the row beside the stat rather than straddling the card corner
+   the way .leistung-card's badge does (07-leistungen.css) — this card is a
+   compact horizontal row, not a padded block with room to cut a notch out
+   of, so the plain .icon-tile base (01-base.css) fits better in flow than
+   its absolute-positioned override.
+
+   Solid brand colour rather than the .icon-tile default's translucent wash,
+   same reasoning as .leistung-card's badge and
+   .warum-letsdoo-punkt .icon-tile: this card is opaque white, and the
+   default wash is tuned to read on the gradient band, not on white. */
+.zahl-card .icon-tile {
+	flex-shrink: 0;
+	width: 64px;
+	height: 64px;
+	margin-bottom: 0;
+	background: var(--color-gradient-end);
+	color: #fff;
+	font-size: 1.45rem;
+}
+
+.zahl-card__text {
+	display: flex;
+	flex-direction: column;
 }
 
 /* On the gradient band the white card reads on its own, same as
