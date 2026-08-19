@@ -3,6 +3,10 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Runs before body paints, so 05-sections.css's .js-reveal opacity:0 rule
+	     never applies to a visitor whose JS didn't load (reveal.js is what
+	     removes it again, section by section, as they scroll into view). -->
+	<script>document.documentElement.classList.add('js-reveal');</script>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

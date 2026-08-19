@@ -128,6 +128,14 @@ function letsdoo_enqueue_assets() {
 		letsdoo_asset_version( '/assets/js/zahlen-count.js' ),
 		true
 	);
+
+	wp_enqueue_script(
+		'letsdoo-reveal',
+		get_theme_file_uri( '/assets/js/reveal.js' ),
+		array(),
+		letsdoo_asset_version( '/assets/js/reveal.js' ),
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'letsdoo_enqueue_assets' );
 

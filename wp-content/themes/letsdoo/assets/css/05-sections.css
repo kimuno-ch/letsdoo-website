@@ -26,6 +26,39 @@
 	z-index: 1;
 }
 
+/* -------------------------------------------------- */
+/* Scroll reveal                                        */
+/* -------------------------------------------------- */
+
+/* reveal.js toggles .is-visible once each of these scrolls into view. Scoped
+   to .section__intro/.section__content — the wrapper every section already
+   funnels its actual content through — so only that flies/fades in; .section
+   itself, .section__bg-photo and the wave layer are structure, not content,
+   and stay put. Gated behind .js-reveal (set on <html> by an inline script in
+   header.php before first paint) so a no-JS visitor never gets stuck with
+   content pinned at opacity 0. */
+.js-reveal .section__intro,
+.js-reveal .section__content {
+	opacity: 0;
+	transform: translateY(2rem);
+	transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js-reveal .section__intro.is-visible,
+.js-reveal .section__content.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js-reveal .section__intro,
+	.js-reveal .section__content {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
 .section__subheading {
 	font-weight: 700;
 	color: var(--color-ink);
