@@ -9,7 +9,7 @@ while ( have_posts() ) :
 
 	$hero_image = get_field( 'hero_image' );
 
-	$leistungen = letsdoo_get_leistungen();
+	$leistungen = letsdoo_get_leistungen( get_field( 'leistungen_auswahl' ) );
 
 	$default_vorteile = array(
 		array( 'titel' => 'Zertifizierte Sicherheit', 'text' => 'Sichere Cloud-Infrastruktur und DSGVO-konforme Datenhaltung.' ),

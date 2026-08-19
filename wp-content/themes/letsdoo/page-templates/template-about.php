@@ -8,7 +8,7 @@ while ( have_posts() ) :
 	the_post();
 
 	$hero_image  = get_field( 'hero_image' );
-	$referenzen  = letsdoo_get_referenzen();
+	$referenzen  = letsdoo_get_referenzen( get_field( 'referenzen_auswahl' ) );
 	$team        = letsdoo_get_team();
 	$zahlen      = get_field( 'zahlen_liste' );
 	?>

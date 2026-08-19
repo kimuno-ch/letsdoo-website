@@ -25,7 +25,7 @@ if ( ! $heading ) {
 		: __( 'Unsere Leistungen', 'letsdoo' );
 }
 
-$leistungen = letsdoo_get_leistungen();
+$leistungen = letsdoo_get_leistungen( get_field( 'leistungen' ) );
 
 letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 ?>

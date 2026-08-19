@@ -8,7 +8,7 @@ while ( have_posts() ) :
 	the_post();
 
 	$hero_image        = get_field( 'hero_image' );
-	$leistungen        = letsdoo_get_leistungen();
+	$leistungen        = letsdoo_get_leistungen( get_field( 'leistungen_auswahl' ) );
 	$schritte          = letsdoo_get_vorgehen_schritte();
 	?>
 

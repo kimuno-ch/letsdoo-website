@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"name": "letsdoo/referenz-karte",
-	"title": "Referenz-Karte",
-	"description": "Eine ausgewählte Referenz als Karte mit Logo, Kurztext und Link.",
+	"title": "Referenzen",
+	"description": "Eine oder mehrere ausgewählte Referenzen als Karte(n) mit Logo, Kurztext und Link.",
 	"category": "letsdoo",
 	"icon": "star-filled",
-	"keywords": [ "referenz", "kunde", "case study" ],
+	"keywords": [ "referenz", "referenzen", "kunde", "case study" ],
 	"textdomain": "letsdoo",
 	"supports": {
 		"anchor": true,

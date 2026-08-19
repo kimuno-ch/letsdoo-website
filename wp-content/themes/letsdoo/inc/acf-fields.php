@@ -52,6 +52,34 @@ function letsdoo_block_blend_field( $key_suffix, $default = 0 ) {
 	);
 }
 
+/**
+ * A "pick specific posts, else show all" multi-select — post_object with
+ * multiple enabled. Every curated grid on the site (Leistungen, Referenzen —
+ * in their blocks and in the page templates that still build the grid
+ * inline) shares this shape. Left empty, letsdoo_selected_or_all() in
+ * inc/template-helpers.php falls back to every post of that type in
+ * menu_order — the behaviour these grids had before this field existed — so
+ * nothing already published changes until an editor actually picks something.
+ *
+ * @param string $key_suffix Unique fragment for the field key, e.g. "home_leistungen".
+ * @param string $post_type  The CPT to choose from, e.g. "leistung".
+ * @param string $name       Field name / meta key.
+ * @param string $label      Field label shown to the editor.
+ */
+function letsdoo_post_selector_field( $key_suffix, $post_type, $name, $label ) {
+	return array(
+		'key'           => "field_ld_{$key_suffix}_selector",
+		'label'         => $label,
+		'name'          => $name,
+		'type'          => 'post_object',
+		'post_type'     => array( $post_type ),
+		'multiple'      => 1,
+		'return_format' => 'id',
+		'ui'            => 1,
+		'instructions'  => 'Leer lassen, um automatisch alle zu zeigen. Sonst werden nur die hier ausgewählten angezeigt, in der hier gewählten Reihenfolge.',
+	);
+}
+
 add_action( 'acf/init', function () {
 
 	/* -------------------------------------------------- */
@@ -481,6 +509,7 @@ add_action( 'acf/init', function () {
 				'default_value' => 'Unsere Leistungen',
 				'instructions' => 'Die Karten selbst werden unter Leistungen im Menü gepflegt.',
 			),
+			letsdoo_post_selector_field( 'home_leistungen', 'leistung', 'leistungen_auswahl', 'Leistungen auswählen' ),
 			array(
 				'key'   => 'field_ld_home_leistungen_bg_image',
 				'label' => 'Hintergrundbild',
@@ -824,6 +853,7 @@ add_action( 'acf/init', function () {
 				'default_value' => 'Referenzen',
 				'instructions' => 'Die Karten selbst werden unter Referenzen im Menü gepflegt.',
 			),
+			letsdoo_post_selector_field( 'about_referenzen', 'referenz', 'referenzen_auswahl', 'Referenzen auswählen' ),
 
 			array(
 				'key'   => 'field_ld_about_zahlen_tab',
@@ -1048,6 +1078,7 @@ add_action( 'acf/init', function () {
 				'default_value' => 'Unsere Leistungen',
 				'instructions' => 'Die Karten selbst werden unter Leistungen im Menü gepflegt.',
 			),
+			letsdoo_post_selector_field( 'angebote_leistungen', 'leistung', 'leistungen_auswahl', 'Leistungen auswählen' ),
 
 			array(
 				'key'   => 'field_ld_angebote_vertrauen_tab',
@@ -1383,6 +1414,7 @@ add_action( 'acf/init', function () {
 				'type'  => 'text',
 				'instructions' => 'Leer lassen für „Unsere Leistungen für &lt;Ort&gt;“. Die Karten selbst werden unter Leistungen im Menü gepflegt.',
 			),
+			letsdoo_post_selector_field( 'block_leistungen', 'leistung', 'leistungen', 'Leistungen auswählen' ),
 			letsdoo_block_blend_field( 'leistungen', 1 ),
 		),
 		'location' => array(
@@ -1393,12 +1425,12 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
-	/* Block: Referenz-Karte                               */
+	/* Block: Referenzen (letsdoo/referenz-karte)           */
 	/* -------------------------------------------------- */
 
 	acf_add_local_field_group( array(
 		'key'    => 'group_ld_block_referenz',
-		'title'  => 'Referenz-Karte',
+		'title'  => 'Referenzen',
 		'fields' => array(
 			array(
 				'key'   => 'field_ld_block_referenz_heading',
@@ -1409,14 +1441,15 @@ add_action( 'acf/init', function () {
 			),
 			array(
 				'key'   => 'field_ld_block_referenz_referenz',
-				'label' => 'Referenz',
+				'label' => 'Referenzen',
 				'name'  => 'referenz',
 				'type'  => 'post_object',
 				'post_type' => array( 'referenz' ),
+				'multiple' => 1,
 				'return_format' => 'id',
 				'allow_null' => 1,
 				'ui' => 1,
-				'instructions' => 'Auf einer Standortseite der stärkste Beleg dafür, dass die Seite echt ist.',
+				'instructions' => 'Auf einer Standortseite der stärkste Beleg dafür, dass die Seite echt ist. Eine Referenz zeigt eine einzelne Karte, mehrere ein kleines Raster.',
 			),
 			letsdoo_block_blend_field( 'referenz' ),
 		),

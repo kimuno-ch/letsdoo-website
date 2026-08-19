@@ -86,13 +86,31 @@ function letsdoo_is_kontakt_page() {
 	return is_page_template( 'page-templates/template-contact.php' );
 }
 
-function letsdoo_get_leistungen() {
-	return get_posts( array(
-		'post_type'      => 'leistung',
-		'posts_per_page' => -1,
-		'orderby'        => 'menu_order',
-		'order'          => 'ASC',
-	) );
+/**
+ * Resolves a letsdoo_post_selector_field() (inc/acf-fields.php) value to the
+ * posts it should render: the chosen ones, in the order they were chosen, or
+ * every post of that type in menu_order when nothing was picked — the
+ * behaviour every grid on the site had before that field existed, so an
+ * empty selector is not a broken page.
+ *
+ * @param string        $post_type    The CPT to query when nothing is selected.
+ * @param int[]|int|null $selected_ids A post_selector field's value (already IDs).
+ */
+function letsdoo_selected_or_all( $post_type, $selected_ids ) {
+	if ( ! $selected_ids ) {
+		return get_posts( array(
+			'post_type'      => $post_type,
+			'posts_per_page' => -1,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+		) );
+	}
+
+	return array_values( array_filter( array_map( 'get_post', (array) $selected_ids ) ) );
+}
+
+function letsdoo_get_leistungen( $selected_ids = null ) {
+	return letsdoo_selected_or_all( 'leistung', $selected_ids );
 }
 
 function letsdoo_get_vorgehen_schritte() {
@@ -113,13 +131,8 @@ function letsdoo_get_team() {
 	) );
 }
 
-function letsdoo_get_referenzen() {
-	return get_posts( array(
-		'post_type'      => 'referenz',
-		'posts_per_page' => -1,
-		'orderby'        => 'menu_order',
-		'order'          => 'ASC',
-	) );
+function letsdoo_get_referenzen( $selected_ids = null ) {
+	return letsdoo_selected_or_all( 'referenz', $selected_ids );
 }
 
 /**
