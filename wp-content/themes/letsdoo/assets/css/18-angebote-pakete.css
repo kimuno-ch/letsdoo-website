@@ -37,7 +37,7 @@
 	background-clip: padding-box, border-box;
 	transform: scale(1.04);
 	z-index: 1;
-	box-shadow: 0 30px 60px -25px rgba(62, 60, 144, 0.35);
+	box-shadow: -18px 30px 60px -25px rgba(62, 60, 144, 0.35);
 }
 
 .paket-card--hervorgehoben:hover {

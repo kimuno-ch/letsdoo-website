@@ -181,15 +181,16 @@
 
 	/* One card shadow and one hover shadow, in place of the eight recipes that
 	   had grown up per component. All of them shared the same shape — a wide,
-	   heavily negative-spread drop — and differed only in figures nobody could
-	   have told apart side by side. Alpha is set for the gradient bands, where
-	   a card has the least contrast to work with; on white it reads as a soft
-	   lift rather than a hard edge.
+	   heavily negative-spread drop, cast down and to the left rather than
+	   straight down — and differed only in figures nobody could have told
+	   apart side by side. Alpha is set for the gradient bands, where a card
+	   has the least contrast to work with; on white it reads as a soft lift
+	   rather than a hard edge.
 
 	   --shadow-float is for what genuinely leaves the page: the modal, and the
 	   Vertrauen image that is styled as a print rather than a card. */
-	--shadow-card: 0 20px 42px -26px rgba(0, 0, 0, 0.35);
-	--shadow-card-hover: 0 30px 55px -25px rgba(0, 0, 0, 0.45);
+	--shadow-card: -14px 20px 42px -26px rgba(163, 163, 163, 0.35);
+	--shadow-card-hover: -18px 30px 55px -25px rgba(0, 0, 0, 0.45);
 	--shadow-float: 0 30px 60px -25px rgba(0, 0, 0, 0.4);
 
 	/* Hover: surfaces lift twice as far as controls, and everything animates on
@@ -199,7 +200,11 @@
 	--hover-lift-control: -2px;
 	--transition: 0.2s ease;
 
-	--border-hairline: 1px solid var(--color-border);
+	/* Not --color-border (#e2e2e2, solid) — that one's still used as-is for
+	   plain dividers (the header's nav-divider, standort section rules).
+	   Cards/surfaces want something barely there, closer to a shadow than a
+	   drawn line, so this is its own rgba at a fraction of the opacity. */
+	--border-hairline: 1px solid rgba(148, 140, 140, 0.05);
 
 	--font-display: 'Mazzard H Black', Arial, sans-serif;
 	/* Body/UI face — style.css's body rule reads this. system-ui stays as the
