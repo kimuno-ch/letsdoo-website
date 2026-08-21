@@ -3,14 +3,13 @@
 /* -------------------------------------------------- */
 
 /* The footer closes the page the way the banner sections break it up: the same
-   brand blend, entered through a white wave instead of a hairline rule. It
-   isn't a .section, so the seed rules in 05-sections.css never reach it — the
-   shape and blend are picked here by hand, B for both so the pairing matches
-   how the sections assign theirs. */
+   brand blend, entered through a wave instead of a hairline rule. It isn't a
+   .section, so the seed rules in 05-sections.css never reach it — the blend
+   and wave variant are picked here by hand, B for both to match how the
+   sections assign theirs. */
 .site-footer {
-	--wave-top: var(--wave-top-b);
 	--section-blend: var(--blend-b);
-
+	--wave-top: var(--wave-top-b);
 	position: relative;
 	background-image: var(--section-blend);
 	color: rgba(255, 255, 255, 0.85);
@@ -18,6 +17,9 @@
 	padding: calc(3rem + var(--wave-height)) 2rem 2rem;
 }
 
+/* Painted as a wave-shaped overlay on top of a flat-topped blend — the
+   fallback for browsers without the masking below, and the only behaviour at
+   all where that's unsupported. */
 .site-footer::before {
 	content: "";
 	position: absolute;
@@ -30,6 +32,35 @@
 	background-size: 100% 100%;
 	pointer-events: none;
 	z-index: 1;
+}
+
+/* Where masking is supported, clip the blend itself to the wave outline at
+   the top edge instead of painting a wave shape over a flat-topped
+   rectangle — same technique as the hero and the banner sections (see
+   04-hero.css / 05-sections.css). ::before becomes redundant once this is
+   active, since the clip already does its job; removed rather than left to
+   double up. */
+@supports (mask-composite: add) or (-webkit-mask-composite: source-over) {
+	.site-footer {
+		-webkit-mask-image: var(--wave-top), linear-gradient(#000, #000);
+		mask-image: var(--wave-top), linear-gradient(#000, #000);
+		-webkit-mask-repeat: no-repeat, no-repeat;
+		mask-repeat: no-repeat, no-repeat;
+		-webkit-mask-position: 0 0, 0 var(--wave-height);
+		mask-position: 0 0, 0 var(--wave-height);
+		-webkit-mask-size:
+			100% var(--wave-height),
+			100% calc(100% - var(--wave-height));
+		mask-size:
+			100% var(--wave-height),
+			100% calc(100% - var(--wave-height));
+		-webkit-mask-composite: source-over;
+		mask-composite: add;
+	}
+
+	.site-footer::before {
+		content: none;
+	}
 }
 
 .site-footer__columns {

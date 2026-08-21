@@ -21,6 +21,18 @@
 		.omap-chip-label { font-family: 'Mazzard H Black', Arial, sans-serif; font-size: 19px; fill: #111; }
 		.omap-tile-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; fill: #111; text-anchor: middle; }
 
+		/* Static resize, separate from .omap-hub-group's pulse animation below
+		   (same reason the placement transform lives one level further out
+		   already, on the group this wraps — a CSS transform replaces the
+		   whole attribute value rather than composing with it, so scaling
+		   here instead of editing that attribute's own scale() keeps the
+		   pulse and the placement untouched). fill-box + transform-origin:
+		   center scales around the hub's actual rendered centre — same
+		   technique .omap-hub-group uses — rather than a hand-picked origin
+		   that would need re-deriving from the path data every time the
+		   artwork changes. */
+		.omap-hub-shrink { transform-box: fill-box; transform-origin: center; transform: scale(0.85); }
+
 		@media (prefers-reduced-motion: no-preference) {
 			.omap-line { animation: omap-flow 1.8s linear infinite; }
 			.omap-dot { animation: omap-dot 2.4s ease-in-out infinite; }
@@ -159,8 +171,15 @@
 	     stops are only 80% opaque), into the solid overlap the "LET'S" text
 	     sits on — rather than stopping at y=345, which used to land the dot
 	     right where that translucent edge is, making the line look like it
-	     faded out short of the hub instead of arriving at it. -->
-	<path class="omap-line omap-line--pink" style="animation-delay:-.15s" d="M 450 165 C 450 240, 450 320, 450 395"/>
+	     faded out short of the hub instead of arriving at it.
+
+	     Starts at y=200: flush against the bottom of the Kunde logo box in
+	     inc/template-helpers.php (letsdoo_odoo_map_inject_logo_cycle —
+	     center_y 130, height 140, so its bottom edge is 130+140/2). Every
+	     x on this path is 450, so it's a straight vertical run regardless of
+	     where it starts or what the control points say — moving the start
+	     to track the box's own height doesn't need the curve re-tuned. -->
+	<path class="omap-line omap-line--pink" style="animation-delay:-.15s" d="M 450 200 C 450 240, 450 320, 450 395"/>
 	<circle class="omap-dot omap-dot--pink" style="animation-delay:-.15s" cx="450" cy="395" r="4.5"/>
 
 	<!-- Top branch chip: Kunde. Was two chips (Applikationen, Datenbank)
@@ -178,7 +197,7 @@
 		     logos sit inside. This person-icon "Kunde" placeholder plus its
 		     box is also the fallback content when there are no Referenzen
 		     yet — editing it here changes both. -->
-		<rect x="330" y="95" width="240" height="70" rx="20" fill="#fff" stroke="#e2e2e2"/>
+		<rect x="290" y="72.5" width="320" height="115" rx="24" fill="#fff" stroke="#e2e2e2"/>
 		<!-- Person: a simple head-and-shoulders glyph. -->
 		<g>
 			<circle cx="369" cy="120" r="9" fill="#e9446a"/>
@@ -194,7 +213,7 @@
 	     the CSS animation targets the inner <g> only, since a CSS transform
 	     animation replaces the whole `transform` value rather than composing
 	     with the attribute on the same element. -->
-	<g transform="translate(280 301.3) scale(0.9189)">
+	<g class="omap-hub-shrink"><g transform="translate(280 301.3) scale(0.9189)">
 		<g class="omap-hub-group">
 			<path class="omap-hub-shape-a" fill="#e9446a" d="M69.3,83.74c26.28-34.61,103.9-8.86,150.81,1.64,18.57,4.76,34.81,9.13,53.97,14.27,33.34,8,69.36,22.37,88.43,55.51,26,43.73-20.62,81.51-59.21,99.31-19.02,9.05-40.29,15.98-61.27,20.1-7.28,1.44-14.62,2.47-21.33,3.51C118,297.12,11.54,180.87,69.21,83.87l.09-.14Z"/>
 			<path class="omap-hub-shape-b" fill="url(#omapLogoGrad)" d="M49.45,35.34C108.77-11.41,168.95-5.9,225.95,18.1c17.88,7.53,38.87,17.01,56.27,25.61,12.37,6.05,23.26,11.79,33.92,23.04,7.83,8.56,14.2,19.99,10.43,31.35-3.66,9.89-21,14.04-30.48,18.37-15.61,6.31-34.99,13.99-44.39,22.11-11.64,9.74-8.58,18.92-12.42,32.21-30.64,86.47-98.33,104.3-194.33,33.3C-44.05,134.1,21.95,53.1,49.28,35.47l.17-.13Z"/>
@@ -209,7 +228,7 @@
 				<path d="M166.56,111.44c1.94-2.29,3.1-5.5,3.24-7h3.67c-.36,2.17-2.23,5.5-3.74,7h-3.17Z"/>
 			</g>
 		</g>
-	</g>
+	</g></g>
 
 	<!-- App tiles, row 1 -->
 	<g class="omap-tile" style="animation-delay:0s">

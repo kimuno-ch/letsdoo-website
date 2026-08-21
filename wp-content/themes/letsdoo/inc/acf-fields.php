@@ -1056,29 +1056,17 @@ add_action( 'acf/init', function () {
 				'type'  => 'url',
 			),
 
-			array(
-				'key'   => 'field_ld_angebote_leistungen_tab',
-				'label' => 'Unsere Leistungen',
-				'name'  => '',
-				'type'  => 'tab',
-			),
 			/*
-			 * Only the section heading. The cards themselves come from the
-			 * Leistung post type, the same ones the home page renders — there
-			 * was a second, parallel "Leistungen" repeater here that no template
-			 * ever read. It was invisible while this site ran ACF free, so it
-			 * did no harm; under PRO it rendered as a working field that
-			 * silently threw its content away, so it is gone.
+			 * "Unsere Leistungen" used to be a fixed tab here (a heading field
+			 * plus a Leistungen selector, rendered as a hardcoded section in
+			 * template-angebote.php). It's block content now — the_content()
+			 * in that same spot in the template, editable with the Leistungen
+			 * block and any other block, the same shift single-standort.php
+			 * and template-odoo.php already made for their own bodies. The
+			 * two ACF fields are gone rather than left dangling; a page
+			 * editing this section only sees Hero/Vertrauen/Pakete/CTA tabs
+			 * now, and the actual content lives in the block editor canvas.
 			 */
-			array(
-				'key'   => 'field_ld_angebote_leistungen_heading',
-				'label' => 'Titel',
-				'name'  => 'leistungen_heading',
-				'type'  => 'text',
-				'default_value' => 'Unsere Leistungen',
-				'instructions' => 'Die Karten selbst werden unter Leistungen im Menü gepflegt.',
-			),
-			letsdoo_post_selector_field( 'angebote_leistungen', 'leistung', 'leistungen_auswahl', 'Leistungen auswählen' ),
 
 			array(
 				'key'   => 'field_ld_angebote_vertrauen_tab',
@@ -1456,6 +1444,39 @@ add_action( 'acf/init', function () {
 		'location' => array(
 			array(
 				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/referenz-karte' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
+	/* Block: Logo-Karussell                                */
+	/* -------------------------------------------------- */
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_block_logo_carousel',
+		'title'  => 'Logo-Karussell',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_block_logo_carousel_heading',
+				'label' => 'Titel',
+				'name'  => 'heading',
+				'type'  => 'text',
+				'instructions' => 'Optional — leer lassen für ein reines Logo-Band ohne Überschrift.',
+			),
+			letsdoo_post_selector_field( 'block_logo_carousel', 'referenz', 'referenzen', 'Referenzen' ),
+			array(
+				'key'           => 'field_ld_block_logo_carousel_odoo_badge',
+				'label'         => 'Odoo-Ready-Partner-Logo anzeigen',
+				'name'          => 'show_odoo_badge',
+				'type'          => 'true_false',
+				'ui'            => 1,
+				'default_value' => 1,
+			),
+			letsdoo_block_blend_field( 'logo_carousel' ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'block', 'operator' => '==', 'value' => 'letsdoo/logo-carousel' ),
 			),
 		),
 	) );

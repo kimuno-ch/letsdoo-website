@@ -206,10 +206,12 @@
    breaking it at the corner instead of drawing a line straight through the
    badge.
 
-   Same two sections as the type-colour exception in 25-blocks.css: the
-   Angebote page, always white, and the Leistungen block with its background
-   switch off. */
-:is(.section--leistungen-bento, .ld-block-section:not(:has(> .section__bg-photo))) .leistung-card::before {
+   Same exception as the type-colour one in 25-blocks.css: the Leistungen
+   block with its background switch off — which includes the Angebote
+   page's "Unsere Leistungen" now that it's the_content() there rather than
+   its own hardcoded section (page-templates/template-angebote.php), so
+   there's no separate always-white case to list here any more. */
+.ld-block-section:not(:has(> .section__bg-photo)) .leistung-card::before {
 	border: var(--border-hairline);
 }
 

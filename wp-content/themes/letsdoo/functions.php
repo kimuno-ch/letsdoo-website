@@ -72,6 +72,7 @@ function letsdoo_style_parts() {
 		'26-kontakt-modal',
 		'27-single-leistung',
 		'28-plattform',
+		'29-logo-carousel',
 	);
 }
 

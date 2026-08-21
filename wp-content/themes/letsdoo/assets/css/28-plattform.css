@@ -2,10 +2,12 @@
 /* Plattform (App-Raster)                               */
 /* -------------------------------------------------- */
 
-/* Same "written for the gradient, corrected for white" split .leistung-card
-   and .zahl-card used to have — see 25-blocks.css section 3. Those two are
-   an opaque white card unconditionally now; .plattform-card is the one
-   still on the older recipe. */
+/* Used to run the same "written for the gradient, corrected for white" split
+   .leistung-card and .zahl-card used to have — see 25-blocks.css section 3.
+   Those two are an opaque white card unconditionally; .plattform-card now
+   follows the same recipe (its own correction lives there too, pulling the
+   card's text back to ink on the gradient, the same exception
+   .leistung-card has). */
 
 .section--plattform h2 {
 	color: #fff;
@@ -25,12 +27,12 @@
 
 .plattform-card {
 	--radius-child: var(--radius-nested);
+	--card-ink: var(--color-ink);
+	--card-body: var(--color-body);
 
-	background: var(--glass-dark-bg);
-	backdrop-filter: var(--glass-filter);
-	-webkit-backdrop-filter: var(--glass-filter);
-	border: var(--glass-dark-border);
-	box-shadow: var(--glass-shadow);
+	background: #fff;
+	border: var(--border-hairline);
+	box-shadow: var(--shadow-card);
 	border-radius: var(--radius);
 	padding: 2.5rem;
 }
@@ -64,13 +66,9 @@
 	transition: background var(--transition);
 }
 
-/* The hover fill needs to read on both card backgrounds — light on the
-   gradient card, dark on the white one (see 25-blocks.css section 3). */
-.ld-block-section:has(> .section__bg-photo) .plattform-card__apps a:hover {
-	background: rgba(255, 255, 255, 0.15);
-}
-
-.ld-block-section:not(:has(> .section__bg-photo)) .plattform-card__apps a:hover {
+/* One fill: the card is white regardless of the section behind it now, same
+   as .leistung-card / .zahl-card (25-blocks.css section 3). */
+.plattform-card__apps a:hover {
 	background: var(--color-bg-alt);
 }
 

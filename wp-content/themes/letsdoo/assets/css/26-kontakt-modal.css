@@ -34,7 +34,7 @@ body.kontakt-modal-open {
 
 	position: relative;
 	width: 100%;
-	max-width: 960px;
+	max-width: 1080px;
 	max-height: calc(100vh - 4rem);
 	overflow-y: auto;
 	background: var(--color-bg-alt);

@@ -40,6 +40,7 @@ function letsdoo_blocks() {
 		'text-bild',
 		'leistungen',
 		'referenz-karte',
+		'logo-carousel',
 		'zahlen',
 		'faq',
 		'cta-band',
@@ -238,9 +239,11 @@ function letsdoo_faq_block_items( $post = null ) {
 }
 
 /**
- * Restrict the inserter on Standort pages, and on the Odoo page
- * (page-templates/template-odoo.php), to the theme's own sections plus the
- * handful of core blocks that are safe between them.
+ * Restrict the inserter on Standort pages, on the Odoo page
+ * (page-templates/template-odoo.php), and on the Angebote page's
+ * "Unsere Leistungen" the_content() slot (page-templates/template-angebote.php),
+ * to the theme's own sections plus the handful of core blocks that are safe
+ * between them.
  *
  * Group and Columns are deliberately absent: they would wrap our sections in an
  * extra element, which breaks the nth-of-type wave sequence described at the
@@ -256,8 +259,9 @@ function letsdoo_blocks_allowed( $allowed, $context ) {
 
 	$is_standort = 'standort' === $post->post_type;
 	$is_odoo_page = 'page' === $post->post_type && 'page-templates/template-odoo.php' === get_page_template_slug( $post );
+	$is_angebote_page = 'page' === $post->post_type && 'page-templates/template-angebote.php' === get_page_template_slug( $post );
 
-	if ( ! $is_standort && ! $is_odoo_page ) {
+	if ( ! $is_standort && ! $is_odoo_page && ! $is_angebote_page ) {
 		return $allowed;
 	}
 

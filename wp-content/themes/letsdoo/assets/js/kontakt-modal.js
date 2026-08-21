@@ -16,16 +16,11 @@
 
 	function openModal( event ) {
 		/*
-		 * The header's email icon is a mailto: link wearing this same trigger
-		 * — clicking it should still hand off to the user's mail client, not
-		 * just pop the form instead, so it's the one case left to navigate
-		 * normally. mailto:/tel: never unload the page, so nothing about the
-		 * modal opening below is at odds with letting that through.
+		 * The header's email icon is a mailto: link wearing this trigger too
+		 * — always prevented now, so the click only opens the modal instead
+		 * of also handing off to the user's mail client.
 		 */
-		var href = event.currentTarget.getAttribute( 'href' ) || '';
-		if ( ! /^(mailto|tel):/i.test( href ) ) {
-			event.preventDefault();
-		}
+		event.preventDefault();
 		lastFocused = document.activeElement;
 
 		modal.hidden = false;

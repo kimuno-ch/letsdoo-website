@@ -9,8 +9,6 @@ while ( have_posts() ) :
 
 	$hero_image = get_field( 'hero_image' );
 
-	$leistungen = letsdoo_get_leistungen( get_field( 'leistungen_auswahl' ) );
-
 	$default_vorteile = array(
 		array( 'titel' => 'Zertifizierte Sicherheit', 'text' => 'Sichere Cloud-Infrastruktur und DSGVO-konforme Datenhaltung.' ),
 		array( 'titel' => 'Effizienz-Boost', 'text' => 'Automatisierung von Routineaufgaben spart bis zu 40% Ihrer Zeit.' ),
@@ -36,62 +34,20 @@ while ( have_posts() ) :
 
 		<?php
 		/*
-		 * The same cards as the Startseite and the Leistungen block, from the
-		 * same post type — .leistung-card / .leistungen-grid, styled once in
-		 * 07-leistungen.css. This section used to carry its own near-identical
-		 * copy (.leistung-bento-card, 16-angebote-leistungen.css), which is why
-		 * it kept the old flat card design when the card was redesigned.
-		 *
-		 * The section class stays --leistungen-bento rather than --leistungen:
-		 * the latter paints its heading white for the gradient band on the home
-		 * page, and this section sits on white.
+		 * "Unsere Leistungen" used to be a fixed section here, reading its own
+		 * heading + Leistungen selection from ACF (the old .leistung-card--wide
+		 * / is-reverse alternating photo layout, .leistungen-grid). It's block
+		 * content now — the_content() renders whatever's in the editor at this
+		 * exact spot, same shift single-standort.php and template-odoo.php
+		 * already made for their own bodies. Add the Leistungen block (small
+		 * cards; the old wide/photo variant isn't something it supports) or any
+		 * other block here. No wrapper div around it, same reasoning as those
+		 * two templates: the wave dividers and background blends in
+		 * 05-sections.css key off `section:nth-of-type` among siblings of
+		 * <main>, and a wrapper would break that count.
 		 */
+		the_content();
 		?>
-		<section class="section section--leistungen-bento" id="leistungen">
-			<div class="section__content">
-				<h2><?php echo esc_html( get_field( 'leistungen_heading' ) ?: 'Unsere Leistungen' ); ?></h2>
-				<?php if ( $leistungen ) : ?>
-					<div class="leistungen-grid">
-						<?php foreach ( $leistungen as $index => $leistung ) : ?>
-							<?php
-							$leistung_id = $leistung->ID;
-							$bild        = get_field( 'bild', $leistung_id );
-							$is_wide     = ! empty( $bild );
-							$is_reverse  = $is_wide && 1 === $index % 2;
-							$icon        = get_field( 'icon', $leistung_id ) ?: letsdoo_icon( 'check' );
-							$titel       = get_the_title( $leistung_id );
-							$text        = get_field( 'beschreibung', $leistung_id );
-							$merkmale    = letsdoo_lines( get_field( 'merkmale', $leistung_id ) );
-							?>
-							<a class="leistung-card <?php echo $is_wide ? 'leistung-card--wide' : ''; ?> <?php echo $is_reverse ? 'is-reverse' : ''; ?>" href="<?php echo esc_url( get_permalink( $leistung_id ) ); ?>">
-								<?php if ( $is_wide ) : ?>
-									<div class="leistung-card__image">
-										<img src="<?php echo esc_url( letsdoo_image_url( $bild, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $bild, $titel ) ); ?>">
-									</div>
-								<?php endif; ?>
-								<div class="leistung-card__body">
-									<div class="icon-tile"><?php echo $icon; ?></div>
-									<h3><?php echo esc_html( $titel ); ?></h3>
-									<?php if ( $text ) : ?>
-										<p><?php echo esc_html( $text ); ?></p>
-									<?php endif; ?>
-									<?php if ( $is_wide && $merkmale ) : ?>
-										<ul class="leistung-card__merkmale">
-											<?php foreach ( $merkmale as $merkmal ) : ?>
-												<li><?php echo letsdoo_icon( 'check' ); ?> <?php echo esc_html( $merkmal ); ?></li>
-											<?php endforeach; ?>
-										</ul>
-									<?php endif; ?>
-									<span class="leistung-card__more" aria-hidden="true"><?php esc_html_e( 'Mehr erfahren', 'letsdoo' ); ?></span>
-								</div>
-							</a>
-						<?php endforeach; ?>
-					</div>
-				<?php else : ?>
-					<p class="admin-hint"><?php esc_html_e( 'Noch keine Leistungen erfasst – unter „Leistungen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
-				<?php endif; ?>
-			</div>
-		</section>
 
 		<section class="section section--vertrauen" id="vertrauen">
 			<div class="vertrauen-grid">

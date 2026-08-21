@@ -159,7 +159,7 @@
 
 	/* Spacing is written as plain rem values rather than tokens — it reads
 	   better next to the layout it belongs to — but only off this scale:
-	   0.25 · 0.5 · 0.75 · 1 · 1.25 · 1.5 · 2 · 2.5 · 3 · 4 · 5 · 7 · 8.5rem.
+	   0.25 · 0.5 · 0.75 · 1 · 1.25 · 1.5 · 2 · 2.5 · 3 · 4 · 5 · 7 · 8.5 · 10rem.
 	   A quarter-rem grid to 1.5rem, half-rem steps above it. Anything else
 	   (the 0.3/0.35/0.65/0.9/1.1/1.75/2.25/3.5 scattered through the theme
 	   before) is a one-off that nothing else can line up with.
@@ -270,22 +270,60 @@
 	   bottom edge. Every path starts and ends at the same y, with a horizontal
 	   tangent there, so the shape can be tiled edge to edge without a visible
 	   seam or kink — which is what lets the hero wave drift sideways.
-	   05-sections.css points --wave-top / --wave-bottom at one of the three per
-	   section; the values below are the fallback for anything that doesn't get
-	   assigned. */
+	   The shapes live in assets/images/*.svg, not inline as data-URIs — plain
+	   files, hand-editable directly (any text editor, or Illustrator/Figma/
+	   Inkscape). Two pairs: the hero sits directly on white page background,
+	   so its wave stays plain white (--wave-top/--wave-bottom). The photo
+	   sections and footer sit on the brand gradient (--section-blend below),
+	   so their wave is tinted to match (--wave-top-section/
+	   --wave-bottom-section — same shape, filled with the same
+	   --color-gradient-start/-end used everywhere else on the site). The
+	   footer is the one exception — see its own comment in 20-footer.css for
+	   why it uses the plain white pair instead.
+
+	   The file each of the four points at (wave-top.svg/wave-bottom.svg/
+	   wave-top-section.svg/wave-bottom-section.svg) doesn't match the
+	   variable's own name — top/bottom got swapped by hand after the fact
+	   because the un-swapped pairing read backwards once it was on the page,
+	   and re-pointing the variables here was less churn than renaming every
+	   file and re-checking every reference to them. Always go through the
+	   --wave-top/--wave-bottom family below rather than a literal
+	   url("../images/wave-...svg") — that stays correct no matter which file
+	   is behind it.
+
+	   --wave-bottom-section-mirrored is a fifth file, not a pair member: the
+	   horizontal mirror of whatever --wave-bottom-section currently points
+	   at, baked in because the mask-image layers in 05-sections.css (the
+	   background clipped to the wave outline, instead of the wave painted on
+	   top of a flat rectangle) can't carry the scaleX(-1) that
+	   .section::after applies at its own usage site. If you swap which file
+	   --wave-bottom-section points to, regenerate this file to match (mirror
+	   every path's x to 1512 − x) or the clipped and painted bottom edges
+	   stop agreeing.
+
+	   --wave-top-a/-b/-c used to be three distinct curves so a page
+	   scrolling past several waves didn't see the same one repeat; with only
+	   one shape design to work from, they're aliases of the section
+	   (gradient) pair. 05-sections.css still reads one of the three per
+	   section, so the aliases have to stay defined even though they're
+	   identical to each other. After editing a wave SVG, hard-refresh the
+	   site — a plain url() reference carries no cache-busting query string,
+	   so a browser that already cached the old file won't notice the change
+	   on a normal refresh. */
 	--wave-height: 110px;
 
-	--wave-top-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V54 C1290,54 980,98 620,98 C420,98 180,54 0,54 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V22 C1300,22 1130,78 900,78 C620,78 240,22 0,22 Z'/%3E%3C/svg%3E");
-	--wave-bottom-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V56 C1290,56 980,12 620,12 C420,12 180,56 0,56 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V88 C1300,88 1130,32 900,32 C620,32 240,88 0,88 Z'/%3E%3C/svg%3E");
+	--wave-bottom: url("../images/wave-top.svg");
+	--wave-top: url("../images/wave-bottom.svg");
+	--wave-bottom-section: url("../images/wave-top-section.svg");
+	--wave-top-section: url("../images/wave-bottom-section.svg");
+	--wave-bottom-section-mirrored: url("../images/wave-bottom-section-mirrored.svg");
 
-	--wave-top-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V60 C1240,60 1010,100 700,100 C560,100 240,60 0,60 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V26 C1180,26 800,80 480,80 C300,80 130,26 0,26 Z'/%3E%3C/svg%3E");
-	--wave-bottom-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V50 C1240,50 1010,10 700,10 C560,10 240,50 0,50 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V84 C1180,84 800,30 480,30 C300,30 130,84 0,84 Z'/%3E%3C/svg%3E");
-
-	--wave-top-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,0 H1440 V58 C1160,58 780,96 460,96 C320,96 140,58 0,58 Z'/%3E%3Cpath fill='%23ffffff' d='M0,0 H1440 V28 C1240,28 990,74 760,74 C520,74 250,28 0,28 Z'/%3E%3C/svg%3E");
-	--wave-bottom-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0,110 H1440 V52 C1160,52 780,14 460,14 C320,14 140,52 0,52 Z'/%3E%3Cpath fill='%23ffffff' d='M0,110 H1440 V82 C1240,82 990,36 760,36 C520,36 250,82 0,82 Z'/%3E%3C/svg%3E");
-
-	--wave-top: var(--wave-top-a);
-	--wave-bottom: var(--wave-bottom-a);
+	--wave-top-a: var(--wave-top-section);
+	--wave-top-b: var(--wave-top-section);
+	--wave-top-c: var(--wave-top-section);
+	--wave-bottom-a: var(--wave-bottom-section);
+	--wave-bottom-b: var(--wave-bottom-section);
+	--wave-bottom-c: var(--wave-bottom-section);
 
 	/* Banner backgrounds. The full-bleed sections behind the glass panels are
 	   painted with a soft blend rather than a photo: a linear base in the two

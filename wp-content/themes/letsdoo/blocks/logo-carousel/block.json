@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "letsdoo/logo-carousel",
+	"title": "Logo-Karussell",
+	"description": "Automatisch laufendes Band mit Referenz-Logos und dem Odoo-Ready-Partner-Badge.",
+	"category": "letsdoo",
+	"icon": "images-alt2",
+	"keywords": [ "logo", "karussell", "referenzen", "partner", "marquee" ],
+	"textdomain": "letsdoo",
+	"supports": {
+		"anchor": true,
+		"align": [ "full" ],
+		"html": false,
+		"customClassName": false,
+		"reusable": false
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" }
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

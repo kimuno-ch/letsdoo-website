@@ -253,13 +253,54 @@ function letsdoo_render_odoo_map() {
 			continue; // No real logo to show -- cycling a placeholder in would look like a bug, not a feature.
 		}
 
+		// Real dimensions of the exact file letsdoo_image_url() below picks
+		// (same 'large' default) — letsdoo_odoo_map_inject_logo_cycle() uses
+		// these to size every logo to the same height regardless of its own
+		// aspect ratio, rather than fitting each into one shared box, which
+		// left a near-square logo looking much smaller than a wide one.
+		$src_data = wp_get_attachment_image_src( $thumb_id, 'large' );
+
 		$logos[] = array(
-			'src' => letsdoo_image_url( $thumb_id, 'placeholder-logo.svg' ),
-			'alt' => get_the_title( $referenz ),
+			'src'    => letsdoo_image_url( $thumb_id, 'placeholder-logo.svg' ),
+			'alt'    => get_the_title( $referenz ),
+			'width'  => $src_data ? (int) $src_data[1] : 0,
+			'height' => $src_data ? (int) $src_data[2] : 0,
 		);
 	}
 
 	return $logos ? letsdoo_odoo_map_inject_logo_cycle( $svg, $logos ) : $svg;
+}
+
+/**
+ * The box a single Kunde-chip logo renders into: same height for every
+ * logo, width following its own aspect ratio, horizontally centred on the
+ * chip. A shared width-and-height box (the fixed-height-only.svg used
+ * before this) sizes each logo differently depending on how square or wide
+ * it happens to be — preserveAspectRatio="xMidYMid meet" shrinks a squarer
+ * logo to fit the box's height and a wider one to fit its width, so a
+ * near-square logo ends up visibly smaller than a wide one even though both
+ * "fill" the same box. Fixing the height and deriving the width instead
+ * means every logo actually reads as the same size.
+ *
+ * $max_width is a backstop for an unusually wide logo, not the normal case —
+ * without it, one panoramic logo could push past the chip and into the
+ * hub's connector line above it.
+ */
+function letsdoo_odoo_map_logo_box( $logo, $center_x, $height, $max_width ) {
+	$width = ( $logo['width'] && $logo['height'] )
+		? $height * ( $logo['width'] / $logo['height'] )
+		: $height * 2; // No dimensions on record -- a plausible wide-logo guess beats a square one.
+
+	if ( $width > $max_width ) {
+		$height = $max_width * ( $logo['height'] / $logo['width'] );
+		$width  = $max_width;
+	}
+
+	return array(
+		'x'      => round( $center_x - $width / 2, 2 ),
+		'width'  => round( $width, 2 ),
+		'height' => round( $height, 2 ),
+	);
 }
 
 /**
@@ -268,22 +309,29 @@ function letsdoo_render_odoo_map() {
  * logo — letsdoo_render_odoo_map() leaves the file's own fallback content
  * (person icon + "Kunde") in place otherwise.
  *
- * Same box for every logo (290×86, centred where the chip used to be —
- * bigger than the chip itself since there's no card padding to leave room
- * for any more) regardless of each one's own aspect ratio —
- * preserveAspectRatio="xMidYMid meet" (the SVG default, stated here for
- * clarity) scales each to fit inside it without distorting or cropping, the
- * same guarantee object-fit: contain gives a bitmap <img>.
+ * Vertically centred to match the chip background rect in odoo-map.svg
+ * (y="89" height="82", centre 130); letsdoo_odoo_map_logo_box() above
+ * handles each logo's own width and horizontal centring.
  */
 function letsdoo_odoo_map_inject_logo_cycle( $svg, $logos ) {
-	$count = count( $logos );
+	$count     = count( $logos );
+	$center_y  = 130;
+	$center_x  = 450;
+	$height    = 140;
+	$max_width = 420;
 
 	if ( 1 === $count ) {
 		// Nothing to cycle with -- animating a single logo would just flicker
 		// it off once per loop for no reason.
+		$box = letsdoo_odoo_map_logo_box( $logos[0], $center_x, $height, $max_width );
+
 		$markup = sprintf(
-			'<image href="%s" x="305" y="79" width="290" height="86" preserveAspectRatio="xMidYMid meet"><title>%s</title></image>',
+			'<image href="%s" x="%s" y="%s" width="%s" height="%s" preserveAspectRatio="xMidYMid meet"><title>%s</title></image>',
 			esc_url( $logos[0]['src'] ),
+			$box['x'],
+			round( $center_y - $box['height'] / 2, 2 ),
+			$box['width'],
+			$box['height'],
 			esc_html( $logos[0]['alt'] )
 		);
 	} else {
@@ -321,12 +369,17 @@ function letsdoo_odoo_map_inject_logo_cycle( $svg, $logos ) {
 
 		foreach ( $logos as $i => $logo ) {
 			$classes = 'omap-kunde-logo' . ( 0 === $i ? ' omap-kunde-logo--first' : '' );
+			$box     = letsdoo_odoo_map_logo_box( $logo, $center_x, $height, $max_width );
 
 			$markup .= sprintf(
-				'<image class="%1$s" style="animation-delay:-%2$ss" href="%3$s" x="305" y="79" width="290" height="86" preserveAspectRatio="xMidYMid meet"><title>%4$s</title></image>',
+				'<image class="%1$s" style="animation-delay:-%2$ss" href="%3$s" x="%4$s" y="%5$s" width="%6$s" height="%7$s" preserveAspectRatio="xMidYMid meet"><title>%8$s</title></image>',
 				esc_attr( $classes ),
 				round( $i * ( $duration / $count ), 2 ),
 				esc_url( $logo['src'] ),
+				$box['x'],
+				round( $center_y - $box['height'] / 2, 2 ),
+				$box['width'],
+				$box['height'],
 				esc_html( $logo['alt'] )
 			);
 		}

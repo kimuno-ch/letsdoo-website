@@ -31,84 +31,11 @@
 	right: 0;
 	bottom: 0;
 	height: var(--wave-height);
-	background-image: var(--wave-bottom);
+	background-image: var(--wave-top);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	pointer-events: none;
 	z-index: 2;
-}
-
-/* -------------------------------------------------- */
-/* Hero wave on scroll                                  */
-/* -------------------------------------------------- */
-
-/* Scrolling down sweeps the wave up across the hero, trailing white behind it,
-   so the section below appears to wash over the photo. Two pieces move
-   together: ::after is the wave band itself (already at the hero's bottom
-   edge), ::before is a plain white block parked just below it, off-screen
-   until the pair climbs.
-
-   The whole thing is gated behind @supports for a reason that bites hard
-   without it — an `animation` with no duration and no timeline jumps straight
-   to its end state, which would leave the hero permanently white in browsers
-   that lack scroll-driven animations. Inside the gate they get the effect;
-   outside it, and for anyone asking for reduced motion, the wave simply stays
-   where it is. */
-@supports (animation-timeline: scroll()) {
-	@media (prefers-reduced-motion: no-preference) {
-		.hero {
-			/* How far the wave rides up over the hero, and how much scrolling
-			   it takes to get there. The travel is deliberately shorter than
-			   the hero so the sweep is still crossing the photo while it's
-			   on screen rather than racing off the top. */
-			--hero-wave-travel: 62vh;
-			--hero-wave-range: 270vh;
-		}
-
-		.hero::before {
-			content: "";
-			position: absolute;
-			left: 0;
-			right: 0;
-			/* Tucked 1px under the wave band rather than butted against it —
-			   the two edges are separate composited layers, and at fractional
-			   scroll offsets a bare join shows a hairline of the photo. */
-			top: calc(100% - 1px);
-			height: 100%;
-			background: #fff;
-			pointer-events: none;
-			z-index: 2;
-			animation: hero-wave-climb linear both;
-			animation-timeline: scroll(root block);
-			animation-range: 0 var(--hero-wave-range);
-		}
-
-		/* Widened to three hero-widths and tiled, so the sideways drift always
-		   has more wave to pull in from the right and never exposes an edge.
-		   One tile is a third of the element, which is what makes the -6%
-		   horizontal shift below a fraction of a tile rather than a jump. */
-		.hero::after {
-			left: -100%;
-			right: -100%;
-			background-repeat: repeat-x;
-			background-size: 33.3333% var(--wave-height);
-			animation: hero-wave-drift linear both;
-			animation-timeline: scroll(root block);
-			animation-range: 0 var(--hero-wave-range);
-		}
-	}
-}
-
-@keyframes hero-wave-climb {
-	to {
-		transform: translateY(calc(-1 * var(--hero-wave-travel)));
-	}
-}
-
-@keyframes hero-wave-drift {
-	to {
-		transform: translate(-6%, calc(-1 * var(--hero-wave-travel)));
-	}
 }
 
 .hero__panel,
@@ -224,7 +151,7 @@
    that used to build a hero__panel by hand. The home hero is the only
    exception — it keeps its full heading/text/button panel untouched. */
 .page-title {
-	padding: 2.5rem 2rem 1.5rem;
+	padding: 2.5rem 2rem 4.5rem;
 }
 
 .page-title__inner {
@@ -264,7 +191,7 @@
 
 .page-title__text {
 	margin: 0;
-	max-width: 680px;
+	max-width: 68ch;
 	font-size: var(--text-lg);
 	line-height: 1.5;
 	color: var(--color-body);

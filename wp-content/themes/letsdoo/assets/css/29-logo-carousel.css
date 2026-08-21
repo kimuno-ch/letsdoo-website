@@ -1,0 +1,111 @@
+/* -------------------------------------------------- */
+/* Logo carousel                                        */
+/* -------------------------------------------------- */
+
+/* An endless sideways-scrolling band, not a paginated slider — no JS, no
+   buttons, no dots. The container clips the track to its own width and fades
+   both edges with a mask so logos entering/leaving the band do it under a
+   soft gradient rather than a hard cut. */
+.logo-carousel {
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* The track is the logo list rendered twice by render.php (back to back, the
+   second copy aria-hidden). Translating it by exactly -50% — half of its own
+   width, i.e. one copy's width — and looping is what makes the wrap
+   invisible: the frame the animation resets on is pixel-identical to the
+   frame it started from, since the second copy is the same images in the
+   same order. width: max-content so the track is exactly as wide as its
+   content instead of being squeezed to the container. */
+.logo-carousel__track {
+	display: flex;
+	align-items: center;
+	width: max-content;
+	animation: logo-carousel-scroll 35s linear infinite;
+}
+
+/* A hover pause isn't just a nicety here — it's the only way to actually
+   read a specific logo without it drifting away mid-look. */
+.logo-carousel:hover .logo-carousel__track {
+	animation-play-state: paused;
+}
+
+.logo-carousel__item {
+	position: relative;
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 5rem;
+	padding: 0 3rem;
+	color: inherit;
+}
+
+.logo-carousel__item img {
+	height: 100%;
+	width: auto;
+	max-width: 240px;
+	object-fit: contain;
+	transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+/* Referenz items are links (see render.php); the Odoo badge is a plain,
+   non-interactive div and never matches this. Hovering — or focusing, for
+   keyboard use — fades the logo back and brings the "Referenz ansehen"
+   button up over it, in the same spot rather than pushing layout around. */
+a.logo-carousel__item:hover img,
+a.logo-carousel__item:focus-visible img {
+	opacity: 0.25;
+	filter: blur(1px);
+}
+
+.logo-carousel__cta {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	/* Sized to its own content, not the full item box — a button spanning
+	   the whole hit area would look like a stretched blob next to logos of
+	   very different widths. */
+	width: max-content;
+	height: max-content;
+	opacity: 0;
+	transform: translateY(4px);
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	pointer-events: none;
+}
+
+a.logo-carousel__item:hover .logo-carousel__cta,
+a.logo-carousel__item:focus-visible .logo-carousel__cta {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@keyframes logo-carousel-scroll {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+/* No motion: the animation stops (a static strip, still fully readable) and
+   the duplicated second copy — otherwise motionless dead weight sitting
+   right after the first — is hidden rather than left visible as an apparent
+   duplicate of every logo. */
+@media (prefers-reduced-motion: reduce) {
+	.logo-carousel__track {
+		animation: none;
+	}
+
+	.logo-carousel__item[aria-hidden="true"] {
+		display: none;
+	}
+
+	.logo-carousel {
+		overflow-x: auto;
+	}
+}

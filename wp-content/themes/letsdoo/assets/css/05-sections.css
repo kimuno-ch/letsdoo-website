@@ -8,7 +8,7 @@
    plain white ones get, and how far apart the gradient blocks end up sitting.
    Stepped down again on mobile in 23-mobile.css. */
 .section {
-	padding: 8.5rem 2rem;
+	padding: 10rem 2rem;
 	position: relative;
 }
 
@@ -92,9 +92,10 @@
 	   80 of the 110px and the translucent layer trailing it around 100 — and then
 	   leaves the same order of air the white sections get, so the banners don't
 	   read as tighter inside just because the wave is eating the top of the
-	   box. */
-	padding-top: calc(5rem + var(--wave-height));
-	padding-bottom: calc(5rem + var(--wave-height));
+	   box. Stepped up from 5rem alongside .section's own bump to 10rem above,
+	   same reasoning. */
+	padding-top: calc(7rem + var(--wave-height));
+	padding-bottom: calc(7rem + var(--wave-height));
 }
 
 /* Block-built pages (single-standort etc.) can land a photo section right
@@ -125,130 +126,53 @@
 }
 
 /* The bottom wave is flipped horizontally so the two ends of a section don't
-   read as a tracing of each other. */
+   read as a tracing of each other. Fallback for browsers without the masking
+   below, and the only behaviour at all where that's unsupported. */
 .section:has(> .section__bg-photo)::after {
 	bottom: 0;
 	transform: scaleX(-1);
 	background-image: var(--wave-bottom);
 }
 
-/* The banner waves drift sideways and pulse vertically as their section
-   crosses the viewport. Same construction as the hero wave: the band is
-   widened to three section-widths and tiled so there is always more wave to
-   pull in, which is why the section needs to clip. Timed off each
-   pseudo-element's own view() rather than page scroll, so every banner drifts
-   as you reach it instead of all of them moving in lockstep.
+/* Where masking is supported, clip .section__bg-photo itself to the wave
+   outline at each edge instead of painting a wave shape over a
+   flat-topped-and-bottomed rectangle — same idea as the hero (see
+   04-hero.css), applied twice. Three mask layers: a plain rectangle for the
+   middle (everything between the two wave bands, fully opaque so the blend
+   there is untouched), the top wave sized to the band at the top, and the
+   bottom wave sized to the band at the bottom — composited with "add"
+   (union), so the visible area is the middle rectangle PLUS wherever either
+   wave shape covers.
 
-   Gated for the same reason as the hero: an animation with no duration and no
-   timeline snaps straight to its end state, so browsers without scroll-driven
-   animations must not see the animation at all. They keep today's static wave,
-   as does anyone who asked for reduced motion. */
-@supports (animation-timeline: view()) {
-	@media (prefers-reduced-motion: no-preference) {
-		/* clip, not hidden. `overflow: hidden` would make the section a scroll
-		   container, and view() resolves against the nearest scroll container
-		   — the waves would then hang off a box that never scrolls and sit
-		   frozen at a fixed offset. `overflow: clip` crops the widened band,
-		   and the slack the vertical pulse needs, without creating one. */
-		.section:has(> .section__bg-photo) {
-			overflow: clip;
-			--wave-pulse: calc(var(--wave-height) * 0.15);
-		}
-
-		/* The band is grown by --wave-pulse and the wave graphic pushed to its
-		   outer end, so the extra strip is solid white sitting outside the
-		   section. That backing is what makes the pulse safe: at rest the curve
-		   is inset by the pulse distance and at full pulse it comes out exactly
-		   flush, never past. Without it the section edge would show through
-		   above the crest for most of the pass, and because the wave also
-		   drifts, the gap would open at a different scroll position each time.
-
-		   calc(100% / 3) rather than 33.3333% so the tile is exactly a third of
-		   the widened band and repeats land on the same sub-pixel each time. */
-		.section:has(> .section__bg-photo)::before,
-		.section:has(> .section__bg-photo)::after {
-			left: -100%;
-			right: -100%;
-			height: calc(var(--wave-height) + var(--wave-pulse));
-			background-repeat: repeat-x, repeat-x;
-			background-size:
-				calc(100% / 3) var(--wave-height),
-				100% calc(var(--wave-pulse) + 1px);
-			animation: banner-wave-drift linear both;
-			animation-timeline: view();
-			animation-range: cover 0% cover 100%;
-		}
-
-		.section:has(> .section__bg-photo)::before {
-			background-image: var(--wave-top), linear-gradient(#fff, #fff);
-			background-position: 0 100%, 0 0;
-		}
-
-		/* The bottom wave carries scaleX(-1), and animating transform would
-		   drop it, so its keyframes have to restate the flip. Translating
-		   after the mirror inverts the axis, hence the opposite sign — both
-		   waves end up drifting the same way on screen. */
-		.section:has(> .section__bg-photo)::after {
-			background-image: var(--wave-bottom), linear-gradient(#fff, #fff);
-			background-position: 0 0, 0 100%;
-			animation-name: banner-wave-drift-flipped;
-		}
-	}
-}
-
-/* Every stop lists the same transform functions on purpose. A bare `to` would
-   leave the browser interpolating from the computed value, and for the flipped
-   wave that means decomposing a negative-determinant matrix — which resolves
-   as a rotation and visibly swings the wave.
-
-   The vertical pulse only ever goes one way: the top wave rises and the bottom
-   wave falls. Pushed the other way, each would pull back from the edge it sits
-   on and leave a straight band of the gradient showing above or below it —
-   exactly the hard line these waves exist to hide. Two beats over the pass,
-   riding on top of a steady sideways drift. */
-@keyframes banner-wave-drift {
-	0% {
-		transform: translateX(0) translateY(0);
+   The bottom layer uses --wave-bottom-section-mirrored rather than
+   --wave-bottom: a mask layer can't carry the scaleX(-1) that ::after above
+   applies at its own usage site, so that flip has to already be baked into
+   the file (see the comment on that variable in 01-base.css). ::before/
+   ::after become redundant once this is active, since the clip already does
+   their job; removed rather than left to double up. */
+@supports (mask-composite: add) or (-webkit-mask-composite: source-over) {
+	.section__bg-photo {
+		-webkit-mask-image: linear-gradient(#000, #000), var(--wave-top), var(--wave-bottom-section-mirrored);
+		mask-image: linear-gradient(#000, #000), var(--wave-top), var(--wave-bottom-section-mirrored);
+		-webkit-mask-repeat: no-repeat, no-repeat, no-repeat;
+		mask-repeat: no-repeat, no-repeat, no-repeat;
+		-webkit-mask-position: 0 var(--wave-height), 0 0, 0 100%;
+		mask-position: 0 var(--wave-height), 0 0, 0 100%;
+		-webkit-mask-size:
+			100% calc(100% - 2 * var(--wave-height)),
+			100% var(--wave-height),
+			100% var(--wave-height);
+		mask-size:
+			100% calc(100% - 2 * var(--wave-height)),
+			100% var(--wave-height),
+			100% var(--wave-height);
+		-webkit-mask-composite: source-over, source-over;
+		mask-composite: add, add;
 	}
 
-	25% {
-		transform: translateX(-2%) translateY(calc(-1 * var(--wave-pulse)));
-	}
-
-	50% {
-		transform: translateX(-4%) translateY(0);
-	}
-
-	75% {
-		transform: translateX(-6%) translateY(calc(-1 * var(--wave-pulse)));
-	}
-
-	100% {
-		transform: translateX(-8%) translateY(0);
-	}
-}
-
-/* scaleX(-1) mirrors the x axis only, so the sideways sign flips to keep both
-   waves drifting the same way on screen while the pulse stays downward. */
-@keyframes banner-wave-drift-flipped {
-	0% {
-		transform: scaleX(-1) translateX(0) translateY(0);
-	}
-
-	25% {
-		transform: scaleX(-1) translateX(2%) translateY(var(--wave-pulse));
-	}
-
-	50% {
-		transform: scaleX(-1) translateX(4%) translateY(0);
-	}
-
-	75% {
-		transform: scaleX(-1) translateX(6%) translateY(var(--wave-pulse));
-	}
-
-	100% {
-		transform: scaleX(-1) translateX(8%) translateY(0);
+	.section:has(> .section__bg-photo)::before,
+	.section:has(> .section__bg-photo)::after {
+		content: none;
 	}
 }
 
@@ -259,26 +183,38 @@
    functions.php adds a wave-seed-0/1/2 class per page to rotate the whole
    sequence. Sections are counted among their siblings rather than under main,
    because single.php nests them in an <article>. Only the two custom
-   properties are reassigned; the rules above do the drawing either way. */
-.wave-seed-0 section:nth-of-type(3n + 1),
-.wave-seed-1 section:nth-of-type(3n + 3),
-.wave-seed-2 section:nth-of-type(3n + 2) {
+   properties are reassigned; the rules above do the drawing either way.
+
+   :not(.hero) — the hero is literally <section class="hero">, so it counts
+   toward the nth-of-type position above (that's why the comment above says
+   "the hero is always the first section"), but it never reads --wave-top or
+   --section-blend, and 04-hero.css points its own --wave-bottom at the plain
+   white pair, not the -a/-b/-c gradient aliases these rules assign. Before,
+   reassigning them here was harmless — -a/-b/-c were the same white pair. Now
+   that they're the gradient-tinted pair for sections, letting this cascade
+   onto the hero would silently override its --wave-bottom with the gradient
+   one, which is exactly the wrong wave for a hero that's meant to stay white
+   — so it's excluded rather than left to rely on losing a specificity fight
+   it was never supposed to be in. */
+.wave-seed-0 section:not(.hero):nth-of-type(3n + 1),
+.wave-seed-1 section:not(.hero):nth-of-type(3n + 3),
+.wave-seed-2 section:not(.hero):nth-of-type(3n + 2) {
 	--wave-top: var(--wave-top-a);
 	--wave-bottom: var(--wave-bottom-a);
 	--section-blend: var(--blend-a);
 }
 
-.wave-seed-0 section:nth-of-type(3n + 2),
-.wave-seed-1 section:nth-of-type(3n + 1),
-.wave-seed-2 section:nth-of-type(3n + 3) {
+.wave-seed-0 section:not(.hero):nth-of-type(3n + 2),
+.wave-seed-1 section:not(.hero):nth-of-type(3n + 1),
+.wave-seed-2 section:not(.hero):nth-of-type(3n + 3) {
 	--wave-top: var(--wave-top-b);
 	--wave-bottom: var(--wave-bottom-b);
 	--section-blend: var(--blend-b);
 }
 
-.wave-seed-0 section:nth-of-type(3n + 3),
-.wave-seed-1 section:nth-of-type(3n + 2),
-.wave-seed-2 section:nth-of-type(3n + 1) {
+.wave-seed-0 section:not(.hero):nth-of-type(3n + 3),
+.wave-seed-1 section:not(.hero):nth-of-type(3n + 2),
+.wave-seed-2 section:not(.hero):nth-of-type(3n + 1) {
 	--wave-top: var(--wave-top-c);
 	--wave-bottom: var(--wave-bottom-c);
 	--section-blend: var(--blend-c);
