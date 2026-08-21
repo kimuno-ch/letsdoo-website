@@ -331,7 +331,7 @@
 	}
 
 	.hero--sub {
-		min-height: clamp(300px, 44vh, 420px);
+		min-height: clamp(120px, 18vh, 180px);
 	}
 
 	.site-footer__columns {

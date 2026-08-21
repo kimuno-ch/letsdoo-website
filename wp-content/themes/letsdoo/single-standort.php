@@ -12,10 +12,10 @@
  * differ only in the town name is what Google filters out as doorway pages.
  * inc/cpt.php gives a new Standort a starting skeleton.
  *
- * The hero stays in the template deliberately. It carries the H1, and its
- * "Odoo <Ort>" fallback is the guarantee that a Standort can never be published
- * with a heading that doesn't name the town it exists to rank for — not
- * something to leave deletable in the editor.
+ * The hero and the title after it stay in the template deliberately. Between
+ * them they carry the H1, and its "Odoo <Ort>" fallback is the guarantee that
+ * a Standort can never be published with a heading that doesn't name the town
+ * it exists to rank for — not something to leave deletable in the editor.
  *
  * Nothing links here — see the post type registration in inc/cpt.php.
  */
@@ -34,18 +34,9 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub hero--standort" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
-				<?php if ( $kanton ) : ?>
-					<span class="hero__badge"><?php echo esc_html( $kanton ); ?></span>
-				<?php endif; ?>
-				<h1><?php echo esc_html( $hero_heading ); ?></h1>
-				<?php if ( $hero_text ) : ?>
-					<p><?php echo esc_html( $hero_text ); ?></p>
-				<?php endif; ?>
-				<?php letsdoo_button( 'Kontakt aufnehmen', letsdoo_page_url_by_template( 'page-templates/template-contact.php', '/kontakt/' ) ); ?>
-			</div>
-		</section>
+		<section class="hero hero--sub hero--standort" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+		<?php letsdoo_page_title( $hero_heading, $kanton, $hero_text ); ?>
 
 		<?php
 		/*

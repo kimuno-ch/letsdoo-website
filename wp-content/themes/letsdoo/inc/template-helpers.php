@@ -55,6 +55,39 @@ function letsdoo_button( $label, $link, $classes = '' ) {
 }
 
 /**
+ * The page's own H1 — plus, where the template has them, the small label
+ * that used to sit above it (a badge like "Referenz", or an eyebrow line
+ * like "Kontaktiere uns") — now below the title instead — and the lead
+ * paragraph that used to sit below, printed as a plain strip directly under
+ * a sub-page hero. Every hero but the home page's is bare now (04-hero.css,
+ * .hero--sub), so this is the one place that content actually lives
+ * instead. The hero's CTA buttons are deliberately not part of this — those
+ * stayed dropped, only the text came back.
+ *
+ * @param string $title    Required — nothing renders without it.
+ * @param string $subtitle Optional. The old badge/eyebrow text.
+ * @param string $text     Optional. The old lead paragraph.
+ */
+function letsdoo_page_title( $title, $subtitle = '', $text = '' ) {
+	if ( ! $title ) {
+		return;
+	}
+	?>
+	<div class="page-title">
+		<div class="page-title__inner">
+			<h1><?php echo esc_html( $title ); ?></h1>
+			<?php if ( $subtitle ) : ?>
+				<p class="page-title__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+			<?php endif; ?>
+			<?php if ( $text ) : ?>
+				<p class="page-title__text"><?php echo esc_html( $text ); ?></p>
+			<?php endif; ?>
+		</div>
+	</div>
+	<?php
+}
+
+/**
  * The optional promo tile on the right of a primary-nav dropdown (see
  * inc/nav-walker.php) — badge, heading, text and a fixed "Kontakt aufnehmen"
  * button that opens the Kontakt modal, same brand gradient as .cta-banner

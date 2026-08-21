@@ -24,15 +24,9 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub hero--leistung" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_bild, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
-				<span class="hero__badge"><?php esc_html_e( 'Leistung', 'letsdoo' ); ?></span>
-				<h1><?php the_title(); ?></h1>
-				<?php if ( $lead ) : ?>
-					<p><?php echo esc_html( $lead ); ?></p>
-				<?php endif; ?>
-			</div>
-		</section>
+		<section class="hero hero--sub hero--leistung" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_bild, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+		<?php letsdoo_page_title( get_the_title(), __( 'Leistung', 'letsdoo' ), $lead ); ?>
 
 		<?php if ( $merkmale ) : ?>
 			<section class="section section--leistung-merkmale">

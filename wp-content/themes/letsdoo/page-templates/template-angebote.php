@@ -24,17 +24,15 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
-				<?php $badge = get_field( 'hero_badge' ) ?: 'Offizieller Odoo Partner'; ?>
-				<?php if ( $badge ) : ?>
-					<span class="hero__badge"><?php echo esc_html( $badge ); ?></span>
-				<?php endif; ?>
-				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Angebote & Pakete' ); ?></h1>
-				<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Transparente Pakete für jede Unternehmensgrösse – von der ersten Odoo-Einrichtung bis zur individuellen Grossprojekt-Betreuung.' ); ?></p>
-				<?php letsdoo_button( get_field( 'hero_button_label' ) ?: 'Jetzt beraten lassen', get_field( 'hero_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
-			</div>
-		</section>
+		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+		<?php
+		letsdoo_page_title(
+			get_field( 'hero_heading' ) ?: 'Angebote & Pakete',
+			get_field( 'hero_badge' ) ?: 'Offizieller Odoo Partner',
+			get_field( 'hero_text' ) ?: 'Transparente Pakete für jede Unternehmensgrösse – von der ersten Odoo-Einrichtung bis zur individuellen Grossprojekt-Betreuung.'
+		);
+		?>
 
 		<?php
 		/*

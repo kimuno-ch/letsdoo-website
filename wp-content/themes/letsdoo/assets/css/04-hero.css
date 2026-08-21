@@ -138,26 +138,6 @@
 	max-width: 620px;
 }
 
-.hero__eyebrow {
-	font-weight: 700;
-	font-size: var(--text-lg);
-	color: #fff;
-}
-
-.hero__badge {
-	display: inline-block;
-	background: rgba(255, 255, 255, 0.18);
-	border: 1px solid rgba(255, 255, 255, 0.35);
-	color: #fff;
-	font-size: var(--text-2xs);
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	padding: 0.4em 1em;
-	border-radius: var(--radius-child);
-	margin-bottom: 1.25rem;
-}
-
 .hero__blob {
 	position: absolute;
 	top: 2rem;
@@ -213,18 +193,15 @@
 	max-width: min(620px, 72%);
 }
 
-/* Sub pages stay shorter than the home hero — they carry a heading and a line
-   or two rather than the main pitch, and the content below matters more. */
+/* Sub pages carry no text at all now — just the photo and the wave, a slim
+   band rather than a second pitch. The title moved to .page-title, right
+   after the hero in the markup (letsdoo_page_title() in
+   inc/template-helpers.php), so .hero--sub no longer centres content
+   vertically — with nothing inside it, the base .hero's flex centring has
+   nothing to do anyway. */
 .hero--sub {
-	padding: 5rem 2rem calc(2.5rem + var(--wave-height));
-	min-height: clamp(420px, 56vh, 620px);
-}
-
-/* Sub heroes have no .hero__inner wrapper, so the panel is offset by hand to
-   start at the same left edge as the centred content container. */
-.hero--sub .hero__panel {
-	max-width: 700px;
-	margin: 0 0 0 max(0px, calc((100% - var(--max-width)) / 2));
+	padding: 0;
+	min-height: clamp(160px, 22vh, 240px);
 }
 
 /* Blog post hero: no featured-image photo behind the panel, just the brand
@@ -234,5 +211,62 @@
 	background-image: var(--section-blend);
 	background-size: cover;
 	background-position: center;
+}
+
+/* -------------------------------------------------- */
+/* Page title (sub-page heroes only)                    */
+/* -------------------------------------------------- */
+
+/* Every sub-page hero is bare now (.hero--sub above) — this is where the
+   page's own H1 actually lives, a plain strip directly under it rather than
+   overlaid on the photo. letsdoo_page_title() (inc/template-helpers.php)
+   is the one place that prints it, called the same way from every template
+   that used to build a hero__panel by hand. The home hero is the only
+   exception — it keeps its full heading/text/button panel untouched. */
+.page-title {
+	padding: 2.5rem 2rem 1.5rem;
+}
+
+.page-title__inner {
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+/* The base h1 rule's own bottom margin (01-base.css) is exactly right as the
+   gap before whichever of .page-title__subtitle / .page-title__text comes
+   first — this only trims it for the plain-title pages that have neither,
+   so the strip doesn't carry dead space at the bottom for nothing to sit
+   in. */
+.page-title h1:last-child {
+	margin-bottom: 0;
+}
+
+/* Below the title, not above it — a byline under the headline rather than
+   an eyebrow leading into it. Its own bottom margin is what separates it
+   from .page-title__text when both are present; with no margin-top of its
+   own, the gap above it is simply whatever margin the h1 already carries. */
+/* Sized up from --text-sm — this and .page-title__text below are the page's
+   lead, not a caption, so they need to read with some real weight under the
+   title rather than as fine print. */
+.page-title__subtitle {
+	margin: 0 0 0.75rem;
+	font-size: var(--text-md);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--color-body);
+	opacity: 0.7;
+}
+
+.page-title__subtitle:last-child {
+	margin-bottom: 0;
+}
+
+.page-title__text {
+	margin: 0;
+	max-width: 680px;
+	font-size: var(--text-lg);
+	line-height: 1.5;
+	color: var(--color-body);
 }
 

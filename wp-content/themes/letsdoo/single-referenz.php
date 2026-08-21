@@ -14,7 +14,6 @@ while ( have_posts() ) :
 	the_post();
 
 	$hero_image = get_field( 'hero_image' );
-	$logo_id    = get_post_thumbnail_id();
 	$lead       = get_field( 'beschreibung' );
 	$website    = get_field( 'website' );
 	$module     = letsdoo_lines( get_field( 'module' ) );
@@ -29,22 +28,9 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub hero--referenz" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
-				<span class="hero__badge"><?php esc_html_e( 'Referenz', 'letsdoo' ); ?></span>
-				<div class="referenz-hero__head">
-					<?php if ( $logo_id ) : ?>
-						<div class="referenz-hero__logo">
-							<img src="<?php echo esc_url( letsdoo_image_url( $logo_id, 'placeholder-logo.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
-						</div>
-					<?php endif; ?>
-					<h1><?php the_title(); ?></h1>
-				</div>
-				<?php if ( $lead ) : ?>
-					<p><?php echo esc_html( $lead ); ?></p>
-				<?php endif; ?>
-			</div>
-		</section>
+		<section class="hero hero--sub hero--referenz" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+		<?php letsdoo_page_title( get_the_title(), __( 'Referenz', 'letsdoo' ), $lead ); ?>
 
 		<?php if ( $facts || $website || $module ) : ?>
 			<section class="section section--referenz-fakten">

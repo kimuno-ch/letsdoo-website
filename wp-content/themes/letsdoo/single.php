@@ -12,38 +12,25 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$kategorien = get_the_category();
+	$kategorien    = get_the_category();
 	$schlagwoerter = get_the_tags();
-	$blog_url   = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/' );
+	$blog_url      = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/' );
+
+	$post_meta = sprintf(
+		/* translators: 1: publish date, 2: reading time in minutes */
+		__( '%1$s · %2$d Min. Lesezeit', 'letsdoo' ),
+		get_the_date(),
+		(int) letsdoo_reading_time()
+	);
 	?>
 
 	<main id="main" class="site-main">
 
 		<article <?php post_class(); ?>>
 
-			<section class="hero hero--sub hero--post">
-				<div class="hero__panel">
-					<?php if ( $kategorien ) : ?>
-						<a class="hero__badge" href="<?php echo esc_url( get_category_link( $kategorien[0] ) ); ?>">
-							<?php echo esc_html( $kategorien[0]->name ); ?>
-						</a>
-					<?php endif; ?>
+			<section class="hero hero--sub hero--post"></section>
 
-					<h1><?php the_title(); ?></h1>
-
-					<p class="post-meta">
-						<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
-						<span class="post-meta__sep" aria-hidden="true">·</span>
-						<?php
-						printf(
-							/* translators: %d: reading time in minutes */
-							esc_html__( '%d Min. Lesezeit', 'letsdoo' ),
-							(int) letsdoo_reading_time()
-						);
-						?>
-					</p>
-				</div>
-			</section>
+			<?php letsdoo_page_title( get_the_title(), $kategorien ? $kategorien[0]->name : '', $post_meta ); ?>
 
 			<section class="section section--blog-inhalt">
 				<div class="section__content">

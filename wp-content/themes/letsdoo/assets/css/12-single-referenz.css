@@ -2,40 +2,6 @@
 /* Single Referenz                                      */
 /* -------------------------------------------------- */
 
-.referenz-hero__head {
-	display: flex;
-	align-items: center;
-	gap: 1.5rem;
-	flex-wrap: wrap;
-}
-
-.referenz-hero__head h1 {
-	margin-bottom: 0;
-}
-
-.referenz-hero__logo {
-	width: 92px;
-	flex-shrink: 0;
-	/* Padded by 0.75rem, so the concentric rule lands exactly on the nested
-	   radius rather than on its floor: 24 − 12 = 12. */
-	--radius-child: calc(var(--radius) - 0.75rem);
-
-	background: #fff;
-	border-radius: var(--radius);
-	padding: 1rem;
-}
-
-.referenz-hero__logo img {
-	width: 100%;
-	height: auto;
-	display: block;
-	border-radius: var(--radius-child);
-}
-
-.hero--referenz .hero__panel p {
-	margin: 1.25rem 0 0;
-}
-
 /* Key facts strip */
 
 .section--referenz-fakten {

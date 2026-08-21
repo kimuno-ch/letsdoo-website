@@ -15,12 +15,15 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-			<div class="hero__panel">
-				<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: 'Über uns' ); ?></h1>
-				<p><?php echo esc_html( get_field( 'hero_text' ) ?: "Wir sind Let'sDoo – Ihr Odoo-Partner aus Luzern. Wir setzen auf persönliche Beratung, pragmatische Lösungen und langfristige Zusammenarbeit." ); ?></p>
-			</div>
-		</section>
+		<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+		<?php
+		letsdoo_page_title(
+			get_field( 'hero_heading' ) ?: 'Über uns',
+			'',
+			get_field( 'hero_text' ) ?: "Wir sind Let'sDoo – Ihr Odoo-Partner aus Luzern. Wir setzen auf persönliche Beratung, pragmatische Lösungen und langfristige Zusammenarbeit."
+		);
+		?>
 
 		<section class="section section--referenzen" id="referenzen">
 			<div class="section__content">

@@ -6,27 +6,18 @@
  */
 
 get_header();
+
+$title = is_search()
+	/* translators: %s: search term */
+	? sprintf( __( 'Suchergebnisse für „%s“', 'letsdoo' ), get_search_query() )
+	: __( 'Beiträge', 'letsdoo' );
 ?>
 
 <main id="main" class="site-main">
 
-	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');">
-		<div class="hero__panel">
-			<h1>
-				<?php if ( is_search() ) : ?>
-					<?php
-					printf(
-						/* translators: %s: search term */
-						esc_html__( 'Suchergebnisse für „%s“', 'letsdoo' ),
-						esc_html( get_search_query() )
-					);
-					?>
-				<?php else : ?>
-					<?php esc_html_e( 'Beiträge', 'letsdoo' ); ?>
-				<?php endif; ?>
-			</h1>
-		</div>
-	</section>
+	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');"></section>
+
+	<?php letsdoo_page_title( $title ); ?>
 
 	<section class="section section--blog">
 		<div class="section__content">

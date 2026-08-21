@@ -18,17 +18,16 @@ $hero_text    = $blog_page_id ? get_field( 'hero_text', $blog_page_id ) : '';
 if ( ! $hero_heading ) {
 	$hero_heading = $blog_page_id ? get_the_title( $blog_page_id ) : __( 'Blog', 'letsdoo' );
 }
+if ( ! $hero_text ) {
+	$hero_text = __( 'Praxisnahe Beiträge rund um Odoo, Digitalisierung und effiziente Geschäftsprozesse – aus unserem Alltag als Odoo-Partner.', 'letsdoo' );
+}
 ?>
 
 <main id="main" class="site-main">
 
-	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
-		<div class="hero__panel">
-			<span class="hero__badge"><?php esc_html_e( 'Blog', 'letsdoo' ); ?></span>
-			<h1><?php echo esc_html( $hero_heading ); ?></h1>
-			<p><?php echo esc_html( $hero_text ?: __( 'Praxisnahe Beiträge rund um Odoo, Digitalisierung und effiziente Geschäftsprozesse – aus unserem Alltag als Odoo-Partner.', 'letsdoo' ) ); ?></p>
-		</div>
-	</section>
+	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+
+	<?php letsdoo_page_title( $hero_heading, __( 'Blog', 'letsdoo' ), $hero_text ); ?>
 
 	<section class="section section--blog">
 		<div class="section__content">

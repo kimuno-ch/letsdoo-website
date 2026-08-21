@@ -9,16 +9,12 @@ get_header();
 
 <main id="main" class="site-main">
 
-	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');">
-		<div class="hero__panel">
-			<span class="hero__badge"><?php esc_html_e( 'Blog', 'letsdoo' ); ?></span>
-			<h1><?php echo esc_html( wp_strip_all_tags( get_the_archive_title() ) ); ?></h1>
-			<?php $letsdoo_archiv_text = get_the_archive_description(); ?>
-			<?php if ( $letsdoo_archiv_text ) : ?>
-				<p><?php echo esc_html( wp_strip_all_tags( $letsdoo_archiv_text ) ); ?></p>
-			<?php endif; ?>
-		</div>
-	</section>
+	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');"></section>
+
+	<?php
+	$letsdoo_archiv_text = wp_strip_all_tags( get_the_archive_description() );
+	letsdoo_page_title( wp_strip_all_tags( get_the_archive_title() ), __( 'Blog', 'letsdoo' ), $letsdoo_archiv_text );
+	?>
 
 	<section class="section section--blog">
 		<div class="section__content">
