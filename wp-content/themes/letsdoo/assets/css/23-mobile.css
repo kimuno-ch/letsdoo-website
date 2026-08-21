@@ -111,9 +111,23 @@
 	   tiled instead. The single-sweep shapes don't need it: one stroke squeezed
 	   into 390px is still a single lazy dip, while a fixed tile would show a
 	   phone one flank of the curve and read as a lopsided slant rather than a
-	   swish. So mobile keeps the desktop sizing and only the depth changes. */
+	   swish. So mobile keeps the desktop sizing and only the depth changes.
+
+	   The type scale (01-base.css) is a second, unrelated reason this block
+	   exists: --text-h1/h2/h2-prose and --text-stat are plain fixed rem
+	   values now, not the clamp() they used to be, so nothing shrinks them
+	   automatically as the viewport narrows. Left alone, an 80px h1 either
+	   wraps into three lines or runs past the edge of a phone screen. Every
+	   var(--text-*) consumer reads the same token, so redeclaring it here
+	   once is enough — no per-component overrides needed. */
 	:root {
 		--wave-height: 56px;
+		--text-h1: 2.75rem;
+		--text-h2: 2.25rem;
+		--text-h2-prose: 2rem;
+		--text-stat: 2rem;
+		--text-lg: 1.15rem;
+		--text-md: 1rem;
 	}
 
 	/* The desktop figure is generous on purpose, but a phone is already one
@@ -161,7 +175,16 @@
 		display: flex;
 	}
 
-	.main-navigation ul {
+	/* Direct-child combinator, not a plain descendant selector: the mega menu
+	   (03-header.css) nests its own <ul class="mega-menu__links"> several
+	   levels down inside here, and a bare ".main-navigation ul" matches that
+	   one too — giving it this rule's position: absolute; top: 100%; and
+	   handing every item's link list the same anchor point (the nearest
+	   positioned ancestor, .main-navigation__item below), so every column's
+	   links landed stacked on top of each other instead of under their own
+	   eyebrow. ">" reaches only the top-level #primary-menu list this was
+	   actually written for. */
+	.main-navigation > ul {
 		display: none;
 		position: absolute;
 		top: 100%;
@@ -179,17 +202,117 @@
 		padding: 0 2rem;
 	}
 
-	.site-header.is-open .main-navigation ul {
+	.site-header.is-open .main-navigation > ul {
 		display: flex;
 	}
 
-	.main-navigation ul li {
+	/* Same reasoning as above — unscoped, this also drew a line under every
+	   mega-menu link (.mega-menu__link-item is an <li> too), not just
+	   between the top-level items it's meant to separate. */
+	.main-navigation > ul > li {
 		border-top: 1px solid var(--color-border);
 	}
 
-	.main-navigation ul a {
+	/* The desktop mega menu is a hover panel; there's no hover on a phone, so
+	   it collapses to an accordion instead — .mega-menu__toggle (hidden on
+	   desktop, 03-header.css) becomes the tap target, and .main-navigation__item
+	   needs its own positioning context back for that button to anchor to,
+	   independent of the page-centred absolute panel the desktop rules use. */
+	.main-navigation__item {
+		position: relative;
+		display: block;
+	}
+
+	/* Beats .main-navigation__item > .nav-link's own desktop display: flex
+	   (03-header.css) back to the plain stacked row every other item in this
+	   drawer uses — same selector on both sides, so it comes down to this
+	   file loading after 03-header.css. Doubles as this list's version of the
+	   old .main-navigation ul a rule above, scoped correctly this time. */
+	.main-navigation__item > .nav-link {
 		display: block;
 		padding: 1rem 0;
+	}
+
+	.mega-menu__toggle {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 48px;
+		height: 48px;
+		background: none;
+		border: 0;
+		padding: 0;
+		color: var(--color-ink);
+	}
+
+	.mega-menu__toggle::before {
+		content: "";
+		display: block;
+		width: 8px;
+		height: 8px;
+		margin: 18px auto;
+		border-right: 2px solid currentColor;
+		border-bottom: 2px solid currentColor;
+		transform: rotate(45deg);
+		transition: transform var(--transition);
+	}
+
+	.main-navigation__item.is-open .mega-menu__toggle::before {
+		transform: rotate(-135deg);
+	}
+
+	/* .menu-item-has-children stacked on .main-navigation__item (both already
+	   on every item that gets a .mega-menu — the former from WP core, the
+	   latter this walker's own wrapper class) matches the specificity of
+	   03-header.css's .main-navigation__item:hover/:focus-within .mega-menu
+	   rules (three classes each, a pseudo-class counting the same as a
+	   class) rather than losing to them on a plain ".mega-menu" selector.
+	   Without it: a device with both touch AND a pointer (a touchscreen
+	   laptop, or a screen reader driving focus) can leave :hover or
+	   :focus-within true on the item after a tap, and the desktop rule's
+	   translateX(-50%) — meant to centre a page-wide panel — reappears and
+	   shoves this one 50% of its own width off-screen. */
+	.main-navigation__item.menu-item-has-children .mega-menu {
+		position: static;
+		width: auto;
+		padding-top: 0;
+		opacity: 1;
+		pointer-events: auto;
+		transform: none;
+		transition: none;
+		max-height: 0;
+		overflow: hidden;
+	}
+
+	.main-navigation__item.is-open .mega-menu {
+		max-height: none;
+	}
+
+	.mega-menu__panel {
+		display: block;
+		background: none;
+		border: 0;
+		box-shadow: none;
+		border-radius: 0;
+		padding: 0 0 1rem;
+	}
+
+	.mega-menu__columns {
+		display: block;
+	}
+
+	.mega-menu__col {
+		padding: 0.75rem 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.mega-menu__col:first-child {
+		border-top: 0;
+	}
+
+	.mega-menu__promo {
+		margin-top: 1rem;
 	}
 
 	.hero__blob {

@@ -55,6 +55,22 @@ wp *args:
         -e WORDPRESS_DB_PASSWORD="${DB_PASSWORD}" \
         wordpress:cli {{args}}
 
+# Run a wp-cli command as www-data (uid 33), for anything that needs to write
+# wp-config.php or wp-content/plugins — `just wp` runs as your own user, which
+# can read those in the wp_data volume but not write them (see the wp() helper
+# in acf-pro below, same fix).
+wp-root *args:
+    docker run --rm \
+        --network letsdoo-website_wordpress_net \
+        --volumes-from letsdoo_wordpress \
+        --user 33:33 \
+        -e HOME=/tmp \
+        -e WORDPRESS_DB_HOST=db:3306 \
+        -e WORDPRESS_DB_NAME="${DB_NAME}" \
+        -e WORDPRESS_DB_USER="${DB_USER}" \
+        -e WORDPRESS_DB_PASSWORD="${DB_PASSWORD}" \
+        wordpress:cli {{args}}
+
 # Swap the free ACF plugin for ACF PRO using ACF_PRO_LICENSE from .env
 acf-pro:
     #!/usr/bin/env bash

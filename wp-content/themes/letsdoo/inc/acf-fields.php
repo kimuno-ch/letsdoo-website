@@ -1778,6 +1778,71 @@ add_action( 'acf/init', function () {
 	) );
 
 	/* -------------------------------------------------- */
+	/* Nav menu item: mega-menu promo tile                 */
+	/* -------------------------------------------------- */
+
+	/*
+	 * Shows up on every primary-nav menu item's own edit panel in
+	 * Appearance → Menüs, not just ones with a submenu — ACF's "Menu Item"
+	 * location can't be conditioned on whether an item happens to have
+	 * children, only on which registered menu it's in. inc/nav-walker.php
+	 * only ever calls letsdoo_nav_promo_card() while rendering a depth-0
+	 * item's dropdown, so filling this in on a childless item is harmless:
+	 * nothing reads it.
+	 */
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_nav_promo',
+		'title'  => 'Mega-Menü: Promo-Kachel',
+		'fields' => array(
+			array(
+				'key'   => 'field_ld_nav_promo_badge',
+				'label' => 'Badge',
+				'name'  => 'promo_badge',
+				'type'  => 'text',
+				'instructions' => 'Optional. Kurzes Label über dem Titel, z. B. „Neu“.',
+			),
+			array(
+				'key'   => 'field_ld_nav_promo_heading',
+				'label' => 'Titel',
+				'name'  => 'promo_heading',
+				'type'  => 'text',
+				'instructions' => 'Nur wirksam bei Menüpunkten mit Untermenü. Leer lassen, um im Dropdown keine Promo-Kachel zu zeigen.',
+			),
+			array(
+				'key'   => 'field_ld_nav_promo_text',
+				'label' => 'Text',
+				'name'  => 'promo_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+				'conditional_logic' => array(
+					array(
+						array( 'field' => 'field_ld_nav_promo_heading', 'operator' => '!=empty' ),
+					),
+				),
+			),
+			array(
+				'key'   => 'field_ld_nav_promo_image',
+				'label' => 'Bild',
+				'name'  => 'promo_image',
+				'type'  => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Optional. Leer lassen für den einfarbigen Marken-Farbverlauf. Ein Bild wird darüber gelegt (leicht abgedunkelt, damit Titel/Text/Button lesbar bleiben).',
+				'conditional_logic' => array(
+					array(
+						array( 'field' => 'field_ld_nav_promo_heading', 'operator' => '!=empty' ),
+					),
+				),
+			),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'nav_menu_item', 'operator' => '==', 'value' => 'primary' ),
+			),
+		),
+	) );
+
+	/* -------------------------------------------------- */
 	/* Standort (SEO landing page fields)                  */
 	/* -------------------------------------------------- */
 

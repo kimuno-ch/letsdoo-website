@@ -16,8 +16,8 @@
    in the codebase to start carrying an explicit font-weight: 900. */
 @font-face {
 	font-family: 'Mazzard H Black';
-	src: url('../fonts/mazzardh-black.woff2') format('woff2');
-	font-weight: 400;
+	src: url('../fonts/mazzardh-bold.woff2') format('woff2');
+	font-weight: 800;
 	font-style: normal;
 	font-display: swap;
 }

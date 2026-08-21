@@ -55,6 +55,55 @@ function letsdoo_button( $label, $link, $classes = '' ) {
 }
 
 /**
+ * The optional promo tile on the right of a primary-nav dropdown (see
+ * inc/nav-walker.php) — badge, heading, text and a fixed "Kontakt aufnehmen"
+ * button that opens the Kontakt modal, same brand gradient as .cta-banner
+ * (19-angebote-cta.css) and .plattform-card--cta (28-plattform.css). Fields
+ * live on the menu item itself (inc/acf-fields.php, "nav_menu_item"
+ * location). The button isn't editable per item, same call the Plattform
+ * block's own CTA card made: one fixed action, not a link an editor could
+ * point somewhere odd.
+ *
+ * Presence-triggered like the rest of the theme's optional content — no
+ * heading, no tile, so a plain dropdown with no promo fields filled in stays
+ * exactly that.
+ *
+ * @param WP_Post $item The depth-0 nav menu item object.
+ */
+function letsdoo_nav_promo_card( $item ) {
+	$heading = get_field( 'promo_heading', $item );
+
+	if ( ! $heading ) {
+		return '';
+	}
+
+	$badge = get_field( 'promo_badge', $item );
+	$text  = get_field( 'promo_text', $item );
+	$image = get_field( 'promo_image', $item );
+	/* A custom property, not background-image directly: 03-header.css layers
+	   a readability scrim UNDER this in the same background-image list, and
+	   an inline style="background-image:…" would win outright over that
+	   whole stylesheet rule (inline beats any non-!important cascade layer),
+	   leaving the photo with no scrim under the title/text/button. */
+	$style = $image ? ' style="--promo-photo:url(\'' . esc_url( letsdoo_image_url( $image, '', 'medium' ) ) . '\')"' : '';
+
+	ob_start();
+	?>
+	<div class="mega-menu__promo<?php echo $image ? ' mega-menu__promo--photo' : ''; ?>"<?php echo $style; ?>>
+		<?php if ( $badge ) : ?>
+			<span class="mega-menu__promo-badge"><?php echo esc_html( $badge ); ?></span>
+		<?php endif; ?>
+		<h3 class="mega-menu__promo-heading"><?php echo esc_html( $heading ); ?></h3>
+		<?php if ( $text ) : ?>
+			<p class="mega-menu__promo-text"><?php echo esc_html( $text ); ?></p>
+		<?php endif; ?>
+		<?php letsdoo_button( __( 'Kontakt aufnehmen', 'letsdoo' ), letsdoo_page_url_by_template( 'page-templates/template-contact.php', '/kontakt/' ), 'btn--sm' ); ?>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+/**
  * ID of the page using the Kontakt template, cached per request. Used to
  * recognise "Kontakt aufnehmen" links (so they can open the modal instead of
  * navigating) and to pull the Kontakt page's form shortcode into the modal.

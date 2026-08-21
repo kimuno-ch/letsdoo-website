@@ -81,13 +81,27 @@
 	width: auto;
 }
 
+/* Stretched to the header's full height rather than following
+   .site-header__inner's own align-items: center — .mega-menu (below) starts
+   right at the header's bottom edge, so if the trigger link were only as
+   tall as its own text (vertically centred, like every other header child),
+   there'd be dead space between the two: real screen area, hoverable by
+   neither the link nor the still-closed panel, that the cursor has to cross
+   in a straight line down from the link. That's the gap this closes. */
 .main-navigation {
 	margin-left: auto;
+	align-self: stretch;
+	display: flex;
 }
 
 .main-navigation ul {
 	display: flex;
+	align-items: stretch;
 	gap: 2.5rem;
+}
+
+.main-navigation__item {
+	display: flex;
 }
 
 .nav-divider {
@@ -105,12 +119,203 @@
 	color: var(--color-ink);
 }
 
-.main-navigation a:hover {
+/* .main-navigation__item's own display: flex (above) already stretches this
+   to the item's full height — flex row children stretch by default — this
+   just keeps the label centred inside that taller box instead of pinned to
+   its top. */
+.main-navigation__item > .nav-link {
+	display: flex;
+	align-items: center;
+}
+
+/* The current page's own nav item reuses the hover treatment as its resting
+   state, rather than a separate "active" style — one gradient-text look
+   means "this page" everywhere it already means "you're about to go here",
+   instead of the two competing for attention. .current-menu-item is WP
+   core's own class (inc/nav-walker.php merges $item->classes onto the <li>
+   unchanged), so this needs nothing extra set anywhere to work. */
+.main-navigation a:hover,
+.main-navigation__item.current-menu-item > .nav-link {
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
 	text-decoration: none;
+}
+
+/* -------------------------------------------------- */
+/* Mega menu                                            */
+/* -------------------------------------------------- */
+
+/* Structure comes straight out of inc/nav-walker.php: a depth-0 item with
+   children gets this whole block; without children it's still just the
+   plain .nav-link .main-navigation a already styles above. */
+
+.mega-menu__toggle {
+	display: none;
+}
+
+/* The hover/focus target is the <li>, not .mega-menu itself — .mega-menu is
+   deliberately NOT centred on its own <li> (a trigger near the right edge of
+   a wide header would push a page-width panel off-screen). Left unpositioned
+   here, its containing block resolves up to .site-header (sticky, so already
+   a positioned ancestor), which spans the full viewport — so the panel
+   centres on the page the same way .site-header__inner does, regardless of
+   which item opened it. */
+.mega-menu {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width: min(calc(100% - 4rem), var(--max-width));
+	/* Padding, not margin: the gap to the trigger has to stay part of this
+	   box's own hoverable area, or the mouse crossing it between the link and
+	   the panel below reads as leaving the <li> and the menu closes under the
+	   cursor before it arrives. 1.5rem because the real gap is bigger than it
+	   looks: .site-header__inner's own vertical padding sits between the
+	   trigger's (stretched-but-still-inset) bottom edge and .mega-menu's
+	   top — a plain child can stretch to fill its parent's content box, but
+	   never into the parent's own padding around it. Measured in a real
+	   browser (not guessed): the gap came out closer to 1rem than the
+	   0.75rem this used to be, so this leaves real slack rather than
+	   re-landing right on the edge. */
+	padding-top: 0.5rem;
+	opacity: 0;
+	pointer-events: none;
+	transform: translateX(-50%) translateY(-6px);
+	transition: opacity var(--transition), transform var(--transition);
+	z-index: 60;
+}
+
+/* :focus-within opens instantly for keyboard users — tabbing lands directly
+   on content inside the panel, so there's no cursor travel to give grace
+   time for. Mouse users get .is-hover-open instead of a plain :hover here:
+   navigation.js sets it on mouseenter and clears it on mouseleave after a
+   short delay, so a cursor crossing the gap above (or moving at any other
+   imperfect angle toward a panel that isn't centred under every trigger,
+   see .mega-menu's own comment) doesn't read as "left the menu" the instant
+   :hover stops matching. Plain :hover alone had no such grace period, which
+   is what made this menu close under the cursor before it arrived. */
+.main-navigation__item:focus-within .mega-menu,
+.main-navigation__item.is-hover-open .mega-menu {
+	opacity: 1;
+	pointer-events: auto;
+	transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu__panel {
+	display: flex;
+	gap: 2.5rem;
+	background: #fff;
+	border: var(--border-hairline);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-card);
+	padding: 2.5rem;
+}
+
+.mega-menu__columns {
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 2rem 2.5rem;
+	align-content: start;
+}
+
+.mega-menu__col {
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+}
+
+.mega-menu__eyebrow {
+	margin: 0 0 0.15rem;
+	font-size: var(--text-2xs);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--color-body);
+	opacity: 0.65;
+}
+
+.mega-menu__links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+}
+
+/* Beats .main-navigation a on specificity (two classes vs one class + one
+   type) so the header's uppercase/small-caps nav-link styling doesn't leak
+   into these — they read as body copy, not chrome. */
+.main-navigation .mega-menu__link {
+	display: block;
+	text-transform: none;
+	letter-spacing: normal;
+	font-weight: 600;
+	font-size: var(--text-md);
+}
+
+.mega-menu__promo {
+	flex: 0 0 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	border-radius: var(--radius-nested);
+	padding: 1.75rem;
+	color: #fff;
+}
+
+/* With a "Bild" set (inc/template-helpers.php's letsdoo_nav_promo_card()),
+   the same brand gradient moves in front of the photo as a tinted scrim —
+   thinned out from the flat version above so the image still reads through
+   — rather than replacing it outright, so a promo tile with or without a
+   photo stays recognisably the same component. */
+.mega-menu__promo--photo {
+	background-image:
+		linear-gradient(var(--gradient-angle), rgba(233, 68, 106, 0.82), rgba(62, 60, 144, 0.82)),
+		var(--promo-photo);
+	background-size: cover;
+	background-position: center;
+}
+
+.mega-menu__promo-badge {
+	display: inline-block;
+	background: rgba(255, 255, 255, 0.18);
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	font-size: var(--text-2xs);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 0.4em 1em;
+	border-radius: var(--radius-child);
+	margin-bottom: 1rem;
+}
+
+.mega-menu__promo-heading {
+	color: #fff;
+	font-size: var(--text-lg);
+	margin: 0 0 0.5em;
+}
+
+.mega-menu__promo-text {
+	margin: 0 0 1.5rem;
+	font-size: var(--text-sm);
+	opacity: 0.92;
+}
+
+.mega-menu__promo .btn {
+	margin-top: auto;
+	background: transparent;
+	color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	box-shadow: none;
+}
+
+.mega-menu__promo .btn:hover {
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: none;
 }
 
 .site-header__actions {

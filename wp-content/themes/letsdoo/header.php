@@ -31,6 +31,7 @@
 				'menu_id'        => 'primary-menu',
 				'container'      => false,
 				'fallback_cb'    => false,
+				'walker'         => new Letsdoo_Nav_Walker(),
 			) );
 			?>
 		</nav>
