@@ -134,7 +134,15 @@
    instead of the two competing for attention. .current-menu-item is WP
    core's own class (inc/nav-walker.php merges $item->classes onto the <li>
    unchanged), so this needs nothing extra set anywhere to work. */
-.main-navigation a:hover,
+/* :not(.btn) because this is the treatment for nav *links*, and the mega
+   menu's promo tile puts a real button inside .main-navigation. Without the
+   exclusion this rule caught it: at (0,2,1) it outranks .mega-menu__promo .btn
+   at (0,2,0), so on hover the button took color:transparent, and since
+   .mega-menu__promo .btn:hover's background shorthand resets background-clip
+   back to border-box the gradient never painted into the glyphs either — the
+   label just disappeared. Excluding buttons here fixes it at the source
+   rather than having every button in the nav restate its own colour. */
+.main-navigation a:not(.btn):hover,
 .main-navigation__item.current-menu-item > .nav-link {
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;

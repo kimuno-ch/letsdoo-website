@@ -25,7 +25,20 @@
 	border: 0;
 	cursor: pointer;
 	box-shadow: 0 8px 20px -8px rgba(62, 60, 144, 0.6);
-	transition: transform var(--transition), box-shadow var(--transition);
+	/* Colour properties belong here as much as transform and box-shadow do.
+	   The filled buttons hover by changing their shadow, so they eased; every
+	   outline and ghost variant hovers by changing background-color instead
+	   (.btn--outline, .btn--ghost-white, .btn--white, and the three context
+	   overrides in 03-header / 19-angebote-cta / 28-plattform), and with only
+	   transform and box-shadow listed their fill snapped in at once while the
+	   2px lift underneath it eased — the same button reading as two different
+	   interactions depending on which variant it happened to be. */
+	transition:
+		transform var(--transition),
+		box-shadow var(--transition),
+		background-color var(--transition),
+		border-color var(--transition),
+		color var(--transition);
 }
 
 .btn:hover {
