@@ -19,7 +19,7 @@
 				<?php if ( has_custom_logo() ) : ?>
 					<?php the_custom_logo(); ?>
 				<?php else : ?>
-					<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" width="79" height="60" alt="<?php bloginfo( 'name' ); ?>">
+					<?php echo letsdoo_logo_mark( 'sm', 79, 60, get_bloginfo( 'name' ) ); ?>
 				<?php endif; ?>
 			</a>
 		</div>

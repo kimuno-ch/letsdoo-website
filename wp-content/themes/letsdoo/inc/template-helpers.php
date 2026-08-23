@@ -24,6 +24,75 @@ function letsdoo_image_url( $image, $fallback_file, $size = 'large' ) {
 	return get_theme_file_uri( '/assets/images/' . $fallback_file );
 }
 
+/**
+ * The three resolution steps a hero photo is served at, as inline custom
+ * properties for 04-hero.css to choose between.
+ *
+ * Heroes are CSS backgrounds rather than <img>, so they get none of the
+ * srcset negotiation the browser does for images: every template asked for
+ * 'full' and handed a 1920px JPEG to a 412px phone — 730 KB where the
+ * 'large' size of the same photo is 137 KB, on the element that is also the
+ * page's LCP. The URLs go out as custom properties and the stylesheet picks
+ * by viewport width, because a full-bleed background is sized by how wide
+ * the window is; image-set() would only switch on device pixel ratio, which
+ * is the wrong question here.
+ *
+ * Each step resolves through letsdoo_image_url() independently, so an
+ * attachment missing an intermediate size degrades to its full URL exactly
+ * as it did before.
+ *
+ * Returns a complete style attribute with a leading space, the same shape
+ * letsdoo_nav_promo_card() uses for --promo-photo.
+ */
+function letsdoo_hero_bg_style( $image, $fallback_file = 'placeholder-photo.svg' ) {
+	$steps = array(
+		'--hero-sm' => letsdoo_image_url( $image, $fallback_file, 'large' ),
+		'--hero-md' => letsdoo_image_url( $image, $fallback_file, '1536x1536' ),
+		'--hero-lg' => letsdoo_image_url( $image, $fallback_file, 'full' ),
+	);
+
+	$declarations = '';
+	foreach ( $steps as $property => $url ) {
+		$declarations .= $property . ":url('" . esc_url( $url ) . "');";
+	}
+
+	return ' style="' . $declarations . '"';
+}
+
+/**
+ * The Let's Doo mark, as a <picture> that serves WebP with a PNG fallback.
+ *
+ * The single logo-mark.png this replaced was the master artwork — 1543x1168
+ * and 141 KB — sent unchanged to a header slot 79px wide and downloaded on
+ * every page of the site. It doesn't shrink usefully as a PNG either: the
+ * mark is a gradient, so even resized to 780px it only came down to 120 KB.
+ * WebP is what actually moves it (26 KB at 780px, 5.7 KB at 184px), and the
+ * PNG fallbacks cost nothing at runtime — a browser picks exactly one source.
+ *
+ * Two variants rather than one, because the mark is used at two very
+ * different sizes: the home hero blob is 32.5% of the 1200px inner width
+ * (04-hero.css), so 780px covers it at 2x, while the header and footer never
+ * exceed 92px and are served the 184px file.
+ *
+ * @param string $variant 'lg' for the home hero blob, 'sm' for header/footer.
+ * @param int    $width   Layout width attribute, for aspect ratio.
+ * @param int    $height  Layout height attribute, for aspect ratio.
+ * @param string $alt     Empty for decorative use.
+ * @param string $class   Optional class on the <img>.
+ */
+function letsdoo_logo_mark( $variant, $width, $height, $alt = '', $class = '' ) {
+	$file = 'lg' === $variant ? 'logo-mark-780' : 'logo-mark-184';
+
+	ob_start();
+	?>
+	<picture class="logo-mark">
+		<source type="image/webp" srcset="<?php echo esc_url( get_theme_file_uri( "/assets/images/{$file}.webp" ) ); ?>">
+		<img src="<?php echo esc_url( get_theme_file_uri( "/assets/images/{$file}.png" ) ); ?>" width="<?php echo (int) $width; ?>" height="<?php echo (int) $height; ?>" alt="<?php echo esc_attr( $alt ); ?>"<?php echo $class ? ' class="' . esc_attr( $class ) . '"' : ''; ?>>
+	</picture>
+	<?php
+	return trim( ob_get_clean() );
+}
+
 function letsdoo_image_alt( $image, $fallback_alt = '' ) {
 	if ( is_array( $image ) && ! empty( $image['alt'] ) ) {
 		return $image['alt'];

@@ -5,6 +5,7 @@
 .hero {
 	position: relative;
 	background-color: #333;
+	background-image: var(--hero-sm);
 	background-size: cover;
 	background-position: center;
 	padding: 7rem 2rem calc(4rem + var(--wave-height));
@@ -20,6 +21,25 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+
+/* The hero photo at the size the viewport actually needs. The three URLs come
+   in as custom properties from letsdoo_hero_bg_style() (inc/template-helpers.php);
+   choosing between them here rather than in the inline style is what lets a
+   phone take the 1024px 'large' file instead of the 1920px original.
+   Breakpoints on viewport width, not image-set() resolution steps — a
+   full-bleed background is sized by how wide the window is, not by the
+   device's pixel ratio. */
+@media (min-width: 900px) {
+	.hero {
+		background-image: var(--hero-md);
+	}
+}
+
+@media (min-width: 1600px) {
+	.hero {
+		background-image: var(--hero-lg);
+	}
 }
 
 /* The hero is a full-bleed photo meeting a white section, so its bottom edge
@@ -133,9 +153,16 @@
 
 /* Blog post hero: no featured-image photo behind the panel, just the brand
    gradient — single.php sets no inline background-image, so this is the
-   only background the element gets. */
+   only background the element gets.
+   Fed through the same three custom properties the photo heroes use rather
+   than setting background-image directly. The width queries above match
+   .hero at identical specificity, so which of the two wins is decided purely
+   by source order; going through the properties means this rule holds at
+   every width no matter where those queries sit in the file. */
 .hero--post {
-	background-image: var(--section-blend);
+	--hero-sm: var(--section-blend);
+	--hero-md: var(--section-blend);
+	--hero-lg: var(--section-blend);
 	background-size: cover;
 	background-position: center;
 }

@@ -361,6 +361,21 @@ body {
 	font-size: 18px;
 }
 
+/* Wrapping an <img> in <picture> to offer a WebP source (letsdoo_logo_mark()
+   in inc/template-helpers.php) would otherwise put a new box between the img
+   and its parent — and .site-branding .site-logo is inline-flex, so the
+   picture, not the img, would become the flex item. display:contents drops
+   the wrapper out of the box tree entirely, leaving every existing
+   `.something img` rule laying out exactly as it did before.
+
+   Scoped to the class the helper sets rather than every <picture> on the
+   page: WebP-serving plugins wrap uploaded images in <picture> too, and some
+   of them position a lazy-load placeholder inside that wrapper — which needs
+   the wrapper to still generate a box. */
+.logo-mark {
+	display: contents;
+}
+
 h1, h2, h3 {
 	font-family: var(--font-display);
 	color: var(--color-ink);

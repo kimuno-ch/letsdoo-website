@@ -9,7 +9,7 @@ get_header();
 
 <main id="main" class="site-main">
 
-	<section class="hero hero--sub" style="background-image:url('<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-photo.svg' ) ); ?>');"></section>
+	<section class="hero hero--sub"<?php echo letsdoo_hero_bg_style( null ); ?>></section>
 
 	<?php
 	$letsdoo_archiv_text = wp_strip_all_tags( get_the_archive_description() );

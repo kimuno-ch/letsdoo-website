@@ -23,7 +23,7 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero hero--sub hero--odoo" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');"></section>
+		<section class="hero hero--sub hero--odoo"<?php echo letsdoo_hero_bg_style( $hero_image ); ?>></section>
 
 		<?php letsdoo_page_title( $hero_heading, $hero_subheading, $hero_text ); ?>
 

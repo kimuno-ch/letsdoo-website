@@ -14,10 +14,10 @@ while ( have_posts() ) :
 
 	<main id="main" class="site-main">
 
-		<section class="hero" id="start" style="background-image:url('<?php echo esc_url( letsdoo_image_url( $hero_image, 'placeholder-photo.svg', 'full' ) ); ?>');">
+		<section class="hero" id="start"<?php echo letsdoo_hero_bg_style( $hero_image ); ?>>
 			<div class="hero__inner">
 				<div class="hero__blob" aria-hidden="true">
-					<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/logo-mark.png' ) ); ?>" alt="">
+					<?php echo letsdoo_logo_mark( 'lg', 780, 590 ); ?>
 				</div>
 				<div class="hero__panel">
 					<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: "Odoo einfach gemacht" ); ?></h1>
