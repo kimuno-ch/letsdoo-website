@@ -60,6 +60,11 @@
 }
 
 .section__subheading {
+	font-size: var(--text-subheading);
+	/* Between the headings' 1.18 and body's 1.65: at this size the lead line
+	   wraps to two lines in a split column, and body leading opens that up
+	   far enough that it stops reading as one unit. */
+	line-height: 1.35;
 	font-weight: 700;
 	color: var(--color-ink);
 }

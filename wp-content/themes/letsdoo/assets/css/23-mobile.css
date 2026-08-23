@@ -125,6 +125,10 @@
 		--text-h1: 2.75rem;
 		--text-h2: 2.25rem;
 		--text-h2-prose: 2rem;
+		/* Scaled with the headings around it: h2 is 36px here rather than
+		   64px, so the lead line only has a 2x gap to body to sit inside
+		   and 25.6px would crowd the heading above it. */
+		--text-subheading: 1.25rem;
 		--text-stat: 2rem;
 		--text-lg: 1.15rem;
 		--text-md: 1rem;
@@ -322,6 +326,20 @@
 	.hero__inner .hero__panel {
 		max-width: 100%;
 	}
+
+	/* The copy runs the full width of the screen here, so the desktop scrim —
+	   a left-weighted sweep that has cleared by 82% — leaves the ends of every
+	   line sitting on bare photograph. Flatter and more even instead, weighted
+	   to the bottom where the paragraph and button are, and holding enough
+	   density at the top that a brighter photo swapped in by an editor can't
+	   take the headline with it. */
+	.hero:not(.hero--sub)::before {
+		background: linear-gradient(to top,
+			rgba(10, 9, 18, 0.78) 0%,
+			rgba(10, 9, 18, 0.62) 55%,
+			rgba(10, 9, 18, 0.45) 100%);
+	}
+
 
 	/* The desktop minimums leave a phone with the panel marooned in the middle
 	   of a tall photo, and push the first real content off the screen — the

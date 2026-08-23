@@ -153,6 +153,15 @@
 	--text-h2: 4rem;
 	--text-h2-prose: 4rem;
 
+	/* The bold lead line under a section heading (.section__subheading in
+	   05-sections.css). Part of the heading ramp rather than one of the six
+	   steps above, because what it has to do is sit *between* two of them:
+	   it used to set only font-weight and colour, so it inherited body's
+	   18px and came out the same size as the paragraph beneath it — bold
+	   body text rather than a tier of its own, with nothing at all between
+	   a 64px h2 and 18px copy. */
+	--text-subheading: 1.6rem;
+
 	/* -------------------------------------------------- */
 	/* Spacing                                             */
 	/* -------------------------------------------------- */
@@ -212,27 +221,6 @@
 	   loads and for the rare visitor whose browser doesn't fetch it at all. */
 	--font-body: 'Mazzard H', system-ui, -apple-system, sans-serif;
 	--max-width: 1200px;
-
-	/* Shared glassmorphism recipe for every box overlaid on a background photo
-	   (hero panel, Leistungen cards, Vorgehen panel, Zahlen intro/cards,
-	   Kontakt card) — dark tint + white text, kept transparent + lightly
-	   blurred so the photo behind reads clearly. */
-	--glass-filter: blur(8px) saturate(1.4);
-	--glass-dark-bg: rgba(10, 10, 10, 0.32);
-	--glass-dark-border: 1px solid rgba(255, 255, 255, 0.25);
-	--glass-shadow: 0 20px 45px -22px rgba(0, 0, 0, 0.4);
-
-	/* Light counterpart, for glass that has to sit *under* something rather
-	   than over it — the footer logo tile, where the dark tint would bury a
-	   mark that is already pink and purple. The pane is a gradient rather than
-	   a flat tint and carries an inset highlight along its top edge, which is
-	   what gives it the wet, lit look; kept well over half opaque so the mark
-	   on top still reads against the blend behind. */
-	--glass-light-bg: linear-gradient(140deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.32));
-	--glass-light-border: 1px solid rgba(255, 255, 255, 0.55);
-	--glass-light-shadow:
-		0 10px 30px -12px rgba(0, 0, 0, 0.35),
-		inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
 	/* Wave dividers. Every full-bleed photo area (hero + the photo sections)
 	   meets a white one, so the boundary is softened by laying a white wave
@@ -330,7 +318,7 @@
 	--wave-bottom-b: var(--wave-bottom-section);
 	--wave-bottom-c: var(--wave-bottom-section);
 
-	/* Banner backgrounds. The full-bleed sections behind the glass panels are
+	/* Banner backgrounds. The full-bleed sections behind the cards are
 	   painted with a soft blend rather than a photo: a linear base in the two
 	   brand colours with a few off-centre radial blooms layered over it, which
 	   reads as an organic wash instead of a flat sweep. The bloom colours are
