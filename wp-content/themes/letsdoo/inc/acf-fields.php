@@ -1858,7 +1858,14 @@ add_action( 'acf/init', function () {
 		),
 		'location' => array(
 			array(
-				array( 'param' => 'nav_menu_item', 'operator' => '==', 'value' => 'primary' ),
+				/* "location/primary", not "primary". ACF's nav_menu_item rule
+				   hands off to the nav_menu rule, which only reads the value
+				   as a menu location when it carries the "location/" prefix —
+				   otherwise it compares it against the menu's term ID. A bare
+				   "primary" therefore evaluated as ( 2 == 'primary' ), false
+				   for every menu, so this group never appeared on any menu
+				   item and the promo tile could not be filled in at all. */
+				array( 'param' => 'nav_menu_item', 'operator' => '==', 'value' => 'location/primary' ),
 			),
 		),
 	) );
