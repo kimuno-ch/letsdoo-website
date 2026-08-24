@@ -61,7 +61,6 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: 2rem;
-	padding: 1rem 2rem;
 	flex-wrap: wrap;
 }
 
@@ -75,7 +74,23 @@
 	width: auto;
 }
 
+/* The hub mark (letsdoo_render_hub_mark(), inc/template-helpers.php) is
+   inlined rather than an <img> — its ripple animation needs to actually be
+   part of the page, see that function's docblock — so it carries no
+   width/height attributes of its own to size by; this is that sizing. */
+.site-branding svg {
+	display: block;
+	width: auto;
+	height: 75px;
+}
+
 .footer-col--brand img {
+	display: block;
+	height: 90px;
+	width: auto;
+}
+
+.footer-col--brand svg {
 	display: block;
 	height: 90px;
 	width: auto;
@@ -98,6 +113,7 @@
 	display: flex;
 	align-items: stretch;
 	gap: 2.5rem;
+	padding: 1rem 2rem;
 }
 
 .main-navigation__item {

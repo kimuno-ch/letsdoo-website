@@ -59,40 +59,6 @@ function letsdoo_hero_bg_style( $image, $fallback_file = 'placeholder-photo.svg'
 	return ' style="' . $declarations . '"';
 }
 
-/**
- * The Let's Doo mark, as a <picture> that serves WebP with a PNG fallback.
- *
- * The single logo-mark.png this replaced was the master artwork — 1543x1168
- * and 141 KB — sent unchanged to a header slot 79px wide and downloaded on
- * every page of the site. It doesn't shrink usefully as a PNG either: the
- * mark is a gradient, so even resized to 780px it only came down to 120 KB.
- * WebP is what actually moves it (26 KB at 780px, 5.7 KB at 184px), and the
- * PNG fallbacks cost nothing at runtime — a browser picks exactly one source.
- *
- * Two variants rather than one, because the mark is used at two very
- * different sizes: the home hero blob is 32.5% of the 1200px inner width
- * (04-hero.css), so 780px covers it at 2x, while the header and footer never
- * exceed 92px and are served the 184px file.
- *
- * @param string $variant 'lg' for the home hero blob, 'sm' for header/footer.
- * @param int    $width   Layout width attribute, for aspect ratio.
- * @param int    $height  Layout height attribute, for aspect ratio.
- * @param string $alt     Empty for decorative use.
- * @param string $class   Optional class on the <img>.
- */
-function letsdoo_logo_mark( $variant, $width, $height, $alt = '', $class = '' ) {
-	$file = 'lg' === $variant ? 'logo-mark-780' : 'logo-mark-184';
-
-	ob_start();
-	?>
-	<picture class="logo-mark">
-		<source type="image/webp" srcset="<?php echo esc_url( get_theme_file_uri( "/assets/images/{$file}.webp" ) ); ?>">
-		<img src="<?php echo esc_url( get_theme_file_uri( "/assets/images/{$file}.png" ) ); ?>" width="<?php echo (int) $width; ?>" height="<?php echo (int) $height; ?>" alt="<?php echo esc_attr( $alt ); ?>"<?php echo $class ? ' class="' . esc_attr( $class ) . '"' : ''; ?>>
-	</picture>
-	<?php
-	return trim( ob_get_clean() );
-}
-
 function letsdoo_image_alt( $image, $fallback_alt = '' ) {
 	if ( is_array( $image ) && ! empty( $image['alt'] ) ) {
 		return $image['alt'];
@@ -629,22 +595,44 @@ function letsdoo_social_icon( $network ) {
 }
 
 /**
- * The Let's Doo hub mark in the home hero: assets/images/odoo-hub.svg, the
- * central pulsing blob + wordmark cropped out of odoo-map.svg's hub-and-spoke
- * diagram (no spokes, tiles or Kunde chip — see that file's own history for
- * the full diagram). Wrapped in .hero__graphic so it picks up the same
- * position:relative; z-index:1 that .hero__panel gets (04-hero.css) — without
- * it this would paint underneath .hero::before's darkening scrim, since a
- * plain unpositioned element sits behind a positioned z-index:0 sibling in
- * stacking order despite coming later in the DOM.
+ * The animated Let's Doo hub mark (assets/images/odoo-hub.svg — the central
+ * pulsing blob + wordmark cropped out of odoo-map.svg's hub-and-spoke
+ * diagram, see that file's own history for the full diagram), used wherever
+ * the site shows its brand mark: header, footer, hero.
+ *
+ * Inlined rather than a plain <img src>, same reason letsdoo_render_odoo_map()
+ * above inlines its diagram: this SVG's ripple animates the `d` property via
+ * CSS, and an <img>-embedded SVG runs under stricter rules than one that's
+ * actually part of the page — scripting disabled, and in at least one
+ * browser tested for the original diagram, `d`-property animation silently
+ * did nothing. The pulse (a plain `transform: scale()`) might have survived
+ * as an <img>; the ripple wouldn't have, so this inlines the whole thing
+ * rather than leave one of its two animations quietly broken.
+ *
+ * No width/height on the SVG itself (it never had them, even as an <img> —
+ * only viewBox), so every call site is responsible for sizing it via CSS on
+ * whatever wraps this: currently `.site-logo svg` (header/footer,
+ * 03-header.css/20-footer.css) and `.hero__graphic svg` (04-hero.css).
+ */
+function letsdoo_render_hub_mark() {
+	$svg = file_get_contents( get_theme_file_path( '/assets/images/odoo-hub.svg' ) );
+
+	return false === $svg ? '' : $svg;
+}
+
+/**
+ * The hub mark in the home hero specifically — wrapped in .hero__graphic so
+ * it picks up the same position:relative; z-index:1 that .hero__panel gets
+ * (04-hero.css) — without it this would paint underneath .hero::before's
+ * darkening scrim, since a plain unpositioned element sits behind a
+ * positioned z-index:0 sibling in stacking order despite coming later in
+ * the DOM.
  */
 function letsdoo_render_hero_hub() {
-	$src = get_theme_file_uri( '/assets/images/odoo-hub.svg' ) . '?v=' . letsdoo_asset_version( '/assets/images/odoo-hub.svg' );
-
 	ob_start();
 	?>
 	<div class="hero__graphic">
-		<img src="<?php echo esc_url( $src ); ?>" alt="Let's Doo" width="440" height="350" loading="lazy">
+		<?php echo letsdoo_render_hub_mark(); ?>
 	</div>
 	<?php
 	return trim( ob_get_clean() );

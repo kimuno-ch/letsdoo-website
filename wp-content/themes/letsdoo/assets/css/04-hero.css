@@ -152,7 +152,8 @@
 	filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
 }
 
-.hero__graphic img {
+.hero__graphic img,
+.hero__graphic svg {
 	display: block;
 	width: 100%;
 	height: auto;

@@ -19,7 +19,7 @@
 				<?php if ( has_custom_logo() ) : ?>
 					<?php the_custom_logo(); ?>
 				<?php else : ?>
-					<?php echo letsdoo_logo_mark( 'sm', 79, 60, get_bloginfo( 'name' ) ); ?>
+					<?php echo letsdoo_render_hub_mark(); ?>
 				<?php endif; ?>
 			</a>
 		</div>

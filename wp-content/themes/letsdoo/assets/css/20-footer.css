@@ -91,7 +91,8 @@
 	line-height: 0;
 }
 
-.footer-col--brand .site-logo img {
+.footer-col--brand .site-logo img,
+.footer-col--brand .site-logo svg {
 	width: auto;
 	max-width: 100%;
 }
@@ -177,7 +178,6 @@
 	max-width: var(--max-width);
 	margin: 2.5rem auto 0;
 	padding-top: 2rem;
-	border-top: 1px solid rgba(255, 255, 255, 0.25);
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
