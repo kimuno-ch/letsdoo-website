@@ -607,16 +607,22 @@ function letsdoo_icon( $key ) {
  * <i> — nothing to recolour via CSS the way the FA glyphs were.
  */
 function letsdoo_social_icon( $network ) {
-	$labels = array(
-		'linkedin'  => 'LinkedIn',
-		'instagram' => 'Instagram',
+	/*
+	 * Per-network extension rather than a fixed .svg: LinkedIn is the plain
+	 * white "in" mark (a supplied PNG, transparent background, meant to sit
+	 * on the footer's own colour rather than carry brand-blue of its own),
+	 * Instagram is still the full-colour gradient badge SVG.
+	 */
+	$files = array(
+		'linkedin'  => 'social-linkedin.png',
+		'instagram' => 'social-instagram.svg',
 	);
 
-	if ( ! isset( $labels[ $network ] ) ) {
+	if ( ! isset( $files[ $network ] ) ) {
 		return '';
 	}
 
-	$file = "/assets/images/social-{$network}.svg";
+	$file = '/assets/images/' . $files[ $network ];
 	$src  = get_theme_file_uri( $file ) . '?v=' . letsdoo_asset_version( $file );
 
 	return '<img src="' . esc_url( $src ) . '" alt="" width="48" height="48" loading="lazy">';

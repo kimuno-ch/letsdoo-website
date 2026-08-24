@@ -49,29 +49,6 @@ while ( have_posts() ) :
 		the_content();
 		?>
 
-		<section class="section section--vertrauen" id="vertrauen">
-			<div class="vertrauen-grid">
-				<div class="vertrauen__image">
-					<img src="<?php echo esc_url( letsdoo_image_url( $vertrauen_image, 'placeholder-photo.svg', 'large' ) ); ?>" alt="<?php echo esc_attr( letsdoo_image_alt( $vertrauen_image, 'Let\'s Doo Team bei der Arbeit' ) ); ?>">
-				</div>
-				<div class="vertrauen__content">
-					<h2><?php echo esc_html( get_field( 'vertrauen_heading' ) ?: 'Expertise aus Leidenschaft' ); ?></h2>
-					<p><?php echo esc_html( get_field( 'vertrauen_text' ) ?: 'Als zertifizierter Odoo-Partner kombinieren wir technologisches Know-how mit tiefem betriebswirtschaftlichem Verständnis.' ); ?></p>
-					<div class="vertrauen__vorteile">
-						<?php foreach ( $vorteile as $vorteil ) : ?>
-							<div class="vorteil">
-								<span class="vorteil__icon"><?php echo letsdoo_icon( 'check' ); ?></span>
-								<div>
-									<h4><?php echo esc_html( $vorteil['titel'] ); ?></h4>
-									<p><?php echo esc_html( $vorteil['text'] ); ?></p>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<?php if ( $pakete ) : ?>
 		<section class="section section--pakete" id="pakete">
 			<div class="section__intro">
