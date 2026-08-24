@@ -62,6 +62,10 @@ letsdoo_block_section_open( $block, 'section--plattform', $blend );
 								<?php endif; ?>
 								<span class="plattform-card__app-label"><?php echo esc_html( $app['label'] ); ?></span>
 
+								<?php if ( ! empty( $app['url'] ) ) : ?>
+									<span class="plattform-card__app-external"><?php echo letsdoo_icon( 'external' ); ?></span>
+								<?php endif; ?>
+
 								<?php echo ! empty( $app['url'] ) ? '</a>' : '</span>'; ?>
 							</li>
 						<?php endforeach; ?>

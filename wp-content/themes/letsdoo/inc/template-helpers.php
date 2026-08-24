@@ -594,6 +594,7 @@ function letsdoo_icon( $key ) {
 		'cross'        => 'fa-regular fa-circle-xmark',
 		'linkedin'     => 'fa-brands fa-linkedin-in',
 		'instagram'    => 'fa-brands fa-instagram',
+		'external'     => 'fa-solid fa-arrow-up-right-from-square',
 	);
 	$class = isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
 	return '<i class="' . esc_attr( $class ) . '" aria-hidden="true"></i>';

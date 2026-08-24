@@ -72,14 +72,24 @@
 	background: var(--color-bg-alt);
 }
 
-.plattform-card__apps a:hover .plattform-card__app-label {
-	text-decoration: underline;
-}
-
 .plattform-card__apps img {
 	width: 32px;
 	height: 32px;
 	flex-shrink: 0;
+}
+
+.plattform-card__app-external {
+	display: inline-flex;
+	margin-left: auto;
+	font-size: var(--text-sm);
+	opacity: 0;
+	transform: translate(-2px, 2px);
+	transition: opacity var(--transition), transform var(--transition);
+}
+
+.plattform-card__apps a:hover .plattform-card__app-external {
+	opacity: 1;
+	transform: translate(0, 0);
 }
 
 /* -------------------------------------------------- */
