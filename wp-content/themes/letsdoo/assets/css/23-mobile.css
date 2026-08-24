@@ -367,17 +367,38 @@
 		grid-template-columns: 1fr;
 	}
 
-	/* Site logo and Odoo Ready Partner badge stack full-height on desktop;
-	   side by side reads better once the footer is a single narrow column. */
-	.footer-col--brand {
-		flex-direction: row;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 1.25rem;
+	/* The badge (now .site-footer__bottom's middle grid column, between the
+	   copyright and the legal links — footer.php/20-footer.css) has no room
+	   to sit between full-width stacked text on a narrow screen, so the row
+	   stacks to a single column and centres all three instead. */
+	.site-footer__bottom {
+		grid-template-columns: 1fr;
+		justify-items: center;
+		text-align: center;
+	}
+
+	.legal-links {
+		justify-self: center;
 	}
 
 	.footer-badge {
-		max-width: 150px;
+		width: 190px;
+	}
+
+	/* An explicit stack rather than leaving it to flex-wrap: the desktop
+	   rule (04-hero.css) deliberately has no flex-wrap any more — a bare
+	   "wrap when it doesn't fit" was triggering well before the viewport
+	   was actually narrow (min-width: auto on flex text children, see that
+	   file's own comment) — so mobile needs its own rule here instead of
+	   inheriting one that used to (accidentally) cover this width too. */
+	.page-title__inner--with-badge {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.5rem;
+	}
+
+	.page-title__badge {
+		width: 200px;
 	}
 
 	.referenz-card {

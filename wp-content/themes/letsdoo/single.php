@@ -55,13 +55,13 @@ while ( have_posts() ) :
 						<nav class="entry-nav" aria-label="<?php esc_attr_e( 'Weitere Beiträge', 'letsdoo' ); ?>">
 							<?php if ( $prev_post ) : ?>
 								<a class="entry-nav__link" href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>">
-									<span class="entry-nav__label"><?php esc_html_e( 'Älterer Beitrag', 'letsdoo' ); ?></span>
+									<span class="entry-nav__label"><?php echo letsdoo_icon( 'arrow-left' ); ?> <?php esc_html_e( 'Älterer Beitrag', 'letsdoo' ); ?></span>
 									<span class="entry-nav__titel"><?php echo esc_html( get_the_title( $prev_post ) ); ?></span>
 								</a>
 							<?php endif; ?>
 							<?php if ( $next_post ) : ?>
 								<a class="entry-nav__link entry-nav__link--next" href="<?php echo esc_url( get_permalink( $next_post ) ); ?>">
-									<span class="entry-nav__label"><?php esc_html_e( 'Neuerer Beitrag', 'letsdoo' ); ?></span>
+									<span class="entry-nav__label"><?php esc_html_e( 'Neuerer Beitrag', 'letsdoo' ); ?> <?php echo letsdoo_icon( 'arrow-right' ); ?></span>
 									<span class="entry-nav__titel"><?php echo esc_html( get_the_title( $next_post ) ); ?></span>
 								</a>
 							<?php endif; ?>

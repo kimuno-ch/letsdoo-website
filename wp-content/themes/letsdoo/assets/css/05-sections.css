@@ -12,8 +12,13 @@
 	position: relative;
 }
 
-/* The hero already carries its own bottom padding, so the section right
-   after it shouldn't stack this on top. */
+/* The hero's own bottom padding is 3rem flat plus the wave height
+   (--wave-height, 01-base.css) — but the wave itself is a curved graphic
+   eating into that space, not clear air the way a section's padding is, so
+   the visual gap to the section below read thinner than the 10rem gap
+   between any other two sections on the page. Matching that 10rem instead
+   of shaving it down is what makes this join read the same as every other
+   section boundary. */
 .hero + .section {
 	padding-top: 8rem;
 }
@@ -24,6 +29,10 @@
 	margin: 0 auto;
 	position: relative;
 	z-index: 1;
+}
+
+.section--kontaktformular {
+	padding-top: 5rem;
 }
 
 /* -------------------------------------------------- */

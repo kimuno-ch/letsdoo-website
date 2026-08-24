@@ -37,7 +37,7 @@ body.kontakt-modal-open {
 	max-width: 1080px;
 	max-height: calc(100vh - 4rem);
 	overflow-y: auto;
-	background: var(--color-bg-alt);
+	background: #F4F4F4;
 	border-radius: var(--radius);
 	box-shadow: var(--shadow-float);
 }

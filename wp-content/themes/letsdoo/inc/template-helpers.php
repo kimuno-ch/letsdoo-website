@@ -103,19 +103,34 @@ function letsdoo_button( $label, $link, $classes = '' ) {
  * @param string $subtitle Optional. The old badge/eyebrow text.
  * @param string $text     Optional. The old lead paragraph.
  */
-function letsdoo_page_title( $title, $subtitle = '', $text = '' ) {
+/**
+ * @param bool $partner_badge Odoo Ready Partner badge beside the heading —
+ *                             opt-in per call site (template-odoo.php,
+ *                             template-about.php) rather than a global
+ *                             addition, since this function renders the H1
+ *                             strip for every sub-page on the site (Kontakt,
+ *                             Impressum, blog posts, …) and the badge only
+ *                             belongs where the page is actually making an
+ *                             Odoo-partner claim.
+ */
+function letsdoo_page_title( $title, $subtitle = '', $text = '', $partner_badge = false ) {
 	if ( ! $title ) {
 		return;
 	}
 	?>
 	<div class="page-title">
-		<div class="page-title__inner">
-			<h1><?php echo esc_html( $title ); ?></h1>
-			<?php if ( $subtitle ) : ?>
-				<p class="page-title__subtitle"><?php echo esc_html( $subtitle ); ?></p>
-			<?php endif; ?>
-			<?php if ( $text ) : ?>
-				<p class="page-title__text"><?php echo esc_html( $text ); ?></p>
+		<div class="page-title__inner<?php echo $partner_badge ? ' page-title__inner--with-badge' : ''; ?>">
+			<div class="page-title__heading">
+				<h1><?php echo esc_html( $title ); ?></h1>
+				<?php if ( $subtitle ) : ?>
+					<p class="page-title__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+				<?php endif; ?>
+				<?php if ( $text ) : ?>
+					<p class="page-title__text"><?php echo esc_html( $text ); ?></p>
+				<?php endif; ?>
+			</div>
+			<?php if ( $partner_badge ) : ?>
+				<img class="page-title__badge" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
 			<?php endif; ?>
 		</div>
 	</div>
@@ -559,6 +574,8 @@ function letsdoo_icon( $key ) {
 		'phone'        => 'fa-solid fa-phone',
 		'cross'        => 'fa-regular fa-circle-xmark',
 		'external'     => 'fa-solid fa-arrow-up-right-from-square',
+		'arrow-left'   => 'fa-solid fa-arrow-left',
+		'arrow-right'  => 'fa-solid fa-arrow-right',
 	);
 	$class = isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
 	return '<i class="' . esc_attr( $class ) . '" aria-hidden="true"></i>';

@@ -21,7 +21,8 @@ while ( have_posts() ) :
 		letsdoo_page_title(
 			get_field( 'hero_heading' ) ?: 'Über uns',
 			'',
-			get_field( 'hero_text' ) ?: "Wir sind Let'sDoo – Ihr Odoo-Partner aus Luzern. Wir setzen auf persönliche Beratung, pragmatische Lösungen und langfristige Zusammenarbeit."
+			get_field( 'hero_text' ) ?: "Wir sind Let'sDoo – Ihr Odoo-Partner aus Luzern. Wir setzen auf persönliche Beratung, pragmatische Lösungen und langfristige Zusammenarbeit.",
+			true
 		);
 		?>
 

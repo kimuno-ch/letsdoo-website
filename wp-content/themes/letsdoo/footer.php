@@ -8,7 +8,6 @@
 						<?php echo letsdoo_render_hub_mark(); ?>
 					<?php endif; ?>
 				</a>
-				<img class="footer-badge" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
 			</div>
 
 			<div class="footer-col">
@@ -50,6 +49,9 @@
 			<p class="site-info">
 				&copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( letsdoo_company_field( 'company_name', get_bloginfo( 'name' ) ) ); ?>
 			</p>
+			<div class="footer-badge">
+				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
+			</div>
 			<div class="legal-links">
 				<a href="<?php echo esc_url( home_url( '/impressum/' ) ); ?>"><?php esc_html_e( 'Impressum', 'letsdoo' ); ?></a>
 				<a href="<?php echo esc_url( home_url( '/datenschutz/' ) ); ?>"><?php esc_html_e( 'Datenschutz', 'letsdoo' ); ?></a>

@@ -25,7 +25,7 @@ while ( have_posts() ) :
 
 		<section class="hero hero--sub hero--odoo"<?php echo letsdoo_hero_bg_style( $hero_image ); ?>></section>
 
-		<?php letsdoo_page_title( $hero_heading, $hero_subheading, $hero_text ); ?>
+		<?php letsdoo_page_title( $hero_heading, $hero_subheading, $hero_text, true ); ?>
 
 		<?php
 		/*

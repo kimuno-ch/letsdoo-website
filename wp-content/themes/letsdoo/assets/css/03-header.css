@@ -112,8 +112,8 @@
 .main-navigation ul {
 	display: flex;
 	align-items: stretch;
-	gap: 2.5rem;
-	padding: 1rem 2rem;
+	gap: 1.5rem;
+	padding: 1rem 0;
 }
 
 .main-navigation__item {

@@ -13,8 +13,17 @@
 	position: relative;
 	background-image: var(--section-blend);
 	color: rgba(255, 255, 255, 0.85);
-	/* Clear the deepest point of the wave before the columns start. */
-	padding: calc(3rem + var(--wave-height)) 2rem 2rem;
+	/* Clear the deepest point of the wave before the columns start. Bottom
+	   padding moved onto .site-footer__bottom itself (below) rather than
+	   living here: this element carries its own CSS mask for the top wave
+	   (the @supports block further down), sized to cover exactly its own
+	   box (0-100% of its height) — content pushed past that box via a
+	   negative margin, the way the badge needs to reach the page's true
+	   bottom edge, would fall outside the mask's painted region and get
+	   clipped. Keeping the padding (and the badge's negative-margin cancel
+	   of it) inside .site-footer__bottom instead means the overflow stays
+	   within this element's own box, not past it. */
+	padding: calc(3rem + var(--wave-height)) 2rem 0;
 }
 
 /* Painted as a wave-shaped overlay on top of a flat-topped blend — the
@@ -97,10 +106,72 @@
 	max-width: 100%;
 }
 
+/* A white half-circle backdrop (flat edge down) rather than a rounded
+   rectangle — the classic CSS dome trick: an aspect-ratio-2:1 box with the
+   TOP corners' radius set to 50% horizontal / 100% vertical (the slash
+   splits border-radius into horizontal-radii / vertical-radii) traces a
+   true semicircle arc regardless of the element's actual pixel size, unlike
+   a bare `border-radius: 50%` which would only reach a quarter of the way
+   up each side.
+
+   The badge image sits at half the wrapper's width, bottom-anchored rather
+   than centred: a semicircle's inscribed-rectangle safe zone narrows fast
+   moving up from the flat base, so anything wider or higher would clip
+   against the curve — see the geometry note this replaced for the maths,
+   kept only in git history since the shape itself changed. */
 .footer-badge {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	align-self: end;
+	width: 260px;
+	aspect-ratio: 2 / 1;
+	/* Solid white base now — the earlier translucent-white-over-opaque-
+	   gradient (a rim glowing out from behind) inverted which layer read as
+	   "the background": a mostly-gradient dome with a faint white wash,
+	   rather than a white dome with a faint gradient tint. This is the
+	   other way round on purpose — see ::before below. */
+	background: #fff;
+	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
+	padding-bottom: 0.6rem;
+	/* .site-footer__bottom's own bottom padding (2rem, above) is what leaves
+	   a gap under this row normally — pulling the badge down by exactly
+	   that much lands its flat base on the page's true bottom edge instead
+	   of stopping short of it the way the copyright/legal-links text either
+	   side still does (align-self: end only reaches the row's own padded
+	   bottom, not past it). */
+	margin-bottom: -2rem;
+}
+
+/* A low-opacity gradient wash the same size as the dome (not the earlier
+   larger glow-behind rim) — sits in front of .footer-badge's own white
+   background (an element's own `background` always paints behind its
+   ::before) but behind the logo <img> (a plain in-flow child paints after
+   ::before content by default, i.e. on top, without needing z-index here).
+   So the stack is white base -> faint gradient tint -> opaque logo, which
+   is what actually keeps the logo the most legible layer of the three. */
+.footer-badge::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	opacity: 0.25;
+	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.footer-badge img {
+	position: relative;
 	display: block;
-	width: auto;
-	max-width: 190px;
+	/* The dome's inscribed-rectangle limit for a bottom-anchored, 2:1-ratio
+	   box works out to ~70.7% of the wrapper's own width (top corners just
+	   touching the arc at that point — half-width and height both equal
+	   R/√2 for a semicircle of radius R). This is right at that ceiling —
+	   going any higher starts clipping the image's top corners against the
+	   curve, so growing it further from here means growing .footer-badge
+	   itself, not this percentage. */
+	width: 70%;
 	height: auto;
 }
 
@@ -204,15 +275,26 @@ a.social-icon:hover {
 	text-decoration: none;
 }
 
+/* Grid rather than flex + space-between: the badge sits between the
+   copyright and the legal links and needs to land at the row's true visual
+   centre — space-between only balances the GAPS between three items, which
+   drifts off-centre the moment the copyright and legal-links text aren't
+   the same width (they aren't). The 1fr/auto/1fr split gives the middle
+   column the badge's own width and lets the two equal 1fr side columns
+   centre it exactly, whatever the side text measures. */
 .site-footer__bottom {
 	position: relative;
 	z-index: 1;
 	max-width: var(--max-width);
 	margin: 2.5rem auto 0;
-	padding-top: 2rem;
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+	/* Bottom half of this pair is .site-footer's old flat 2rem — moved here
+	   (see the comment on .site-footer above) so the badge's negative-margin
+	   reach to the page's true bottom edge stays inside .site-footer's own
+	   masked box instead of overflowing past it. */
+	padding: 2rem 0;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
 	gap: 1.25rem;
 	/* Was --text-xs (0.8rem) — a step up from there, though still smaller
 	   than the main footer copy above: the copyright/legal row is
@@ -225,5 +307,9 @@ a.social-icon:hover {
 .legal-links {
 	display: flex;
 	gap: 2rem;
+	/* Grid items stretch/start their own cell by default — this is the
+	   right-hand column of .site-footer__bottom's 1fr/auto/1fr split, so it
+	   needs to pin to that cell's own right edge rather than its left. */
+	justify-self: end;
 }
 

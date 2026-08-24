@@ -75,6 +75,24 @@
 
 /* Details column */
 
+/* letsdoo_render_hub_mark() (inc/template-helpers.php) inlined — same brand
+   accent the header/footer carry, small and left-aligned above the "Direkt
+   erreichen" heading rather than centred like the header's, since this
+   column is itself left-aligned text. Shared by the Kontakt page's own aside
+   and the identical one in template-parts/kontakt-modal.php — one rule for
+   both since the markup is the same in each. No width/height on the SVG
+   itself (only viewBox, see 03-header.css's own note on this), so sizing it
+   is this rule's job, same pattern used everywhere else it's inlined. */
+.kontakt-infos__mark {
+	margin-bottom: 1.5rem;
+}
+
+.kontakt-infos__mark svg {
+	display: block;
+	width: auto;
+	height: 70px;
+}
+
 .kontakt-infos__firma {
 	font-weight: 700;
 	color: var(--color-ink);
@@ -132,5 +150,4 @@
 
 a.kontakt-info__wert:hover {
 	color: var(--color-gradient-start);
-	text-decoration: underline;
 }

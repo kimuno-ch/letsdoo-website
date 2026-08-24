@@ -78,7 +78,7 @@
    is written after the `>` so it still only applies within top-level prose. */
 
 .entry-content > * {
-	max-width: 780px;
+	max-width: var(--max-width);
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 2rem;
@@ -148,14 +148,99 @@
 	color: var(--color-ink);
 }
 
-.entry-content > ul,
+/* list-style set explicitly rather than left to the browser default: a
+   plain ::marker colour rule (no visible marker of its own without this)
+   turned out to render with no bullet/number showing at all in testing —
+   forcing the type here is what actually guarantees one's there to colour. */
+.entry-content > ul {
+	list-style: none;
+	padding-left: 1.5rem;
+}
+
 .entry-content > ol {
+	list-style: decimal outside;
 	padding-left: 1.5rem;
 }
 
 .entry-content > ul li,
 .entry-content > ol li {
 	margin-bottom: 0.5em;
+}
+
+.entry-content > ol li::marker {
+	color: var(--color-gradient-start);
+	font-weight: 700;
+}
+
+/* Unordered lists get a real drawn dot instead of ::marker — a positioned
+   element this theme fully controls, rather than depending on the browser's
+   own bullet glyph rendering (which is what silently produced nothing). */
+.entry-content > ul li {
+	position: relative;
+}
+
+.entry-content > ul li::before {
+	content: "";
+	position: absolute;
+	left: -1.25rem;
+	top: 0.55em;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--color-gradient-start);
+}
+
+/* Prose links only — p/li/blockquote are where Gutenberg actually puts an
+   inline <a> inside top-level content; the .ld-block-section exclusion this
+   whole file follows (see the comment above .entry-content > *) means a
+   bare ".entry-content a" would also catch buttons and card links inside a
+   nested section block, so this stays scoped the same way images/lists are. */
+.entry-content > p a,
+.entry-content > ul a,
+.entry-content > ol a,
+.entry-content > blockquote a {
+	color: var(--color-gradient-start);
+	text-decoration: none;
+	transition: color var(--transition);
+}
+
+.entry-content > p a:hover,
+.entry-content > ul a:hover,
+.entry-content > ol a:hover,
+.entry-content > blockquote a:hover {
+	color: var(--color-gradient-end);
+}
+
+.entry-content > hr {
+	border: none;
+	border-top: 1px solid var(--color-border);
+	margin: 3rem 0;
+}
+
+.entry-content > p code,
+.entry-content > li code {
+	background: var(--color-bg-alt);
+	padding: 0.15em 0.4em;
+	border-radius: 4px;
+	font-size: 0.9em;
+}
+
+.entry-content > .wp-block-table table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+}
+
+.entry-content > .wp-block-table th,
+.entry-content > .wp-block-table td {
+	padding: 0.75em 1em;
+	border-bottom: 1px solid var(--color-border);
+	text-align: left;
+}
+
+.entry-content > .wp-block-table th {
+	font-family: var(--font-display);
+	color: var(--color-ink);
 }
 
 /* Prev / next referenz */
@@ -165,7 +250,7 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 2rem;
-	max-width: 780px;
+	max-width: var(--max-width);
 	margin: 3rem auto 0;
 	padding-top: 2.5rem;
 	border-top: 1px solid var(--color-border);
@@ -185,11 +270,22 @@
 }
 
 .entry-nav__label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
 	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
 	color: #8a8a8a;
+}
+
+/* The "next" link is right-aligned (text-align: right on .entry-nav__link--next
+   above), so its label needs to sit at the row's own right edge too — an
+   inline-flex row without this centres inside that alignment instead of
+   hugging the edge like the icon+text pairing should. */
+.entry-nav__link--next .entry-nav__label {
+	justify-content: flex-end;
 }
 
 .entry-nav__titel {
