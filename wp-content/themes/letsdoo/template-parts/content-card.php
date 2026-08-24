@@ -32,7 +32,7 @@ $letsdoo_kategorien = get_the_category();
 
 		<p class="blog-card__text"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 24 ) ); ?></p>
 
-		<span class="blog-card__more" aria-hidden="true"><?php esc_html_e( 'Weiterlesen', 'letsdoo' ); ?></span>
+		<a class="blog-card__more" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true" data-label="<?php echo esc_attr__( 'Weiterlesen', 'letsdoo' ); ?>"><?php esc_html_e( 'Weiterlesen', 'letsdoo' ); ?><span class="blog-card__arrow">→</span></a>
 	</div>
 
 </article>

@@ -840,20 +840,32 @@ add_action( 'acf/init', function () {
 			),
 
 			array(
-				'key'   => 'field_ld_about_referenzen_tab',
-				'label' => 'Referenzen',
+				'key'   => 'field_ld_about_team_tab',
+				'label' => 'Team',
 				'name'  => '',
 				'type'  => 'tab',
 			),
 			array(
-				'key'   => 'field_ld_about_referenzen_heading',
+				'key'   => 'field_ld_about_team_heading',
 				'label' => 'Titel',
-				'name'  => 'referenzen_heading',
+				'name'  => 'team_heading',
 				'type'  => 'text',
-				'default_value' => 'Referenzen',
-				'instructions' => 'Die Karten selbst werden unter Referenzen im Menü gepflegt.',
+				'default_value' => 'Unser Team',
+				'instructions' => 'Die Teammitglieder selbst werden unter Team im Menü gepflegt.',
 			),
-			letsdoo_post_selector_field( 'about_referenzen', 'referenz', 'referenzen_auswahl', 'Referenzen auswählen' ),
+			array(
+				'key'   => 'field_ld_about_team_subheading',
+				'label' => 'Untertitel',
+				'name'  => 'team_subheading',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_ld_about_team_text',
+				'label' => 'Text',
+				'name'  => 'team_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
 
 			array(
 				'key'   => 'field_ld_about_zahlen_tab',
@@ -919,19 +931,33 @@ add_action( 'acf/init', function () {
 			),
 
 			array(
-				'key'   => 'field_ld_about_team_tab',
-				'label' => 'Team',
+				'key'   => 'field_ld_about_referenzen_tab',
+				'label' => 'Referenzen',
 				'name'  => '',
 				'type'  => 'tab',
 			),
 			array(
-				'key'   => 'field_ld_about_team_heading',
+				'key'   => 'field_ld_about_referenzen_heading',
 				'label' => 'Titel',
-				'name'  => 'team_heading',
+				'name'  => 'referenzen_heading',
 				'type'  => 'text',
-				'default_value' => 'Unser Team',
-				'instructions' => 'Die Teammitglieder selbst werden unter Team im Menü gepflegt.',
+				'default_value' => 'Referenzen',
+				'instructions' => 'Die Karten selbst werden unter Referenzen im Menü gepflegt.',
 			),
+			array(
+				'key'   => 'field_ld_about_referenzen_subheading',
+				'label' => 'Untertitel',
+				'name'  => 'referenzen_subheading',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_ld_about_referenzen_text',
+				'label' => 'Text',
+				'name'  => 'referenzen_text',
+				'type'  => 'textarea',
+				'rows'  => 2,
+			),
+			letsdoo_post_selector_field( 'about_referenzen', 'referenz', 'referenzen_auswahl', 'Referenzen auswählen' ),
 		),
 		'location' => array(
 			array(

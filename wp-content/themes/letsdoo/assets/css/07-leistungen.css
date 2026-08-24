@@ -169,7 +169,17 @@
 
 /* Pushed to the foot of the card so the link lines up across a row whatever
    the copy does. The cards have always been links; this makes that visible. */
+/* Gradient text is a hover-only reveal, not the resting state — plain ink
+   until the card is hovered. It can't be the same layer switching colour on
+   :hover, though: background-clip:text is a discrete on/off property, not
+   something a `transition: color` can ease between, so toggling it directly
+   made the gradient snap back the instant the pointer left instead of
+   fading out. Fixed by never toggling it at all — the gradient copy is a
+   second, always-clipped layer stacked exactly on top via ::before (see
+   below), faded in/out purely with opacity, which *is* smoothly
+   interpolable in both directions. */
 .leistung-card__more {
+	position: relative;
 	margin-top: auto;
 	padding-top: 2rem;
 	display: inline-flex;
@@ -179,19 +189,73 @@
 	font-size: var(--text-xs);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
+	color: var(--card-ink);
+}
+
+/* content: attr(data-label) mirrors the translated string from the
+   data-label attribute (see render.php / template-home.php) rather than
+   duplicating the visible text a second time in markup. Positioned to sit
+   exactly over the real text: absolute insets are relative to the padding
+   edge, which starts padding-top above the text, so top has to repeat that
+   2rem to land in the same place rather than at the box's very top. */
+.leistung-card__more::before {
+	content: attr(data-label);
+	position: absolute;
+	top: 2rem;
+	left: 0;
+	white-space: nowrap;
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	opacity: 0;
+	transition: opacity var(--transition);
+	pointer-events: none;
 }
 
-.leistung-card__more::after {
+.leistung-card:hover .leistung-card__more::before {
+	opacity: 1;
+}
+
+/* The arrow gets the same gradient-on-hover treatment as the label, but it
+   can't share .leistung-card__more's own ::before (already the label
+   overlay) or ::after (one pseudo-element can't carry two different font
+   sizes — the arrow is sized up independently of the label text). So it's a
+   real child span instead, each with its own ::before overlay slot. */
+.leistung-card__arrow {
+	position: relative;
+	font-size: 1.35em;
+	line-height: 1;
+	color: var(--card-ink);
+	transition: color var(--transition), transform var(--transition);
+}
+
+.leistung-card__arrow::before {
 	content: "→";
-	transition: transform var(--transition);
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	opacity: 0;
+	transition: opacity var(--transition);
 }
 
-.leistung-card:hover .leistung-card__more::after {
+.leistung-card:hover .leistung-card__arrow {
 	transform: translateX(4px);
+}
+
+.leistung-card:hover .leistung-card__arrow::before {
+	opacity: 1;
+}
+
+/* Click feedback: a bigger flight than the hover nudge, distinct from it.
+   Brief on a real link — :active only holds for as long as the mouse button
+   is down before navigation — but still reads as the arrow launching off
+   rather than just easing over. */
+.leistung-card:active .leistung-card__arrow {
+	transform: translateX(20px);
 }
 
 /* -------------------------------------------------- */

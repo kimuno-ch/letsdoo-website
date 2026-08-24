@@ -26,13 +26,13 @@
 					<?php $linkedin = letsdoo_company_field( 'linkedin_url' ); ?>
 					<?php if ( $linkedin ) : ?>
 						<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="LinkedIn">
-							<?php echo letsdoo_icon( 'linkedin' ); ?>
+							<?php echo letsdoo_social_icon( 'linkedin' ); ?>
 						</a>
 					<?php endif; ?>
 					<?php $instagram = letsdoo_company_field( 'instagram_url' ); ?>
 					<?php if ( $instagram ) : ?>
 						<a class="social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener" aria-label="Instagram">
-							<?php echo letsdoo_icon( 'instagram' ); ?>
+							<?php echo letsdoo_social_icon( 'instagram' ); ?>
 						</a>
 					<?php endif; ?>
 				</div>
@@ -56,8 +56,8 @@
 				&copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( letsdoo_company_field( 'company_name', get_bloginfo( 'name' ) ) ); ?>
 			</p>
 			<div class="legal-links">
-				<span><?php esc_html_e( 'Impressum', 'letsdoo' ); ?></span>
-				<span><?php esc_html_e( 'Datenschutz', 'letsdoo' ); ?></span>
+				<a href="<?php echo esc_url( home_url( '/impressum/' ) ); ?>"><?php esc_html_e( 'Impressum', 'letsdoo' ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/datenschutz/' ) ); ?>"><?php esc_html_e( 'Datenschutz', 'letsdoo' ); ?></a>
 			</div>
 		</div>
 	</footer>

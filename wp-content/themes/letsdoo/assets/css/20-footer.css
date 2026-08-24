@@ -111,7 +111,9 @@
 
 .footer-col p {
 	margin: 0 0 0.5em;
-	font-size: var(--text-sm);
+	/* Was --text-sm, noticeably smaller than the body copy everywhere else
+	   on the site — bumped to match. */
+	font-size: var(--text-md);
 }
 
 .footer-col ul li {
@@ -120,7 +122,15 @@
 
 .footer-col a {
 	text-decoration: none;
-	font-size: var(--text-sm);
+	font-size: var(--text-md);
+}
+
+/* Were plain <span> (no text-decoration to reset) until they became real
+   links — matching .footer-col a's own rest state so the hover rule below
+   actually has an underline to toggle instead of one already sitting there
+   from the browser default. */
+.legal-links a {
+	text-decoration: none;
 }
 
 /* .legal-links sits in the footer bottom rather than in a column, so it had
@@ -135,22 +145,26 @@
 	gap: 1rem;
 }
 
-/* Was the brand gradient, which is now the background it sits on — swapped for
-   the glass treatment so it still reads as a raised control. */
+/* No glass button any more — letsdoo_social_icon() (inc/template-helpers.php)
+   now renders the real LinkedIn/Instagram brand badges, which already carry
+   their own colour and rounded-square shape, so a second background/border
+   behind them just doubled up the framing. */
 .social-icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 38px;
-	height: 38px;
-	border-radius: var(--radius-nested);
-	background: rgba(255, 255, 255, 0.18);
-	border: 1px solid rgba(255, 255, 255, 0.35);
 	color: #fff;
+	transition: transform var(--transition);
+}
+
+.social-icon img {
+	display: block;
+	width: 32px;
+	height: 32px;
 }
 
 .social-icon:hover {
-	background: rgba(255, 255, 255, 0.3);
+	transform: translateY(-2px);
 	/* Overrides .footer-col a:hover above — an icon-only control has no text
 	   to underline; on Firefox in particular the underline still drew under
 	   the icon glyph itself without this. */
@@ -168,7 +182,11 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 1.25rem;
-	font-size: var(--text-xs);
+	/* Was --text-xs (0.8rem) — a step up from there, though still smaller
+	   than the main footer copy above: the copyright/legal row is
+	   conventionally the smallest line on the page everywhere, not just
+	   here, so it doesn't jump all the way to --text-md with the rest. */
+	font-size: var(--text-sm);
 	color: rgba(255, 255, 255, 0.7);
 }
 

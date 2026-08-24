@@ -60,7 +60,7 @@ letsdoo_block_section_open( $block, 'section--plattform', $blend );
 								<?php if ( $icon_url ) : ?>
 									<img src="<?php echo esc_url( $icon_url ); ?>" alt="" loading="lazy">
 								<?php endif; ?>
-								<span class="plattform-card__app-label"><?php echo esc_html( $app['label'] ); ?></span>
+								<span class="plattform-card__app-label" data-label="<?php echo esc_attr( $app['label'] ); ?>"><?php echo esc_html( $app['label'] ); ?></span>
 
 								<?php if ( ! empty( $app['url'] ) ) : ?>
 									<span class="plattform-card__app-external"><?php echo letsdoo_icon( 'external' ); ?></span>

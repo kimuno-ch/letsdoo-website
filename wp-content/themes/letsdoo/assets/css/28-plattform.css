@@ -78,6 +78,36 @@
 	flex-shrink: 0;
 }
 
+/* Same pattern as .leistung-card__more (07-leistungen.css) and
+   .blog-card__more (21-blog-listing.css): gradient text on hover is a
+   second, always-clipped layer faded in via opacity rather than the base
+   label's own colour toggling — background-clip:text is a discrete
+   property a `transition: color` can't ease, so switching it directly
+   would snap back the instant the pointer leaves instead of fading out.
+   Scoped to `a` only, not the plain `span` apps render for entries with no
+   url — those aren't links and get no hover treatment at all. */
+.plattform-card__app-label {
+	position: relative;
+}
+
+.plattform-card__app-label::before {
+	content: attr(data-label);
+	position: absolute;
+	inset: 0;
+	white-space: nowrap;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	opacity: 0;
+	transition: opacity var(--transition);
+	pointer-events: none;
+}
+
+.plattform-card__apps a:hover .plattform-card__app-label::before {
+	opacity: 1;
+}
+
 .plattform-card__app-external {
 	display: inline-flex;
 	margin-left: auto;
@@ -85,6 +115,22 @@
 	opacity: 0;
 	transform: translate(-2px, 2px);
 	transition: opacity var(--transition), transform var(--transition);
+}
+
+/* Font Awesome renders the glyph as `content` on the <i>'s own ::before
+   (not as the <i>'s direct text), and background/background-clip aren't
+   inherited properties — setting them on the <i> itself wouldn't reach the
+   pseudo-element that actually paints the icon, so this targets ::before
+   directly. No two-layer opacity-crossfade trick needed here unlike the
+   label text: the icon is already invisible at rest (opacity: 0 above) and
+   only ever fades via that same opacity, so there's no abrupt on/off
+   toggle of background-clip to smooth over — it's gradient-clipped the
+   whole time, just invisible until the parent fades it in. */
+.plattform-card__app-external i::before {
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 
 .plattform-card__apps a:hover .plattform-card__app-external {

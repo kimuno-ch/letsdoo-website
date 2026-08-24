@@ -69,6 +69,18 @@
 	color: var(--color-ink);
 }
 
+/* A plain lead paragraph under a heading/subheading, for sections that print
+   their text straight into .section__content rather than through a
+   dedicated part — same measure and colour as .page-title__text (04-hero.css)
+   so it reads the same whether it's leading a section or a sub-page hero. */
+.section__text {
+	margin: 0;
+	max-width: 68ch;
+	font-size: var(--text-lg);
+	line-height: 1.5;
+	color: var(--color-body);
+}
+
 /* Kept its name so the wave selectors and the templates don't have to change,
    but it now paints a brand-colour blend rather than a photograph — the
    templates no longer pass one in. Photos elsewhere (hero, Warum Let'sDoo,

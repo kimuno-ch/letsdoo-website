@@ -47,7 +47,7 @@ letsdoo_block_section_open( $block, 'section--leistungen', $blend );
 							<?php if ( $text ) : ?>
 								<p><?php echo esc_html( $text ); ?></p>
 							<?php endif; ?>
-							<span class="leistung-card__more" aria-hidden="true"><?php esc_html_e( 'Mehr erfahren', 'letsdoo' ); ?></span>
+							<span class="leistung-card__more" aria-hidden="true" data-label="<?php echo esc_attr__( 'Mehr erfahren', 'letsdoo' ); ?>"><?php esc_html_e( 'Mehr erfahren', 'letsdoo' ); ?><span class="leistung-card__arrow">→</span></span>
 						</div>
 					</a>
 				<?php endforeach; ?>

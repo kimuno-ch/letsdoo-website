@@ -592,12 +592,34 @@ function letsdoo_icon( $key ) {
 		'mail'         => 'fa-solid fa-envelope',
 		'phone'        => 'fa-solid fa-phone',
 		'cross'        => 'fa-regular fa-circle-xmark',
-		'linkedin'     => 'fa-brands fa-linkedin-in',
-		'instagram'    => 'fa-brands fa-instagram',
 		'external'     => 'fa-solid fa-arrow-up-right-from-square',
 	);
 	$class = isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
 	return '<i class="' . esc_attr( $class ) . '" aria-hidden="true"></i>';
+}
+
+/**
+ * LinkedIn/Instagram as their real brand marks (assets/images/social-*.svg —
+ * LinkedIn blue "in" badge, Instagram's gradient camera badge) rather than
+ * letsdoo_icon()'s Font Awesome glyphs, which read as a generic monochrome
+ * shape that just inherits whatever colour the surrounding button sets.
+ * These carry their own fixed brand colours, so they're an <img>, not an
+ * <i> — nothing to recolour via CSS the way the FA glyphs were.
+ */
+function letsdoo_social_icon( $network ) {
+	$labels = array(
+		'linkedin'  => 'LinkedIn',
+		'instagram' => 'Instagram',
+	);
+
+	if ( ! isset( $labels[ $network ] ) ) {
+		return '';
+	}
+
+	$file = "/assets/images/social-{$network}.svg";
+	$src  = get_theme_file_uri( $file ) . '?v=' . letsdoo_asset_version( $file );
+
+	return '<img src="' . esc_url( $src ) . '" alt="" width="48" height="48" loading="lazy">';
 }
 
 /**

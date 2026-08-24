@@ -25,31 +25,49 @@ while ( have_posts() ) :
 		);
 		?>
 
-		<section class="section section--referenzen" id="referenzen">
+		<section class="section section--team" id="team">
 			<div class="section__content">
-				<h2><?php echo esc_html( get_field( 'referenzen_heading' ) ?: 'Referenzen' ); ?></h2>
-				<div class="referenzen-grid">
-					<?php if ( $referenzen ) : ?>
-						<?php foreach ( $referenzen as $referenz ) : ?>
-							<div class="referenz-card">
-								<div class="referenz-card__logo">
-									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $referenz ), 'placeholder-logo.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $referenz ) ); ?>">
+				<h2><?php echo esc_html( get_field( 'team_heading' ) ?: 'Unser Team' ); ?></h2>
+				<?php if ( $team_subheading = get_field( 'team_subheading' ) ) : ?>
+					<p class="section__subheading"><?php echo esc_html( $team_subheading ); ?></p>
+				<?php endif; ?>
+				<?php if ( $team_text = get_field( 'team_text' ) ) : ?>
+					<p class="section__text"><?php echo esc_html( $team_text ); ?></p>
+				<?php endif; ?>
+				<div class="team-grid">
+					<?php if ( $team ) : ?>
+						<?php foreach ( $team as $mitglied ) : ?>
+							<?php
+							$bio      = get_field( 'bio', $mitglied->ID );
+							$linkedin = get_field( 'linkedin_url', $mitglied->ID );
+							?>
+							<div class="team-card" tabindex="0">
+								<div class="team-card__photo">
+									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $mitglied ), 'placeholder-portrait.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $mitglied ) ); ?>">
+									<?php if ( $bio || $linkedin ) : ?>
+										<div class="team-card__bio">
+											<?php if ( $bio ) : ?>
+												<p><?php echo esc_html( $bio ); ?></p>
+											<?php endif; ?>
+											<?php if ( $linkedin ) : ?>
+												<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="<?php
+													/* translators: %s: team member's name */
+													echo esc_attr( sprintf( __( '%s auf LinkedIn', 'letsdoo' ), get_the_title( $mitglied ) ) );
+												?>">
+													<?php echo letsdoo_social_icon( 'linkedin' ); ?>
+												</a>
+											<?php endif; ?>
+										</div>
+									<?php endif; ?>
 								</div>
-								<div class="referenz-card__body">
-									<h3><?php echo esc_html( get_the_title( $referenz ) ); ?></h3>
-									<p><?php echo esc_html( get_field( 'beschreibung', $referenz->ID ) ); ?></p>
-									<a class="btn btn--sm referenz-card__link" href="<?php echo esc_url( get_permalink( $referenz ) ); ?>">
-										<?php esc_html_e( 'Referenz ansehen', 'letsdoo' ); ?>
-										<span class="screen-reader-text">: <?php echo esc_html( get_the_title( $referenz ) ); ?></span>
-									</a>
-								</div>
+								<h3><?php echo esc_html( get_the_title( $mitglied ) ); ?></h3>
+								<p><?php echo esc_html( get_field( 'position', $mitglied->ID ) ); ?></p>
 							</div>
 						<?php endforeach; ?>
 					<?php else : ?>
-						<p class="admin-hint"><?php esc_html_e( 'Noch keine Referenzen erfasst – unter „Referenzen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+						<p class="admin-hint"><?php esc_html_e( 'Noch keine Teammitglieder erfasst – unter „Team“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
 					<?php endif; ?>
 				</div>
-				<?php letsdoo_button( 'Kontakt aufnehmen', home_url( '/kontakt/' ) ); ?>
 			</div>
 		</section>
 
@@ -81,43 +99,37 @@ while ( have_posts() ) :
 			</div>
 		</section>
 
-		<section class="section section--team" id="team">
+		<section class="section section--referenzen" id="referenzen">
 			<div class="section__content">
-				<h2><?php echo esc_html( get_field( 'team_heading' ) ?: 'Unser Team' ); ?></h2>
-				<div class="team-grid">
-					<?php if ( $team ) : ?>
-						<?php foreach ( $team as $mitglied ) : ?>
-							<?php
-							$bio      = get_field( 'bio', $mitglied->ID );
-							$linkedin = get_field( 'linkedin_url', $mitglied->ID );
-							?>
-							<div class="team-card" tabindex="0">
-								<div class="team-card__photo">
-									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $mitglied ), 'placeholder-portrait.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $mitglied ) ); ?>">
-									<?php if ( $bio || $linkedin ) : ?>
-										<div class="team-card__bio">
-											<?php if ( $bio ) : ?>
-												<p><?php echo esc_html( $bio ); ?></p>
-											<?php endif; ?>
-											<?php if ( $linkedin ) : ?>
-												<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="<?php
-													/* translators: %s: team member's name */
-													echo esc_attr( sprintf( __( '%s auf LinkedIn', 'letsdoo' ), get_the_title( $mitglied ) ) );
-												?>">
-													<?php echo letsdoo_icon( 'linkedin' ); ?>
-												</a>
-											<?php endif; ?>
-										</div>
-									<?php endif; ?>
+				<h2><?php echo esc_html( get_field( 'referenzen_heading' ) ?: 'Referenzen' ); ?></h2>
+				<?php if ( $referenzen_subheading = get_field( 'referenzen_subheading' ) ) : ?>
+					<p class="section__subheading"><?php echo esc_html( $referenzen_subheading ); ?></p>
+				<?php endif; ?>
+				<?php if ( $referenzen_text = get_field( 'referenzen_text' ) ) : ?>
+					<p class="section__text"><?php echo esc_html( $referenzen_text ); ?></p>
+				<?php endif; ?>
+				<div class="referenzen-grid">
+					<?php if ( $referenzen ) : ?>
+						<?php foreach ( $referenzen as $referenz ) : ?>
+							<div class="referenz-card">
+								<div class="referenz-card__logo">
+									<img src="<?php echo esc_url( letsdoo_image_url( get_post_thumbnail_id( $referenz ), 'placeholder-logo.svg' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $referenz ) ); ?>">
 								</div>
-								<h3><?php echo esc_html( get_the_title( $mitglied ) ); ?></h3>
-								<p><?php echo esc_html( get_field( 'position', $mitglied->ID ) ); ?></p>
+								<div class="referenz-card__body">
+									<h3><?php echo esc_html( get_the_title( $referenz ) ); ?></h3>
+									<p><?php echo esc_html( get_field( 'beschreibung', $referenz->ID ) ); ?></p>
+									<a class="btn btn--sm referenz-card__link" href="<?php echo esc_url( get_permalink( $referenz ) ); ?>">
+										<?php esc_html_e( 'Referenz ansehen', 'letsdoo' ); ?>
+										<span class="screen-reader-text">: <?php echo esc_html( get_the_title( $referenz ) ); ?></span>
+									</a>
+								</div>
 							</div>
 						<?php endforeach; ?>
 					<?php else : ?>
-						<p class="admin-hint"><?php esc_html_e( 'Noch keine Teammitglieder erfasst – unter „Team“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
+						<p class="admin-hint"><?php esc_html_e( 'Noch keine Referenzen erfasst – unter „Referenzen“ im Menü hinzufügen.', 'letsdoo' ); ?></p>
 					<?php endif; ?>
 				</div>
+				<?php letsdoo_button( 'Kontakt aufnehmen', home_url( '/kontakt/' ) ); ?>
 			</div>
 		</section>
 

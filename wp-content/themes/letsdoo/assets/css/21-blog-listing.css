@@ -96,19 +96,81 @@
 	margin-bottom: 1.5rem;
 }
 
+/* Same pattern as .leistung-card__more/__arrow (07-leistungen.css): gradient
+   text is a hover-only reveal, and it's a second always-clipped layer faded
+   in via opacity rather than the base layer's own colour toggling, because
+   background-clip:text is a discrete property a `transition: color` can't
+   ease — toggling it directly snaps back the instant the pointer leaves
+   instead of fading out. */
 .blog-card__more {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
 	font-family: var(--font-display);
 	font-size: var(--text-xs);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
+	color: var(--color-ink);
+	text-decoration: none;
+}
+
+/* content: attr(data-label) mirrors the translated string from the
+   data-label attribute (content-card.php) rather than duplicating the
+   visible text a second time in markup. */
+.blog-card__more::before {
+	content: attr(data-label);
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
 	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	opacity: 0;
+	transition: opacity var(--transition);
+	pointer-events: none;
 }
 
-.blog-card__more::after {
-	content: ' →';
+.blog-card:hover .blog-card__more::before {
+	opacity: 1;
+}
+
+/* The arrow is a real child span, not part of the label's own text/overlay:
+   one pseudo-element can't carry two different font sizes, and this one is
+   sized up independently of the label. */
+.blog-card__arrow {
+	position: relative;
+	font-size: 1.35em;
+	line-height: 1;
+	color: var(--color-ink);
+	transition: color var(--transition), transform var(--transition);
+}
+
+.blog-card__arrow::before {
+	content: "→";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	opacity: 0;
+	transition: opacity var(--transition);
+}
+
+.blog-card:hover .blog-card__arrow {
+	transform: translateX(4px);
+}
+
+.blog-card:hover .blog-card__arrow::before {
+	opacity: 1;
+}
+
+/* Click feedback: a bigger flight than the hover nudge, distinct from it. */
+.blog-card:active .blog-card__arrow {
+	transform: translateX(20px);
 }
 
 /* Pagination */
