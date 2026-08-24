@@ -601,6 +601,44 @@ function letsdoo_icon( $key ) {
 }
 
 /**
+ * The Let's Doo hub mark in the home hero: assets/images/odoo-hub.svg, the
+ * central pulsing blob + wordmark cropped out of odoo-map.svg's hub-and-spoke
+ * diagram (no spokes, tiles or Kunde chip — see that file's own history for
+ * the full diagram). Wrapped in .hero__graphic so it picks up the same
+ * position:relative; z-index:1 that .hero__panel gets (04-hero.css) — without
+ * it this would paint underneath .hero::before's darkening scrim, since a
+ * plain unpositioned element sits behind a positioned z-index:0 sibling in
+ * stacking order despite coming later in the DOM.
+ */
+function letsdoo_render_hero_hub() {
+	$src = get_theme_file_uri( '/assets/images/odoo-hub.svg' ) . '?v=' . letsdoo_asset_version( '/assets/images/odoo-hub.svg' );
+
+	ob_start();
+	?>
+	<div class="hero__graphic">
+		<img src="<?php echo esc_url( $src ); ?>" alt="Let's Doo" width="440" height="350" loading="lazy">
+	</div>
+	<?php
+	return trim( ob_get_clean() );
+}
+
+/**
+ * The Warum Odoo icon grid (assets/images/odoo-core-apps.svg), inlined
+ * rather than left as a plain <img src> like most images on the site — each
+ * icon's <g> carries a <title> naming its module, and hover/focus scales it
+ * slightly (both baked into the SVG file itself). Neither works on an
+ * <img>-embedded SVG: it renders as a flat, non-interactive image, no
+ * per-element tooltips or CSS hover, same reason letsdoo_render_odoo_map()
+ * above inlines its diagram. Used as-is otherwise — nothing here is
+ * generated per-request, unlike the map's live Referenzen chip.
+ */
+function letsdoo_render_odoo_apps_grid() {
+	$svg = file_get_contents( get_theme_file_path( '/assets/images/odoo-core-apps.svg' ) );
+
+	return false === $svg ? '' : $svg;
+}
+
+/**
  * Odoo's own official app icons (assets/images/odoo-icons/, vendored from
  * Odoo's icon pack), keyed by filename without extension. Used as the
  * `choices` for the Plattform block's per-app icon field and to resolve a

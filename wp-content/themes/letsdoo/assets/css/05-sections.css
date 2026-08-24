@@ -15,7 +15,7 @@
 /* The hero already carries its own bottom padding, so the section right
    after it shouldn't stack this on top. */
 .hero + .section {
-	padding-top: 0;
+	padding-top: 8rem;
 }
 
 .section__intro,

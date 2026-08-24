@@ -1,0 +1,346 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="700" viewBox="0 0 620 700" fill="none" role="img" aria-labelledby="odoo-apps-title">
+	<title id="odoo-apps-title">Odoo core applications</title>
+	<desc>Odoo logo above sixteen core Odoo application icons arranged in a four-column grid. Hover or focus an icon for its module name.</desc>
+	<style>
+		/* Same choreography as .logo-carousel__item (29-logo-carousel.css):
+		   the icon fades/blurs back on hover and a label fades + slides up
+		   into place on top of it, in the same spot, rather than pushing
+		   anything around or appearing below. */
+		.omap-app { cursor: pointer; }
+		.omap-app svg {
+			transition: opacity 0.25s ease, filter 0.25s ease;
+		}
+		.omap-app:hover svg,
+		.omap-app:focus-visible svg {
+			opacity: 0.25;
+			filter: blur(1px);
+		}
+		.omap-app-label {
+			font-family: Arial, sans-serif;
+			font-size: 24px;
+			font-weight: 700;
+			fill: #232323;
+			text-anchor: middle;
+			dominant-baseline: central;
+			/* Longer labels ("Buchhaltung", "Zeiterfassung") run wider than
+			   the 84px icon box and can sit over a neighbouring, still-full-
+			   opacity icon — the halo keeps them legible there too, not just
+			   against their own faded backdrop. */
+			paint-order: stroke fill;
+			stroke: #fff;
+			stroke-width: 6px;
+			stroke-linejoin: round;
+			opacity: 0;
+			transform: translateY(4px);
+			transform-box: fill-box;
+			pointer-events: none;
+			transition: opacity 0.25s ease, transform 0.25s ease;
+		}
+		.omap-app:hover .omap-app-label,
+		.omap-app:focus-visible .omap-app-label {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	</style>
+	<g id="odoo-logo">
+		<svg x="95" y="28" width="430" height="155" viewBox="130 130 660 235" preserveAspectRatio="xMidYMid meet">
+<path d="M695,346a75,75,0,1,1,75-75A75,75,0,0,1,695,346Zm0-31a44,44,0,1,0-44-44A44,44,0,0,0,695,315ZM538,346a75,75,0,1,1,75-75A75,75,0,0,1,538,346Zm0-31a44,44,0,1,0-44-44A44,44,0,0,0,538,315Zm-82-45c0,41.9-33.6,76-75,76s-75-34-75-75.9S336.5,196,381,196c16.4,0,31.6,3.5,44,12.6V165.1c0-8.3,7.3-15.1,15.5-15.1s15.5,6.8,15.5,15.1Zm-75,45a44,44,0,1,0-44-44A44,44,0,0,0,381,315Z" style="fill:#8f8f8f"/><path d="M224,346a75,75,0,1,1,75-75A75,75,0,0,1,224,346Zm0-31a44,44,0,1,0-44-44A44,44,0,0,0,224,315Z" style="fill:#714b67"/>
+		</svg>
+	</g>
+	<g class="omap-app" id="crm" tabindex="0">
+		<title>CRM</title>
+		<rect x="94" y="225" width="84" height="84" fill="transparent"/>
+		<svg x="94" y="225" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon0_clip0_7758_19960)">
+		<path d="M45.8723 9C49.3927 9.04136 51.3762 13.4739 48.8847 15.9639L40.4611 24.3828L36.4993 26.9995L24.999 9.00062L45.8723 9Z" fill="#985184"/>
+		<path d="M10.9447 25.7881C9.39213 27.3398 9.39213 29.8556 10.9447 31.4073L19.3783 39.8361C20.9309 41.3878 23.4482 41.3878 25.0008 39.8361L23.4998 36L14.9998 27L10.9447 25.7881Z" fill="#985184"/>
+		<path d="M1.11406 15.9643C-1.37736 13.4743 0.607765 9.04136 4.12814 9L25.0001 9.00042L40.4611 24.3832C42.0137 25.9349 42.0137 28.4507 40.4611 30.0024L30.6219 39.8359C29.0694 41.3876 26.5521 41.3876 24.9995 39.8359L1.11406 15.9643Z" fill="#1AD3BB"/>
+		<path d="M24.9994 39.8358C26.552 38.2841 26.552 35.7683 24.9994 34.2166L16.5658 25.7878C15.0132 24.2361 12.4959 24.2361 10.9434 25.7878L24.9994 39.8358Z" fill="#005E7A"/>
+		<path d="M17.6204 16.3056L24.9999 9L34.1363 18.0616C31.8074 15.7341 28.0316 15.7341 25.7027 18.0616L22.5401 21.2224C21.1816 22.5802 18.979 22.5802 17.6204 21.2224C16.2619 19.8647 16.2619 17.6634 17.6204 16.3056Z" fill="#005E7A"/>
+		</g>
+		<defs>
+		<clipPath id="icon0_clip0_7758_19960">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="136" y="267">CRM</text>
+	</g>
+	<g class="omap-app" id="sale_management" tabindex="0">
+		<title>Verkauf</title>
+		<rect x="210" y="225" width="84" height="84" fill="transparent"/>
+		<svg x="210" y="225" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon1_clip0_7758_19961)">
+		<path d="M4 25C4 22.7909 5.79086 21 8 21H15V42C15 44.2091 15 46 15 46H4V25Z" fill="#985184"/>
+		<path d="M26 8C26 5.79086 27.8761 4 30.1905 4H46V42C46 44.2091 44.1239 46 41.8095 46H26V8Z" fill="#FBB945"/>
+		<path d="M15 17.0672C15 14.821 16.8761 13 19.1905 13H35V41.9328C35 44.179 33.1239 46 30.8095 46H15V17.0672Z" fill="#FC868B"/>
+		<path d="M26 46H30.8095C33.1239 46 35 44.179 35 41.9328V13L26 13V46Z" fill="#F86126"/>
+		<path d="M15 46C16.6651 46 18.3302 45.9989 19.9952 45.9985C22.2062 45.998 24 44.2062 24 41.9952V21L15 21V46Z" fill="#962B48"/>
+		</g>
+		<defs>
+		<clipPath id="icon1_clip0_7758_19961">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="252" y="267">Verkauf</text>
+	</g>
+	<g class="omap-app" id="account" tabindex="0">
+		<title>Buchhaltung</title>
+		<rect x="326" y="225" width="84" height="84" fill="transparent"/>
+		<svg x="326" y="225" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon2_clip0_7758_19931)">
+		<path d="M38 46L12 46C7.58172 46 4 42.5016 4 38.186L4 4L34 4C36.2091 4 38 5.74922 38 7.90698L38 46Z" fill="#2EBCFA"/>
+		<path d="M12 46H38C39.0506 46 40.0909 45.7931 41.0615 45.391C42.0321 44.989 42.914 44.3997 43.6569 43.6569C44.3997 42.914 44.989 42.0321 45.391 41.0615C45.7931 40.0909 46 39.0506 46 38H20C20 42.4183 16.4183 46 12 46Z" fill="#144496"/>
+		<path d="M38 8C23.4078 8 10.6874 16.0141 4 27.8809L4 4L34 4C36.2091 4 38 5.79087 38 8Z" fill="#088BF5"/>
+		<path d="M20.3293 36H21.7073V34.0081C25.4756 33.7773 28 31.919 28 28.834V28.8097C28 26.0891 26.2561 24.7287 22.8171 23.9757L21.7073 23.7449V20.2227C22.9146 20.417 23.7073 21.085 23.878 22.2146L23.8902 22.2389L27.7195 22.2267L27.7317 22.2146C27.5976 19.2632 25.3902 17.2955 21.7073 17.0405V15H20.3293V17.0283C16.7439 17.1984 14.1707 19.0445 14.1707 22.081V22.1053C14.1707 24.8381 15.9756 26.3077 19.2317 27.0243L20.3293 27.2551V30.8502C18.9024 30.7166 18.0732 30.1215 17.878 29.0526L17.8659 29.0283L14.0244 29.0405L14 29.0526C14.0976 32.1619 16.6098 33.8745 20.3293 34.0202V36ZM18.2561 21.7773V21.753C18.2561 20.8785 18.9634 20.3198 20.3293 20.1984V23.4291C18.9146 23.0526 18.2561 22.5789 18.2561 21.7773ZM23.9146 29.2713V29.2955C23.9146 30.2308 23.122 30.7287 21.7073 30.8502V27.5587C23.2927 27.9595 23.9146 28.3725 23.9146 29.2713Z" fill="white"/>
+		</g>
+		<defs>
+		<clipPath id="icon2_clip0_7758_19931">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="368" y="267">Buchhaltung</text>
+	</g>
+	<g class="omap-app" id="stock" tabindex="0">
+		<title>Lager</title>
+		<rect x="442" y="225" width="84" height="84" fill="transparent"/>
+		<svg x="442" y="225" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon3_clip0_7758_20008)">
+		<path d="M24.9999 4L31.857 8L15.5 19V35L16 40.75L7 35.5L7 14.5L24.9999 4Z" fill="#FBB945"/>
+		<path d="M18.0856 41.9667L11.9482 38.3866L11.9482 17.5002L30.0455 6.94336L36.3284 10.6084L22 23.5L18.0856 41.9667Z" fill="#F86126"/>
+		<path d="M36.3285 10.6084L42.9997 14.5L42.9997 35.5L24.9998 46L18.0859 41.9668L18.0859 21.25L36.3285 10.6084Z" fill="#985184"/>
+		</g>
+		<defs>
+		<clipPath id="icon3_clip0_7758_20008">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="484" y="267">Lager</text>
+	</g>
+	<g class="omap-app" id="purchase" tabindex="0">
+		<title>Einkauf</title>
+		<rect x="94" y="341" width="84" height="84" fill="transparent"/>
+		<svg x="94" y="341" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon4_clip0_7758_19975)">
+		<path d="M0 12H50V38C50 40.2091 48.2091 42 46 42H0V12Z" fill="#985184"/>
+		<path d="M4 21C1.79086 21 2.49754e-07 19.2091 5.5784e-07 17L1.25514e-06 12C1.56323e-06 9.79086 1.79086 8 4 8L50 8.00001V17C50 19.2091 48.2091 21 46 21L4 21Z" fill="#1AD3BB"/>
+		<path d="M0 16H50V20C50 22.2091 48.2091 24 46 24H4C1.79086 24 0 22.2091 0 20V16Z" fill="#005E7A"/>
+		</g>
+		<defs>
+		<clipPath id="icon4_clip0_7758_19975">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="136" y="383">Einkauf</text>
+	</g>
+	<g class="omap-app" id="project" tabindex="0">
+		<title>Projekte</title>
+		<rect x="210" y="341" width="84" height="84" fill="transparent"/>
+		<svg x="210" y="341" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon5_clip0_7758_19966)">
+		<path d="M30.8419 34.6117L22.7368 44.9992L5.45233 31.3699C3.78959 30.0442 3.51384 27.6186 4.83642 25.952L10.5844 18.709L30.8419 34.6117Z" fill="#985184"/>
+		<path d="M22.6216 44.9086L12.167 36.5736L20.2945 26.332L30.8421 34.6122L22.7371 44.9997L22.6216 44.9086Z" fill="#005E7A"/>
+		<path d="M22.5934 44.8858L22.7369 45.0002L45.1836 16.2326C46.4848 14.5649 46.2011 12.1575 44.5481 10.8396L37.2235 5L20.2949 26.3317L30.8421 34.6116L22.737 44.9991L22.5934 44.8858Z" fill="#1AD3BB"/>
+		</g>
+		<defs>
+		<clipPath id="icon5_clip0_7758_19966">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="252" y="383">Projekte</text>
+	</g>
+	<g class="omap-app" id="website" tabindex="0">
+		<title>Website</title>
+		<rect x="326" y="341" width="84" height="84" fill="transparent"/>
+		<svg x="326" y="341" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon6_clip0_7758_19969)">
+		<g clip-path="url(#icon6_clip1_7758_19969)">
+		<path d="M26.0001 34.5C26.0001 34.5 25.1694 32.5 25.0029 32.3333C45.5053 22.4922 48.5212 28.7924 48.9428 31.3778C49.0111 31.7963 48.9481 32.2208 48.8189 32.6247C48.3432 34.1117 47.7322 35.5381 47.0002 36.8896C45.5 38.3897 37.0002 38.5 37.0002 38.5L26.0001 34.5Z" fill="#144496"/>
+		<path d="M20.9998 14L25.0029 17.6667C4.50058 27.5078 1.48464 21.2076 1.06305 18.6222C0.994805 18.2037 1.05777 17.7792 1.18696 17.3753C1.57545 16.1609 2.05425 14.9868 2.61547 13.861C6.71163 5.64435 14.5 11 14.5 11L20.9998 14Z" fill="#1A6F66"/>
+		<path d="M1.18731 32.6252C1.05811 32.2214 0.994983 31.7963 1.06323 31.3778C1.48482 28.7924 4.50075 22.4922 25.0031 32.3333C39.2004 39.148 45.0126 38.2227 47.3848 36.1506C43.2864 44.361 34.8033 50 25.0031 50C13.8551 50 4.41139 42.7033 1.18731 32.6252Z" fill="#2EBCFA"/>
+		<path d="M48.8185 17.3748C48.9477 17.7786 49.0109 18.2037 48.9426 18.6222C48.521 21.2076 45.5051 27.5078 25.0028 17.6667C10.8055 10.852 4.99323 11.7773 2.62109 13.8494C6.71945 5.63903 15.2026 -1.04783e-06 25.0028 -1.9107e-07C36.1507 7.83518e-07 45.5945 7.29673 48.8185 17.3748Z" fill="#1AD3BB"/>
+		</g>
+		</g>
+		<defs>
+		<clipPath id="icon6_clip0_7758_19969">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		<clipPath id="icon6_clip1_7758_19969">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="368" y="383">Website</text>
+	</g>
+	<g class="omap-app" id="ecommerce" tabindex="0">
+		<title>e-Commerce</title>
+		<rect x="442" y="341" width="84" height="84" fill="transparent"/>
+		<svg x="442" y="341" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon7_clip0_ecommerce)">
+		<path d="M12 22C12 19.7909 13.7909 18 16 18H34C36.2091 18 38 19.7909 38 22V41C38 43.2091 36.2091 45 34 45H16C13.7909 45 12 43.2091 12 41V22Z" fill="#985184"/>
+		<path d="M25 45H34C36.2091 45 38 43.2091 38 41V22C38 19.7909 36.2091 18 34 18H25V45Z" fill="#962B48"/>
+		<path d="M17.5 21V16C17.5 11.8579 20.8579 8.5 25 8.5C29.1421 8.5 32.5 11.8579 32.5 16V21" stroke="#005E7A" stroke-width="3" stroke-linecap="round"/>
+		</g>
+		<defs>
+		<clipPath id="icon7_clip0_ecommerce">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="484" y="383">e-Commerce</text>
+	</g>
+	<g class="omap-app" id="hr" tabindex="0">
+		<title>Personal</title>
+		<rect x="94" y="457" width="84" height="84" fill="transparent"/>
+		<svg x="94" y="457" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon8_clip0_7758_19984)">
+		<path d="M34 17C34 21.9706 29.9706 26 25 26C20.0294 26 16 21.9706 16 17C16 12.0294 20.0294 8 25 8C29.9706 8 34 12.0294 34 17Z" fill="#985184"/>
+		<path d="M12 24C12 26.2091 10.2091 28 8 28C5.79086 28 4 26.2091 4 24C4 21.7909 5.79086 20 8 20C10.2091 20 12 21.7909 12 24Z" fill="#FBB945"/>
+		<path d="M46 24C46 26.2091 44.2091 28 42 28C39.7909 28 38 26.2091 38 24C38 21.7909 39.7909 20 42 20C44.2091 20 46 21.7909 46 24Z" fill="#1AD3BB"/>
+		<path d="M25 30H4C1.79086 30 0 31.7909 0 34V38C0 40.2091 1.79086 42 4 42H25V30Z" fill="#FBB945"/>
+		<path d="M46 30H25V42H46C48.2091 42 50 40.2091 50 38V34C50 31.7909 48.2091 30 46 30Z" fill="#1AD3BB"/>
+		<path d="M12 30H26C32.6274 30 38 35.3726 38 42H24C17.3726 42 12 36.6274 12 30Z" fill="#985184"/>
+		</g>
+		<defs>
+		<clipPath id="icon8_clip0_7758_19984">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="136" y="499">Personal</text>
+	</g>
+	<g class="omap-app" id="mrp" tabindex="0">
+		<title>Fertigung</title>
+		<rect x="210" y="457" width="84" height="84" fill="transparent"/>
+		<svg x="210" y="457" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon9_clip0_7758_20009)">
+		<path d="M50 19.0234C50 18.2877 49.2627 17.7929 48.6024 18.0854L20.6024 30.4885C20.2367 30.6505 20 31.0191 20 31.4265V40.9778C20 41.5423 20.4477 42 21 42H46C48.2091 42 50 40.1693 50 37.9111V19.0234Z" fill="#FBB945"/>
+		<path d="M42 14.018C42 13.2962 41.2812 12.8041 40.6236 13.0758L10.6236 25.4704C10.2466 25.6262 10 25.9988 10 26.4126V40.983C10 41.5447 10.4477 42 11 42H38C40.2091 42 42 40.1787 42 37.932V14.018Z" fill="#FC868B"/>
+		<path d="M42 21.0098L20.6024 30.4883C20.2367 30.6503 20 31.0188 20 31.4262V40.9775C20 41.542 20.4477 41.9997 21 41.9997H38C40.2091 41.9997 42 40.1784 42 37.9317V21.0098Z" fill="#F86126"/>
+		<path d="M32 9.01548C32 8.29545 31.2812 7.80462 30.6236 8.07562L0.623623 20.4393C0.246602 20.5947 0 20.9664 0 21.3792V40.9855C0 41.5458 0.447715 42 1 42H28C30.2091 42 32 40.1832 32 37.9422V9.01548Z" fill="#1AD3BB"/>
+		<path d="M32 16.6387L10.6236 25.4704C10.2466 25.6262 10 25.9988 10 26.4126V40.983C10 41.5447 10.4477 42 11 42H28C30.2091 42 32 40.1832 32 37.9421V16.6387Z" fill="#1A6F66"/>
+		</g>
+		<defs>
+		<clipPath id="icon9_clip0_7758_20009">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="252" y="499">Fertigung</text>
+	</g>
+	<g class="omap-app" id="mass_mailing" tabindex="0">
+		<title>Marketing</title>
+		<rect x="326" y="457" width="84" height="84" fill="transparent"/>
+		<svg x="326" y="457" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon10_clip0_7758_20005)">
+		<path d="M41.8446 4.44682L5.18103 28.4878C3.33702 29.697 3.72574 32.448 5.83621 33.1246L42.4998 44.878C44.2251 45.431 45.9999 44.1762 45.9999 42.4034V6.60899C45.9999 4.52466 43.6169 3.28469 41.8446 4.44682Z" fill="#2EBCFA"/>
+		<path d="M44.6713 4.34668L26.5215 39.7553L44.2501 45.4386C45.1127 45.7151 46.0001 45.0877 46.0001 44.2013L46 6.27977C46 6.27977 45.8796 5.59187 45.5311 5.10465C45.2133 4.66047 44.6713 4.34668 44.6713 4.34668Z" fill="#985184"/>
+		<path d="M13.8848 35.6342L44.6703 4.3418L23.3224 45.9998L13.8848 35.6342Z" fill="#144496"/>
+		</g>
+		<defs>
+		<clipPath id="icon10_clip0_7758_20005">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="368" y="499">Marketing</text>
+	</g>
+	<g class="omap-app" id="point_of_sale" tabindex="0">
+		<title>Kasse</title>
+		<rect x="442" y="457" width="84" height="84" fill="transparent"/>
+		<svg x="442" y="457" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon11_clip0_7758_19997)">
+		<path d="M9.5 8L6 36H12.019C12.2744 39.3564 15.0784 42 18.5 42C21.9216 42 24.7256 39.3564 24.981 36H25C25 39.3135 27.6863 42 31 42C34.3137 42 37 39.3135 37 36H37.019C37.2744 39.3564 40.0784 42 43.5 42C46.9216 42 49.7256 39.3564 49.981 36H50V35L49.9546 34.7271C49.9456 34.6509 49.9353 34.5752 49.9236 34.5C49.9153 34.4468 49.9065 34.3936 49.897 34.3408L49.8745 34.2231L49.8538 34.1226L46.0571 11.3423C45.7356 9.41357 44.0669 8 42.1116 8H9.5Z" fill="#985184"/>
+		<path d="M14 8L12 36C12 39.3135 9.31372 42 6 42C2.68628 42 0 39.3135 0 36V35L3.49414 11.4136C3.78491 9.45264 5.46826 8 7.45117 8H14Z" fill="#FBB945"/>
+		<path d="M35 8L37 36C37 39.3135 34.3137 42 31 42C27.6863 42 25 39.3135 25 36V8H35Z" fill="#FBB945"/>
+		<path d="M12 36C12 37.5913 11.3679 39.1174 10.2426 40.2426C9.11742 41.3679 7.5913 42 6 42C4.4087 42 2.88258 41.3679 1.75736 40.2426C0.632141 39.1174 2.40279e-07 37.5913 0 36L12 36Z" fill="#F78613"/>
+		<path d="M37 36C37 36.7879 36.8448 37.5681 36.5433 38.2961C36.2417 39.0241 35.7998 39.6855 35.2426 40.2426C34.6855 40.7998 34.0241 41.2417 33.2961 41.5433C32.5681 41.8448 31.7879 42 31 42C30.2121 42 29.4319 41.8448 28.7039 41.5433C27.9759 41.2417 27.3145 40.7998 26.7574 40.2426C26.2002 39.6855 25.7583 39.0241 25.4567 38.2961C25.1552 37.5681 25 36.7879 25 36L37 36Z" fill="#F78613"/>
+		<path d="M12.0195 36C12.2749 39.3564 15.0789 42 18.5005 42C21.9221 42 24.7261 39.3564 24.9814 36H12.0195Z" fill="#712258"/>
+		<path d="M37.0195 36C37.2749 39.3564 40.0789 42 43.5005 42C46.9221 42 49.7261 39.3564 49.9814 36H37.0195Z" fill="#712258"/>
+		</g>
+		<defs>
+		<clipPath id="icon11_clip0_7758_19997">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="484" y="499">Kasse</text>
+	</g>
+	<g class="omap-app" id="documents" tabindex="0">
+		<title>Dokumente</title>
+		<rect x="94" y="573" width="84" height="84" fill="transparent"/>
+		<svg x="94" y="573" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon12_clip0_7758_19965)">
+		<path d="M30.5757 14.9076C32.1491 13.3342 34.7001 13.3342 36.2735 14.9076L44.8203 23.4544C46.3937 25.0278 46.3937 27.5788 44.8203 29.1522L29.1512 44.8213C27.5778 46.3947 25.0268 46.3947 23.4534 44.8213L14.9066 36.2745C13.3332 34.7011 13.3332 32.1501 14.9066 30.5767L30.5757 14.9076Z" fill="#FBB945"/>
+		<path d="M18.7214 9.04681C19.5729 6.99104 21.9297 6.01481 23.9855 6.86634L35.1524 11.4918C37.2081 12.3433 38.1844 14.7002 37.3328 16.7559L28.8528 37.2285C28.0013 39.2843 25.6445 40.2605 23.5887 39.409L12.4218 34.7835C10.366 33.932 9.38981 31.5752 10.2413 29.5194L18.7214 9.04681Z" fill="#FC868B"/>
+		<path d="M37.5272 16.1603C37.4786 16.3604 37.4139 16.5594 37.3327 16.7556L28.8526 37.2282C28.0011 39.284 25.6443 40.2602 23.5885 39.4087L14.3525 35.583C13.3622 34.025 13.547 31.9353 14.9066 30.5757L30.5757 14.9066C32.1491 13.3332 34.7001 13.3332 36.2735 14.9066L37.5272 16.1603Z" fill="#F86126"/>
+		<path d="M4 8.02898C4 5.80384 5.80384 4 8.02898 4H20.1159C22.3411 4 24.1449 5.80384 24.1449 8.02898V30.1884C24.1449 32.4135 22.3411 34.2174 20.1159 34.2174H8.02898C5.80384 34.2174 4 32.4135 4 30.1884V8.02898Z" fill="#2EBCFA"/>
+		<path d="M23.9731 6.86121C24.0849 7.23088 24.145 7.62299 24.145 8.02913V30.1885C24.145 32.4137 22.3411 34.2175 20.116 34.2175H11.4578C10.0835 33.1276 9.53675 31.2204 10.2413 29.5194L18.7214 9.0468C19.5712 6.99518 21.9202 6.01875 23.9731 6.86121Z" fill="#2D6388"/>
+		</g>
+		<defs>
+		<clipPath id="icon12_clip0_7758_19965">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="136" y="615">Dokumente</text>
+	</g>
+	<g class="omap-app" id="hr_timesheet" tabindex="0">
+		<title>Zeiterfassung</title>
+		<rect x="210" y="573" width="84" height="84" fill="transparent"/>
+		<svg x="210" y="573" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon13_clip0_7758_19967)">
+		<path d="M45.4447 23.2223C45.4447 19.3215 44.4179 15.4894 42.4675 12.1112C40.517 8.73295 37.7117 5.92765 34.3335 3.97723C30.9553 2.02681 27.1232 1 23.2223 1C19.3215 1 15.4894 2.02681 12.1112 3.97723C8.73295 5.92765 5.92765 8.73295 3.97723 12.1112C2.02681 15.4894 1 19.3215 1 23.2223C1 27.1232 2.02681 30.9553 3.97723 34.3335C5.92765 37.7117 8.73295 40.517 12.1112 42.4675L23.2223 23.2223H45.4447Z" fill="#FC868B"/>
+		<path d="M5.3125 32.5299C6.25835 36.0598 8.06017 39.3021 10.5583 41.9693C13.0565 44.6366 16.174 46.6466 19.6345 47.8213C23.095 48.996 26.7919 49.2991 30.3976 48.7038C34.0032 48.1085 37.4064 46.6332 40.3057 44.4085C43.205 42.1838 45.5109 39.2784 47.0192 35.9496C48.5274 32.6209 49.1914 28.9716 48.9524 25.3249C48.7134 21.6782 47.5787 18.1468 45.6489 15.0434C43.7191 11.94 41.0537 9.36045 37.8888 7.5332L26.7776 26.7783L5.3125 32.5299Z" fill="#2EBCFA"/>
+		<path d="M23.2224 45.4448C35.4955 45.4448 45.4448 35.4955 45.4448 23.2224C45.4448 17.9917 43.6376 13.1831 40.6135 9.38694C36.8173 6.36287 32.0087 4.55566 26.778 4.55566C14.5049 4.55566 4.55566 14.5049 4.55566 26.778C4.55566 32.0087 6.36287 36.8173 9.38694 40.6135C13.1831 43.6376 17.9917 45.4448 23.2224 45.4448Z" fill="#2D6388"/>
+		<path d="M7.71777 7.3023C8.36423 6.67262 9.04889 6.08197 9.76797 5.53418C9.99503 5.59021 10.2133 5.69511 10.4065 5.84975L26.5792 18.7946C28.3988 20.251 28.5247 22.9876 26.8761 24.6347C25.2274 26.2819 22.4885 26.1561 21.0307 24.3381L8.07445 8.1797C7.86578 7.91946 7.74762 7.61377 7.71777 7.3023Z" fill="white"/>
+		</g>
+		<defs>
+		<clipPath id="icon13_clip0_7758_19967">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="252" y="615">Zeiterfassung</text>
+	</g>
+	<g class="omap-app" id="planning" tabindex="0">
+		<title>Kalender</title>
+		<rect x="326" y="573" width="84" height="84" fill="transparent"/>
+		<svg x="326" y="573" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon14_clip0_7758_20001)">
+		<rect x="5" y="17" width="40" height="16" fill="white"/>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M4 8.0752C1.79086 8.0752 0 9.86606 0 12.0752V38.0752C0 40.2843 1.79086 42.0752 4 42.0752H25V8.0752H4ZM6.8252 26.8071C5.49186 26.0373 5.49186 24.1128 6.82519 23.343L15.8707 18.1205C17.204 17.3507 18.8707 18.313 18.8707 19.8526V30.2974C18.8707 31.837 17.204 32.7993 15.8707 32.0295L6.8252 26.8071Z" fill="#FBB945"/>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M46 8.0752H25V42.0752H46C48.2091 42.0752 50 40.2843 50 38.0752V12.0752C50 9.86606 48.2091 8.0752 46 8.0752ZM43.1744 26.8071C44.5077 26.0373 44.5077 24.1128 43.1744 23.343L34.1289 18.1205C32.7956 17.3507 31.1289 18.313 31.1289 19.8526L31.1289 30.2974C31.1289 31.837 32.7956 32.7993 34.1289 32.0295L43.1744 26.8071Z" fill="#1AD3BB"/>
+		<path d="M23 6.09469C23 4.93782 23.8954 4 25 4C26.1046 4 27 4.93782 27 6.09469V43.9053C27 45.0622 26.1046 46 25 46C23.8954 46 23 45.0622 23 43.9053V6.09469Z" fill="#985184"/>
+		</g>
+		<defs>
+		<clipPath id="icon14_clip0_7758_20001">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="368" y="615">Kalender</text>
+	</g>
+	<g class="omap-app" id="knowledge" tabindex="0">
+		<title>Wissen</title>
+		<rect x="442" y="573" width="84" height="84" fill="transparent"/>
+		<svg x="442" y="573" width="84" height="84" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+		<g clip-path="url(#icon15_clip0_7758_19992)">
+		<path d="M17 3.9904C17 2 19 0 21 0H42V35.0007C42 35.8067 41.0915 36.2799 40.4285 35.8193L32 30C30.5 29 28.5 29 27 30L18.5715 35.8193C17.9085 36.2799 17 35.8067 17 35.0007V3.9904Z" fill="#1AD3BB"/>
+		<path d="M8 17.9904C8 16 10 14 12 14H33V49.0007C33 49.8067 32.0915 50.2799 31.4285 49.8193L23 44C21.5 43 19.5 43 18 44L9.57152 49.8193C8.90853 50.2799 8 49.8067 8 49.0007V17.9904Z" fill="#985184"/>
+		<path d="M33 30.658L32 30C30.5 29 28.5 29 27 30L18.5715 35.8193C17.9085 36.2799 17 35.8067 17 35.0007V14H33V30.658Z" fill="#005E7A"/>
+		</g>
+		<defs>
+		<clipPath id="icon15_clip0_7758_19992">
+		<rect width="50" height="50" fill="white"/>
+		</clipPath>
+		</defs>
+		</svg>
+		<text class="omap-app-label" x="484" y="615">Wissen</text>
+	</g>
+</svg>

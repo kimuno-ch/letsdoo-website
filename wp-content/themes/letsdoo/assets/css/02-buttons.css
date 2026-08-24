@@ -53,12 +53,19 @@
    and open the modal instead of navigating — so it doubles as the "this is
    the contact CTA" flag here. */
 .btn[data-kontakt-modal] {
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	/* +180deg rather than reordering the two colour stops — same inverted
+	   travel, but still reads as "the shared brand angle, flipped" instead of
+	   duplicating --color-gradient-start/-end in the opposite order. */
+	background: linear-gradient(calc(var(--gradient-angle) + 180deg), var(--color-gradient-start), var(--color-gradient-end));
 	/* Stretched to 150% so the button only shows the middle stretch of the
 	   gradient's travel rather than the full pink-to-blue run — a softer,
 	   less abrupt blend across a surface this small. */
 	background-size: 150% 150%;
 	background-position: center;
+	/* --color-gradient-start (#e9446a) at 20% opacity. CSS can't apply alpha
+	   to a var() hex value directly, so this is the literal 8-digit form —
+	   same convention as the --color-gradient-* tints in 01-base.css. */
+	border: 3px solid #e9446a33;
 }
 
 .btn--sm {

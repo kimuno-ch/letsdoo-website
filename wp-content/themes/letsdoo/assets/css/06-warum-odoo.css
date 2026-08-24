@@ -28,7 +28,14 @@
 }
 
 /* The image is always last in the DOM so the heading is read and tabbed to
-   first; only the painted order changes. */
+   first; only the painted order changes. Track widths are pinned to column
+   position, not to the item that lands there, so the 1fr/1.25fr split above
+   has to be flipped here too — otherwise the image ends up in the narrower
+   track instead of staying the wider of the two. */
+.section-split--media-links {
+	grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+}
+
 .section-split--media-links .section-split__media {
 	order: -1;
 }
@@ -57,4 +64,26 @@
 	   photograph someone will eventually drop in via the block. No shadow —
 	   on a transparent image it would draw a box around nothing. */
 	border-radius: var(--radius);
+}
+
+/* Warum Odoo's own icon grid is inlined (image_html, not a plain <img> —
+   see letsdoo_render_odoo_apps_grid()) so each icon's <title> tooltip and
+   hover/focus scale actually fire; an <img>-embedded SVG can't do either.
+   Same sizing as the img rule above, plus the width cap below, just keyed
+   to svg instead. */
+.section-split__media svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: inherit;
+}
+
+/* Scoped to the Warum Odoo section specifically, not .section-split__media
+   generally — the Text & Bild block (blocks/text-bild/) shares that class
+   and should keep filling its column at full width. The icon grid here
+   reads fine smaller; the flex .section-split__media centres it once it's
+   no longer forced to 100% width. */
+.section--warum-odoo .section-split__media img,
+.section--warum-odoo .section-split__media svg {
+	max-width: 420px;
 }

@@ -16,14 +16,12 @@ while ( have_posts() ) :
 
 		<section class="hero" id="start"<?php echo letsdoo_hero_bg_style( $hero_image ); ?>>
 			<div class="hero__inner">
-				<div class="hero__blob" aria-hidden="true">
-					<?php echo letsdoo_logo_mark( 'lg', 780, 590 ); ?>
-				</div>
 				<div class="hero__panel">
 					<h1><?php echo esc_html( get_field( 'hero_heading' ) ?: "Odoo einfach gemacht" ); ?></h1>
 					<p><?php echo esc_html( get_field( 'hero_text' ) ?: 'Suchst du nach einer flexiblen ERP- oder CRM-Lösung? Oder bist du mit deiner aktuellen Odoo-Umgebung unzufrieden? Als Odoo-Partner aus Luzern unterstützen wir KMU dabei, ihre Geschäftsprozesse zu digitalisieren – persönlich, effizient und auf ihre Bedürfnisse abgestimmt.' ); ?></p>
 					<?php letsdoo_button( get_field( 'hero_button_label' ) ?: 'Kontakt aufnehmen', get_field( 'hero_button_link' ) ?: home_url( '/kontakt/' ) ); ?>
 				</div>
+				<?php echo letsdoo_render_hero_hub(); ?>
 			</div>
 		</section>
 
@@ -33,17 +31,16 @@ while ( have_posts() ) :
 			 * Same part the Text & Bild block renders (blocks/text-bild/), so
 			 * this section and its reusable twin can't drift apart.
 			 *
-			 * The image falls back to the bundled Odoo diagram rather than to a
+			 * The image falls back to assets/images/odoo-core-apps.svg (the
+			 * Odoo wordmark above a 4x4 grid of app icons) rather than to a
 			 * placeholder: it is the argument the section is making — one
 			 * platform, every app hanging off it — and the section reads as
-			 * unfinished without it.
-			 *
-			 * That bundled diagram is the one case passed as image_html rather
-			 * than image_url — it needs to be inlined, not linked as a plain
-			 * <img>, so its Kunde chip can be rendered with live Referenzen
-			 * logos (letsdoo_render_odoo_map(), inc/template-helpers.php). An
-			 * editor's own uploaded image has no such chip to fill in, so it
-			 * stays a normal <img> via image_url exactly as before.
+			 * unfinished without it. Inlined via image_html/letsdoo_render_
+			 * odoo_apps_grid() rather than a plain <img> via image_url — each
+			 * icon carries a <title> and a hover/focus scale baked into the
+			 * SVG, and neither works on an <img>-embedded SVG (see that
+			 * function's docblock). An editor's own uploaded image has no
+			 * such per-icon behaviour to lose, so it stays a normal <img>.
 			 */
 			$warum_odoo_image = get_field( 'warum_odoo_image' );
 
@@ -56,9 +53,10 @@ while ( have_posts() ) :
 					'text'         => get_field( 'warum_odoo_text' ) ?: 'Odoo vereint CRM, Verkauf, Einkauf, Lager, Projekte, Buchhaltung und vieles mehr in einer einzigen Lösung. Dank des modularen Aufbaus wächst das System mit Ihrem Unternehmen mit – genau so, wie Sie es brauchen.',
 					'button_label' => get_field( 'warum_odoo_button_label' ) ?: 'Kontakt aufnehmen',
 					'button_link'  => get_field( 'warum_odoo_button_link' ) ?: home_url( '/kontakt/' ),
-					'image_url'    => $warum_odoo_image ? letsdoo_image_url( $warum_odoo_image, 'odoo-map.svg', 'large' ) : '',
-					'image_html'   => $warum_odoo_image ? '' : letsdoo_render_odoo_map(),
-					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo als zentrale Plattform: der Kunde fliesst hinein, CRM, Verkauf, Lager und mehr fliessen heraus' ),
+					'image_url'    => $warum_odoo_image ? letsdoo_image_url( $warum_odoo_image, 'odoo-core-apps.svg', 'large' ) : '',
+					'image_html'   => $warum_odoo_image ? '' : letsdoo_render_odoo_apps_grid(),
+					'image_alt'    => letsdoo_image_alt( $warum_odoo_image, 'Odoo: CRM, Verkauf, Buchhaltung, Lager, Einkauf, Projekte, Website, e-Commerce, Personal, Fertigung, Marketing, Kasse, Dokumente, Zeiterfassung, Kalender, Wissen' ),
+					'image_position' => 'links',
 				)
 			);
 			?>

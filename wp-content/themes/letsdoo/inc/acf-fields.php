@@ -487,7 +487,7 @@ add_action( 'acf/init', function () {
 			),
 			array(
 				'key'   => 'field_ld_home_warum_odoo_image',
-				'label' => 'Bild (rechts)',
+				'label' => 'Bild (links)',
 				'name'  => 'warum_odoo_image',
 				'type'  => 'image',
 				'return_format' => 'array',

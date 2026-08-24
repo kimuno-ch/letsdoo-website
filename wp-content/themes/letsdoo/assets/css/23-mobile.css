@@ -21,6 +21,25 @@
 		margin: 0 auto;
 	}
 
+	/* The app card carries real content (eight module names), so unlike the
+	   old decorative logo mark it stays visible on a phone — just stacked
+	   under the copy instead of sharing a row with it. */
+	.hero__inner {
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+	}
+
+	.hero__inner .hero__panel {
+		max-width: 100%;
+		flex: none;
+	}
+
+	.hero__graphic {
+		flex: none;
+		max-width: 340px;
+	}
+
 	.leistungen-grid,
 	.referenzen-grid,
 	.zahlen-grid,
@@ -317,14 +336,6 @@
 
 	.mega-menu__promo {
 		margin-top: 1rem;
-	}
-
-	.hero__blob {
-		display: none;
-	}
-
-	.hero__inner .hero__panel {
-		max-width: 100%;
 	}
 
 	/* The copy runs the full width of the screen here, so the desktop scrim —
