@@ -15,26 +15,21 @@
 				<h3 class="footer-col__title"><?php esc_html_e( 'Anschrift', 'letsdoo' ); ?></h3>
 				<p><?php echo nl2br( esc_html( letsdoo_company_field( 'company_address', "Schiltmatthalde 1\n6048 Horw" ) ) ); ?></p>
 				<?php $email = letsdoo_company_field( 'company_email', 'contact@letsdoo.it' ); ?>
-				<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
+				<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo letsdoo_icon( 'mail' ); ?> <?php echo esc_html( $email ); ?></a></p>
 				<?php $phone = letsdoo_company_field( 'company_phone', '+41 43 243 43 39' ); ?>
-				<p><a href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p>
+				<p><a href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $phone ) ); ?>"><?php echo letsdoo_icon( 'phone' ); ?> <?php echo esc_html( $phone ); ?></a></p>
 			</div>
 
 			<div class="footer-col">
 				<h3 class="footer-col__title"><?php esc_html_e( 'Social', 'letsdoo' ); ?></h3>
 				<div class="footer-col__social">
-					<?php $linkedin = letsdoo_company_field( 'linkedin_url' ); ?>
-					<?php if ( $linkedin ) : ?>
-						<a class="social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener" aria-label="LinkedIn">
-							<?php echo letsdoo_social_icon( 'linkedin' ); ?>
+					<?php $socials = get_field( 'socials', 'option' ); ?>
+					<?php foreach ( (array) $socials as $social ) : ?>
+						<?php if ( empty( $social['url'] ) ) { continue; } ?>
+						<a class="social-icon" href="<?php echo esc_url( $social['url'] ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $social['label'] ); ?>">
+							<?php echo $social['icon'] ?: letsdoo_icon( 'check' ); ?>
 						</a>
-					<?php endif; ?>
-					<?php $instagram = letsdoo_company_field( 'instagram_url' ); ?>
-					<?php if ( $instagram ) : ?>
-						<a class="social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener" aria-label="Instagram">
-							<?php echo letsdoo_social_icon( 'instagram' ); ?>
-						</a>
-					<?php endif; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>
 

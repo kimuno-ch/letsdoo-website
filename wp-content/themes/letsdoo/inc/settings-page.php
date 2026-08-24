@@ -1,7 +1,9 @@
 <?php
 /**
- * Company-wide details (address, email, phone, socials) used by the
- * footer and the Kontakt page.
+ * Company-wide details (address, email, phone) used by the footer and the
+ * Kontakt page. Social links moved out to their own ACF Options Page
+ * (group_ld_social_media, inc/acf-fields.php) — this file used to also hold
+ * linkedin_url/instagram_url, but that only fit one fixed pair of networks.
  *
  * Plain Settings API, written when this site ran ACF free and an Options Page
  * was out of reach. PRO is installed now, so acf_add_options_page() would
@@ -18,8 +20,6 @@ function letsdoo_settings_fields() {
 		'company_address' => array( 'label' => 'Adresse', 'type' => 'textarea', 'default' => "Schiltmatthalde 1\n6048 Horw" ),
 		'company_email'   => array( 'label' => 'E-Mail', 'type' => 'email', 'default' => 'contact@letsdoo.it' ),
 		'company_phone'   => array( 'label' => 'Telefon', 'type' => 'text', 'default' => '+41 43 243 43 39' ),
-		'linkedin_url'    => array( 'label' => 'LinkedIn URL', 'type' => 'url', 'default' => '' ),
-		'instagram_url'   => array( 'label' => 'Instagram URL', 'type' => 'url', 'default' => '' ),
 	);
 }
 

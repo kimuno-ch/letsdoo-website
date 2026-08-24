@@ -122,8 +122,22 @@
 }
 
 .footer-col a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
 	text-decoration: none;
 	font-size: var(--text-md);
+}
+
+/* The mail/phone icons (letsdoo_icon(), footer.php) — scoped to links inside
+   a <p> specifically, not .footer-col a generally: the social icons are
+   also .footer-col a > i (just inside .footer-col__social, no <p>), and a
+   bare ".footer-col a i" rule has one more element selector than
+   ".social-icon i" below and so overrides its font-size regardless of
+   source order — this is what actually keeps the two independent. */
+.footer-col p a i {
+	font-size: 0.85em;
+	color: #fff;
 }
 
 /* Were plain <span> (no text-decoration to reset) until they became real
@@ -135,10 +149,18 @@
 }
 
 /* .legal-links sits in the footer bottom rather than in a column, so it had
-   been missing the hover its neighbours have. */
+   been missing the hover its neighbours have. Solid white rather than the
+   gradient-clip treatment other hovers on the site use (e.g. .main-navigation
+   a:hover, 03-header.css): that trick reads fine on a white card, but the
+   footer's own background is already the brand gradient, so gradient text on
+   top of it fights a background in the same colour family regardless of any
+   shadow/glow added to help it — brightening from the base rgba(255,255,255,.85)
+   to opaque white is what actually stays readable everywhere on that
+   background. */
 .footer-col a:hover,
 .legal-links a:hover {
-	text-decoration: underline;
+	color: #fff;
+	text-decoration: none;
 }
 
 .footer-col__social {
@@ -164,11 +186,21 @@
 	height: 32px;
 }
 
-.social-icon:hover {
+/* Footer socials (group_ld_social_media, inc/acf-fields.php) render as a
+   Font Awesome <i>, sized via font-size rather than width/height the way
+   the img badges above are — same visual weight as those. */
+.social-icon i {
+	font-size: 3rem;
+}
+
+/* a.social-icon, not .social-icon: .footer-col a:hover (20-footer.css above)
+   has one extra element selector in its specificity (0,2,1 vs 0,2,0), so a
+   bare class here loses to it regardless of source order — the underline
+   kept winning even with text-decoration: none below. Matching that same
+   specificity is what actually lets this rule's later source order settle
+   the tie. */
+a.social-icon:hover {
 	transform: translateY(-2px);
-	/* Overrides .footer-col a:hover above — an icon-only control has no text
-	   to underline; on Firefox in particular the underline still drew under
-	   the icon glyph itself without this. */
 	text-decoration: none;
 }
 

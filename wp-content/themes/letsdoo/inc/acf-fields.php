@@ -2017,4 +2017,78 @@ add_action( 'acf/init', function () {
 		),
 	) );
 
+	/* -------------------------------------------------- */
+	/* Social Media (Options Page)                          */
+	/* -------------------------------------------------- */
+
+	/*
+	 * A new Options Page rather than adding to Firmenangaben (inc/settings-page.php,
+	 * a plain Settings API page — see the note at the top of this file): that
+	 * page's own migration to ACF is a separate, larger job (company_name/
+	 * address/email/phone all move with it), so this is scoped to just the
+	 * social links footer.php used to read from letsdoo_company_field()'s
+	 * fixed linkedin_url/instagram_url. Those two fields are gone from
+	 * settings-page.php now — this repeater is their replacement, not an
+	 * addition alongside them.
+	 */
+	acf_add_options_page( array(
+		'page_title' => 'Social Media',
+		'menu_title' => 'Social Media',
+		'menu_slug'  => 'letsdoo-social-media',
+		'parent_slug' => 'options-general.php',
+		'capability' => 'manage_options',
+	) );
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_ld_social_media',
+		'title'  => 'Social Media',
+		'fields' => array(
+			array(
+				'key'          => 'field_ld_social_links',
+				'label'        => 'Social-Links',
+				'name'         => 'socials',
+				'type'         => 'repeater',
+				'layout'       => 'table',
+				'button_label' => 'Social-Link hinzufügen',
+				'instructions' => 'Wird im Footer angezeigt, in dieser Reihenfolge.',
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_ld_social_icon',
+						'label'         => 'Icon',
+						'name'          => 'icon',
+						'type'          => 'font-awesome',
+						'icon_sets'     => array( 'brands', 'classic_solid', 'classic_regular' ),
+						'save_format'   => 'element',
+						'default_value' => '{"id":"linkedin-in","style":"brands"}',
+						'wrapper'       => array( 'width' => '20' ),
+					),
+					array(
+						'key'          => 'field_ld_social_label',
+						'label'        => 'Name',
+						'name'         => 'label',
+						'type'         => 'text',
+						'instructions' => 'Für Screenreader, z.B. "LinkedIn" — nicht sichtbar im Footer.',
+						'wrapper'      => array( 'width' => '25' ),
+					),
+					array(
+						'key'         => 'field_ld_social_url',
+						'label'       => 'URL',
+						'name'        => 'url',
+						'type'        => 'url',
+						'wrapper'     => array( 'width' => '55' ),
+					),
+				),
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'options_page',
+					'operator' => '==',
+					'value'    => 'letsdoo-social-media',
+				),
+			),
+		),
+	) );
+
 } );

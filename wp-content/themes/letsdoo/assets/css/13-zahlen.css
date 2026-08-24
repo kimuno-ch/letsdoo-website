@@ -75,7 +75,7 @@
 	font-family: var(--font-display);
 	font-size: var(--text-stat);
 	line-height: 1;
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
+	background: var(--color-gradient-start);
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
