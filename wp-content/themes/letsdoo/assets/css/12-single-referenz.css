@@ -253,26 +253,43 @@
 	max-width: var(--max-width);
 	margin: 3rem auto 0;
 	padding-top: 2.5rem;
-	border-top: 1px solid var(--color-border);
 }
 
+/* A real card each now, same recipe as .blog-card / .plattform-card (white
+   surface, hairline border, --shadow-card, lift on hover) — plain text
+   links here read as an afterthought at the bottom of the page; a control
+   with its own surface and shadow is what actually draws the eye down to
+   it. */
 .entry-nav__link {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
-	text-decoration: none;
+	gap: 0.5rem;
+	flex: 1 1 320px;
 	max-width: 48%;
+	padding: 1.5rem 1.75rem;
+	background: #fff;
+	border: var(--border-hairline);
+	border-radius: var(--radius-nested);
+	box-shadow: var(--shadow-card);
+	text-decoration: none;
+	transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.entry-nav__link:hover {
+	transform: translateY(var(--hover-lift));
+	box-shadow: var(--shadow-card-hover);
 }
 
 .entry-nav__link--next {
 	margin-left: auto;
+	align-items: flex-end;
 	text-align: right;
 }
 
 .entry-nav__label {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.5em;
+	gap: 0.6em;
 	font-size: var(--text-2xs);
 	font-weight: 700;
 	text-transform: uppercase;
@@ -286,6 +303,25 @@
    hugging the edge like the icon+text pairing should. */
 .entry-nav__link--next .entry-nav__label {
 	justify-content: flex-end;
+}
+
+/* Bigger and brand-coloured, not left at the label's own small grey size —
+   this is the part that actually signals "there's more to read this way",
+   so it needs to read as a control, not a typographic footnote. Nudges
+   further on hover the same way .leistung-card__arrow / .blog-card__arrow
+   do, in whichever direction that link actually points. */
+.entry-nav__label i {
+	font-size: 1.15em;
+	color: var(--color-gradient-start);
+	transition: transform var(--transition);
+}
+
+.entry-nav__link:hover .entry-nav__label i {
+	transform: translateX(-4px);
+}
+
+.entry-nav__link--next:hover .entry-nav__label i {
+	transform: translateX(4px);
 }
 
 .entry-nav__titel {
