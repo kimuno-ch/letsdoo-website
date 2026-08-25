@@ -296,11 +296,11 @@ a.social-icon:hover {
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1.25rem;
-	/* Was --text-xs (0.8rem) — a step up from there, though still smaller
-	   than the main footer copy above: the copyright/legal row is
+	/* Back down to --text-2xs (0.75rem) — the copyright/legal row is
 	   conventionally the smallest line on the page everywhere, not just
-	   here, so it doesn't jump all the way to --text-md with the rest. */
-	font-size: var(--text-sm);
+	   here, so it stays well under the --text-md the main footer copy
+	   above reads at. */
+	font-size: var(--text-2xs);
 	color: rgba(255, 255, 255, 0.7);
 }
 

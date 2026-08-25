@@ -381,8 +381,18 @@
 		justify-self: center;
 	}
 
+	/* Desktop's margin-bottom: -2rem / align-self: end (20-footer.css) pull
+	   the badge past its own grid cell to reach the page's true bottom edge
+	   — correct when it's the middle COLUMN of a 3-column row with nothing
+	   below it, but here the grid above has collapsed to a single stacked
+	   column, so the badge is now the middle ROW, sitting right above the
+	   legal-links row instead of at the page edge — that negative margin
+	   pulled it up into that next row's text rather than off the page.
+	   Reset back to a normal, non-overlapping gap. */
 	.footer-badge {
 		width: 190px;
+		align-self: center;
+		margin-bottom: 0;
 	}
 
 	/* An explicit stack rather than leaving it to flex-wrap: the desktop
