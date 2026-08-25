@@ -8,7 +8,7 @@
    just wants an address doesn't have to read a form to find one. */
 .kontakt-layout {
 	display: grid;
-	grid-template-columns: 1.5fr 1fr;
+	grid-template-columns: 2fr 1fr;
 	gap: 4rem;
 	align-items: start;
 }

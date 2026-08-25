@@ -45,7 +45,6 @@ while ( have_posts() ) :
 					</div>
 
 					<aside class="kontakt-infos">
-						<h2><?php esc_html_e( 'Direkt erreichen', 'letsdoo' ); ?></h2>
 						<div class="kontakt-infos__firma-row">
 							<div class="kontakt-infos__mark"><?php echo letsdoo_render_hub_mark(); ?></div>
 							<p class="kontakt-infos__firma"><?php echo esc_html( letsdoo_company_field( 'company_name', "Let's Doo GmbH" ) ); ?></p>
