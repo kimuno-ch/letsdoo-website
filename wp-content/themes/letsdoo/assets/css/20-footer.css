@@ -106,78 +106,10 @@
 	max-width: 100%;
 }
 
-/* A white half-circle backdrop (flat edge down) rather than a rounded
-   rectangle — the classic CSS dome trick: an aspect-ratio-2:1 box with the
-   TOP corners' radius set to 50% horizontal / 100% vertical (the slash
-   splits border-radius into horizontal-radii / vertical-radii) traces a
-   true semicircle arc regardless of the element's actual pixel size, unlike
-   a bare `border-radius: 50%` which would only reach a quarter of the way
-   up each side.
-
-   The badge image sits at half the wrapper's width, bottom-anchored rather
-   than centred: a semicircle's inscribed-rectangle safe zone narrows fast
-   moving up from the flat base, so anything wider or higher would clip
-   against the curve — see the geometry note this replaced for the maths,
-   kept only in git history since the shape itself changed. */
-.footer-badge {
-	position: relative;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	width: 260px;
-	aspect-ratio: 2 / 1;
-	/* Solid white base now — the earlier translucent-white-over-opaque-
-	   gradient (a rim glowing out from behind) inverted which layer read as
-	   "the background": a mostly-gradient dome with a faint white wash,
-	   rather than a white dome with a faint gradient tint. This is the
-	   other way round on purpose — see ::before below. */
-	background: #fff;
-	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
-	padding-bottom: 0.6rem;
-}
-
-@media (min-width: 769px) {
-	.footer-badge {
-		align-self: end;
-		margin-bottom: -2rem;
-	}
-}
-
-/* A low-opacity gradient wash the same size as the dome (not the earlier
-   larger glow-behind rim) — sits in front of .footer-badge's own white
-   background (an element's own `background` always paints behind its
-   ::before) but behind the logo <img> (a plain in-flow child paints after
-   ::before content by default, i.e. on top, without needing z-index here).
-   So the stack is white base -> faint gradient tint -> opaque logo, which
-   is what actually keeps the logo the most legible layer of the three. */
-.footer-badge::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end));
-	opacity: 0.25;
-	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
-
-.footer-badge img {
-	position: relative;
-	display: block;
-	/* The dome's inscribed-rectangle limit for a bottom-anchored, 2:1-ratio
-	   box works out to ~70.7% of the wrapper's own width (top corners just
-	   touching the arc at that point — half-width and height both equal
-	   R/√2 for a semicircle of radius R). This is right at that ceiling —
-	   going any higher starts clipping the image's top corners against the
-	   curve, so growing it further from here means growing .footer-badge
-	   itself, not this percentage. */
-	width: 70%;
-	height: auto;
-}
-
 .footer-col__title {
-	font-size: var(--text-sm);
+	font-size: var(--text-md);
 	color: #fff;
-	margin-bottom: 0.5em;
+	margin-bottom: 1em;
 }
 
 .footer-col p {
@@ -274,26 +206,16 @@ a.social-icon:hover {
 	text-decoration: none;
 }
 
-/* Grid rather than flex + space-between: the badge sits between the
-   copyright and the legal links and needs to land at the row's true visual
-   centre — space-between only balances the GAPS between three items, which
-   drifts off-centre the moment the copyright and legal-links text aren't
-   the same width (they aren't). The 1fr/auto/1fr split gives the middle
-   column the badge's own width and lets the two equal 1fr side columns
-   centre it exactly, whatever the side text measures. */
 .site-footer__bottom {
 	position: relative;
 	z-index: 1;
 	max-width: var(--max-width);
 	margin: 2.5rem auto 0;
-	/* Bottom half of this pair is .site-footer's old flat 2rem — moved here
-	   (see the comment on .site-footer above) so the badge's negative-margin
-	   reach to the page's true bottom edge stays inside .site-footer's own
-	   masked box instead of overflowing past it. */
-	padding: 2rem 0;
-	display: grid;
-	grid-template-columns: 1fr auto 1fr;
+	padding: 2rem 0 5px 0;
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 1.25rem;
 	/* Back down to --text-2xs (0.75rem) — the copyright/legal row is
 	   conventionally the smallest line on the page everywhere, not just
@@ -306,9 +228,72 @@ a.social-icon:hover {
 .legal-links {
 	display: flex;
 	gap: 2rem;
-	/* Grid items stretch/start their own cell by default — this is the
-	   right-hand column of .site-footer__bottom's 1fr/auto/1fr split, so it
-	   needs to pin to that cell's own right edge rather than its left. */
-	justify-self: end;
+}
+
+/* -------------------------------------------------- */
+/* Corner badge                                         */
+/* -------------------------------------------------- */
+
+/* The odoo-ready-partners mark used to also sit as a dome in the footer's
+   own bottom row (.footer-badge, removed) and this floating copy would
+   slide across the screen to dock into it near the end of the page. With
+   that static copy gone, this is the only instance of the badge left, so it
+   stays visible — no more docking, fading, or scroll listener — as a
+   permanent fixture in the corner of every page: a quarter-ellipse (a
+   rectangle with only the FAR corner, top-left, fully rounded — radius 100%
+   of both the box's own width and height, so it scales as an ellipse rather
+   than a circle on a non-square box) with its sharp, unrounded vertex flush
+   against position: fixed; right: 0; bottom: 0 — the screen's own corner.
+
+   The border-radius arc stays underneath as the box's real geometry — it's
+   what box-shadow reads to draw a silhouette that actually matches the
+   shape (box-shadow has no idea a mask exists; only border-radius shapes
+   it), and the shadow here is heavily blurred anyway, so a few px of
+   difference against the mask's edge is never visible. What's actually
+   visible is cut by corner-badge-wave.svg on top: an S-curve between the
+   same two corners the arc spans, echoing the wave dividers used elsewhere
+   on the site (--wave-top, 01-base.css) instead of one smooth curve. */
+.footer-badge-float {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 40;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	width: 245px;
+	aspect-ratio: 2 / 1;
+	background: rgba(255, 255, 255, 0.65);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: var(--border-hairline);
+	border-radius: 100% 0 0 0;
+	box-shadow: var(--shadow-card);
+	padding: 0 0.4rem 0.4rem 0;
+	pointer-events: none;
+}
+
+.footer-badge-float img {
+	position: relative;
+	width: 75%;
+	height: auto;
+}
+
+@media (max-width: 900px) {
+	/* Same call already made for .hero__graphic and the old side badge: a
+	   brand accent riding fixed over page content is a much bigger bite out
+	   of a narrow viewport than a desktop one. */
+	.footer-badge-float {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	/* The whole point of this element is the scroll-driven slide into
+	   place; without motion it would just be a second, static copy of the
+	   real badge sitting in a corner for no reason. */
+	.footer-badge-float {
+		display: none;
+	}
 }
 

@@ -92,7 +92,7 @@
 
 .footer-col--brand svg {
 	display: block;
-	height: 90px;
+	height: 150px;
 	width: auto;
 }
 
@@ -126,11 +126,15 @@
 	background: var(--color-border);
 }
 
-.main-navigation a {
+/* :not(.btn) — the mega menu's promo card CTA (.mega-menu__promo .btn,
+   below) is also an <a> inside .main-navigation, so this rule reached it
+   too: (0,1,1) beats .btn's own font-size at (0,1,0), bumping the button's
+   text along with the real nav links when this was sized up. .btn owns its
+   own type scale (02-buttons.css); this only styles the actual nav links. */
+.main-navigation a:not(.btn) {
 	text-decoration: none;
 	font-weight: 600;
-	font-size: var(--text-sm);
-	text-transform: uppercase;
+	font-size: var(--text-md);
 	letter-spacing: 0.03em;
 	color: var(--color-ink);
 }
@@ -247,12 +251,12 @@
 .mega-menu__col {
 	display: flex;
 	flex-direction: column;
-	gap: 0.9rem;
+	gap: 0.5rem;
 }
 
 .mega-menu__eyebrow {
 	margin: 0 0 0.15rem;
-	font-size: var(--text-2xs);
+	font-size: var(--text-sm);
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -263,10 +267,10 @@
 .mega-menu__links {
 	list-style: none;
 	margin: 0;
-	padding: 0;
+	padding: 0.5rem 0 !important;
 	display: flex;
 	flex-direction: column;
-	gap: 0.9rem;
+	gap: 0.9rem !important;
 }
 
 /* Beats .main-navigation a on specificity (two classes vs one class + one

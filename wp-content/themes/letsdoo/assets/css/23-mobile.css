@@ -408,37 +408,14 @@
 		grid-template-columns: 1fr;
 	}
 
-	/* The badge (now .site-footer__bottom's middle grid column, between the
-	   copyright and the legal links — footer.php/20-footer.css) has no room
-	   to sit between full-width stacked text on a narrow screen, so the row
-	   stacks to a single column and centres all three instead. */
+	/* Just copyright and legal links now (the badge that used to sit between
+	   them — footer.php/20-footer.css — is gone; a permanent corner fixture
+	   instead, hidden on mobile below via .footer-badge-float). Stacked and
+	   centred rather than the desktop row. */
 	.site-footer__bottom {
-		grid-template-columns: 1fr;
-		justify-items: center;
+		flex-direction: column;
+		align-items: center;
 		text-align: center;
-	}
-
-	.legal-links {
-		justify-self: center;
-		order: 2;
-	}
-
-	/* DOM order is copyright -> badge -> legal-links (footer.php), but the
-	   badge is the one item that needs to end up LAST in the stack — it's
-	   the one that reaches flush to the page's true bottom edge below, and
-	   it can only do that safely when nothing else in this row sits below
-	   it any more. `order` moves it there without touching the DOM (which
-	   stays in that sequence for reasons unrelated to this row —
-	   screen-reader/tab order, mainly). */
-	.footer-badge {
-		width: 190px;
-		order: 3;
-		/* Same flush-to-the-page-edge technique the desktop rule uses
-		   (20-footer.css) — safe here now that `order` above guarantees
-		   the badge is the last row in the stack, with nothing below it
-		   to land on top of. */
-		align-self: end;
-		margin-bottom: -2rem;
 	}
 
 	/* An explicit stack rather than leaving it to flex-wrap: the desktop

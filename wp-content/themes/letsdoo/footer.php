@@ -1,3 +1,7 @@
+	<div class="footer-badge-float">
+		<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
+	</div>
+
 	<footer id="colophon" class="site-footer">
 		<div class="site-footer__columns">
 			<div class="footer-col footer-col--brand">
@@ -49,9 +53,6 @@
 			<p class="site-info">
 				&copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( letsdoo_company_field( 'company_name', get_bloginfo( 'name' ) ) ); ?>
 			</p>
-			<div class="footer-badge">
-				<img src="<?php echo esc_url( get_theme_file_uri( '/assets/images/odoo-ready-partners.svg' ) ); ?>" width="190" height="95" alt="Odoo Ready Partner" loading="lazy">
-			</div>
 			<div class="legal-links">
 				<a href="<?php echo esc_url( home_url( '/impressum/' ) ); ?>"><?php esc_html_e( 'Impressum', 'letsdoo' ); ?></a>
 				<a href="<?php echo esc_url( home_url( '/datenschutz/' ) ); ?>"><?php esc_html_e( 'Datenschutz', 'letsdoo' ); ?></a>
