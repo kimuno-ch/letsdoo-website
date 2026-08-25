@@ -223,10 +223,30 @@
 		border-top: 1px solid rgba(255, 255, 255, 0.6);
 		box-shadow: var(--shadow-card);
 		padding: 0 2rem;
+		/* Bounded and independently scrollable — body.nav-open below locks
+		   the page behind it, so without this a long item list (or a mega-menu
+		   accordion opened inside it, 03-header.css) could run off the bottom
+		   of the viewport with no way left to reach it. 80vh rather than an
+		   exact "100vh minus header height" figure: the header's own height
+		   isn't a fixed value anywhere to calc() against, and leaving a
+		   visible sliver of page below the panel is a fine trade for not
+		   needing one. */
+		max-height: 80vh;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.site-header.is-open .main-navigation > ul {
 		display: flex;
+	}
+
+	/* The menu is an overlay (position: absolute, above) with nothing of its
+	   own stopping the page underneath from scrolling — toggled alongside
+	   .site-header.is-open (navigation.js), not tied to it directly, so a
+	   future close path (Escape key, tapping outside) only has to remove one
+	   class rather than needing to know about this too. */
+	body.nav-open {
+		overflow: hidden;
 	}
 
 	/* Same reasoning as above — unscoped, this also drew a line under every
@@ -256,27 +276,45 @@
 		padding: 1rem 0;
 	}
 
+	/* Was 48px square — already at the usual minimum recommended touch-target
+	   size, but the chevron marking it (8px, no visible boundary of its own)
+	   was easy to miss: nothing on screen showed where the tappable area
+	   actually was until a thumb happened to land inside it. Bigger box, a
+	   visible circular backdrop, and a bigger glyph together make the whole
+	   thing findable at a glance instead of relying on landing inside an
+	   invisible zone by chance. */
 	.mega-menu__toggle {
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		position: absolute;
 		top: 0;
 		right: 0;
-		width: 48px;
-		height: 48px;
+		width: 56px;
+		height: 56px;
 		background: none;
 		border: 0;
 		padding: 0;
 		color: var(--color-ink);
 	}
 
+	.mega-menu__toggle::after {
+		content: "";
+		position: absolute;
+		inset: 4px;
+		border-radius: 50%;
+		background: var(--color-bg-alt);
+	}
+
 	.mega-menu__toggle::before {
 		content: "";
+		position: relative;
+		z-index: 1;
 		display: block;
-		width: 8px;
-		height: 8px;
-		margin: 18px auto;
-		border-right: 2px solid currentColor;
-		border-bottom: 2px solid currentColor;
+		width: 12px;
+		height: 12px;
+		border-right: 3px solid currentColor;
+		border-bottom: 3px solid currentColor;
 		transform: rotate(45deg);
 		transition: transform var(--transition);
 	}

@@ -8,6 +8,16 @@
 	toggle.addEventListener( 'click', function () {
 		var isOpen = header.classList.toggle( 'is-open' );
 		toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+		/*
+		 * Without this the dropdown (position: absolute, 23-mobile.css)
+		 * just overlays the page — nothing stops the page underneath from
+		 * scrolling too, so a touch-scroll meant for the menu scrolled the
+		 * background behind it instead. body.nav-open (23-mobile.css) locks
+		 * that; the menu's own list gets its own bounded, scrollable area
+		 * there so long menus/open mega-menu accordions stay reachable
+		 * instead of being trapped below the now-locked viewport.
+		 */
+		document.body.classList.toggle( 'nav-open', isOpen );
 	} );
 
 	/*
