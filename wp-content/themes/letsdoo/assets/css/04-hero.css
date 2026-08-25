@@ -118,6 +118,7 @@
 .hero__panel p {
 	color: #fff;
 	max-width: 620px;
+	text-shadow: 0 2px 12px rgba(10, 9, 18, 0.45);
 }
 
 /* Home hero: a real two-column row rather than a text panel with a small
