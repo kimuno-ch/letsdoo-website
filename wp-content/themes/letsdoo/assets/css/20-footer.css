@@ -124,7 +124,6 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	align-self: end;
 	width: 260px;
 	aspect-ratio: 2 / 1;
 	/* Solid white base now — the earlier translucent-white-over-opaque-
@@ -136,13 +135,13 @@
 	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
 	padding-bottom: 0.6rem;
-	/* .site-footer__bottom's own bottom padding (2rem, above) is what leaves
-	   a gap under this row normally — pulling the badge down by exactly
-	   that much lands its flat base on the page's true bottom edge instead
-	   of stopping short of it the way the copyright/legal-links text either
-	   side still does (align-self: end only reaches the row's own padded
-	   bottom, not past it). */
-	margin-bottom: -2rem;
+}
+
+@media (min-width: 769px) {
+	.footer-badge {
+		align-self: end;
+		margin-bottom: -2rem;
+	}
 }
 
 /* A low-opacity gradient wash the same size as the dome (not the earlier

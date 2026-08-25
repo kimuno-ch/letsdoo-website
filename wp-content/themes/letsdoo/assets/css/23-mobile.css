@@ -379,20 +379,25 @@
 
 	.legal-links {
 		justify-self: center;
+		order: 2;
 	}
 
-	/* Desktop's margin-bottom: -2rem / align-self: end (20-footer.css) pull
-	   the badge past its own grid cell to reach the page's true bottom edge
-	   — correct when it's the middle COLUMN of a 3-column row with nothing
-	   below it, but here the grid above has collapsed to a single stacked
-	   column, so the badge is now the middle ROW, sitting right above the
-	   legal-links row instead of at the page edge — that negative margin
-	   pulled it up into that next row's text rather than off the page.
-	   Reset back to a normal, non-overlapping gap. */
+	/* DOM order is copyright -> badge -> legal-links (footer.php), but the
+	   badge is the one item that needs to end up LAST in the stack — it's
+	   the one that reaches flush to the page's true bottom edge below, and
+	   it can only do that safely when nothing else in this row sits below
+	   it any more. `order` moves it there without touching the DOM (which
+	   stays in that sequence for reasons unrelated to this row —
+	   screen-reader/tab order, mainly). */
 	.footer-badge {
 		width: 190px;
-		align-self: center;
-		margin-bottom: 0;
+		order: 3;
+		/* Same flush-to-the-page-edge technique the desktop rule uses
+		   (20-footer.css) — safe here now that `order` above guarantees
+		   the badge is the last row in the stack, with nothing below it
+		   to land on top of. */
+		align-self: end;
+		margin-bottom: -2rem;
 	}
 
 	/* An explicit stack rather than leaving it to flex-wrap: the desktop
