@@ -35,9 +35,12 @@
 		flex: none;
 	}
 
+	/* Dropped rather than shrunk further on a phone — the hero is already
+	   tight on vertical room here (clamp(420px, 62vh, 560px), further down
+	   in this same file), and the mark is a brand accent beside the copy,
+	   not something the copy depends on to make its point. */
 	.hero__graphic {
-		flex: none;
-		max-width: 340px;
+		display: none;
 	}
 
 	.leistungen-grid,
@@ -450,8 +453,13 @@
 		gap: 1.5rem;
 	}
 
+	/* Centred and bigger than the side-by-side desktop size on its own row
+	   now, rather than left-aligned at a shrunk-down size — once it's wrapped
+	   under the heading instead of sitting beside it, there's a full row's
+	   width to use and no text next to it to stay in proportion with. */
 	.page-title__badge {
-		width: 200px;
+		align-self: left;
+		width: 280px;
 	}
 
 	.referenz-card {
