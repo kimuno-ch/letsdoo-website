@@ -28,28 +28,63 @@
 	margin: 2rem 0 0;
 }
 
-/* A rule between entries rather than a card each: the answers vary a lot in
-   length and a column of boxes of wildly different heights reads as broken.
-   The first item carries a top rule too so the list has a defined start. */
+/* Each question is a <details> now — a native, keyboard- and screen-reader-
+   accessible accordion with no JS required, rather than every Q&A sitting
+   open on the page at once. A rule between entries rather than a card each:
+   the answers vary a lot in length and a column of boxes of wildly
+   different heights reads as broken. The first item carries a top rule too
+   so the list has a defined start. */
 .standort-faq__item {
 	border-top: 1px solid var(--color-border);
-	padding: 2rem 0;
+	padding: 1.25rem 0;
 }
 
 .standort-faq__item:last-child {
 	border-bottom: 1px solid var(--color-border);
 }
 
-.standort-faq dt {
+/* The browser's own disclosure triangle, cleared so .standort-faq__icon
+   below is the only marker — ::-webkit-details-marker for Chrome/Safari,
+   list-style for Firefox, which draws it as a list marker instead. */
+.standort-faq__question {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
 	font-family: var(--font-display);
 	color: var(--color-ink);
 	font-size: var(--text-lg);
 	line-height: 1.3;
-	margin-bottom: 0.5rem;
+	transition: color var(--transition);
 }
 
-.standort-faq dd {
-	margin: 0;
+.standort-faq__question::-webkit-details-marker {
+	display: none;
+}
+
+.standort-faq__question:hover {
+	color: var(--color-gradient-start);
+}
+
+.standort-faq__icon {
+	flex: none;
+	display: inline-flex;
+	color: var(--color-gradient-start);
+	transition: transform var(--transition);
+}
+
+/* Rotates open rather than swapping glyphs (a plus/minus pair, or a second
+   icon) — one element, transform is all that changes, and it's the same
+   affordance every other disclosure control on the web uses. */
+.standort-faq__item[open] .standort-faq__icon {
+	transform: rotate(180deg);
+}
+
+.standort-faq__answer {
+	margin: 1rem 0 0;
+	color: var(--color-body);
 }
 
 /* The closing band sits on a gradient like the CTA on the other pages, so its
@@ -62,10 +97,11 @@
 
 @media (max-width: 900px) {
 	.standort-faq__item {
-		padding: 1.5rem 0;
+		padding: 1rem 0;
 	}
 
-	.standort-faq dt {
+	.standort-faq__question {
 		font-size: var(--text-md);
+		gap: 1rem;
 	}
 }

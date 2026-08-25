@@ -577,6 +577,7 @@ function letsdoo_icon( $key ) {
 		'arrow-left'   => 'fa-solid fa-arrow-left',
 		'arrow-right'  => 'fa-solid fa-arrow-right',
 		'linkedin'     => 'fa-brands fa-linkedin-in',
+		'chevron-down' => 'fa-solid fa-chevron-down',
 	);
 	$class = isset( $icons[ $key ] ) ? $icons[ $key ] : $icons['check'];
 	return '<i class="' . esc_attr( $class ) . '" aria-hidden="true"></i>';

@@ -2,6 +2,17 @@
 /* Blog: single post                                    */
 /* -------------------------------------------------- */
 
+/* The base .section padding (10rem top/bottom, 05-sections.css) is sized for
+   a section that's the main event below a bare hero — here it follows
+   .page-title (single.php), which already carries its own padding, so the
+   two stacked left far too much air both above the post body and below it
+   before the CTA banner starts. Horizontal 2rem (the container gutter) is
+   untouched — only the vertical figure was the problem. */
+.section--blog-inhalt {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 .entry-tags {
 	display: flex;
 	flex-wrap: wrap;

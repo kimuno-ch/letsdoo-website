@@ -31,18 +31,21 @@ letsdoo_block_section_open( $block, 'section--standort-faq', $blend );
 	<div class="section__content">
 		<h2><?php echo esc_html( $heading ); ?></h2>
 
-		<dl class="standort-faq">
+		<div class="standort-faq">
 			<?php foreach ( $fragen as $item ) : ?>
 				<?php if ( empty( $item['frage'] ) ) : ?>
 					<?php continue; ?>
 				<?php endif; ?>
-				<div class="standort-faq__item">
-					<dt><?php echo esc_html( $item['frage'] ); ?></dt>
+				<details class="standort-faq__item">
+					<summary class="standort-faq__question">
+						<span><?php echo esc_html( $item['frage'] ); ?></span>
+						<span class="standort-faq__icon"><?php echo letsdoo_icon( 'chevron-down' ); ?></span>
+					</summary>
 					<?php if ( ! empty( $item['antwort'] ) ) : ?>
-						<dd><?php echo esc_html( $item['antwort'] ); ?></dd>
+						<div class="standort-faq__answer"><?php echo esc_html( $item['antwort'] ); ?></div>
 					<?php endif; ?>
-				</div>
+				</details>
 			<?php endforeach; ?>
-		</dl>
+		</div>
 	</div>
 </section>
