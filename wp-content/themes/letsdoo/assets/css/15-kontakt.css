@@ -71,6 +71,17 @@
 	border-radius: var(--radius-nested);
 	border: 0;
 	cursor: pointer;
+	/* Same gradient recipe as .btn[data-kontakt-modal] (02-buttons.css), so
+	   it gets the same hover feedback too — this button isn't built from
+	   that class (Contact Form 7 renders its own <input>), so the lift +
+	   shadow has to be repeated here rather than inherited. */
+	box-shadow: 0 8px 20px -8px rgba(62, 60, 144, 0.6);
+	transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.kontakt-form .wpcf7-submit:hover {
+	transform: translateY(var(--hover-lift-control));
+	box-shadow: 0 12px 24px -8px rgba(62, 60, 144, 0.7);
 }
 
 /* Details column */
@@ -83,20 +94,31 @@
    both since the markup is the same in each. No width/height on the SVG
    itself (only viewBox, see 03-header.css's own note on this), so sizing it
    is this rule's job, same pattern used everywhere else it's inlined. */
+/* Logo beside the company name now, not stacked above the whole block —
+   the row carries the bottom margin that used to live on .kontakt-infos__firma
+   itself, since that paragraph is no longer the last word on spacing before
+   the address list starts. */
+.kontakt-infos__firma-row {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
 .kontakt-infos__mark {
-	margin-bottom: 1.5rem;
+	flex: none;
 }
 
 .kontakt-infos__mark svg {
 	display: block;
 	width: auto;
-	height: 70px;
+	height: 80px;
 }
 
 .kontakt-infos__firma {
 	font-weight: 700;
 	color: var(--color-ink);
-	margin-bottom: 2rem;
+	margin: 0;
 }
 
 .kontakt-info-liste {

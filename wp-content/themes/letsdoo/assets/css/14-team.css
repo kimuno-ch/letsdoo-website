@@ -18,16 +18,6 @@
 	text-align: left;
 }
 
-/* The tabindex on the card in template-about.php is what lets
-   :focus-within below reach a card with no other focusable element in it —
-   a card whose person has no LinkedIn link would otherwise have nothing a
-   keyboard user could focus to trigger the hover-equivalent reveal. Outline
-   is suppressed in favour of the bio itself appearing, which is a visible
-   enough focus indicator on its own. */
-.team-card:focus {
-	outline: none;
-}
-
 .team-card__photo {
 	position: relative;
 	border-radius: var(--radius);
@@ -42,54 +32,58 @@
 .team-card__photo img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 }
 
-/* The "little info" panel: a dark scrim over the bottom of the photo,
-   hidden until the card is hovered or focused. Same dark-glass language as
-   .hero__panel — text over a photo reads the same way everywhere on the
-   site — but a plain gradient rather than a blur, since this only needs to
-   be readable while it's already animating in, not sit there permanently. */
+/* The bio used to be a dark scrim over the photo, hidden until hover/focus
+   — now it's plain flowing content next to the name/role, same as those,
+   so it reads on first look rather than needing a hover to discover. */
 .team-card__bio {
-	position: absolute;
-	inset: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-end;
-	gap: 1rem;
-	padding: 2rem;
-	background: linear-gradient(to top, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.55) 55%, transparent);
-	text-align: left;
-	opacity: 0;
-	transform: translateY(8px);
-	transition: opacity var(--transition), transform var(--transition);
-	/* Off when hidden so the invisible panel can't steal the click a touch
-	   user meant for the photo/card underneath it before the reveal. */
-	pointer-events: none;
-}
-
-.team-card:hover .team-card__bio,
-.team-card:focus-within .team-card__bio {
-	opacity: 1;
-	transform: translateY(0);
-	pointer-events: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.team-card__bio {
-		transition: none;
-	}
-}
-
-.team-card__bio p {
-	margin: 0;
-	color: #fff;
+	margin: 0.25rem 0 0;
+	color: var(--color-body);
 	font-size: var(--text-sm);
 }
 
 .team-card h3 {
 	margin-bottom: 0.25em;
+}
+
+/* Name/role on the left, LinkedIn (when there is one) pinned to the right
+   of that same row rather than sitting below as its own block. The role
+   <p>'s own base bottom margin (p { margin: 0 0 1em; }, 01-base.css) is
+   plenty of gap on its own before .team-card__bio's small top margin above
+   adds on top of it — flex items don't collapse margins the way normal
+   block siblings do, so that 1em wasn't shrinking against anything, it was
+   just stacking. */
+.team-card__heading-row p {
+	margin-bottom: 0;
+}
+
+.team-card__heading-row {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+/* letsdoo_icon('linkedin') — the plain Font Awesome glyph, not
+   letsdoo_social_icon()'s brand-colour badge: that one is a fixed white PNG
+   built for the footer's dark background, which would need a backdrop of
+   its own to read on this card's white background. A bare currentColor
+   icon needs none — just a colour, no circle behind it. */
+.team-card__linkedin {
+	flex: none;
+	color: var(--color-ink);
+	font-size: 1.4rem;
+	transition: color var(--transition), transform var(--transition);
+}
+
+/* LinkedIn's own brand blue on hover — same colour the footer's badge
+   backdrop used before it was simplified away, still the clearest "this is
+   LinkedIn" cue without bringing that backdrop back. */
+.team-card__linkedin:hover {
+	color: #0a66c2;
+	transform: translateY(-2px);
 }
 
